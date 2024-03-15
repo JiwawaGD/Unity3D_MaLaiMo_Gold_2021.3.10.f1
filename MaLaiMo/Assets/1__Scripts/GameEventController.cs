@@ -121,23 +121,6 @@ public partial class GameManager : MonoBehaviour
         StartCoroutine(ProcessPlayerTraceTarget(0));
     }
 
-    void S1_PhotoFrameLightOn()
-    {
-        Debug.Log("場景1 ==> 亮相框提示燈 (舊 Func 暫無使用) (S1_Photo_Frame_Light_On)");
-
-        audManager.Play(1, "flashlight_Switch_Sound", false);
-        goPhotoFrameLight.SetActive(true);
-    }
-
-    void S1_GrandmaRush()
-    {
-        Debug.Log("場景1 ==> 阿嬤衝刺 (舊 Func 暫無使用) (S1_Grandma_Rush)");
-
-        audManager.Play(1, "grandma_Starts_Walking", false);
-        playerCtrlr.m_bCanControl = false;
-        m_bGrandmaRush = false;
-    }
-
     void S1_LightSwitch()
     {
         Debug.Log("場景1 ==> 觸發阿嬤房間燈開關 (S1_Light_Switch)");

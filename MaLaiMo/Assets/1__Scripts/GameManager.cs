@@ -323,12 +323,6 @@ public partial class GameManager : MonoBehaviour
             case GameEventID.S1_Lotus_Paper_Plate:
                 S1_LotusPaperPlate();
                 break;
-            case GameEventID.S1_Photo_Frame_Light_On:
-                S1_PhotoFrameLightOn();
-                break;
-            case GameEventID.S1_Grandma_Rush:
-                S1_GrandmaRush();
-                break;
             case GameEventID.S1_Toilet_Door_Lock:
                 S1_ToiletDoorLock();
                 break;

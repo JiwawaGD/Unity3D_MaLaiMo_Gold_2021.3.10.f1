@@ -118,7 +118,7 @@ public partial class GameManager : MonoBehaviour
     void Lv1_CheckPiano()
     {
         Debug.Log("場景1 ==> 查看鋼琴 (Lv1_CheckPiano)");
-        StartCoroutine(ProcessPlayerTraceTarget(0));
+        StartCoroutine(ProcessPlayerSetPianoAni(0));
     }
 
     void S1_LightSwitch()

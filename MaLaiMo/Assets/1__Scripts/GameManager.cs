@@ -28,33 +28,21 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] AUDManager audManager;
     // 音效管理器
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
-
-    [SerializeField] [Header("欲製物 - Schedule")] Text prefabs_Schedule;
-
     [Header("物件移動速度")] public float objSpeed;
-    [Header("旋轉物件collider")] public Collider Ro_Cololider;
     [Header("旋轉物件功能")] public bool romanager;
-
     [Header("全域變數")] public Volume postProcessVolume;
-
     [Header("物件位置")] public GameObject itemObjTransform;
-
     [Header("生成後物件")] public GameObject[] RO_OBJ;
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
-
     [Header("玩家")] public PlayerController playerCtrlr;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("S2_阿嬤相框Ro")] public GameObject S2_Photo_Frame_Obj;
-
     [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
-
     [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
     [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
     [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
-
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
     [SerializeField] [Header("追蹤物件位置")] Transform[] Targers;
     [SerializeField] [Header("鋼琴提示介面")] GameObject PianoUI;
@@ -66,17 +54,17 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("電視 White noise 材質球")] Material Lv1_matTVWhiteNoise;
 
     #region Canvas Zone
-    [SerializeField] GameObject goCanvas;
-    [SerializeField] Image imgUIBackGround;
-    [SerializeField] Text txtTitle;
+    GameObject goCanvas;
+    Image imgUIBackGround;
+    Text txtTitle;
 
-    [SerializeField] Image imgInstructions;
-    [SerializeField] Text txtInstructions;
-    [SerializeField] Text txtIntroduce;
+    Image imgInstructions;
+    Text txtInstructions;
+    Text txtIntroduce;
 
-    [SerializeField] Button ExitBtn;
-    [SerializeField] Text txtEnterGameHint;
-    [SerializeField] Button EnterGameBtn;
+    Button ExitBtn;
+    Text txtEnterGameHint;
+    Button EnterGameBtn;
     #endregion
 
     #region Light Zone
@@ -145,9 +133,7 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
     [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_躺在床上的阿嬤屍體")] GameObject S2_Grandma_Deadbody_On_Table_Obj;
     [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤相框")] GameObject S2_Photo_Frame_Obj_floor;
     [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
     [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
     [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
@@ -475,9 +461,6 @@ public partial class GameManager : MonoBehaviour
                 TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
                 TempItem.bAlwaysActive = false;
                 break;
-            case HintItemID.S2_Photo_Frame:
-                TempItem = S2_Photo_Frame_Obj.GetComponent<ItemController>();
-                break;
             case HintItemID.S2_Rice_Funeral:
                 TempItem = Lv2_Rice_Funeral_Item;
                 break;
@@ -608,7 +591,7 @@ public partial class GameManager : MonoBehaviour
     }
 
     // 執行玩家移動到指定區域
-    public IEnumerator ProcessPlayerTraceTarget(int index)
+    public IEnumerator ProcessPlayerSetPianoAni(int index)
     {
         bIsPlayingPiano = true;
         Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();

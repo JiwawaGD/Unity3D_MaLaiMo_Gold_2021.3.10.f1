@@ -23,7 +23,7 @@ public partial class GameManager : MonoBehaviour
 
     public void IvkShowDoorKey()
     {
-        ShowHint(HintItemID.S1_Grandma_Room_Key);
+        ShowHint(HintItemID.Lv1_Grandma_Room_Key);
     }
 
     public void IvkProcessGhostHandPushAnimator()
@@ -31,10 +31,10 @@ public partial class GameManager : MonoBehaviour
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
         DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
 
-        ShowHint(HintItemID.S2_Room_Door);
-        ShowHint(HintItemID.S2_Light_Switch);
-        ShowHint(HintItemID.S2_FlashLight);
-        ShowHint(HintItemID.S2_Side_Table);
+        ShowHint(HintItemID.Lv2_Room_Door);
+        ShowHint(HintItemID.Lv2_Light_Switch);
+        ShowHint(HintItemID.Lv2_FlashLight);
+        ShowHint(HintItemID.Lv2_Side_Table);
 
         Invoke(nameof(DelayGhostHandPush), 2.2f);
     }
@@ -60,12 +60,12 @@ public partial class GameManager : MonoBehaviour
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
 
-    public void IvkShowS2DoorKey()
+    public void IvkShowLv2DoorKey()
     {
-        ShowHint(HintItemID.S2_Room_Key);
+        ShowHint(HintItemID.Lv2_Room_Key);
     }
 
-    void IvkS1_SetGhostHandPosition()
+    void IvkLv1_SetGhostHandPosition()
     {
         // 鬼手出現
         GameObject GhostHandObj = GameObject.Find("Ghost_Hand");
@@ -75,38 +75,38 @@ public partial class GameManager : MonoBehaviour
         GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
         GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
 
-        ShowHint(HintItemID.S1_Toilet_GhostHand_Trigger);
+        ShowHint(HintItemID.Lv1_Toilet_GhostHand_Trigger);
     }
 
-    public void IvkS1_SetGrandmaGhostPosition()
+    public void IvkLv1_SetGrandmaGhostPosition()
     {
-        S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
-        S2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
+        Lv2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
+        Lv2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
     }
 
-    public void IvkS2_Grandma_Pass_Door()
+    public void IvkLv2_Grandma_Pass_Door()
     {
-        S2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
-        ShowHint(HintItemID.S2_Toilet_Door);
+        Lv2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
+        ShowHint(HintItemID.Lv2_Toilet_Door);
         audManager.Play(1, "grandma_StrangeVoice", false);
     }
 
     public void Lv2DelayChangeObjectPos()
     {
-        ProcessPlayerAnimator("Player_S2_Shocked_By_Toilet_Ghost");
+        ProcessPlayerAnimator("Player_Lv2_Shocked_By_Toilet_Ghost");
         audManager.Play(1, "Crying_in_the_bathroom", false);
-        S2_Furniture_State_1_Obj.SetActive(false);
-        S2_Corridor_Door_Frame_Obj.SetActive(false);
-        S2_Furniture_State_2_Obj.SetActive(true);
-        S2_Wall_Replace_Door_Frame_Obj.SetActive(true);
-        ShowHint(HintItemID.S2_Rice_Funeral);
+        Lv2_Furniture_State_1_Obj.SetActive(false);
+        Lv2_Corridor_Door_Frame_Obj.SetActive(false);
+        Lv2_Furniture_State_2_Obj.SetActive(true);
+        Lv2_Wall_Replace_Door_Frame_Obj.SetActive(true);
+        ShowHint(HintItemID.Lv2_Rice_Funeral);
 
         Invoke(nameof(DelayToiletGhostAni), 9.5f);
     }
 
     void DelayToiletGhostAni()
     {
-        S2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("S2_Toilet_Door_GhostHead_Scared");
+        Lv2_Toilet_Door_GhostHead_Obj.GetComponent<Animator>().SetTrigger("Lv2_Toilet_Door_GhostHead_Scared");
 
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
@@ -119,7 +119,7 @@ public partial class GameManager : MonoBehaviour
         vp.started -= OnVideoPlayerStarted;
     }
 
-    public void IvkS2_PlayGrandmaVideo()
+    public void IvkLv2_PlayGrandmaVideo()
     {
         videoPlayer.Play();
     }
@@ -134,14 +134,14 @@ public partial class GameManager : MonoBehaviour
         audManager.Play(1, "Crying_in_the_bathroom", false);
 
         videoPlayer.started += OnVideoPlayerStarted;
-        IvkS2_PlayGrandmaVideo();
+        IvkLv2_PlayGrandmaVideo();
 
-        ProcessPlayerAnimator("Player_S2_Shocked_After_PhotoFrame");
+        ProcessPlayerAnimator("Player_Lv2_Shocked_After_PhotoFrame");
 
-        Invoke(nameof(IvkS2_SlientAfterPhotoFrameForRecord), 4f);
+        Invoke(nameof(IvkLv2_SlientAfterPhotoFrameForRecord), 4f);
     }
 
-    public void IvkS2_SlientAfterPhotoFrameForRecord()
+    public void IvkLv2_SlientAfterPhotoFrameForRecord()
     {
         videoPlayer.Stop();
         RawImgGrandmaUI.enabled = false;
@@ -151,14 +151,14 @@ public partial class GameManager : MonoBehaviour
 
     void IvkLv2_BrokenPhotoFrameEnable()
     {
-        ShowHint(HintItemID.S1_Photo_Frame);
-        TempItem = S1_Photo_Frame_Obj.GetComponent<ItemController>();
-        TempItem.eventID = GameEventID.S1_Photo_Frame_Has_Broken;
+        ShowHint(HintItemID.Lv1_Photo_Frame);
+        TempItem = Lv1_Photo_Frame_Obj.GetComponent<ItemController>();
+        TempItem.eventID = GameEventID.Lv1_Photo_Frame_Has_Broken;
     }
 
     void DelayEnterLotusGame()
     {
-        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -5f, -2.4f);
+        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -5f, -2.4f);
 
         if (bHasTriggerLotus)
         {

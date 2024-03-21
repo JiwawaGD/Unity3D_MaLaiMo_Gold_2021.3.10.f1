@@ -3,8 +3,11 @@
 [RequireComponent(typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
 {
+    [Header("遊戲場景編號")]
+    public SceneTypeID sceneID;
+
     [Header("遊戲事件")]
-    public GameEventID eventID;
+    public int iEventID;
 
     [Header("是否可以無限觸發(裝飾物件)")]
     public bool bAlwaysActive;
@@ -101,7 +104,7 @@ public class ItemController : MonoBehaviour
     public void SendGameEvent()
     {
         ItemDisable();
-        gameManager.GameEvent(eventID);
+        gameManager.GameEvent(sceneID, (byte)iEventID);
     }
 
     void ItemDisable()

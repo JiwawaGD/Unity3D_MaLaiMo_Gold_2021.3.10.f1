@@ -1,23 +1,29 @@
 using System;
 using System.Collections;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.HighDefinition;
+
 using DG.Tweening;
 
 public partial class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public string CurrentDialogue;
+
     [Space]
     [SerializeField] Volume CameraVolume;
+
     [Header("Volume參數設定")]
     [SerializeField]
-    float targetIntensity = 1f,
-                     currentIntensity = 0.3f, changeSpeed = 1f;
+    float targetIntensity = 1f;
+    float currentIntensity = 0.3f;
+    float changeSpeed = 1f;
+
     [SerializeField] GameObject[] taskListUi;
     [Space]
     [Header("物件旋轉參數設定")]
@@ -91,7 +97,7 @@ public partial class GameManager : MonoBehaviour
 
     bool bLv2_HasGrandmaRoomKey = false;
     bool bLv2_HasFlashlight = false;
-    bool bS2_TriggerLastAnimateAfterPhotoFrame = false;
+    bool bLv2_TriggerLastAnimateAfterPhotoFrame = false;
     #endregion
 
     #region - All Scene Items -
@@ -109,14 +115,14 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv1_鋼琴")] ItemController Lv1_Piano_Item;
     [SerializeField] [Header("Lv1_娃娃 Ani")] Animator Lv1_Doll_Ani;
 
-    [SerializeField] [Header("S1_打翻前的腳尾飯")] GameObject S1_Rice_Funeral_Obj;
-    [SerializeField] [Header("S1_完好的相框")] GameObject S1_Photo_Frame_Obj;
-    [SerializeField] [Header("S1_破碎的相框")] GameObject S1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("S1_阿嬤房間抽屜")] GameObject S1_Desk_Drawer_Obj;
-    [SerializeField] [Header("S1_還沒摺的蓮花紙")] GameObject S1_Lotus_Paper_Obj;
-    [SerializeField] [Header("S1_蓮花紙旁的蠟燭")] GameObject S1_Lotus_Candle_Obj;
-    [SerializeField] [Header("S1_摺好的紙蓮花")] GameObject S1_Finished_Lotus_Paper_Obj;
-    [SerializeField] [Header("S1_放紙蓮花的盤子")] GameObject S1_Lotus_Paper_Plate_Obj;
+    [SerializeField] [Header("Lv1_打翻前的腳尾飯")] GameObject Lv1_Rice_Funeral_Obj;
+    [SerializeField] [Header("Lv1_完好的相框")] GameObject Lv1_Photo_Frame_Obj;
+    [SerializeField] [Header("Lv1_破碎的相框")] GameObject Lv1_Photo_Frame_Has_Broken_Obj;
+    [SerializeField] [Header("Lv1_阿嬤房間抽屜")] GameObject Lv1_Desk_Drawer_Obj;
+    [SerializeField] [Header("Lv1_還沒摺的蓮花紙")] GameObject Lv1_Lotus_Paper_Obj;
+    [SerializeField] [Header("Lv1_蓮花紙旁的蠟燭")] GameObject Lv1_Lotus_Candle_Obj;
+    [SerializeField] [Header("Lv1_摺好的紙蓮花")] GameObject Lv1_Finished_Lotus_Paper_Obj;
+    [SerializeField] [Header("Lv1_放紙蓮花的盤子")] GameObject Lv1_Lotus_Paper_Plate_Obj;
 
     [Header("場景二物件")]
     [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
@@ -130,13 +136,13 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv2_哥哥的鞋子_Obj")] GameObject Lv2_BrotherShoe_Obj;
     [SerializeField] [Header("Lv2_哥哥的鞋子_Item")] ItemController Lv2_BrotherShoe_Item;
 
-    [SerializeField] [Header("S2_鬼阿嬤")] GameObject S2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態一")] GameObject S2_Furniture_State_1_Obj;
-    [SerializeField] [Header("S2_廚房物件_狀態二")] GameObject S2_Furniture_State_2_Obj;
-    [SerializeField] [Header("S2_廁所鬼頭")] GameObject S2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("S2_阿嬤哭聲撥放器")] GameObject S2_Grandma_Cry_Audio_Obj;
-    [SerializeField] [Header("S2_走廊門框")] GameObject S2_Corridor_Door_Frame_Obj;
-    [SerializeField] [Header("S2_取代走廊門框的牆壁")] GameObject S2_Wall_Replace_Door_Frame_Obj;
+    [SerializeField] [Header("Lv2_鬼阿嬤")] GameObject Lv2_Grandma_Ghost_Obj;
+    [SerializeField] [Header("Lv2_廚房物件_狀態一")] GameObject Lv2_Furniture_State_1_Obj;
+    [SerializeField] [Header("Lv2_廚房物件_狀態二")] GameObject Lv2_Furniture_State_2_Obj;
+    [SerializeField] [Header("Lv2_廁所鬼頭")] GameObject Lv2_Toilet_Door_GhostHead_Obj;
+    [SerializeField] [Header("Lv2_阿嬤哭聲撥放器")] GameObject Lv2_Grandma_Cry_Audio_Obj;
+    [SerializeField] [Header("Lv2_走廊門框")] GameObject Lv2_Corridor_Door_Frame_Obj;
+    [SerializeField] [Header("Lv2_取代走廊門框的牆壁")] GameObject Lv2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
     #region - Empty Field => For Memory -
@@ -184,7 +190,7 @@ public partial class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameEvent(GameEventID.Close_UI);
+        GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
         DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
@@ -192,12 +198,12 @@ public partial class GameManager : MonoBehaviour
         SetCrosshairEnable(true);
 
         // Lv1 預設開啟的 Hint
-        ShowHint(HintItemID.S1_Desk_Drawer);
-        ShowHint(HintItemID.S1_Flashlight);
-        ShowHint(HintItemID.S1_Light_Switch);
-        ShowHint(HintItemID.S1_Grandma_Room_Door_Lock);
-        ShowHint(HintItemID.S1_Toilet_Door);
-        ShowHint(HintItemID.S1_Filial_Piety_Curtain);
+        ShowHint(HintItemID.Lv1_Desk_Drawer);
+        ShowHint(HintItemID.Lv1_Flashlight);
+        ShowHint(HintItemID.Lv1_Light_Switch);
+        ShowHint(HintItemID.Lv1_Grandma_Room_Door_Lock);
+        ShowHint(HintItemID.Lv1_Toilet_Door);
+        ShowHint(HintItemID.Lv1_Filial_Piety_Curtain);
         ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
@@ -206,8 +212,8 @@ public partial class GameManager : MonoBehaviour
         // For Test
         //Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         //playerFlashlight.enabled = true;
-        // S2_ToiletDoor();
-        //S1_RiceFuneralSpilled();
+        // Lv2_ToiletDoor();
+        //Lv1_RiceFuneralSpilled();
     }
 
     void Update()
@@ -229,147 +235,161 @@ public partial class GameManager : MonoBehaviour
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
     }
 
-    public void GameEvent(GameEventID r_eventID)
+    public void GameEvent(SceneTypeID rSceneTypeID, byte rbyEventID)
     {
-        switch (r_eventID)
+        switch (rSceneTypeID)
         {
-            case GameEventID.Close_UI:
-                UIState(UIItemID.Empty, false);
-                ShowEnterGame(false);
-                audManager.Play(1, "ui_Context", false);
-
-                // UI 返回後執行玩家動畫
-                if (m_bShowPlayerAnimate)
-                    ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
-
-                // UI 返回後執行 Item 動畫
-                if (m_bShowItemAnimate)
-                    ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
-
-                // 鎖定玩家視角旋轉
-                if (m_bSetPlayerViewLimit)
-                    SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
-
-                if (bNeedShowDialog)
-                {
-                    DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
-                    bNeedShowDialog = false;
-                }
-
-                GameStateCheck();
+            case SceneTypeID.BeginScene:
                 break;
-            case GameEventID.S1_Light_Switch:
-                S1_LightSwitch();
+            case SceneTypeID.Introduce:
                 break;
-            case GameEventID.S1_Grandma_Room_Door_Lock:
-                S1_GrandmaRoomDoorLock();
+            case SceneTypeID.Lv1_GrandmaHouse:
+                Lv1_Event(rbyEventID);
                 break;
-            case GameEventID.S1_Flashlight:
-                S1_Flashlight();
-                break;
-            case GameEventID.S1_Desk_Drawer:
-                S1_DeskDrawer();
-                break;
-            case GameEventID.S1_GrandmaRoomKey:
-                S1_GrandmaRoomKey();
-                break;
-            case GameEventID.S1_Grandma_Door_Open:
-                S1_GrandmaDoorOpen();
-                break;
-            case GameEventID.S1_Rice_Funeral:
-                S1_RiceFuneral();
-                break;
-            case GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel:
-                S1_GrandmaPassDoorAfterRiceFurnel();
-                break;
-            case GameEventID.Lv1_CheckFilialPietyCurtain:
-                Lv1_CheckFilialPietyCurtain();
-                break;
-            case GameEventID.S1_White_Tent:
-                S1_WhiteTent();
-                break;
-            case GameEventID.S1_Grandma_Dead_Body:
-                S1_GrandmaDeadBody();
-                break;
-            case GameEventID.S1_Rice_Funeral_Spilled:
-                S1_RiceFuneralSpilled();
-                break;
-            case GameEventID.S1_Photo_Frame:
-                S1_PhotoFrameEvent();
-                break;
-            case GameEventID.S1_Photo_Frame_Has_Broken:
-                S1_PhotoFrameHasBroken();
-                break;
-            case GameEventID.S1_Lotus_Paper:
-                S1_LotusPaper();
-                break;
-            case GameEventID.S1_Finished_Lotus_Paper:
-                S1_FinishedLotusPaper();
-                break;
-            case GameEventID.S1_Lotus_Paper_Plate:
-                S1_LotusPaperPlate();
-                break;
-            case GameEventID.S1_Toilet_Door_Lock:
-                S1_ToiletDoorLock();
-                break;
-            case GameEventID.S1_Toilet_Door_Open:
-                S1_ToiletDoorOpen();
-                break;
-            case GameEventID.S1_Toilet_Ghost_Hide:
-                S1_ToiletGhostHide();
-                break;
-            case GameEventID.S1_Toilet_Ghost_Hand_Push:
-                S1_ToiletGhostHandPush();
-                break;
-            case GameEventID.Lv1_Faucet:
-                Lv1_Faucet();
-                break;
-            case GameEventID.Lv1_Piano:
-                Lv1_CheckPiano();
-                break;
-            case GameEventID.S2_Light_Switch:
-                S2_LightSwitch();
-                break;
-            case GameEventID.S2_Room_Door_Lock:
-                S2_RoomDoorLock();
-                break;
-            case GameEventID.S2_FlashLight:
-                S2_FlashLight();
-                break;
-            case GameEventID.S2_Side_Table:
-                S2_SideTable();
-                break;
-            case GameEventID.S2_Room_Key:
-                S2_RoomKey();
-                break;
-            case GameEventID.S2_Door_Knock_Stop:
-                S2_DoorKnockStop();
-                break;
-            case GameEventID.S2_Grandma_Door_Open:
-                S2_GrandmaDoorOpen();
-                break;
-            case GameEventID.S2_Grandma_Door_Close:
-                S2_GrandmaDoorClose();
-                break;
-            case GameEventID.S2_Ghost_Pass_Door:
-                S2_GhostPassDoor();
-                break;
-            case GameEventID.S2_Toilet_Door:
-                S2_ToiletDoor();
-                break;
-            case GameEventID.S2_Rice_Funeral:
-                S2_Rice_Funeral();
-                break;
-            case GameEventID.S2_Photo_Frame:
-                S2_Photo_Frame();
-                break;
-            case GameEventID.Lv2_Ruce_Funeral_Plate:
-                Lv2_RuceFuneralPlate();
-                break;
-            case GameEventID.Lv2_Boy_Sneaker:
-                Lv2_BoySneaker();
+            case SceneTypeID.Lv2_GrandmaHouse:
+                Lv2_Event(rbyEventID);
                 break;
         }
+
+        //switch (rbyEventID)
+        //{
+        //    case GameEventID.Close_UI:
+        //        UIState(UIItemID.Empty, false);
+        //        ShowEnterGame(false);
+        //        audManager.Play(1, "ui_Context", false);
+
+        //        // UI 返回後執行玩家動畫
+        //        if (m_bShowPlayerAnimate)
+        //            ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
+
+        //        // UI 返回後執行 Item 動畫
+        //        if (m_bShowItemAnimate)
+        //            ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+
+        //        // 鎖定玩家視角旋轉
+        //        if (m_bSetPlayerViewLimit)
+        //            SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
+
+        //        if (bNeedShowDialog)
+        //        {
+        //            DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
+        //            bNeedShowDialog = false;
+        //        }
+
+        //        GameStateCheck();
+        //        break;
+        //    case GameEventID.Lv1_Light_Switch:
+        //        Lv1_LightSwitch();
+        //        break;
+        //    case GameEventID.Lv1_Grandma_Room_Door_Lock:
+        //        Lv1_GrandmaRoomDoorLock();
+        //        break;
+        //    case GameEventID.Lv1_Flashlight:
+        //        Lv1_Flashlight();
+        //        break;
+        //    case GameEventID.Lv1_Desk_Drawer:
+        //        Lv1_DeskDrawer();
+        //        break;
+        //    case GameEventID.Lv1_GrandmaRoomKey:
+        //        Lv1_GrandmaRoomKey();
+        //        break;
+        //    case GameEventID.Lv1_Grandma_Door_Open:
+        //        Lv1_GrandmaDoorOpen();
+        //        break;
+        //    case GameEventID.Lv1_Rice_Funeral:
+        //        Lv1_RiceFuneral();
+        //        break;
+        //    case GameEventID.Lv1_Grandma_Pass_Door_After_RiceFurnel:
+        //        Lv1_GrandmaPassDoorAfterRiceFurnel();
+        //        break;
+        //    case GameEventID.Lv1_CheckFilialPietyCurtain:
+        //        Lv1_CheckFilialPietyCurtain();
+        //        break;
+        //    case GameEventID.Lv1_White_Tent:
+        //        Lv1_WhiteTent();
+        //        break;
+        //    case GameEventID.Lv1_Grandma_Dead_Body:
+        //        Lv1_GrandmaDeadBody();
+        //        break;
+        //    case GameEventID.Lv1_Rice_Funeral_Spilled:
+        //        Lv1_RiceFuneralSpilled();
+        //        break;
+        //    case GameEventID.Lv1_Photo_Frame:
+        //        Lv1_PhotoFrameEvent();
+        //        break;
+        //    case GameEventID.Lv1_Photo_Frame_Has_Broken:
+        //        Lv1_PhotoFrameHasBroken();
+        //        break;
+        //    case GameEventID.Lv1_Lotus_Paper:
+        //        Lv1_LotusPaper();
+        //        break;
+        //    case GameEventID.Lv1_Finished_Lotus_Paper:
+        //        Lv1_FinishedLotusPaper();
+        //        break;
+        //    case GameEventID.Lv1_Lotus_Paper_Plate:
+        //        Lv1_LotusPaperPlate();
+        //        break;
+        //    case GameEventID.Lv1_Toilet_Door_Lock:
+        //        Lv1_ToiletDoorLock();
+        //        break;
+        //    case GameEventID.Lv1_Toilet_Door_Open:
+        //        Lv1_ToiletDoorOpen();
+        //        break;
+        //    case GameEventID.Lv1_Toilet_Ghost_Hide:
+        //        Lv1_ToiletGhostHide();
+        //        break;
+        //    case GameEventID.Lv1_Toilet_Ghost_Hand_Push:
+        //        Lv1_ToiletGhostHandPush();
+        //        break;
+        //    case GameEventID.Lv1_Faucet:
+        //        Lv1_Faucet();
+        //        break;
+        //    case GameEventID.Lv1_Piano:
+        //        Lv1_CheckPiano();
+        //        break;
+        //    case GameEventID.Lv2_Light_Switch:
+        //        Lv2_LightSwitch();
+        //        break;
+        //    case GameEventID.Lv2_Room_Door_Lock:
+        //        Lv2_RoomDoorLock();
+        //        break;
+        //    case GameEventID.Lv2_FlashLight:
+        //        Lv2_FlashLight();
+        //        break;
+        //    case GameEventID.Lv2_Side_Table:
+        //        Lv2_SideTable();
+        //        break;
+        //    case GameEventID.Lv2_Room_Key:
+        //        Lv2_RoomKey();
+        //        break;
+        //    case GameEventID.Lv2_Door_Knock_Stop:
+        //        Lv2_DoorKnockStop();
+        //        break;
+        //    case GameEventID.Lv2_Grandma_Door_Open:
+        //        Lv2_GrandmaDoorOpen();
+        //        break;
+        //    case GameEventID.Lv2_Grandma_Door_Close:
+        //        Lv2_GrandmaDoorClose();
+        //        break;
+        //    case GameEventID.Lv2_Ghost_Pass_Door:
+        //        Lv2_GhostPassDoor();
+        //        break;
+        //    case GameEventID.Lv2_Toilet_Door:
+        //        Lv2_ToiletDoor();
+        //        break;
+        //    case GameEventID.Lv2_Rice_Funeral:
+        //        Lv2_Rice_Funeral();
+        //        break;
+        //    case GameEventID.Lv2_Photo_Frame:
+        //        Lv2_Photo_Frame();
+        //        break;
+        //    case GameEventID.Lv2_Ruce_Funeral_Plate:
+        //        Lv2_RuceFuneralPlate();
+        //        break;
+        //    case GameEventID.Lv2_Boy_Sneaker:
+        //        Lv2_BoySneaker();
+        //        break;
+        //}
     }
 
     // 顯示眼睛 Hint 圖示
@@ -377,95 +397,95 @@ public partial class GameManager : MonoBehaviour
     {
         switch (_ItemID)
         {
-            case HintItemID.S1_Grandma_Room_Door_Lock:
+            case HintItemID.Lv1_Grandma_Room_Door_Lock:
                 TempItem = Lv1_Grandma_ROOM_Door_Item;
                 break;
-            case HintItemID.S1_Light_Switch:
+            case HintItemID.Lv1_Light_Switch:
                 TempItem = Lv1_Light_Switch_Item;
                 break;
-            case HintItemID.S1_Grandma_Room_Door:
+            case HintItemID.Lv1_Grandma_Room_Door:
                 TempItem = Lv1_Grandma_ROOM_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.bAlwaysActive = false;
-                TempItem.eventID = GameEventID.S1_Grandma_Door_Open;
+                TempItem.iEventID = (int)GameEventID.Lv1_Grandma_Door_Open;
                 break;
-            case HintItemID.S1_Flashlight:
+            case HintItemID.Lv1_Flashlight:
                 TempItem = Lv1_FlashLight_Item;
                 break;
-            case HintItemID.S1_Desk_Drawer:
-                TempItem = S1_Desk_Drawer_Obj.GetComponent<ItemController>();
+            case HintItemID.Lv1_Desk_Drawer:
+                TempItem = Lv1_Desk_Drawer_Obj.GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Grandma_Room_Key:
+            case HintItemID.Lv1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Filial_Piety_Curtain:
+            case HintItemID.Lv1_Filial_Piety_Curtain:
                 TempItem = Lv1_Filial_Piety_Curtain_Item;
 
                 if (bLv1_TriggerRiceFuneral)
                 {
                     TempItem.bAlwaysActive = false;
-                    TempItem.eventID = GameEventID.S1_White_Tent;
+                    TempItem.iEventID = (int)GameEventID.Lv1_White_Tent;
                 }
                 break;
-            case HintItemID.S1_Lie_Grandma_Body:
+            case HintItemID.Lv1_Lie_Grandma_Body:
                 TempItem = GameObject.Find("Lie_Grandma_Body").GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Rice_Funeral:
+            case HintItemID.Lv1_Rice_Funeral:
                 TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Lotus_Paper:
-                TempItem = S1_Lotus_Paper_Obj.GetComponent<ItemController>();
+            case HintItemID.Lv1_Lotus_Paper:
+                TempItem = Lv1_Lotus_Paper_Obj.GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Finished_Lotus_Paper:
-                TempItem = S1_Finished_Lotus_Paper_Obj.GetComponent<ItemController>();
+            case HintItemID.Lv1_Finished_Lotus_Paper:
+                TempItem = Lv1_Finished_Lotus_Paper_Obj.GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Lotus_Paper_Plate:
-                TempItem = S1_Lotus_Paper_Plate_Obj.GetComponent<ItemController>();
+            case HintItemID.Lv1_Lotus_Paper_Plate:
+                TempItem = Lv1_Lotus_Paper_Plate_Obj.GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Rice_Funeral_Spilled:
+            case HintItemID.Lv1_Rice_Funeral_Spilled:
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
                 break;
-            case HintItemID.S1_Photo_Frame_Has_Broken:
+            case HintItemID.Lv1_Photo_Frame_Has_Broken:
                 TempItem = Lv1_Photo_Frame_Broken_Item;
                 break;
-            case HintItemID.S1_Photo_Frame:
+            case HintItemID.Lv1_Photo_Frame:
                 TempItem = Lv1_Photo_Frame_Item;
                 break;
-            case HintItemID.S1_Toilet_Door:
+            case HintItemID.Lv1_Toilet_Door:
                 TempItem = Lv1_Toilet_Door_Item;
                 break;
-            case HintItemID.S1_Toilet_GhostHand_Trigger:
+            case HintItemID.Lv1_Toilet_GhostHand_Trigger:
                 TempItem = GameObject.Find("Ghost_Hand_Trigger").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv1_Faucet:
                 TempItem = Lv1_Faucet_Item;
                 break;
-            case HintItemID.S2_Light_Switch:
-                TempItem = GameObject.Find("S2_Light_Switch").GetComponent<ItemController>();
+            case HintItemID.Lv2_Light_Switch:
+                TempItem = GameObject.Find("_Light_Switch").GetComponent<ItemController>();
                 break;
-            case HintItemID.S2_Room_Door:
+            case HintItemID.Lv2_Room_Door:
                 TempItem = Lv2_Grandma_Room_Door_Item;
                 break;
-            case HintItemID.S2_FlashLight:
+            case HintItemID.Lv2_FlashLight:
                 TempItem = Lv2_FlashLight_Item;
                 break;
-            case HintItemID.S2_Side_Table:
+            case HintItemID.Lv2_Side_Table:
                 TempItem = Lv2_SideTable_Item;
                 break;
-            case HintItemID.S2_Room_Key:
-                TempItem = GameObject.Find("S2_Grandma_Room_Key").GetComponent<ItemController>();
+            case HintItemID.Lv2_Room_Key:
+                TempItem = GameObject.Find("Lv2_Grandma_Room_Key").GetComponent<ItemController>();
                 break;
-            case HintItemID.S2_Grandma_Room_Door_Open:
+            case HintItemID.Lv2_Grandma_Room_Door_Open:
                 TempItem = Lv2_Grandma_Room_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
-                TempItem.eventID = GameEventID.S2_Grandma_Door_Open;
+                TempItem.iEventID = (int)GameEventID.Lv2_Grandma_Door_Open;
                 TempItem.bAlwaysActive = false;
                 break;
-            case HintItemID.S2_Rice_Funeral:
+            case HintItemID.Lv2_Rice_Funeral:
                 TempItem = Lv2_Rice_Funeral_Item;
                 break;
-            case HintItemID.S2_Toilet_Door:
-                TempItem = GameObject.Find("S2_Toilet_Door_GhostHead").GetComponent<ItemController>();
+            case HintItemID.Lv2_Toilet_Door:
+                TempItem = GameObject.Find("Lv2_Toilet_Door_GhostHead").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv2_Ruce_Funeral_Plate:
                 TempItem = Lv2_Piano_Stool_Item;
@@ -505,23 +525,23 @@ public partial class GameManager : MonoBehaviour
 
         switch (O_ItemID)
         {
-            case ObjItemID.S1_Rice_Funeral:
+            case ObjItemID.Lv1_Rice_Funeral:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
                 break;
-            case ObjItemID.S1_Lotus_Paper:
+            case ObjItemID.Lv1_Lotus_Paper:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
                 break;
-            case ObjItemID.S1_Photo_Frame:
+            case ObjItemID.Lv1_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
                 break;
-            case ObjItemID.S2_Photo_Frame:
+            case ObjItemID.Lv2_Photo_Frame:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
                 break;
-            case ObjItemID.S2_Photo_Frame_Floor:
+            case ObjItemID.Lv2_Photo_Frame_Floor:
                 RO_OBJ[saveRotaObj].transform.DOMove(
                     new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
                 break;
@@ -632,12 +652,12 @@ public partial class GameManager : MonoBehaviour
         switch (_eventID)
         {
             case ButtonEventID.UI_Back:
-                GameEvent(GameEventID.Close_UI);
+                GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
                 break;
             case ButtonEventID.Enter_Game:
                 if (isUIOpen)
                 {
-                    GameEvent(GameEventID.Close_UI);
+                    GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
 
@@ -669,7 +689,7 @@ public partial class GameManager : MonoBehaviour
     {
         bIsPlayingLotus = false;
         playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
+        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
 
         playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
         playerCtrlr.m_bCanControl = true;
@@ -681,7 +701,7 @@ public partial class GameManager : MonoBehaviour
 
         LotusGameManager.bIsGamePause = true;
 
-        ShowHint(HintItemID.S1_Lotus_Paper);
+        ShowHint(HintItemID.Lv1_Lotus_Paper);
     }
 
     void QuitPiano()
@@ -708,10 +728,10 @@ public partial class GameManager : MonoBehaviour
 
         SceneManager.UnloadSceneAsync(3);
 
-        S1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
-        S1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
+        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
+        Lv1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
 
-        ShowHint(HintItemID.S1_Finished_Lotus_Paper);
+        ShowHint(HintItemID.Lv1_Finished_Lotus_Paper);
         DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
     }
 
@@ -723,7 +743,7 @@ public partial class GameManager : MonoBehaviour
             // 關閉 UI 畫面
             if (m_bInUIView)
             {
-                GameEvent(GameEventID.Close_UI);
+                GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
 
                 if (isMoveingObject)
                 {
@@ -791,7 +811,7 @@ public partial class GameManager : MonoBehaviour
              m_bPlayLotusEnable &&
              currentScene.name == "2 Grandma House")
         {
-            ShowHint(HintItemID.S1_Lotus_Paper);
+            ShowHint(HintItemID.Lv1_Lotus_Paper);
         }
     }
 

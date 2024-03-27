@@ -31,9 +31,9 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         ActionCount = 0;
-        DialogueText = GameObject.Find("===== DIAOGUES====/DialogueUICanvas/DialogueText").GetComponent<Text>();
-        aud = GameObject.Find("===== AUDIO =====/對話音效管理器").GetComponent<AudioSource>();
-        GM = GameObject.Find("===== OTHER =====/GameManager").GetComponent<GameManager>();
+        DialogueText = GameObject.Find("__DIAOGUES/DialogueUICanvas/DialogueText").GetComponent<Text>();
+        aud = GameObject.Find("__AUDIO/對話音效管理器").GetComponent<AudioSource>();
+        GM = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
     }
 
     public void CallAction()

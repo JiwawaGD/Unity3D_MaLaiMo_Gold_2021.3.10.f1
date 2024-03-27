@@ -7,7 +7,7 @@ public class ItemController : MonoBehaviour
     public SceneTypeID sceneID;
 
     [Header("遊戲事件")]
-    public int iEventID;
+    public GameEventID EventID;
 
     [Header("是否可以無限觸發(裝飾物件)")]
     public bool bAlwaysActive;
@@ -15,7 +15,7 @@ public class ItemController : MonoBehaviour
     [Header("物件可提示範圍")]
     public float fHintRange;
 
-    [HideInInspector] // 是否可以觸發
+    [HideInInspector]
     public bool bActive;
 
     #region UI
@@ -47,10 +47,8 @@ public class ItemController : MonoBehaviour
         if (bShowHint)
         {
             tfHint.LookAt(tfPlayerCamera);
-            //fDistanceWithPlayer = Vector3.SqrMagnitude(v3This - tfPlayerCamera.position);   //待確認   
 
-            // 先改回這個方法 (某些道具會有無法跳出眼睛的狀況)
-            fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);    //原始使用
+            fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);
 
             if (fDistanceWithPlayer <= fHintRange)
                 HintObj.SetActive(true);
@@ -74,7 +72,7 @@ public class ItemController : MonoBehaviour
             tfInteract = InteractObj.transform;
 
         if (gameManager == null)
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
 
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
@@ -84,7 +82,6 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
         v3This = transform.position;
-        //fHintRange = 3f;
     }
 
     public void SetItemInteractive(bool r_bShow)
@@ -104,7 +101,7 @@ public class ItemController : MonoBehaviour
     public void SendGameEvent()
     {
         ItemDisable();
-        gameManager.GameEvent(sceneID, (byte)iEventID);
+        gameManager.GameEvent(sceneID, EventID);
     }
 
     void ItemDisable()

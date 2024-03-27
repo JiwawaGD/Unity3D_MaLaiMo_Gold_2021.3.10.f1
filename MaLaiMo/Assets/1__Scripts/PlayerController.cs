@@ -1,16 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    // public GameObject audManagerPrefab;
     public static float MouseSensitivity = 1.0f;
     public Transform ro_tfItemObj;  // 旋轉物件
 
     private Vector3 originalCameraPosition; // 原始攝影機位置
 
-    [SerializeField][Header("Item 的圖層")] LayerMask ItemLayer;
+    [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
     public AudioSource audioSource;    // 音效來源
     public AudioClip walkingSound;    // 走路音效
@@ -45,17 +43,14 @@ public class PlayerController : MonoBehaviour
     public Transform tfTransform;
     public Rigidbody rig;
     RaycastHit hit;
-    RaycastHit hit2;
     Animation ani;
 
     ItemController current_Item;
     ItemController last_Item;
     GameManager gameManager;
+
     void Awake()
     {
-        // audioSource = GetComponent<AudioSource>();
-        // GameObject audManagerObject = Instantiate(audManagerPrefab, transform);
-        // audManagerObject.name = "AUDManager"; // 可以設置生成物件的名稱
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
         tfTransform = transform;
@@ -64,7 +59,7 @@ public class PlayerController : MonoBehaviour
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
         if (gameManager == null)
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
     }
 
     void Start()
@@ -84,7 +79,8 @@ public class PlayerController : MonoBehaviour
     {
         RayHitCheck();
 
-        if (!GameManager.m_bInUIView)   // 不在 UI 畫面時才可控制
+        // 不在 UI 畫面時才可控制
+        if (!GameManager.m_bInUIView)
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
@@ -104,13 +100,15 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (m_bCursorShow || !m_bCanControl)  // 滑鼠顯示時不可控制、無法控制時不可控制
+        // 滑鼠顯示、無法控制時不可控制
+        if (m_bCursorShow || !m_bCanControl)
         {
             rig.velocity = Vector3.zero;
             return;
         }
 
-        if (ani.isPlaying)  // 播放動畫時不可控制
+        // 播放動畫時不可控制
+        if (ani.isPlaying)
         {
             m_fVerticalRotationValue = 0;
             m_fHorizantalRotationValue = 0;
@@ -118,20 +116,18 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (isWalking)  // 播放走路音效
+        // 播放走路音效
+        if (isWalking)
         {
-            if (!audioSource.isPlaying) // 音效未播放時播放音效
-            {
+            // 音效未播放時播放音效
+            if (!audioSource.isPlaying)
                 PlayWalkingSound();
-            }
         }
         else
         {
-            if (audioSource.isPlaying)  // 音效播放時停止音效
-            {
-                //tfPlayerCamera.localPosition = originalCameraPosition;
+            // 音效播放時停止音效
+            if (audioSource.isPlaying)
                 audioSource.Stop();
-            }
         }
 
         Move();
@@ -144,16 +140,9 @@ public class PlayerController : MonoBehaviour
         {
             if (col.gameObject.name == "S1_Grandma_Pass_Door_Trigger")
             {
-                gameManager.SendMessage("GameEvent", GameEventID.S1_Grandma_Pass_Door_After_RiceFurnel);
+                gameManager.GameEvent(SceneTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_Grandma_Pass_Door_After_RiceFurnel);
                 col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
-
-            //if (GameManager.m_bToiletGhostHasShow &&
-            //    col.gameObject.name == "Toilet_Ghost_Hide")
-            //{
-            //    gameManager.SendMessage("GameEvent", GameEventID.S1_Toilet_Ghost_Hide);
-            //    col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            //}
 
             if (col.gameObject.name == "S2_Door_Knock_Trigger")
             {
@@ -163,19 +152,19 @@ public class PlayerController : MonoBehaviour
 
             if (col.gameObject.name == "S2_Door_Close_Trigger")
             {
-                gameManager.SendMessage("GameEvent", GameEventID.S2_Grandma_Door_Close);
+                gameManager.GameEvent(SceneTypeID.Lv2_GrandmaHouse, GameEventID.Lv2_Grandma_Door_Close);
                 col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
 
             if (col.gameObject.name == "S2_Ghost_Pass_Door_Trigger")
             {
-                gameManager.SendMessage("GameEvent", GameEventID.S2_Ghost_Pass_Door);
+                gameManager.GameEvent(SceneTypeID.Lv2_GrandmaHouse, GameEventID.Lv2_Ghost_Pass_Door);
                 col.transform.localPosition -= new Vector3(0f, 10f, 0f);
             }
         }
     }
 
-    void InitValue()    // 初始化數值
+    void InitValue()
     {
         m_fUDSensitivity = 230;
         m_fRLSensitivity = 180;
@@ -189,10 +178,10 @@ public class PlayerController : MonoBehaviour
         m_bCanControl = true;
 
         audioSource.volume = 1f;
-        audioSource.loop = false; // 設置是否循環播放音效
+        audioSource.loop = false;
     }
 
-    void View() // 視角
+    void View()
     {
         // 左右轉 (只轉 *角色* )
         if (m_bLimitRotation)
@@ -234,7 +223,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetCursor() // 設定滑鼠
+    public void SetCursor()
     {
         m_bCursorShow = !m_bCursorShow;
 
@@ -290,5 +279,4 @@ public class PlayerController : MonoBehaviour
     {
         PlaySound(walkingSound);
     }
-
 }

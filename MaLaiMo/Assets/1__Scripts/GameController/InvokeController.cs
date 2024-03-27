@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
-    public void IvkShowGrandmaFaceUI()
+    void IvkShowGrandmaFaceUI()
     {
         imgUIBackGround.color = new Color(1, 1, 1, 1);
         Sprite GrandmaFaceSprite = Resources.Load<Sprite>("Sprites/GrandmaFace");
@@ -12,7 +12,7 @@ public partial class GameManager : MonoBehaviour
         Invoke(nameof(IvkShowEndView), 5f);
     }
 
-    public void IvkShowEndView()
+    void IvkShowEndView()
     {
         imgUIBackGround.color = new Color(1, 1, 1, 1);
         Sprite EndViewSprite = Resources.Load<Sprite>("Sprites/EndView");
@@ -21,12 +21,12 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.m_bCanControl = true;
     }
 
-    public void IvkShowDoorKey()
+    void IvkShowDoorKey()
     {
         ShowHint(HintItemID.Lv1_Grandma_Room_Key);
     }
 
-    public void IvkProcessGhostHandPushAnimator()
+    void IvkProcessGhostHandPushAnimator()
     {
         ProcessPlayerAnimator("Player_Falling_In_Bathroom");
         DialogueObjects[(byte)Lv1_Dialogue.WakeUp_Lv2].CallAction();
@@ -46,7 +46,7 @@ public partial class GameManager : MonoBehaviour
         Invoke(nameof(IvkProcessPlayerWakeUpSecondTime), 3.5f);
     }
 
-    public void IvkProcessPlayerWakeUpSecondTime()
+    void IvkProcessPlayerWakeUpSecondTime()
     {
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
@@ -60,9 +60,26 @@ public partial class GameManager : MonoBehaviour
         ProcessPlayerAnimator("Player_Wake_Up_SecondTime");
     }
 
-    public void IvkShowLv2DoorKey()
+    void IvkShowLv2DoorKey()
     {
         ShowHint(HintItemID.Lv2_Room_Key);
+    }
+
+    void Delay_Lv1_EnterLotusGame()
+    {
+        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -5f, -2.4f);
+
+        if (bHasTriggerLotus)
+        {
+            LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
+            LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
+            LotusGameManager.bIsGamePause = false;
+        }
+        else
+        {
+            bHasTriggerLotus = true;
+            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+        }
     }
 
     void IvkLv1_SetGhostHandPosition()
@@ -78,20 +95,20 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Toilet_GhostHand_Trigger);
     }
 
-    public void IvkLv1_SetGrandmaGhostPosition()
+    void IvkLv1_SetGrandmaGhostPosition()
     {
         Lv2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         Lv2_Grandma_Ghost_Obj.transform.localPosition = new Vector3(-8f, -2f, 2.35f);
     }
 
-    public void IvkLv2_Grandma_Pass_Door()
+    void IvkLv2_Grandma_Pass_Door()
     {
         Lv2_Grandma_Ghost_Obj.GetComponent<Animator>().applyRootMotion = true;
         ShowHint(HintItemID.Lv2_Toilet_Door);
         audManager.Play(1, "grandma_StrangeVoice", false);
     }
 
-    public void Lv2DelayChangeObjectPos()
+    void Lv2DelayChangeObjectPos()
     {
         ProcessPlayerAnimator("Player_Lv2_Shocked_By_Toilet_Ghost");
         audManager.Play(1, "Crying_in_the_bathroom", false);
@@ -119,7 +136,7 @@ public partial class GameManager : MonoBehaviour
         vp.started -= OnVideoPlayerStarted;
     }
 
-    public void IvkLv2_PlayGrandmaVideo()
+    void IvkLv2_PlayGrandmaVideo()
     {
         videoPlayer.Play();
     }
@@ -138,10 +155,10 @@ public partial class GameManager : MonoBehaviour
 
         ProcessPlayerAnimator("Player_Lv2_Shocked_After_PhotoFrame");
 
-        Invoke(nameof(IvkLv2_SlientAfterPhotoFrameForRecord), 4f);
+        Invoke(nameof(Delay_Lv2_SlientAfterPhotoFrameForRecord), 4f);
     }
 
-    public void IvkLv2_SlientAfterPhotoFrameForRecord()
+    void Delay_Lv2_SlientAfterPhotoFrameForRecord()
     {
         videoPlayer.Stop();
         RawImgGrandmaUI.enabled = false;
@@ -149,27 +166,11 @@ public partial class GameManager : MonoBehaviour
         bIsGameEnd = true;
     }
 
-    void IvkLv2_BrokenPhotoFrameEnable()
+    void Delay_Lv2_BrokenPhotoFrameEnable()
     {
         ShowHint(HintItemID.Lv1_Photo_Frame);
         TempItem = Lv1_Photo_Frame_Obj.GetComponent<ItemController>();
-        TempItem.eventID = GameEventID.Lv1_Photo_Frame_Has_Broken;
+        TempItem.EventID = GameEventID.Lv1_Photo_Frame_Has_Broken;
     }
 
-    void DelayEnterLotusGame()
-    {
-        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -5f, -2.4f);
-
-        if (bHasTriggerLotus)
-        {
-            LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
-            LotusCtrlr.SendMessage("SetLotusCanvasEnable", true);
-            LotusGameManager.bIsGamePause = false;
-        }
-        else
-        {
-            bHasTriggerLotus = true;
-            SceneManager.LoadScene(3, LoadSceneMode.Additive);
-        }
-    }
 }

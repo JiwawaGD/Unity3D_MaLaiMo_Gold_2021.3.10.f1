@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 
 using UnityEngine;
@@ -6,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.HighDefinition;
 
 using DG.Tweening;
 
@@ -20,9 +18,9 @@ public partial class GameManager : MonoBehaviour
 
     [Header("Volume參數設定")]
     [SerializeField]
-    float targetIntensity = 1f;
-    float currentIntensity = 0.3f;
-    float changeSpeed = 1f;
+    float fTargetIntensity = 1f;
+    readonly float fCurrentIntensity = 0.3f;
+    readonly float fChangeSpeed = 1f;
 
     [SerializeField] GameObject[] taskListUi;
     [Space]
@@ -150,10 +148,9 @@ public partial class GameManager : MonoBehaviour
     GameObject TempGameObject;
     #endregion
 
-    bool bIsGameIntroducing = true;
-    bool isPaused = false;
-    bool isMouseEnabled = false;
-    bool isUIOpen = false;
+    bool bIsPaused = false;
+    bool bIsMouseEnabled = false;
+    bool bIsUIOpen = false;
     bool bIsGameEnd = false;
     bool bNeedShowDialog = false;
     bool bIsPlayingLotus = false;
@@ -163,24 +160,24 @@ public partial class GameManager : MonoBehaviour
     void Awake()
     {
         if (playerCtrlr == null)
-            playerCtrlr = GameObject.Find("Player").GetComponent<PlayerController>();
+            playerCtrlr = GameObject.Find("__PLAYER/__Player").GetComponent<PlayerController>();
 
         audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
         if (goCanvas == null)
-            goCanvas = GameObject.Find("UI Canvas");
+            goCanvas = GameObject.Find("__CANVAS/__UI Canvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();  // 背景
-        txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>(); // 標題
+        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
+        txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();  // 說明圖示
+        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
         txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
-        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();   // 介紹文字
+        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>(); // 返回按鈕
+        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
 
-        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>(); // 進入遊戲提示
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();    // 進入遊戲按鈕
+        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
+        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
 
         TempItem = null;    // 暫存物件
         currentScene = SceneManager.GetActiveScene();   // 當前場景
@@ -190,7 +187,7 @@ public partial class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
+        CloseUI();
         DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
         ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
@@ -220,11 +217,11 @@ public partial class GameManager : MonoBehaviour
     {
         KeyboardCheck();
 
-        if (isPaused && isMouseEnabled) // 暫停時啟用滑鼠
+        if (bIsPaused && bIsMouseEnabled)
             MouseCheck();
 
-        if (isUIOpen && Input.GetKeyDown(KeyCode.R))    // 按 R 鍵
-            ButtonFunction(ButtonEventID.Enter_Game);   // 進入蓮花遊戲
+        if (bIsUIOpen && Input.GetKeyDown(KeyCode.R))
+            ButtonFunction(ButtonEventID.Enter_Game);
 
         if (bIsGameEnd && Input.GetKeyDown(KeyCode.F9))
             ShowQRCode();
@@ -235,161 +232,21 @@ public partial class GameManager : MonoBehaviour
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
     }
 
-    public void GameEvent(SceneTypeID rSceneTypeID, byte rbyEventID)
+    public void GameEvent(SceneTypeID r_SceneTypeID, GameEventID r_EventID)
     {
-        switch (rSceneTypeID)
+        switch (r_SceneTypeID)
         {
             case SceneTypeID.BeginScene:
                 break;
             case SceneTypeID.Introduce:
                 break;
             case SceneTypeID.Lv1_GrandmaHouse:
-                Lv1_Event(rbyEventID);
+                Lv1_Event(r_EventID);
                 break;
             case SceneTypeID.Lv2_GrandmaHouse:
-                Lv2_Event(rbyEventID);
+                Lv2_Event(r_EventID);
                 break;
         }
-
-        //switch (rbyEventID)
-        //{
-        //    case GameEventID.Close_UI:
-        //        UIState(UIItemID.Empty, false);
-        //        ShowEnterGame(false);
-        //        audManager.Play(1, "ui_Context", false);
-
-        //        // UI 返回後執行玩家動畫
-        //        if (m_bShowPlayerAnimate)
-        //            ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
-
-        //        // UI 返回後執行 Item 動畫
-        //        if (m_bShowItemAnimate)
-        //            ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
-
-        //        // 鎖定玩家視角旋轉
-        //        if (m_bSetPlayerViewLimit)
-        //            SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
-
-        //        if (bNeedShowDialog)
-        //        {
-        //            DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
-        //            bNeedShowDialog = false;
-        //        }
-
-        //        GameStateCheck();
-        //        break;
-        //    case GameEventID.Lv1_Light_Switch:
-        //        Lv1_LightSwitch();
-        //        break;
-        //    case GameEventID.Lv1_Grandma_Room_Door_Lock:
-        //        Lv1_GrandmaRoomDoorLock();
-        //        break;
-        //    case GameEventID.Lv1_Flashlight:
-        //        Lv1_Flashlight();
-        //        break;
-        //    case GameEventID.Lv1_Desk_Drawer:
-        //        Lv1_DeskDrawer();
-        //        break;
-        //    case GameEventID.Lv1_GrandmaRoomKey:
-        //        Lv1_GrandmaRoomKey();
-        //        break;
-        //    case GameEventID.Lv1_Grandma_Door_Open:
-        //        Lv1_GrandmaDoorOpen();
-        //        break;
-        //    case GameEventID.Lv1_Rice_Funeral:
-        //        Lv1_RiceFuneral();
-        //        break;
-        //    case GameEventID.Lv1_Grandma_Pass_Door_After_RiceFurnel:
-        //        Lv1_GrandmaPassDoorAfterRiceFurnel();
-        //        break;
-        //    case GameEventID.Lv1_CheckFilialPietyCurtain:
-        //        Lv1_CheckFilialPietyCurtain();
-        //        break;
-        //    case GameEventID.Lv1_White_Tent:
-        //        Lv1_WhiteTent();
-        //        break;
-        //    case GameEventID.Lv1_Grandma_Dead_Body:
-        //        Lv1_GrandmaDeadBody();
-        //        break;
-        //    case GameEventID.Lv1_Rice_Funeral_Spilled:
-        //        Lv1_RiceFuneralSpilled();
-        //        break;
-        //    case GameEventID.Lv1_Photo_Frame:
-        //        Lv1_PhotoFrameEvent();
-        //        break;
-        //    case GameEventID.Lv1_Photo_Frame_Has_Broken:
-        //        Lv1_PhotoFrameHasBroken();
-        //        break;
-        //    case GameEventID.Lv1_Lotus_Paper:
-        //        Lv1_LotusPaper();
-        //        break;
-        //    case GameEventID.Lv1_Finished_Lotus_Paper:
-        //        Lv1_FinishedLotusPaper();
-        //        break;
-        //    case GameEventID.Lv1_Lotus_Paper_Plate:
-        //        Lv1_LotusPaperPlate();
-        //        break;
-        //    case GameEventID.Lv1_Toilet_Door_Lock:
-        //        Lv1_ToiletDoorLock();
-        //        break;
-        //    case GameEventID.Lv1_Toilet_Door_Open:
-        //        Lv1_ToiletDoorOpen();
-        //        break;
-        //    case GameEventID.Lv1_Toilet_Ghost_Hide:
-        //        Lv1_ToiletGhostHide();
-        //        break;
-        //    case GameEventID.Lv1_Toilet_Ghost_Hand_Push:
-        //        Lv1_ToiletGhostHandPush();
-        //        break;
-        //    case GameEventID.Lv1_Faucet:
-        //        Lv1_Faucet();
-        //        break;
-        //    case GameEventID.Lv1_Piano:
-        //        Lv1_CheckPiano();
-        //        break;
-        //    case GameEventID.Lv2_Light_Switch:
-        //        Lv2_LightSwitch();
-        //        break;
-        //    case GameEventID.Lv2_Room_Door_Lock:
-        //        Lv2_RoomDoorLock();
-        //        break;
-        //    case GameEventID.Lv2_FlashLight:
-        //        Lv2_FlashLight();
-        //        break;
-        //    case GameEventID.Lv2_Side_Table:
-        //        Lv2_SideTable();
-        //        break;
-        //    case GameEventID.Lv2_Room_Key:
-        //        Lv2_RoomKey();
-        //        break;
-        //    case GameEventID.Lv2_Door_Knock_Stop:
-        //        Lv2_DoorKnockStop();
-        //        break;
-        //    case GameEventID.Lv2_Grandma_Door_Open:
-        //        Lv2_GrandmaDoorOpen();
-        //        break;
-        //    case GameEventID.Lv2_Grandma_Door_Close:
-        //        Lv2_GrandmaDoorClose();
-        //        break;
-        //    case GameEventID.Lv2_Ghost_Pass_Door:
-        //        Lv2_GhostPassDoor();
-        //        break;
-        //    case GameEventID.Lv2_Toilet_Door:
-        //        Lv2_ToiletDoor();
-        //        break;
-        //    case GameEventID.Lv2_Rice_Funeral:
-        //        Lv2_Rice_Funeral();
-        //        break;
-        //    case GameEventID.Lv2_Photo_Frame:
-        //        Lv2_Photo_Frame();
-        //        break;
-        //    case GameEventID.Lv2_Ruce_Funeral_Plate:
-        //        Lv2_RuceFuneralPlate();
-        //        break;
-        //    case GameEventID.Lv2_Boy_Sneaker:
-        //        Lv2_BoySneaker();
-        //        break;
-        //}
     }
 
     // 顯示眼睛 Hint 圖示
@@ -407,7 +264,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = Lv1_Grandma_ROOM_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
                 TempItem.bAlwaysActive = false;
-                TempItem.iEventID = (int)GameEventID.Lv1_Grandma_Door_Open;
+                TempItem.EventID = GameEventID.Lv1_Grandma_Door_Open;
                 break;
             case HintItemID.Lv1_Flashlight:
                 TempItem = Lv1_FlashLight_Item;
@@ -424,7 +281,7 @@ public partial class GameManager : MonoBehaviour
                 if (bLv1_TriggerRiceFuneral)
                 {
                     TempItem.bAlwaysActive = false;
-                    TempItem.iEventID = (int)GameEventID.Lv1_White_Tent;
+                    TempItem.EventID = GameEventID.Lv1_Filial_Piety_Curtain;
                 }
                 break;
             case HintItemID.Lv1_Lie_Grandma_Body:
@@ -478,7 +335,7 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.Lv2_Grandma_Room_Door_Open:
                 TempItem = Lv2_Grandma_Room_Door_Item;
                 TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
-                TempItem.iEventID = (int)GameEventID.Lv2_Grandma_Door_Open;
+                TempItem.EventID = GameEventID.Lv2_Grandma_Door_Open;
                 TempItem.bAlwaysActive = false;
                 break;
             case HintItemID.Lv2_Rice_Funeral:
@@ -641,7 +498,7 @@ public partial class GameManager : MonoBehaviour
     // 顯示進入蓮花遊戲按鈕
     public void ShowEnterGame(bool r_bEnable)
     {
-        isUIOpen = r_bEnable;
+        bIsUIOpen = r_bEnable;
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
@@ -652,12 +509,12 @@ public partial class GameManager : MonoBehaviour
         switch (_eventID)
         {
             case ButtonEventID.UI_Back:
-                GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
+                CloseUI();
                 break;
             case ButtonEventID.Enter_Game:
-                if (isUIOpen)
+                if (bIsUIOpen)
                 {
-                    GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
+                    CloseUI();
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
 
@@ -665,7 +522,7 @@ public partial class GameManager : MonoBehaviour
                     Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
                     StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
 
-                    Invoke(nameof(DelayEnterLotusGame), 2.2f);
+                    Invoke(nameof(Delay_Lv1_EnterLotusGame), 2.2f);
                 }
                 break;
         }
@@ -743,7 +600,7 @@ public partial class GameManager : MonoBehaviour
             // 關閉 UI 畫面
             if (m_bInUIView)
             {
-                GameEvent(SceneTypeID.Lv1_GrandmaHouse, (byte)GameEventID.Close_UI);
+                CloseUI();
 
                 if (isMoveingObject)
                 {
@@ -799,10 +656,10 @@ public partial class GameManager : MonoBehaviour
     public void SetGameState()  // 設定遊戲狀態
     {
         playerCtrlr.SetCursor();
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0f : 1f;
-        settingObjects.SetActive(isPaused);
-        isMouseEnabled = isPaused;
+        bIsPaused = !bIsPaused;
+        Time.timeScale = bIsPaused ? 0f : 1f;
+        settingObjects.SetActive(bIsPaused);
+        bIsMouseEnabled = bIsPaused;
     }
 
     public void GameStateCheck()    // 檢查遊戲狀態

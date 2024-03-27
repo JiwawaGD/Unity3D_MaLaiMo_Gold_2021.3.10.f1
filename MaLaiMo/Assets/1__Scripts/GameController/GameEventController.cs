@@ -2,16 +2,41 @@
 
 public partial class GameManager : MonoBehaviour
 {
+    #region - 通用 Function -
+    void CloseUI()
+    {
+        UIState(UIItemID.Empty, false);
+        ShowEnterGame(false);
+        audManager.Play(1, "ui_Context", false);
+
+        // UI 返回後執行玩家動畫
+        if (m_bShowPlayerAnimate)
+            ProcessPlayerAnimator(GlobalDeclare.GetPlayerAnimateType().ToString());
+
+        // UI 返回後執行 Item 動畫
+        if (m_bShowItemAnimate)
+            ProcessAnimator(GlobalDeclare.GetItemAniObject(), GlobalDeclare.GetItemAniName());
+
+        // 鎖定玩家視角旋轉
+        if (m_bSetPlayerViewLimit)
+            SetPlayerViewLimit(true, GlobalDeclare.PlayerCameraLimit.GetPlayerCameraLimit());
+
+        if (bNeedShowDialog)
+        {
+            DialogueObjects[GlobalDeclare.byCurrentDialogIndex].CallAction();
+            bNeedShowDialog = false;
+        }
+    }
+    #endregion
+
     #region - 場景一 Event -
     void Lv1_PhotoFrameEvent()
     {
-        Debug.Log("場景1 ==> 正常相框 (Lv1_Photo_Frame)");
-
         ProcessAnimator("Lv2_Photo_Frame", "Lv2_PutPhotoFrameBack");
 
         DialogueObjects[(byte)Lv1_Dialogue.Lv2_PutPhotoFrameBack].CallAction();
 
-        Invoke(nameof(IvkLv2_BrokenPhotoFrameEnable), 2.5f);
+        Invoke(nameof(Delay_Lv2_BrokenPhotoFrameEnable), 2.5f);
     }
 
     void Lv1_PhotoFrameHasBroken()
@@ -75,7 +100,7 @@ public partial class GameManager : MonoBehaviour
 
         TempItem = GameObject.Find("Lv1_Toilet_Door_Ghost").GetComponent<ItemController>();
         TempItem.bAlwaysActive = false;
-        TempItem.eventID = GameEventID.Lv1_Toilet_Door_Open;
+        TempItem.EventID = GameEventID.Lv1_Toilet_Door_Open;
         audManager.FlushSound.Play();
         DialogueObjects[(byte)Lv1_Dialogue.HeardBathRoomSound_Lv1].CallAction();
     }
@@ -97,7 +122,7 @@ public partial class GameManager : MonoBehaviour
         ShowHint(HintItemID.Lv1_Rice_Funeral_Spilled);
     }
 
-    void Lv1_WhiteTent()
+    void Lv1_FilialPietyCurtain()
     {
         Debug.Log("場景1 ==> 觸發孝濂 (Lv1_White_Tent)");
 
@@ -115,7 +140,7 @@ public partial class GameManager : MonoBehaviour
         DialogueObjects[(byte)Lv1_Dialogue.CheckFilialPietyCurtain_Lv1].CallAction();
     }
 
-    void Lv1_CheckPiano()
+    void Lv1_Piano()
     {
         Debug.Log("場景1 ==> 查看鋼琴 (Lv1_CheckPiano)");
         StartCoroutine(ProcessPlayerSetPianoAni(0));
@@ -249,23 +274,6 @@ public partial class GameManager : MonoBehaviour
         ToiletDoorCollider.enabled = false;
         Lv1_Faucet_Flush_Obj.SetActive(true);
         ShowHint(HintItemID.Lv1_Faucet);
-    }
-
-    void Lv1_ToiletGhostHide()
-    {
-        // 暫時沒用到
-        return;
-
-        Debug.Log("場景1 ==> 廁所鬼頭縮回門後 (Lv1_Toilet_Ghost_Hide)");
-
-        ProcessAnimator("Lv1_Toilet_Door_Ghost", "Toilet_Door_Ghost_Out");
-        m_bToiletGhostHasShow = false;
-        ShowHint(HintItemID.Lv1_Toilet_GhostHand_Trigger);
-
-        Invoke(nameof(IvkLv1_SetGhostHandPosition), 2f);
-
-        GameObject GhostHandTriggerObj = GameObject.Find("Ghost_Hand_Trigger");
-        GhostHandTriggerObj.transform.position = new Vector3(-8.5f, 0.1f, 6.1f);
     }
 
     void Lv1_ToiletGhostHandPush()
@@ -463,7 +471,7 @@ public partial class GameManager : MonoBehaviour
         Lv2_BrotherShoe_Obj.transform.localPosition = new Vector3(-4.4f, 0f, 48.8f);
     }
 
-    void Lv2_RuceFuneralPlate()
+    void Lv2_PianoStool()
     {
         Debug.Log("場景2 ==> 放腳尾飯到凳子上 (Lv2_RuceFuneralPlate)");
 

@@ -18,9 +18,9 @@ public enum GameEventID
     Lv1_Grandma_Room_Door_Lock,
     Lv1_Lotus_Paper,
     Lv1_Grandma_Dead_Body,
-    Lv1_White_Tent,
-    Lv1_Photo_Frame_Light_On,
-    Lv1_Grandma_Rush,
+    Lv1_Filial_Piety_Curtain,
+    Lv1_Photo_Frame_Light_On,                   // *TODO* 無使用可替換
+    Lv1_Grandma_Rush,                           // *TODO* 無使用可替換
     Lv1_Light_Switch,
     Lv1_Flashlight,
     Lv1_Desk_Drawer,
@@ -29,7 +29,7 @@ public enum GameEventID
     Lv1_Rice_Funeral_Spilled,
     Lv1_Toilet_Door_Lock,
     Lv1_Toilet_Door_Open,
-    Lv1_Toilet_Ghost_Hide,
+    Lv1_Toilet_Ghost_Hide,                      // *TODO* 無使用可替換
     Lv1_Toilet_Ghost_Hand_Push,
     Lv1_Photo_Frame_Has_Broken,
     Lv1_Finished_Lotus_Paper,
@@ -52,7 +52,7 @@ public enum GameEventID
     Lv2_Rice_Funeral,
     Lv2_Photo_Frame, // 現在沒再用 可替換
     Lv2_Toilet_Door,
-    Lv2_Ruce_Funeral_Plate,
+    Lv2_Piano_Stool,
     Lv2_Boy_Sneaker,
 }
 

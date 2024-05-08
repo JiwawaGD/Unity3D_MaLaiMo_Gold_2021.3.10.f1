@@ -290,7 +290,8 @@ public partial class GameManager : MonoBehaviour
     void Lv1_Faucet()
     {
         Debug.Log("場景1 ==> 水龍頭 (Lv1_Faucet)");
-
+        audManager.Play(2, "CloseFaucet", false);
+        audManager.FlushSound.Stop();
         Lv1_Faucet_Flush_Obj.SetActive(false);
 
         Material matFaucetWaterSurface = WaterSurfaceObj.GetComponent<MeshRenderer>().material;
@@ -311,6 +312,7 @@ public partial class GameManager : MonoBehaviour
     public void Lv1_ShowTVWhiteNoise()
     {
         GameObject Lv1_TVObj = GameObject.Find("Lv1_TV");
+        audManager.Play(2, "TV_Noise", false);
         Lv1_TVObj.transform.GetChild(1).GetComponent<MeshRenderer>().material = Lv1_matTVWhiteNoise;
         Lv1_TVObj.transform.GetChild(2).GetComponent<Light>().enabled = true;
     }
@@ -318,11 +320,13 @@ public partial class GameManager : MonoBehaviour
     public void Lv1_DollTurnAround()
     {
         Lv1_Doll_Ani.SetBool("TurnHead", true);
+        audManager.Play(2, "CandleFallDollTurnAround", false);
     }
 
     public void Lv1_CandleFall()
     {
         ProcessAnimator("LV1_Lotus_Candles/Lv1_Falled_Candle", "Candle_Fall");
+        audManager.Play(2, "CandleFall", false);
     }
     #endregion
 

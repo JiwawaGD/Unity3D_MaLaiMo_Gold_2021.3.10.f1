@@ -30,6 +30,10 @@ public class AUDManager : MonoBehaviour
     [SerializeField, Tooltip("摺紙聲")] AudioClip[] gold_Paper;
     [SerializeField, Tooltip("孝簾拉開")] AudioClip LV1_Open_Filial_Piety_Curtain;
     [SerializeField, Tooltip("廁所門打開")] AudioClip LV1_Bathroom_Toilet_Door;
+    [SerializeField, Tooltip("電視噪音")] AudioClip TV_Noise;
+    [SerializeField, Tooltip("蠟燭倒下")] AudioClip CandleFall;
+    [SerializeField, Tooltip("娃娃轉頭")] AudioClip CandleFallDollTurnAround;
+    [SerializeField, Tooltip("水龍頭關閉")] AudioClip CloseFaucet;
 
     [Header("第二關音效")]
     [SerializeField, Tooltip("小女孩笑聲")] AudioClip Lv2_Girl_laughing;
@@ -134,6 +138,14 @@ public class AUDManager : MonoBehaviour
                 return LV1_Opening_Scene;
             case "ui_Context":
                 return ui_Context;
+            case "TV_Noise":
+                return TV_Noise;
+            case "CandleFall":
+                return CandleFall;
+            case "CandleFallDollTurnAround":
+                return CandleFallDollTurnAround;
+            case "CloseFaucet":
+                return CloseFaucet;
 
         }
         return null;

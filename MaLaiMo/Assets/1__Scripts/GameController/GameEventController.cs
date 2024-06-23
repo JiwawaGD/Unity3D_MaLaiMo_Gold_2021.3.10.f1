@@ -116,7 +116,7 @@ public partial class GameManager : MonoBehaviour
         // 生成摔壞的腳尾飯
         UnityEngine.Object RiceFuneralSpilled = Resources.Load<GameObject>("Prefabs/Rice_Funeral_Spilled");
         GameObject RiceFuneralSpilledObj = Instantiate(RiceFuneralSpilled) as GameObject;
-        RiceFuneralSpilledObj.transform.parent = GameObject.Find("===== ITEMS =====").transform;
+        RiceFuneralSpilledObj.transform.parent = GameObject.Find("__ITEMS/__Level_1").transform;
         RiceFuneralSpilledObj.transform.position = new Vector3(-4.4f, 0.006f, 11.8f);
         RiceFuneralSpilledObj.name = "Rice_Funeral_Spilled";
         ShowHint(HintItemID.Lv1_Rice_Funeral_Spilled);
@@ -180,10 +180,9 @@ public partial class GameManager : MonoBehaviour
 
         audManager.Play(1, "drawer_Opening_Sound", false);
         TempBoxCollider = Lv1_Desk_Drawer_Item.GetComponent<BoxCollider>();
-        //TempBoxCollider = GameObject.Find("grandpa_desk/Desk_Drawer").GetComponent<BoxCollider>();
         TempBoxCollider.enabled = false;
-        ProcessAnimator("grandpa_desk/Lv1_Desk_Drawer", "DrawerWithKey_Open");
-        TempGameObject = GameObject.Find("Grandma_Room_Key");
+        ProcessAnimator("Lv1_Grandpa_Desk/Lv1_Desk_Drawer", "DrawerWithKey_Open");
+        TempGameObject = GameObject.Find("Lv1_Grandma_Room_Key");
         TempGameObject.GetComponent<Animation>().Play();
         Invoke(nameof(IvkShowDoorKey), 1.2f);
     }
@@ -194,7 +193,7 @@ public partial class GameManager : MonoBehaviour
 
         bLv1_HasGrandmaRoomKey = true;
         DialogueObjects[(byte)Lv1_Dialogue.GetKey_Lv1].CallAction();
-        GameObject GrandmaRoomKeyObj = GameObject.Find("Grandma_Room_Key");
+        GameObject GrandmaRoomKeyObj = GameObject.Find("Lv1_Grandma_Room_Key");
         Destroy(GrandmaRoomKeyObj);
 
         if (bLv1_HasFlashlight)

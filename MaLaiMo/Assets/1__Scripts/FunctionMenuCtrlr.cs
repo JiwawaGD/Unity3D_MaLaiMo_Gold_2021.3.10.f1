@@ -32,7 +32,7 @@ public class FunctionMenuCtrlr : MonoBehaviour
         bInGame = currentScene.name == "2 Grandma House";
 
         if (bInGame)
-            gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gm = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
 
         text_EnterGame.text = bInGame ? "返回遊戲" : "開始遊戲";
 

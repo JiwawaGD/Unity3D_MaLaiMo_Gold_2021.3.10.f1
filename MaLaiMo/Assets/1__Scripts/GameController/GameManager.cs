@@ -19,7 +19,6 @@ public partial class GameManager : MonoBehaviour
     [Header("Volume參數設定")]
     [SerializeField]
     float fTargetIntensity = 1f;
-    readonly float fCurrentIntensity = 0.3f;
     readonly float fChangeSpeed = 1f;
 
     [SerializeField] GameObject[] taskListUi;
@@ -273,7 +272,7 @@ public partial class GameManager : MonoBehaviour
                 TempItem = Lv1_Desk_Drawer_Obj.GetComponent<ItemController>();
                 break;
             case HintItemID.Lv1_Grandma_Room_Key:
-                TempItem = GameObject.Find("Grandma_Room_Key").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Lv1_Grandma_Room_Key").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv1_Filial_Piety_Curtain:
                 TempItem = Lv1_Filial_Piety_Curtain_Item;
@@ -285,10 +284,10 @@ public partial class GameManager : MonoBehaviour
                 }
                 break;
             case HintItemID.Lv1_Lie_Grandma_Body:
-                TempItem = GameObject.Find("Lie_Grandma_Body").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Lv1_Grandma_Dead_Body").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv1_Rice_Funeral:
-                TempItem = GameObject.Find("Rice_Funeral").GetComponent<ItemController>();
+                TempItem = GameObject.Find("Lv1_Rice_Funeral").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv1_Lotus_Paper:
                 TempItem = Lv1_Lotus_Paper_Obj.GetComponent<ItemController>();

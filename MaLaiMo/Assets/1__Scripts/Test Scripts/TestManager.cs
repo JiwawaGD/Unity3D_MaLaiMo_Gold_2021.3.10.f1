@@ -138,11 +138,14 @@ public class TestManager : MonoBehaviour
         }
 
         if (iNextLevelWeight <= iRightLevelWeight)
+        {
             NextSceneType = SceneType.A_Right;
+        }
         else
+        {
             NextSceneType = (SceneType)iWrongLevelIndex;
-
-        m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
+            m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
+        }
 
         CurrentScene = NextSceneType;
         txt_Title.text = "目前關卡 : " + CurrentScene.ToString();
@@ -195,6 +198,9 @@ public class TestManager : MonoBehaviour
 
     void Reset()
     {
+        for (int iLevelIndex = 0; iLevelIndex < m_baHasPlayLevel.Length; iLevelIndex++)
+            m_baHasPlayLevel[iLevelIndex] = false;
+
         m_iSuccessCount = 0;
         m_iPassLevelCount = 0;
 

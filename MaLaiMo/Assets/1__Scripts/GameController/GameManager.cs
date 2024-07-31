@@ -102,20 +102,12 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv1_阿嬤的房間門")] ItemController Lv1_Grandma_ROOM_Door_Item;
     [SerializeField] [Header("Lv1_房間燈開關")] ItemController Lv1_Light_Switch_Item;
     [SerializeField] [Header("Lv1_手電筒")] ItemController Lv1_FlashLight_Item;
-    [SerializeField] [Header("Lv1_阿嬤房間內的抽屜")] ItemController Lv1_Desk_Drawer_Item;
-    [SerializeField] [Header("Lv1_孝濂")] ItemController Lv1_Filial_Piety_Curtain_Item;
     [SerializeField] [Header("Lv1_水龍頭")] ItemController Lv1_Faucet_Item;
     [SerializeField] [Header("Lv1_水龍頭水粒子")] GameObject Lv1_Faucet_Flush_Obj;
     [SerializeField] [Header("Lv1_廁所門")] ItemController Lv1_Toilet_Door_Item;
-    [SerializeField] [Header("Lv1_完整的相框")] ItemController Lv1_Photo_Frame_Item;
-    [SerializeField] [Header("Lv1_破碎的相框")] ItemController Lv1_Photo_Frame_Broken_Item;
     [SerializeField] [Header("Lv1_鋼琴")] ItemController Lv1_Piano_Item;
     [SerializeField] [Header("Lv1_娃娃 Ani")] Animator Lv1_Doll_Ani;
 
-    [SerializeField] [Header("Lv1_打翻前的腳尾飯")] GameObject Lv1_Rice_Funeral_Obj;
-    [SerializeField] [Header("Lv1_完好的相框")] GameObject Lv1_Photo_Frame_Obj;
-    [SerializeField] [Header("Lv1_破碎的相框")] GameObject Lv1_Photo_Frame_Has_Broken_Obj;
-    [SerializeField] [Header("Lv1_阿嬤房間抽屜")] GameObject Lv1_Desk_Drawer_Obj;
     [SerializeField] [Header("Lv1_還沒摺的蓮花紙")] GameObject Lv1_Lotus_Paper_Obj;
     [SerializeField] [Header("Lv1_蓮花紙旁的蠟燭")] GameObject Lv1_Lotus_Candle_Obj;
     [SerializeField] [Header("Lv1_摺好的紙蓮花")] GameObject Lv1_Finished_Lotus_Paper_Obj;
@@ -125,13 +117,6 @@ public partial class GameManager : MonoBehaviour
     [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
     [SerializeField] [Header("Lv2_小邊桌")] ItemController Lv2_SideTable_Item;
     [SerializeField] [Header("Lv2_阿嬤房間門")] ItemController Lv2_Grandma_Room_Door_Item;
-
-    [SerializeField] [Header("Lv2_腳尾飯_Item")] ItemController Lv2_Rice_Funeral_Item;
-    [SerializeField] [Header("Lv2_腳尾飯_Obj")] GameObject Lv2_Rice_Funeral_Obj;
-    [SerializeField] [Header("Lv2_腳尾凳子_Item")] ItemController Lv2_Piano_Stool_Item;
-
-    [SerializeField] [Header("Lv2_哥哥的鞋子_Obj")] GameObject Lv2_BrotherShoe_Obj;
-    [SerializeField] [Header("Lv2_哥哥的鞋子_Item")] ItemController Lv2_BrotherShoe_Item;
 
     [SerializeField] [Header("Lv2_鬼阿嬤")] GameObject Lv2_Grandma_Ghost_Obj;
     [SerializeField] [Header("Lv2_廚房物件_狀態一")] GameObject Lv2_Furniture_State_1_Obj;
@@ -205,6 +190,9 @@ public partial class GameManager : MonoBehaviour
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
 
+        //播放開頭對話和音效
+        DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
+
         // For Test
         //Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
         //playerFlashlight.enabled = true;
@@ -268,20 +256,8 @@ public partial class GameManager : MonoBehaviour
             case HintItemID.Lv1_Flashlight:
                 TempItem = Lv1_FlashLight_Item;
                 break;
-            case HintItemID.Lv1_Desk_Drawer:
-                TempItem = Lv1_Desk_Drawer_Obj.GetComponent<ItemController>();
-                break;
             case HintItemID.Lv1_Grandma_Room_Key:
                 TempItem = GameObject.Find("Lv1_Grandma_Room_Key").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Filial_Piety_Curtain:
-                TempItem = Lv1_Filial_Piety_Curtain_Item;
-
-                if (bLv1_TriggerRiceFuneral)
-                {
-                    TempItem.bAlwaysActive = false;
-                    TempItem.EventID = GameEventID.Lv1_Filial_Piety_Curtain;
-                }
                 break;
             case HintItemID.Lv1_Lie_Grandma_Body:
                 TempItem = GameObject.Find("Lv1_Grandma_Dead_Body").GetComponent<ItemController>();
@@ -300,12 +276,6 @@ public partial class GameManager : MonoBehaviour
                 break;
             case HintItemID.Lv1_Rice_Funeral_Spilled:
                 TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Photo_Frame_Has_Broken:
-                TempItem = Lv1_Photo_Frame_Broken_Item;
-                break;
-            case HintItemID.Lv1_Photo_Frame:
-                TempItem = Lv1_Photo_Frame_Item;
                 break;
             case HintItemID.Lv1_Toilet_Door:
                 TempItem = Lv1_Toilet_Door_Item;
@@ -337,17 +307,8 @@ public partial class GameManager : MonoBehaviour
                 TempItem.EventID = GameEventID.Lv2_Grandma_Door_Open;
                 TempItem.bAlwaysActive = false;
                 break;
-            case HintItemID.Lv2_Rice_Funeral:
-                TempItem = Lv2_Rice_Funeral_Item;
-                break;
             case HintItemID.Lv2_Toilet_Door:
                 TempItem = GameObject.Find("Lv2_Toilet_Door_GhostHead").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv2_Ruce_Funeral_Plate:
-                TempItem = Lv2_Piano_Stool_Item;
-                break;
-            case HintItemID.Lv2_Boy_Sneaker:
-                TempItem = Lv2_BrotherShoe_Item;
                 break;
             case HintItemID.Lv1_Piano:
                 TempItem = Lv1_Piano_Item;
@@ -370,7 +331,6 @@ public partial class GameManager : MonoBehaviour
         saveRotaObj = iIndex;   // 儲存物件  
         originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
         originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
-        // Ro_Cololider = RO_OBJ[saveRotaObj].GetComponent<Collider>();    // 儲存物件碰撞器
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 

@@ -169,7 +169,6 @@ public partial class GameManager : MonoBehaviour
     void Delay_Lv2_BrokenPhotoFrameEnable()
     {
         ShowHint(HintItemID.Lv1_Photo_Frame);
-        TempItem = Lv1_Photo_Frame_Obj.GetComponent<ItemController>();
         TempItem.EventID = GameEventID.Lv1_Photo_Frame_Has_Broken;
     }
 

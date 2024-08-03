@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     private AudioSource aud;
     private int currentPos = 0; //當前打字位置
-    private GameManager GM;
+    private SceneController GM;
     private bool IsPlaying = false;
 
     private void Start()
@@ -33,7 +33,7 @@ public class DialogueManager : MonoBehaviour
         ActionCount = 0;
         DialogueText = GameObject.Find("__DIAOGUES/DialogueUICanvas/DialogueText").GetComponent<Text>();
         aud = GameObject.Find("__AUDIO/對話音效管理器").GetComponent<AudioSource>();
-        GM = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
+        GM = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
     }
 
     public void CallAction()

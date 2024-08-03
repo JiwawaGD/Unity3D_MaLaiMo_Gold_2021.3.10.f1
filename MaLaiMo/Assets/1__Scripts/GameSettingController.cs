@@ -25,7 +25,7 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] [Header("畫質 - Dropdown")] Dropdown QualityDropDown;
     [SerializeField] [Header("準心 - Toggle")] Toggle CrosshairToggle;
 
-    [SerializeField] [Header("GameManager")] GameManager GameCtrlr;
+    [SerializeField] [Header("GameManager")] SceneController GameCtrlr;
     [SerializeField] [Header("PlayerCtrlr")] PlayerController PlayerCtrlr;
     [SerializeField] [Header("FunctionMenuCtrlr")] FunctionMenuCtrlr MenuCtrlr;
 
@@ -45,7 +45,7 @@ public class GameSettingController : MonoBehaviour
         bInGrandmaScene = currentScene.name == "2 Grandma House";
 
         if (bInGrandmaScene)
-            GameCtrlr = GameObject.Find("===== OTHER =====/GameManager").GetComponent<GameManager>();
+            GameCtrlr = GameObject.Find("===== OTHER =====/GameManager").GetComponent<SceneController>();
 
         SaveBtn.onClick.AddListener(SettingSave);
         ReturnBtn.onClick.AddListener(SettingReturn);

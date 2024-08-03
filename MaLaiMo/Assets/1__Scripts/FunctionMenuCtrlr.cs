@@ -22,7 +22,7 @@ public class FunctionMenuCtrlr : MonoBehaviour
     [SerializeField] [Header("設定目前選擇按鈕")] GameObject GameSettingCurrentChoose;
     [SerializeField] [Header("製作人員目前選擇按鈕")] GameObject TeamCurrentChoose;
 
-    GameManager gm;
+    SceneController gm;
     Scene currentScene;
     bool bInGame;
 
@@ -32,7 +32,7 @@ public class FunctionMenuCtrlr : MonoBehaviour
         bInGame = currentScene.name == "2 Grandma House";
 
         if (bInGame)
-            gm = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
+            gm = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
 
         text_EnterGame.text = bInGame ? "返回遊戲" : "開始遊戲";
 

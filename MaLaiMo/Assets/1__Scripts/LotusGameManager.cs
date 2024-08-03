@@ -22,7 +22,7 @@ public class LotusGameManager : MonoBehaviour
     RectTransform HintRectTf;
     Transform TfLotus;
     AnimatorStateInfo LotusState;
-    GameManager GM;
+    SceneController GM;
 
     public static bool bIsGamePause = false;
 
@@ -68,7 +68,7 @@ public class LotusGameManager : MonoBehaviour
 
     void Start()
     {
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GM = GameObject.Find("GameManager").GetComponent<SceneController>();
 
         iAllLotusCount = 30;
 
@@ -155,7 +155,6 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[16])
                 {
-                    GM.Lv1_CandleFall();
                     StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[16], strLotusAniTriggerName[16], 16));
                 }
                 else if (bLotusState[24])
@@ -170,7 +169,6 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[4])
                 {
-                    GM.Lv1_ShowTVWhiteNoise();
                     StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[4], LotusPaperAniClip[4], strLotusAniTriggerName[4], 4));
                 }
                 else if (bLotusState[7])
@@ -201,7 +199,6 @@ public class LotusGameManager : MonoBehaviour
                 }
                 else if (bLotusState[22])
                 {
-                    GM.Lv1_DollTurnAround();
                     StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[22], strLotusAniTriggerName[22], 22));
                 }
                 break;
@@ -286,7 +283,7 @@ public class LotusGameManager : MonoBehaviour
 
         if (bLotusState[29])
         {
-            GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            SceneController gm = GameObject.Find("GameManager").GetComponent<SceneController>();
             gm.SendMessage("ExitLotusGame");
             GlobalDeclare.bLotusGameComplete = true;
             //gm.DestroyImmediateLo();

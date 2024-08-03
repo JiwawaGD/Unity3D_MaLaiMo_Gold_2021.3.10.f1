@@ -10,10 +10,10 @@ public class MoveMode : MonoBehaviour
     private float currentIntensity = 0.3f; // 當前強度值
     public float changeSpeed = 1f; // 強度改變速度
     //[Header("全域變數")] public Volume postProcessVolume;
-    GameManager gameManager;
+    SceneController gameManager;
     private void Awake()
     {
-        gameManager = GetComponent<GameManager>();
+        gameManager = GetComponent<SceneController>();
     }
     public void StartMoveMode()
     {
@@ -21,7 +21,7 @@ public class MoveMode : MonoBehaviour
     }
     public IEnumerator ChangeVignetteIntensity()
     {
-        Volume postProcessVolume = GameManager.instance.postProcessVolume;
+        Volume postProcessVolume = SceneController.instance.postProcessVolume;
 
         VolumeProfile profile = postProcessVolume.sharedProfile;
 
@@ -52,7 +52,7 @@ public class MoveMode : MonoBehaviour
     }
     public void KeepstoryReadding()
     {
-        Volume postProcessVolume = GameManager.instance.postProcessVolume;
+        Volume postProcessVolume = SceneController.instance.postProcessVolume;
 
         VolumeProfile profile = postProcessVolume.sharedProfile;
         CloudLayer cloudLayer = null;

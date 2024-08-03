@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] [Header("Item 的圖層")] LayerMask ItemLayer;
 
-    public AudioSource audioSource;    // 音效來源
-    public AudioClip walkingSound;    // 走路音效
+    public AudioSource audioSource;     // 音效來源
+    public AudioClip walkingSound;      // 走路音效
 
     private bool isWalking = false; // 是否正在走路
 
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     ItemController current_Item;
     ItemController last_Item;
-    GameManager gameManager;
+    SceneController gameManager;
 
     void Awake()
     {
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
         if (gameManager == null)
-            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<GameManager>();
+            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
     }
 
     void Start()
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         RayHitCheck();
 
         // 不在 UI 畫面時才可控制
-        if (!GameManager.m_bInUIView)
+        if (!SceneController.m_bInUIView)
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
@@ -136,32 +136,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("GameEventTrigger"))
-        {
-            if (col.gameObject.name == "S1_Grandma_Pass_Door_Trigger")
-            {
-                gameManager.GameEvent(SceneTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_Grandma_Pass_Door_After_RiceFurnel);
-                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            }
 
-            if (col.gameObject.name == "S2_Door_Knock_Trigger")
-            {
-                //gameManager.SendMessage("GameEvent", GameEventID.S2_Door_Knock_Stop);
-                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            }
-
-            if (col.gameObject.name == "S2_Door_Close_Trigger")
-            {
-                gameManager.GameEvent(SceneTypeID.Lv2_GrandmaHouse, GameEventID.Lv2_Grandma_Door_Close);
-                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            }
-
-            if (col.gameObject.name == "S2_Ghost_Pass_Door_Trigger")
-            {
-                gameManager.GameEvent(SceneTypeID.Lv2_GrandmaHouse, GameEventID.Lv2_Ghost_Pass_Door);
-                col.transform.localPosition -= new Vector3(0f, 10f, 0f);
-            }
-        }
     }
 
     void InitValue()

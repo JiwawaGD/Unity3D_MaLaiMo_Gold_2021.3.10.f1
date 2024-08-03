@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 
 using DG.Tweening;
 
-public partial class GameManager : MonoBehaviour
+public partial class SceneController : MonoBehaviour
 {
-    public static GameManager instance;
+    public static SceneController instance;
     public string CurrentDialogue;
 
     [Space]
@@ -141,6 +141,9 @@ public partial class GameManager : MonoBehaviour
     bool bIsPlayingPiano = false;
     bool bHasTriggerLotus = false;
 
+    // 以上未還未整理的程式碼
+    GameEventController GameEventCtrlr;
+
     void Awake()
     {
         if (playerCtrlr == null)
@@ -150,6 +153,9 @@ public partial class GameManager : MonoBehaviour
 
         if (goCanvas == null)
             goCanvas = GameObject.Find("__CANVAS/__UI Canvas");
+
+        if (GameEventCtrlr == null)
+            GameEventCtrlr = GameObject.Find("GameEventController").GetComponent<GameEventController>();
 
         imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
@@ -171,33 +177,12 @@ public partial class GameManager : MonoBehaviour
 
     void Start()
     {
-        CloseUI();
         DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
-        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));   // 返回
-        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));   // 進入蓮花遊戲
-
+        RegisterButton();
         SetCrosshairEnable(true);
-
-        // Lv1 預設開啟的 Hint
-        ShowHint(HintItemID.Lv1_Desk_Drawer);
-        ShowHint(HintItemID.Lv1_Flashlight);
-        ShowHint(HintItemID.Lv1_Light_Switch);
-        ShowHint(HintItemID.Lv1_Grandma_Room_Door_Lock);
-        ShowHint(HintItemID.Lv1_Toilet_Door);
-        ShowHint(HintItemID.Lv1_Filial_Piety_Curtain);
-        ShowHint(HintItemID.Lv1_Piano);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
-
-        //播放開頭對話和音效
-        DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
-
-        // For Test
-        //Light playerFlashlight = playerCtrlr.tfPlayerCamera.GetComponent<Light>();
-        //playerFlashlight.enabled = true;
-        // Lv2_ToiletDoor();
-        //Lv1_RiceFuneralSpilled();
     }
 
     void Update()
@@ -206,13 +191,18 @@ public partial class GameManager : MonoBehaviour
 
         if (bIsPaused && bIsMouseEnabled)
             MouseCheck();
-
-        if (bIsUIOpen && Input.GetKeyDown(KeyCode.R))
-            ButtonFunction(ButtonEventID.Enter_Game);
-
-        if (bIsGameEnd && Input.GetKeyDown(KeyCode.F9))
-            ShowQRCode();
     }
+
+    #region - Basic Function -
+    void RegisterButton()
+    {
+        // 返回
+        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
+
+        // 進入蓮花遊戲
+        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
+    }
+    #endregion
 
     public void SetGameSetting()
     {
@@ -221,105 +211,26 @@ public partial class GameManager : MonoBehaviour
 
     public void GameEvent(SceneTypeID r_SceneTypeID, GameEventID r_EventID)
     {
-        switch (r_SceneTypeID)
-        {
-            case SceneTypeID.BeginScene:
-                break;
-            case SceneTypeID.Introduce:
-                break;
-            case SceneTypeID.Lv1_GrandmaHouse:
-                Lv1_Event(r_EventID);
-                break;
-            case SceneTypeID.Lv2_GrandmaHouse:
-                Lv2_Event(r_EventID);
-                break;
-        }
+        GameEventCtrlr.RecGameEvent(r_SceneTypeID, r_EventID);
     }
 
     // 顯示眼睛 Hint 圖示
-    public void ShowHint(HintItemID _ItemID)
+    public void ShowHint(HintItemID r_ItemID)
     {
-        switch (_ItemID)
+        ItemController NextItem = null;
+
+        switch (r_ItemID)
         {
-            case HintItemID.Lv1_Grandma_Room_Door_Lock:
-                TempItem = Lv1_Grandma_ROOM_Door_Item;
-                break;
-            case HintItemID.Lv1_Light_Switch:
-                TempItem = Lv1_Light_Switch_Item;
-                break;
-            case HintItemID.Lv1_Grandma_Room_Door:
-                TempItem = Lv1_Grandma_ROOM_Door_Item;
-                TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
-                TempItem.bAlwaysActive = false;
-                TempItem.EventID = GameEventID.Lv1_Grandma_Door_Open;
-                break;
-            case HintItemID.Lv1_Flashlight:
-                TempItem = Lv1_FlashLight_Item;
-                break;
-            case HintItemID.Lv1_Grandma_Room_Key:
-                TempItem = GameObject.Find("Lv1_Grandma_Room_Key").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Lie_Grandma_Body:
-                TempItem = GameObject.Find("Lv1_Grandma_Dead_Body").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Rice_Funeral:
-                TempItem = GameObject.Find("Lv1_Rice_Funeral").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Lotus_Paper:
-                TempItem = Lv1_Lotus_Paper_Obj.GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Finished_Lotus_Paper:
-                TempItem = Lv1_Finished_Lotus_Paper_Obj.GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Lotus_Paper_Plate:
-                TempItem = Lv1_Lotus_Paper_Plate_Obj.GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Rice_Funeral_Spilled:
-                TempItem = GameObject.Find("Rice_Funeral_Spilled").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Toilet_Door:
-                TempItem = Lv1_Toilet_Door_Item;
-                break;
-            case HintItemID.Lv1_Toilet_GhostHand_Trigger:
-                TempItem = GameObject.Find("Ghost_Hand_Trigger").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Faucet:
-                TempItem = Lv1_Faucet_Item;
-                break;
-            case HintItemID.Lv2_Light_Switch:
-                TempItem = GameObject.Find("_Light_Switch").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv2_Room_Door:
-                TempItem = Lv2_Grandma_Room_Door_Item;
-                break;
-            case HintItemID.Lv2_FlashLight:
-                TempItem = Lv2_FlashLight_Item;
-                break;
-            case HintItemID.Lv2_Side_Table:
-                TempItem = Lv2_SideTable_Item;
-                break;
-            case HintItemID.Lv2_Room_Key:
-                TempItem = GameObject.Find("Lv2_Grandma_Room_Key").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv2_Grandma_Room_Door_Open:
-                TempItem = Lv2_Grandma_Room_Door_Item;
-                TempItem.gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
-                TempItem.EventID = GameEventID.Lv2_Grandma_Door_Open;
-                TempItem.bAlwaysActive = false;
-                break;
-            case HintItemID.Lv2_Toilet_Door:
-                TempItem = GameObject.Find("Lv2_Toilet_Door_GhostHead").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv1_Piano:
-                TempItem = Lv1_Piano_Item;
+            default:
+                NextItem = null;
                 break;
         }
 
-        TempItem.bActive = true;
-        TempItem.SetHintable(true);
+        NextItem.bActive = true;
+        NextItem.SetHintable(true);
     }
 
-    // 旋轉物件 (物件ID)     
+    // 旋轉物件 (物件ID)
     void ProcessRoMoving(int iIndex)
     {
         if (RO_OBJ[saveRotaObj] == null)
@@ -468,20 +379,16 @@ public partial class GameManager : MonoBehaviour
         switch (_eventID)
         {
             case ButtonEventID.UI_Back:
-                CloseUI();
                 break;
             case ButtonEventID.Enter_Game:
                 if (bIsUIOpen)
                 {
-                    CloseUI();
                     RestoreItemLocation();
                     bIsPlayingLotus = true;
 
                     Transform tfPlayingLotusPos = GameObject.Find("Lv1_Playing_Lotus_Pos").GetComponent<Transform>();
                     Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
                     StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
-
-                    Invoke(nameof(Delay_Lv1_EnterLotusGame), 2.2f);
                 }
                 break;
         }
@@ -497,7 +404,6 @@ public partial class GameManager : MonoBehaviour
             playerCtrlr.m_bCanControl = false;
             goCanvas.SetActive(true);
             imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
-            Invoke(nameof(IvkShowGrandmaFaceUI), 0.5f);
         }
     }
 
@@ -516,8 +422,6 @@ public partial class GameManager : MonoBehaviour
         LotusCtrlr.SendMessage("SetLotusCanvasEnable", false);
 
         LotusGameManager.bIsGamePause = true;
-
-        ShowHint(HintItemID.Lv1_Lotus_Paper);
     }
 
     void QuitPiano()
@@ -527,7 +431,6 @@ public partial class GameManager : MonoBehaviour
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
         playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-        ShowHint(HintItemID.Lv1_Piano);
     }
 
     // 離開蓮花遊戲
@@ -547,7 +450,6 @@ public partial class GameManager : MonoBehaviour
         Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
         Lv1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
 
-        ShowHint(HintItemID.Lv1_Finished_Lotus_Paper);
         DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
     }
 
@@ -559,8 +461,6 @@ public partial class GameManager : MonoBehaviour
             // 關閉 UI 畫面
             if (m_bInUIView)
             {
-                CloseUI();
-
                 if (isMoveingObject)
                 {
                     romanager = false;
@@ -627,7 +527,7 @@ public partial class GameManager : MonoBehaviour
              m_bPlayLotusEnable &&
              currentScene.name == "2 Grandma House")
         {
-            ShowHint(HintItemID.Lv1_Lotus_Paper);
+
         }
     }
 

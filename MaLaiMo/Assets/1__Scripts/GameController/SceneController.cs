@@ -177,7 +177,7 @@ public partial class SceneController : MonoBehaviour
 
     void Start()
     {
-        DialogueObjects[(byte)Lv1_Dialogue.Begin].CallAction();
+        DialogueObjects[(byte)Lv1_Dialogue.Empty].CallAction();
         RegisterButton();
         SetCrosshairEnable(true);
 
@@ -449,8 +449,6 @@ public partial class SceneController : MonoBehaviour
 
         Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
         Lv1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
-
-        DialogueObjects[(byte)Lv1_Dialogue.AfterPlayLotus_Lv1].CallAction();
     }
 
     // 鍵盤檢查
@@ -601,7 +599,7 @@ public partial class SceneController : MonoBehaviour
         CrosshairUI.SetActive(bEnable);
     }
 
-    IEnumerator PlayerToAniPos(Vector3 v3PlayerTargetPos, Quaternion PlayerRotation, Quaternion CameraRotation)
+    IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
         playerCtrlr.m_bCanControl = false;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -613,16 +611,16 @@ public partial class SceneController : MonoBehaviour
 
         while (fCurrentMoveTime < fTotalMoveTime)
         {
-            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, v3PlayerTargetPos, fCurrentMoveTime / (fTotalMoveTime * 5f));
-            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 5f));
+            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, r_V3TargetPos, fCurrentMoveTime / (fTotalMoveTime * 5f));
+            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, r_PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 5f));
 
             fCurrentMoveTime += Time.deltaTime;
 
             yield return null;
         }
 
-        playerCtrlr.transform.localPosition = v3PlayerTargetPos;
-        playerCtrlr.transform.localRotation = PlayerRotation;
+        playerCtrlr.transform.localPosition = r_V3TargetPos;
+        playerCtrlr.transform.localRotation = r_PlayerRotation;
 
         // 移動玩家 Camera
         float fTotalViewTime = 1.0f;
@@ -630,14 +628,14 @@ public partial class SceneController : MonoBehaviour
 
         while (fCurrentViewTime < fTotalViewTime)
         {
-            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, CameraRotation, fCurrentViewTime / (fTotalViewTime * 5f));
+            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, r_CameraRotation, fCurrentViewTime / (fTotalViewTime * 5f));
 
             fCurrentViewTime += Time.deltaTime;
 
             yield return null;
         }
 
-        playerCtrlr.tfPlayerCamera.localRotation = CameraRotation;
+        playerCtrlr.tfPlayerCamera.localRotation = r_CameraRotation;
     }
 
     public void GameQuit()

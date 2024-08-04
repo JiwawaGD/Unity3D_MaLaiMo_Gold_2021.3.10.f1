@@ -24,6 +24,9 @@ public partial class GameEventController : MonoBehaviour
     {
         switch (r_EventID)
         {
+            case GameEventID.Lv1_GrandmaRoomDoorOpen:
+                Lv1_GrandmaRoomDoorOpen();
+                break;
             default:
                 Debug.LogError(string.Format("[Lv1_Event] Error GameEventID : {0}", r_EventID));
                 break;

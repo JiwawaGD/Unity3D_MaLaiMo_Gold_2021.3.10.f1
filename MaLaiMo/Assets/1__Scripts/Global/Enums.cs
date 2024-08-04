@@ -14,6 +14,7 @@ public enum GameEventID
 
     // Lv1 : Scene_1
     Lv1_Begin = 1,
+    Lv1_GrandmaRoomDoorOpen,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -62,7 +63,7 @@ public enum ButtonEventID
 
 public enum PlayerAnimateType
 {
-    Empty,
+    Empty = 0,
     Player_Wake_Up,
     Player_Turn_After_Photo_Frame,
     Player_PlayPiano,
@@ -70,7 +71,7 @@ public enum PlayerAnimateType
 
 public enum IntelligenceLevel
 {
-    Unknown = 0,
+    Empty = 0,
     Level1 = 1,
     Level2 = 2,
     Level3 = 3,
@@ -80,26 +81,5 @@ public enum IntelligenceLevel
 
 public enum Lv1_Dialogue
 {
-    Begin = 0,
-    OpenDoor_Nokey_Lv1,
-    OpenLight_Lv1,
-    GetKey_Lv1,
-    OpenDoor_GetKey_Lv1,
-    AfterPlayLotus_Lv1,
-    OpenFilialPietyCurtain_Lv1,
-    CheckRiceFuneral_OnFloor_Lv1,
-    DoorLocked_Lv2,
-    OpenDoor_NoFlashLight_Lv1,
-    OpenBathRoomDoor_Nokey_Lv1,
-    OpenLight_Lv2,
-    OpenFlashLight_Lv2,
-    CheckRiceFuneral_OnFloor_Lv2,
-    WakeUp_Lv2,
-    CheckFilialPietyCurtain_Lv1,
-    CheckLotus_Lv1,
-    HeardBathRoomSound_Lv1,
-    Lv1_OpenLight_HasFlashlight,
-    Lv2_PhotoFrameFall,
-    Lv2_PutPhotoFrameBack,
-    Lv2_Boy_Sneaker,
+    Empty = 0,
 }

@@ -134,11 +134,6 @@ public class PlayerController : MonoBehaviour
         View();
     }
 
-    void OnTriggerEnter(Collider col)
-    {
-
-    }
-
     void InitValue()
     {
         m_fUDSensitivity = 230;

@@ -19,37 +19,37 @@ public class DialogueManager : MonoBehaviour
     [Header("添加的音效")]
     public AudioClip[] Voices;
 
-    private Text DialogueText;
+    Text DialogueText;
 
-    private int ActionCount;
+    int ActionCount;
 
-    private AudioSource aud;
-    private int currentPos = 0; //當前打字位置
-    private SceneController GM;
-    private bool IsPlaying = false;
+    AudioSource aud;
+    SceneController SceneCtrlr;
+    int currentPos = 0; //當前打字位置
+    bool m_bIsPlaying = false;
 
-    private void Start()
+    void Start()
     {
         ActionCount = 0;
         DialogueText = GameObject.Find("__DIAOGUES/DialogueUICanvas/DialogueText").GetComponent<Text>();
         aud = GameObject.Find("__AUDIO/對話音效管理器").GetComponent<AudioSource>();
-        GM = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
+        SceneCtrlr = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
     }
 
     public void CallAction()
     {
-        GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Begin;
+        GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Empty;
 
+        SceneCtrlr.CurrentDialogue = gameObject.name;
 
-        GM.CurrentDialogue = gameObject.name;
-
-        if (IsPlaying == false)
+        if (!m_bIsPlaying)
             StartCoroutine(StartAction());
     }
 
-    private IEnumerator StartAction()
+    IEnumerator StartAction()
     {
-        IsPlaying = true;
+        m_bIsPlaying = true;
+
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -63,7 +63,9 @@ public class DialogueManager : MonoBehaviour
             var ObjectActive = Convert.ToBoolean(Objectdata[1]);
             var ObjectAlpha = float.Parse(Objectdata[2]);
             HandleObject[ObjectIndex].SetActive(ObjectActive);
-            if (ObjectAlpha != -1f) yield return StartCoroutine(AlphaInOut(HandleObject[ObjectIndex], ObjectAlpha));
+
+            if (ObjectAlpha != -1f)
+                yield return StartCoroutine(AlphaInOut(HandleObject[ObjectIndex], ObjectAlpha));
         }
         else if (ActionEvent[ActionCount].Contains("{%voice:"))
         {
@@ -75,11 +77,9 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //print(GM.CurrentDialogue + "       " + gameObject.name);
-            if (GM.CurrentDialogue == gameObject.name) DialogueText.text = ActionEvent[ActionCount];
+            if (SceneCtrlr.CurrentDialogue == gameObject.name)
+                DialogueText.text = ActionEvent[ActionCount];
         }
-
-        //yield return StartCoroutine(OnStartWriter());
 
         if (ActionCount < ActionEvent.Length - 1)
         {
@@ -89,7 +89,8 @@ public class DialogueManager : MonoBehaviour
         else
         {
             ActionCount = 0;
-            IsPlaying = false;
+            m_bIsPlaying = false;
+            StopCoroutine(StartAction());
         }
     }
 

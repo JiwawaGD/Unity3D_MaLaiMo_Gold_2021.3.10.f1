@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
     SceneController gameManager;
+
 
     void Awake()
     {
@@ -249,4 +251,5 @@ public class PlayerController : MonoBehaviour
     {
         PlaySound(walkingSound);
     }
+
 }

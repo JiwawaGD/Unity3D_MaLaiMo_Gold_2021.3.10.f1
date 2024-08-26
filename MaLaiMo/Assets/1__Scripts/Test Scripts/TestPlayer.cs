@@ -52,14 +52,14 @@ public class TestPlayer : MonoBehaviour
         if (other.name == "左邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(57.88f, 0.8f, 26.92f);
+            gameObject.transform.position = new Vector3(55.11f, 6.34f, -13.92f);
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }
         else if (other.name == "右邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(59.4f, 0.8f, 63.71f);
+            gameObject.transform.position = new Vector3(53.99f, 5.86f, 114.1f);
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }

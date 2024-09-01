@@ -22,11 +22,14 @@ public class DivinationBlockSystem : MonoBehaviour
     {
         rb1 = block1.GetComponent<Rigidbody>();
         rb2 = block2.GetComponent<Rigidbody>();
+        Debug.Log("DivinationBlockSystem initialized");
     }
 
     public void ThrowBlocks()
     {
+        Debug.Log("ThrowBlocks method called");
         StartCoroutine(ThrowBlocksCoroutine());
+        
     }
 
     private IEnumerator ThrowBlocksCoroutine()

@@ -154,9 +154,6 @@ public partial class SceneController : MonoBehaviour
         if (goCanvas == null)
             goCanvas = GameObject.Find("__CANVAS/__UI Canvas");
 
-        if (GameEventCtrlr == null)
-            GameEventCtrlr = GameObject.Find("GameEventController").GetComponent<GameEventController>();
-
         imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
 
@@ -182,7 +179,7 @@ public partial class SceneController : MonoBehaviour
         SetCrosshairEnable(true);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
     }
 
     void Update()

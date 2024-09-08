@@ -39,10 +39,14 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 9.627075, g: 8.361488, b: 10.309586, a: 1}
 =======
   m_IndirectSpecularColor: {r: 9.474796, g: 8.189522, b: 9.950012, a: 1}
 >>>>>>> d376ef38fe9050b64066e35f5059b16597749544
+=======
+  m_IndirectSpecularColor: {r: 9.525204, g: 8.269669, b: 10.194778, a: 1}
+>>>>>>> parent of d376ef3 (森林場景-傳送時面像要走的方向)
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2821,8 +2825,6 @@ MonoBehaviour:
   tfPlayerBody: {fileID: 903126630}
   tfPlayerCam: {fileID: 71927084}
   canMove: 1
-  TargetLeft: {fileID: 2008446615}
-  TargetRight: {fileID: 1513448085}
 --- !u!82 &903126625
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3007,7 +3009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903126623}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 55.11, y: 5.86, z: -13.92}
+  m_LocalPosition: {x: 55.11, y: 6.34, z: -13.92}
   m_LocalScale: {x: 0.5, y: 0.79999995, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4323,54 +4325,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5971110055264177546, guid: f76ec252d4d58fb40a029fe9b5f7f61a, type: 3}
   m_PrefabInstance: {fileID: 1469498904}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1513448083
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1513448085}
-  - component: {fileID: 1513448084}
-  m_Layer: 0
-  m_Name: "\u53F3\u908A\u76F4\u8996"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!54 &1513448084
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513448083}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!4 &1513448085
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513448083}
-  m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 53.687, y: 6.309, z: -12.098}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
 --- !u!1001 &1534589034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5699,6 +5653,7 @@ Transform:
   m_PrefabInstance: {fileID: 1924425300}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1935068004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6111,3 +6066,5 @@ Transform:
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
 >>>>>>> d376ef38fe9050b64066e35f5059b16597749544
+=======
+>>>>>>> parent of d376ef3 (森林場景-傳送時面像要走的方向)

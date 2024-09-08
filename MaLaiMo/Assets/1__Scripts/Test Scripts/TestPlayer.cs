@@ -11,6 +11,9 @@ public class TestPlayer : MonoBehaviour
     public bool canMove = true;
     float fCamRotation = 0.0f;
 
+
+    public Transform TargetLeft;
+    public Transform TargetRight;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -52,7 +55,8 @@ public class TestPlayer : MonoBehaviour
         if (other.name == "左邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(55.11f, 6.34f, -13.92f);
+            gameObject.transform.position = new Vector3(55.11f, 5.86f, -13.92f);
+            gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }
@@ -60,6 +64,7 @@ public class TestPlayer : MonoBehaviour
         {
             canMove = false;
             gameObject.transform.position = new Vector3(53.99f, 5.86f, 114.1f);
+            gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }

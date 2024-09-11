@@ -38,17 +38,17 @@ public class TestManager : MonoBehaviour
 
     void Start()
     {
-        Btn_Straight.onClick.AddListener(GoStraight);
-        Btn_Back.onClick.AddListener(GoBack);
-        Btn_Reset.onClick.AddListener(Reset);
+        //Btn_Straight.onClick.AddListener(GoStraight);
+        //Btn_Back.onClick.AddListener(GoBack);
+        //Btn_Reset.onClick.AddListener(Reset);
     }
 
-    void GoStraight()
+    public void GoStraight()
     {
         CheckIsGoRight(GoWay.Straight);
     }
 
-    void GoBack()
+    public void GoBack()
     {
         CheckIsGoRight(GoWay.Back);
     }

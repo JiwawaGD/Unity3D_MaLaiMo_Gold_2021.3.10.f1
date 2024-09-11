@@ -5,11 +5,16 @@ public class TestPlayer : MonoBehaviour
 {
     float fMoveSpeed = 5.0f;
     float fMouseSensitivity = 100.0f;
+    private string NowDirection = "向左";
 
     public Transform tfPlayerBody;
     public Transform tfPlayerCam;
     public bool canMove = true;
+    public Transform TargetLeft;
+    public Transform TargetRight;
+    public TestManager TM;
     float fCamRotation = 0.0f;
+
 
     void Start()
     {
@@ -52,7 +57,14 @@ public class TestPlayer : MonoBehaviour
         if (other.name == "左邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(55.11f, 6.34f, -13.92f);
+            gameObject.transform.position = new Vector3(55.11f, 5.86f, -13.92f);
+            gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
+            if (NowDirection == "向左") TM.GoStraight();
+            else
+            {
+                TM.GoBack();
+                NowDirection = "向左";
+            }
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }
@@ -60,6 +72,13 @@ public class TestPlayer : MonoBehaviour
         {
             canMove = false;
             gameObject.transform.position = new Vector3(53.99f, 5.86f, 114.1f);
+            gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
+            if (NowDirection == "向右") TM.GoStraight();
+            else
+            {
+                TM.GoBack();
+                NowDirection = "向右";
+            }
             StartCoroutine(PlayAnimation());
             print("進去左邊");
         }

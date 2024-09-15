@@ -57,7 +57,7 @@ public class TestPlayer : MonoBehaviour
         if (other.name == "左邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(55.11f, 5.86f, -13.92f);
+            gameObject.transform.position = new Vector3(50.789f, 5.841f, -4.317f);
             gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
             if (NowDirection == "向左") TM.GoStraight();
             else
@@ -71,7 +71,7 @@ public class TestPlayer : MonoBehaviour
         else if (other.name == "右邊")
         {
             canMove = false;
-            gameObject.transform.position = new Vector3(53.99f, 5.86f, 114.1f);
+            gameObject.transform.position = new Vector3(50.35f, 5.841f, 106.155f);
             gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
             if (NowDirection == "向右") TM.GoStraight();
             else

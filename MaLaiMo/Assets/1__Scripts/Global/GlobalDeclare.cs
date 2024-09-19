@@ -101,19 +101,19 @@ public partial class GlobalDeclare
 
     public class ItemEvent
     {
-        public SceneTypeID sceneTypeID;
+        public LevelTypeID sceneTypeID;
 
         public ItemEvent()
         {
             switch (sceneTypeID)
             {
-                case SceneTypeID.BeginScene:
+                case LevelTypeID.BeginScene:
                     break;
-                case SceneTypeID.Introduce:
+                case LevelTypeID.Introduce:
                     break;
-                case SceneTypeID.Lv1_GrandmaHouse:
+                case LevelTypeID.Lv1_GrandmaHouse:
                     break;
-                case SceneTypeID.Lv2_GrandmaHouse:
+                case LevelTypeID.Lv2_GrandmaHouse:
                     break;
             }
         }

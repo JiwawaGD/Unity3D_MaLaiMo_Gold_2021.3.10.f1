@@ -1,6 +1,6 @@
 ﻿// 主要紀錄全部 Enum
 
-public enum SceneTypeID
+public enum LevelTypeID
 {
     BeginScene = 0,
     Introduce,
@@ -13,7 +13,7 @@ public enum GameEventID
     Close_UI = 0,
 
     // Lv1 : Scene_1
-    Lv1_Begin = 1,
+    Lv1_TalkToPackage = 1,
     Lv1_GrandmaRoomDoorOpen,
 
     // Lv2 : Scene_2
@@ -67,16 +67,6 @@ public enum PlayerAnimateType
     Player_Wake_Up,
     Player_Turn_After_Photo_Frame,
     Player_PlayPiano,
-}
-
-public enum IntelligenceLevel
-{
-    Empty = 0,
-    Level1 = 1,
-    Level2 = 2,
-    Level3 = 3,
-    Level4 = 4,
-    Level5 = 5
 }
 
 public enum Lv1_Dialogue

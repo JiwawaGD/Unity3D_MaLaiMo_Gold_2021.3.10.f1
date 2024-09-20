@@ -56,30 +56,32 @@ public class TestPlayer : MonoBehaviour
     {
         if (other.name == "左邊")
         {
-            canMove = false;
-            gameObject.transform.position = new Vector3(50.789f, 5.841f, -4.317f);
-            gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
+            //canMove = false;
+            //gameObject.transform.position = new Vector3(50.789f, 5.841f, -4.317f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.625f);
+            //gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
             if (NowDirection == "向左") TM.GoStraight();
             else
             {
                 TM.GoBack();
                 NowDirection = "向左";
             }
-            StartCoroutine(PlayAnimation());
+            //StartCoroutine(PlayAnimation());
             print("進去左邊");
         }
         else if (other.name == "右邊")
         {
-            canMove = false;
-            gameObject.transform.position = new Vector3(50.35f, 5.841f, 106.155f);
-            gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
+            //canMove = false;
+            //gameObject.transform.position = new Vector3(50.35f, 5.841f, 106.155f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.625f);
+            //gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
             if (NowDirection == "向右") TM.GoStraight();
             else
             {
                 TM.GoBack();
                 NowDirection = "向右";
             }
-            StartCoroutine(PlayAnimation());
+            //StartCoroutine(PlayAnimation());
             print("進去左邊");
         }
     }
@@ -87,6 +89,6 @@ public class TestPlayer : MonoBehaviour
     IEnumerator PlayAnimation()
     {
         yield return new WaitForSeconds(2f);
-        canMove = true;
+        //canMove = true;
     }
 }

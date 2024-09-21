@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: -623603649343465320
     second: Scene
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10dollar
+    second: {fileID: 2100000, guid: d28766b7ccab87048acc2265f5110dd5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

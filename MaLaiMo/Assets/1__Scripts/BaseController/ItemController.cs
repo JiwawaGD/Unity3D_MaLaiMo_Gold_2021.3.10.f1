@@ -72,7 +72,7 @@ public class ItemController : MonoBehaviour
             tfInteract = InteractObj.transform;
 
         if (gameManager == null)
-            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
+            gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController>();
 
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;

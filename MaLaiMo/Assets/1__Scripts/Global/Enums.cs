@@ -64,12 +64,11 @@ public enum ButtonEventID
 public enum PlayerAnimateType
 {
     Empty = 0,
-    Player_Wake_Up,
-    Player_Turn_After_Photo_Frame,
-    Player_PlayPiano,
+    FacePackageStandUp,
 }
 
 public enum Lv1_Dialogue
 {
     Empty = 0,
+    FacePackage = 1,
 }

@@ -24,23 +24,29 @@ public class DialogueManager : MonoBehaviour
     int ActionCount;
 
     AudioSource aud;
-    SceneController SceneCtrlr;
+    SubTitleController SubTitleCtrlr;
     int currentPos = 0; //當前打字位置
     bool m_bIsPlaying = false;
 
     void Start()
     {
         ActionCount = 0;
-        DialogueText = GameObject.Find("__DIAOGUES/DialogueUICanvas/DialogueText").GetComponent<Text>();
-        aud = GameObject.Find("__AUDIO/對話音效管理器").GetComponent<AudioSource>();
-        SceneCtrlr = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
+        DialogueText = GameObject.Find("_Dialogue/DialogueUICanvas/DialogueText").GetComponent<Text>();
+        aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
+        SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
     public void CallAction()
     {
         GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Empty;
 
-        SceneCtrlr.CurrentDialogue = gameObject.name;
+        if (SubTitleCtrlr == null)
+            SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
+
+        SubTitleCtrlr.CurrentDialogue = gameObject.name;
+
+        if (aud == null)
+            aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
 
         if (!m_bIsPlaying)
             StartCoroutine(StartAction());
@@ -77,7 +83,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            if (SceneCtrlr.CurrentDialogue == gameObject.name)
+            if (SubTitleCtrlr.CurrentDialogue == gameObject.name)
                 DialogueText.text = ActionEvent[ActionCount];
         }
 
@@ -129,5 +135,4 @@ public class DialogueManager : MonoBehaviour
     //    currentPos = 0;
     //    yield return null;
     //}
-
 }

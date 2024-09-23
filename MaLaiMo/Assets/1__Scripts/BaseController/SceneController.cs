@@ -150,12 +150,12 @@ public partial class SceneController : MonoBehaviour
     void Awake()
     {
         if (playerCtrlr == null)
-            playerCtrlr = GameObject.Find("__PLAYER/__Player").GetComponent<PlayerController>();
+            playerCtrlr = GameObject.Find("_Player/LingLing").GetComponent<PlayerController>();
 
         audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
         if (goCanvas == null)
-            goCanvas = GameObject.Find("__CANVAS/__UI Canvas");
+            goCanvas = GameObject.Find("_Canvas/_UICanvas");
 
         imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
         txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
@@ -326,15 +326,6 @@ public partial class SceneController : MonoBehaviour
         Animator ani = obj.transform.GetComponent<Animator>();
         ani.SetTrigger(r_strTriggerName);
         m_bShowItemAnimate = false;
-    }
-
-    // 執行玩家動畫
-    public void ProcessPlayerAnimator(string r_sAnimationName)
-    {
-        Animation am = playerCtrlr.GetComponent<Animation>();
-        am.Play(r_sAnimationName);
-        m_bShowPlayerAnimate = false;
-        GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
 
     // 執行玩家移動到指定區域

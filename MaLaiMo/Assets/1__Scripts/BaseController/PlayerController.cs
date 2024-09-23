@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
     ItemController last_Item;
     SceneController gameManager;
 
-
     void Awake()
     {
         rig = GetComponent<Rigidbody>();
@@ -61,14 +60,13 @@ public class PlayerController : MonoBehaviour
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
         if (gameManager == null)
-            gameManager = GameObject.Find("__CONTROLLER/__GameManager").GetComponent<SceneController>();
+            gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController>();
     }
 
     void Start()
     {
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
-        SetCursor();
     }
 
     void OnDrawGizmos()
@@ -87,28 +85,16 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
         }
-        else    // 在 UI 畫面時不可控制
-        {
-            if (Input.GetKeyDown(KeyCode.F6))
-                SetCursor();
-        }
     }
 
-    public void SetMouseSensitivity(float sensitivity)
-    {
-        MouseSensitivity = sensitivity;
-        // 在這裡處理滑鼠靈敏度的邏輯
-        // 例如，更新相應的變數，調整滑鼠靈敏度
-    }
     void FixedUpdate()
     {
-        // 暫時註解測試
-        //// 滑鼠顯示、無法控制時不可控制
-        //if (m_bCursorShow || !m_bCanControl)
-        //{
-        //    rig.velocity = Vector3.zero;
-        //    return;
-        //}
+        // 滑鼠顯示、無法控制時不可控制
+        if (m_bCursorShow || !m_bCanControl)
+        {
+            rig.velocity = Vector3.zero;
+            return;
+        }
 
         //// 播放動畫時不可控制
         //if (ani.isPlaying)
@@ -137,6 +123,20 @@ public class PlayerController : MonoBehaviour
         View();
     }
 
+    public void DefaultCursorState()
+    {
+        m_bCursorShow = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = m_bCursorShow;
+    }
+
+    public void SetMouseSensitivity(float sensitivity)
+    {
+        MouseSensitivity = sensitivity;
+        // 在這裡處理滑鼠靈敏度的邏輯
+        // 例如，更新相應的變數，調整滑鼠靈敏度
+    }
+
     void InitValue()
     {
         m_fUDSensitivity = 230;
@@ -148,7 +148,6 @@ public class PlayerController : MonoBehaviour
             fSensitivityAmplifier = 0.5f;
 
         m_bCursorShow = false;
-        m_bCanControl = true;
 
         audioSource.volume = 1f;
         audioSource.loop = false;

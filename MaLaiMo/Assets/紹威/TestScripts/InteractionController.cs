@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class InteractionController : MonoBehaviour
 {
@@ -7,30 +8,29 @@ public class InteractionController : MonoBehaviour
     public LayerMask InteractiveItem;
     public GameObject promptImage;
     public GameObject uiPreviewPanel;
-    public CoinTossView coinTossView;
+    public Camera playerCamera;
+    public Camera throwingCamera;
+    public Camera coinCloseupCamera;
+    
+    public GameObject coinPlusPlus;   // ++ 結果
+    public GameObject coinMinusMinus; // -- 結果
+    public GameObject coinPlusMinus;  // +- 結果
 
-    private Camera playerCamera;
+    public float throwingDuration = 1f;  // 投擲動作的持續時間
+    public float closeupDuration = 3f;   // 硬幣特寫的持續時間
+    public float returnDelay = 0.5f;     // 從特寫視角回到玩家視角的延遲
+
     private bool isLookingAtCoin = false;
+    private FirstPersonController fpsController;
 
     void Start()
     {
-        Debug.Log("InteractionController Start method called");
-        playerCamera = GetComponentInChildren<Camera>();
-        promptImage.gameObject.SetActive(false);
+        fpsController = GetComponent<FirstPersonController>();
+        promptImage.SetActive(false);
         uiPreviewPanel.SetActive(false);
-
-        if (coinTossView == null)
-        {
-            coinTossView = GetComponent<CoinTossView>();
-            if (coinTossView == null)
-            {
-                Debug.LogError("CoinTossView component not found");
-            }
-            else
-            {
-                Debug.Log("CoinTossView component found and assigned");
-            }
-        }
+        throwingCamera.gameObject.SetActive(false);
+        coinCloseupCamera.gameObject.SetActive(false);
+        DisableAllCoinObjects();
     }
 
     void Update()
@@ -40,52 +40,97 @@ public class InteractionController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactionDistance, InteractiveItem))
         {
-            promptImage.gameObject.SetActive(true);
+            promptImage.SetActive(true);
             isLookingAtCoin = true;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ShowUIPreview();
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(ThrowCoin());
+            }
         }
         else
         {
-            promptImage.gameObject.SetActive(false);
+            promptImage.SetActive(false);
             isLookingAtCoin = false;
-        }
-
-        if (uiPreviewPanel.activeSelf && Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoinTossView();
         }
     }
 
     void ShowUIPreview()
     {
         uiPreviewPanel.SetActive(true);
-        // 禁用玩家移動
-        GetComponent<FirstPersonController>().enabled = false;
+        fpsController.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    void StartCoinTossView()
+    void DisableAllCoinObjects()
     {
-        Debug.Log("StartCoinTossView called");
+        coinPlusPlus.SetActive(false);
+        coinMinusMinus.SetActive(false);
+        coinPlusMinus.SetActive(false);
+    }
+
+    IEnumerator ThrowCoin()
+    {
         uiPreviewPanel.SetActive(false);
-        if (coinTossView != null)
+        fpsController.enabled = false;
+        DisableAllCoinObjects();
+
+        // 切換到投擲攝像機（手部視角）
+        playerCamera.gameObject.SetActive(false);
+        throwingCamera.gameObject.SetActive(true);
+
+        // 等待投擲動作完成
+        yield return new WaitForSeconds(throwingDuration);
+
+        // 隨機選擇結果
+        int result = Random.Range(0, 3);
+        GameObject selectedCoin = null;
+        string resultString = "";
+
+        switch (result)
         {
-            if (coinTossView.coinTossCamera != null)
-            {
-                coinTossView.coinTossCamera.SetActive(true);
-            }
-            else
-            {
-                Debug.LogError("coinTossCamera in CoinTossView is null");
-            }
-            coinTossView.StartCoinToss();
+            case 0:
+                selectedCoin = coinPlusPlus;
+                resultString = "正正 (++)";
+                break;
+            case 1:
+                selectedCoin = coinMinusMinus;
+                resultString = "反反 (--)";
+                break;
+            case 2:
+                selectedCoin = coinPlusMinus;
+                resultString = "正反 (+-)";
+                break;
         }
-        else
-        {
-            Debug.LogError("CoinTossView is null");
-        }
+
+        // Debug 輸出投擲結果
+        Debug.Log("硬幣投擲結果: " + resultString);
+
+        // 啟用選中的硬幣物件
+        selectedCoin.SetActive(true);
+
+        // 切換到硬幣特寫攝像機
+        throwingCamera.gameObject.SetActive(false);
+        coinCloseupCamera.gameObject.SetActive(true);
+
+        // 等待特寫時間
+        yield return new WaitForSeconds(closeupDuration);
+
+        // 等待從特寫視角回到玩家視角的延遲
+        yield return new WaitForSeconds(returnDelay);
+
+        // 回到第一人稱視角
+        coinCloseupCamera.gameObject.SetActive(false);
+        DisableAllCoinObjects();
+        playerCamera.gameObject.SetActive(true);
+
+        // 重新啟用 FPS 控制器
+        fpsController.enabled = true;
     }
 }

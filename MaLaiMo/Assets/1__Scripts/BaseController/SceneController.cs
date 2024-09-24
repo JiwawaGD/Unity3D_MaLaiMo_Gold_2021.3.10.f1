@@ -385,19 +385,6 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    public void GrandMaRush()   // 阿嬤衝撞
-    {
-        m_iGrandmaRushCount++;
-
-        if (m_iGrandmaRushCount >= 10)
-        {
-            CancelInvoke(nameof(GrandMaRush));
-            playerCtrlr.m_bCanControl = false;
-            goCanvas.SetActive(true);
-            imgUIBackGround.color = new Color(0, 0, 0, 0.95f);
-        }
-    }
-
     void QuitLotusGame()
     {
         bIsPlayingLotus = false;

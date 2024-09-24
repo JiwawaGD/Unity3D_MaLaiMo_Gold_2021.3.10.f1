@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     ItemController last_Item;
     SceneController gameManager;
 
+    SubTitleController SubtitleCtrlr;
+
     void Awake()
     {
         rig = GetComponent<Rigidbody>();
@@ -61,6 +63,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager == null)
             gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController>();
+
+        if (SubtitleCtrlr == null)
+            SubtitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
     void Start()
@@ -89,6 +94,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (SubtitleCtrlr.m_bIsPlayingCannotMove)
+            return;
+
         // 滑鼠顯示、無法控制時不可控制
         if (m_bCursorShow || !m_bCanControl)
         {
@@ -119,8 +127,8 @@ public class PlayerController : MonoBehaviour
                 audioSource.Stop();
         }
 
-        Move();
         View();
+        Move();
     }
 
     public void DefaultCursorState()

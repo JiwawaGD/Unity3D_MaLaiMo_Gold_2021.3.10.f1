@@ -11,7 +11,6 @@ public class SceneLoaderSystem : MonoBehaviour
 
     private void Awake()
     {
-
         GameObject fadeObject = new GameObject("FadeObject");
         Canvas fadeCanvas = fadeObject.AddComponent<Canvas>();
         fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;

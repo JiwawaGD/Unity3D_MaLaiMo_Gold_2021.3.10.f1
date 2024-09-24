@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
             SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
 
         SubTitleCtrlr.CurrentDialogue = gameObject.name;
+        SubTitleCtrlr.m_bIsPlayingCannotMove = true;
 
         if (aud == null)
             aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
@@ -96,6 +97,7 @@ public class DialogueManager : MonoBehaviour
         {
             ActionCount = 0;
             m_bIsPlaying = false;
+            SubTitleCtrlr.m_bIsPlayingCannotMove = false;
             StopCoroutine(StartAction());
         }
     }

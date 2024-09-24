@@ -57,13 +57,16 @@ public partial class GameEventController : MonoBehaviour
     #endregion
 
     #region - External Function -
+    public void DealDelay()
+    {
+
+    }
+
+    #region - Animation Type -
     public void ProcessPlayerAnimator(string r_sAnimationName)
     {
         Transform tfPlayer = GameObject.Find("_Player/LingLing").transform;
         Animation Am = tfPlayer.GetComponent<Animation>();
-
-        Debug.Log("Animation Name: " + r_sAnimationName);
-        Debug.Log("Animation Clip: " + Am.clip.name);
 
         Am.PlayQueued(r_sAnimationName);
         GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
@@ -107,5 +110,6 @@ public partial class GameEventController : MonoBehaviour
 
         PlayerCtrlr.tfPlayerCamera.localRotation = r_CameraRotation;
     }
+    #endregion
     #endregion
 }

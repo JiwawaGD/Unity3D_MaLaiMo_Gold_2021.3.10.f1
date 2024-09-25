@@ -14,7 +14,9 @@ public partial class GameEventController
         PlayerCtrlr.m_bCanControl = true;
 
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
-        DialogueObjects[(byte)Lv1_Dialogue.FacePackage].CallAction();
+        GlobalDeclare.SetDialogueEvent((byte)Lv1_Dialogue.KnockDoor);
+        GlobalDeclare.SetPlayerMovable(true);
+        DialogueObjects[(byte)Lv1_Dialogue.FacePackage].CallAction(false);
     }
 
     void Lv1_GrandmaRoomDoorOpen()

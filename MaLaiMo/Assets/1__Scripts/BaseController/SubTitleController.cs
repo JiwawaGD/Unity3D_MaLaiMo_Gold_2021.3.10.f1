@@ -6,6 +6,7 @@ using UnityEngine;
 public class SubTitleController : MonoBehaviour
 {
     public SceneController SceneCtrlr;
+    public GameEventController GameEventCtrlr;
 
     public string CurrentDialogue;
 
@@ -13,6 +14,9 @@ public class SubTitleController : MonoBehaviour
 
     public void CheckHasDealDelay()
     {
-
+        if (GlobalDeclare.GetDialogueEvent() != 0)
+        {
+            GameEventCtrlr.DialogueObjects[GlobalDeclare.GetDialogueEvent()].CallAction(GlobalDeclare.GetPlayerMovable());
+        }
     }
 }

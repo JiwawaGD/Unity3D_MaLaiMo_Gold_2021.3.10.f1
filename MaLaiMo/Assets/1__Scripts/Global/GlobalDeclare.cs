@@ -6,6 +6,7 @@ public partial class GlobalDeclare
     public class PlayerState
     {
         public static PlayerAnimateType aniType;
+        public static bool bCanControl;
 
         public PlayerState()
         {
@@ -21,6 +22,16 @@ public partial class GlobalDeclare
     public static PlayerAnimateType GetPlayerAnimateType()
     {
         return PlayerState.aniType;
+    }
+
+    public static void SetPlayerMovable(bool r_bEnable)
+    {
+        PlayerState.bCanControl = r_bEnable;
+    }
+
+    public static bool GetPlayerMovable()
+    {
+        return PlayerState.bCanControl;
     }
     #endregion
 
@@ -98,6 +109,25 @@ public partial class GlobalDeclare
         }
     }
     #endregion
+
+    public class DialogueState
+    {
+        public static byte byDialogueEvent;
+
+        public DialogueState()
+        {
+            byDialogueEvent = 0;
+        }
+    }
+    public static void SetDialogueEvent(byte r_byDialogueEventID)
+    {
+        DialogueState.byDialogueEvent = r_byDialogueEventID;
+    }
+
+    public static byte GetDialogueEvent()
+    {
+        return DialogueState.byDialogueEvent;
+    }
 
     public class ItemEvent
     {

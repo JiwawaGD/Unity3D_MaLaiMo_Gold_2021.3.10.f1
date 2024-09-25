@@ -4,9 +4,11 @@ using UnityEngine;
 public partial class GameEventController : MonoBehaviour
 {
     #region - Field -
-    [SerializeField] [Header("對話物件")] DialogueManager[] DialogueObjects;
+    [SerializeField] [Header("對話物件")] public DialogueManager[] DialogueObjects;
 
     [SerializeField] [Header("玩家")] PlayerController PlayerCtrlr;
+
+    [SerializeField] [Header("字幕控制器")] SubTitleController SubTitleCtrlr;
     #endregion
 
     #region - Basic Function -

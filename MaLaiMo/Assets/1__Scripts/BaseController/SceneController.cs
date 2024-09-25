@@ -177,7 +177,6 @@ public partial class SceneController : MonoBehaviour
 
     void Start()
     {
-        DialogueObjects[(byte)Lv1_Dialogue.Empty].CallAction();
         RegisterButton();
         SetCrosshairEnable(true);
 

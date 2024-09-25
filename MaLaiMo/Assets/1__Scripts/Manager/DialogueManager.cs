@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
         SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
-    public void CallAction()
+    public void CallAction(bool r_bPlayerCanMove)
     {
         GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Empty;
 
@@ -44,7 +44,7 @@ public class DialogueManager : MonoBehaviour
             SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
 
         SubTitleCtrlr.CurrentDialogue = gameObject.name;
-        SubTitleCtrlr.m_bIsPlayingCannotMove = true;
+        SubTitleCtrlr.m_bIsPlayingCannotMove = !r_bPlayerCanMove;
 
         if (aud == null)
             aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
@@ -98,6 +98,7 @@ public class DialogueManager : MonoBehaviour
             ActionCount = 0;
             m_bIsPlaying = false;
             SubTitleCtrlr.m_bIsPlayingCannotMove = false;
+            SubTitleCtrlr.CheckHasDealDelay();
             StopCoroutine(StartAction());
         }
     }

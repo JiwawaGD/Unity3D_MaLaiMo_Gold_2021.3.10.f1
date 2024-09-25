@@ -71,4 +71,5 @@ public enum Lv1_Dialogue
 {
     Empty = 0,
     FacePackage = 1,
+    KnockDoor = 2,
 }

@@ -17,6 +17,7 @@ public class SubTitleController : MonoBehaviour
         if (GlobalDeclare.GetDialogueEvent() != 0)
         {
             GameEventCtrlr.DialogueObjects[GlobalDeclare.GetDialogueEvent()].CallAction(GlobalDeclare.GetPlayerMovable());
+            GlobalDeclare.SetDialogueEvent((byte)Lv1_Dialogue.Empty);
         }
     }
 }

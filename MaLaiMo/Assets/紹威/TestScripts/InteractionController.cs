@@ -9,32 +9,43 @@ public class InteractionController : MonoBehaviour
     public GameObject promptImage;
     public GameObject uiPreviewPanel;
     public Camera playerCamera;
-    public Camera throwingCamera;
     public Camera coinCloseupCamera;
     
     public GameObject coinPlusPlus;   // ++ 結果
     public GameObject coinMinusMinus; // -- 結果
     public GameObject coinPlusMinus;  // +- 結果
 
-    public float throwingDuration = 1f;  // 投擲動作的持續時間
+    public GameObject hand; // 手部模型
+
+    public float throwingDuration = 1f;  // 鏡頭旋轉到20.9度的時間
+    public float holdDuration = 6.15f;   // 保持在20.9度的時間
     public float closeupDuration = 3f;   // 硬幣特寫的持續時間
     public float returnDelay = 0.5f;     // 從特寫視角回到玩家視角的延遲
 
     private bool isLookingAtCoin = false;
     private FirstPersonController fpsController;
+    private bool isThrowingCoin = false;
+    private Quaternion originalRotation;
 
     void Start()
     {
         fpsController = GetComponent<FirstPersonController>();
+        if (fpsController == null)
+        {
+            Debug.LogError("FirstPersonController not found on this GameObject!");
+        }
+        
         promptImage.SetActive(false);
         uiPreviewPanel.SetActive(false);
-        throwingCamera.gameObject.SetActive(false);
         coinCloseupCamera.gameObject.SetActive(false);
+        hand.SetActive(false);
         DisableAllCoinObjects();
     }
 
     void Update()
     {
+        if (isThrowingCoin) return;
+
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
@@ -77,18 +88,20 @@ public class InteractionController : MonoBehaviour
 
     IEnumerator ThrowCoin()
     {
+        isThrowingCoin = true;
         uiPreviewPanel.SetActive(false);
         fpsController.enabled = false;
         DisableAllCoinObjects();
 
-        // 切換到投擲攝像機（手部視角）
-        playerCamera.gameObject.SetActive(false);
-        throwingCamera.gameObject.SetActive(true);
+        originalRotation = playerCamera.transform.localRotation;
+        Quaternion throwRotation = Quaternion.Euler(20.9f, originalRotation.eulerAngles.y, originalRotation.eulerAngles.z);
 
-        // 等待投擲動作完成
-        yield return new WaitForSeconds(throwingDuration);
+        yield return StartCoroutine(SmoothRotateCamera(originalRotation, throwRotation, throwingDuration));
 
-        // 隨機選擇結果
+        hand.SetActive(true);
+        yield return new WaitForSeconds(holdDuration);
+        hand.SetActive(false);
+
         int result = Random.Range(0, 3);
         GameObject selectedCoin = null;
         string resultString = "";
@@ -109,28 +122,35 @@ public class InteractionController : MonoBehaviour
                 break;
         }
 
-        // Debug 輸出投擲結果
         Debug.Log("硬幣投擲結果: " + resultString);
-
-        // 啟用選中的硬幣物件
         selectedCoin.SetActive(true);
 
-        // 切換到硬幣特寫攝像機
-        throwingCamera.gameObject.SetActive(false);
+        playerCamera.gameObject.SetActive(false);
         coinCloseupCamera.gameObject.SetActive(true);
 
-        // 等待特寫時間
         yield return new WaitForSeconds(closeupDuration);
-
-        // 等待從特寫視角回到玩家視角的延遲
         yield return new WaitForSeconds(returnDelay);
 
-        // 回到第一人稱視角
         coinCloseupCamera.gameObject.SetActive(false);
-        DisableAllCoinObjects();
         playerCamera.gameObject.SetActive(true);
 
-        // 重新啟用 FPS 控制器
+        // 立即恢復原始相機角度
+        playerCamera.transform.localRotation = originalRotation;
+
+        DisableAllCoinObjects();
         fpsController.enabled = true;
+        isThrowingCoin = false;
+    }
+
+    IEnumerator SmoothRotateCamera(Quaternion startRotation, Quaternion endRotation, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            playerCamera.transform.localRotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        playerCamera.transform.localRotation = endRotation;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5225.711, g: 3338.664, b: 2303.0273, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2107,6 +2107,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   promptImage: {fileID: 913908538}
+  itemCoinObj: {fileID: 1549452034}
   uiPreviewPanel: {fileID: 1361362267}
   playerCamera: {fileID: 1343027990}
   coinCloseupCamera: {fileID: 1055940914}

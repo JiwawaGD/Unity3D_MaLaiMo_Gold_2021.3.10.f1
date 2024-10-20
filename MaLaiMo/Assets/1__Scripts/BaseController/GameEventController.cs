@@ -38,7 +38,7 @@ public partial class GameEventController : MonoBehaviour
             case GameEventID.Lv1_TalkToPackage:
                 Lv1_TalkToPackage();
                 break;
-            case GameEventID.Lv1_GrandmaRoomDoorOpen:
+            case GameEventID.Lv1_002_OpenDoor:
                 Lv1_GrandmaRoomDoorOpen();
                 break;
             default:

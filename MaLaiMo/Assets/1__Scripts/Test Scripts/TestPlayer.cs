@@ -56,6 +56,7 @@ public class TestPlayer : MonoBehaviour
     {
         if (other.name == "左邊")
         {
+            Animator ani = gameObject.GetComponent<Animator>();
             //canMove = false;
             //gameObject.transform.position = new Vector3(50.789f, 5.841f, -4.317f);
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.625f);

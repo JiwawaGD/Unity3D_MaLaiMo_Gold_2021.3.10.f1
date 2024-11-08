@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class TestPlayer : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class TestPlayer : MonoBehaviour
     public Transform TargetRight;
     public TestManager TM;
     float fCamRotation = 0.0f;
-
+    public Animation Ani;
 
     void Start()
     {
@@ -43,7 +44,6 @@ public class TestPlayer : MonoBehaviour
     {
         float fMouseX = Input.GetAxis("Mouse X") * fMouseSensitivity * Time.deltaTime;
         float fMouseY = Input.GetAxis("Mouse Y") * fMouseSensitivity * Time.deltaTime;
-
         fCamRotation -= fMouseY;
         fCamRotation = Mathf.Clamp(fCamRotation, -90.0f, 90.0f);
 
@@ -54,42 +54,68 @@ public class TestPlayer : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (Ani.enabled == true) return;
+
         if (other.name == "左邊")
         {
-            Animator ani = gameObject.GetComponent<Animator>();
-            //canMove = false;
-            //gameObject.transform.position = new Vector3(50.789f, 5.841f, -4.317f);
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.625f);
-            //gameObject.transform.LookAt(new Vector3(TargetRight.position.x, transform.position.y, TargetRight.position.z));
+            Ani.enabled = true;
+            canMove = false;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.63f);
             if (NowDirection == "向左") TM.GoStraight();
             else
             {
                 TM.GoBack();
                 NowDirection = "向左";
             }
-            //StartCoroutine(PlayAnimation());
+            tfPlayerBody.DOMove(new Vector3(51f, 5.799085f, -9.55f), 0.5f).OnComplete(() =>
+            {
+                tfPlayerBody.DORotate(new Vector3(0, -113.2f, 0), 1f);
+                tfPlayerCam.DOLocalRotate(new Vector3(42.5f, 0, 0), 1f).OnComplete(() =>
+                {
+                    StartCoroutine(PlayAnimation("Player_Forest_left"));
+                }); 
+            });
             print("進去左邊");
         }
         else if (other.name == "右邊")
         {
-            //canMove = false;
-            //gameObject.transform.position = new Vector3(50.35f, 5.841f, 106.155f);
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.625f);
-            //gameObject.transform.LookAt(new Vector3(TargetLeft.position.x, transform.position.y, TargetLeft.position.z));
+            Ani.enabled = true;
+            canMove = false;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.63f);
             if (NowDirection == "向右") TM.GoStraight();
             else
             {
                 TM.GoBack();
                 NowDirection = "向右";
             }
-            //StartCoroutine(PlayAnimation());
-            print("進去左邊");
+            tfPlayerBody.DOMove(new Vector3(50.468f, 5.799085f, 108.118f), 0.5f).OnComplete(() =>
+            {
+                tfPlayerBody.DORotate(new Vector3(0, -116.6f, 0), 1f);
+                tfPlayerCam.DOLocalRotate(new Vector3(38.83f, 0, 0), 1f).OnComplete(() =>
+                {
+                    StartCoroutine(PlayAnimation("Player_Forest_Right"));
+                });
+            });
+            print("進去右邊");
         }
     }
 
-    IEnumerator PlayAnimation()
+    IEnumerator PlayAnimation(string direction)
     {
-        yield return new WaitForSeconds(2f);
-        //canMove = true;
+        yield return new WaitForSeconds(0.1f);
+        Ani.PlayQueued(direction);
+        yield return new WaitForSeconds(6.2f);
+        Ani.enabled = false;
+        canMove = true;
+        if (direction == "Player_Forest_left")
+        {
+            tfPlayerBody.rotation = Quaternion.Euler(0, 36.8f, 0);
+            tfPlayerCam.localRotation = Quaternion.Euler(8.3f, 0, 0);
+        } 
+        else
+        {
+            tfPlayerBody.rotation = Quaternion.Euler(0, -220.95f, 0);
+            tfPlayerCam.localRotation = Quaternion.Euler(7.5f, 0, 0);
+        }
     }
 }

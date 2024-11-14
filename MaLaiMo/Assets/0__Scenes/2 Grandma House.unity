@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -758,6 +758,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &22722695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3477,6 +3479,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &110119276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5081,7 +5085,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionEvent:
-  - '{%voice:0;1'
+  - "(\u6536\u62FE\u8863\u7269\u8072)"
+  - '{%wait:1'
+  - ' '
   - '{%wait:1'
   - "\u7433\u7433\uFF1A\u9019\u6A23\u5C31\u6574\u7406\u5F97\u5DEE\u4E0D\u591A\u4E86\u3002"
   - '{%wait:2'
@@ -5089,18 +5095,12 @@ MonoBehaviour:
   - '{%object:0;true;1'
   - '{%wait:2'
   - '{%object:0;true;0'
-  - '{%wait:3'
-  - '{%voice:1;1'
-  - '{%wait:1'
-  - '{%voice:2;1'
-  - "\u5ABD\u5ABD\uFF1A\u7433\u7433\uFF0C\u597D\u4E86\u5C31\u8D95\u5FEB\u51FA\u4F86\u5E6B\u5FD9\uFF01"
-  - '{%wait:2'
-  - ' '
+  - 
   HandleObject:
   - {fileID: 1860227657}
-  Voices:
-  - {fileID: 0}
-  - {fileID: 0}
+  Voices: []
+  DialogueText: {fileID: 695682056}
+  SubTitleCtrlr: {fileID: 20542129}
 --- !u!1001 &151677687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5683,6 +5683,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &174038218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5864,6 +5866,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &183419066
 GameObject:
   m_ObjectHideFlags: 0
@@ -5917,6 +5921,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &183975870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6900,6 +6906,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &210596136
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,6 +7131,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &220265387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7805,7 +7815,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &238983468
 MonoBehaviour:
@@ -7828,6 +7838,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &239251151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8336,6 +8348,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!4 &252459522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5757625748647864965, guid: e1c70865343d4c64092ad6d64fe13d98, type: 3}
@@ -8737,6 +8751,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
+--- !u!1 &265601283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265601284}
+  - component: {fileID: 265601285}
+  m_Layer: 0
+  m_Name: Lv1_000_HintMove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &265601284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265601283}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 825319719}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265601285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265601283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913c14b5b7c70444ab4cf8ba091e2f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionEvent:
+  - "(\u4E09\u8072\u6572\u9580\u8072)"
+  - '{%wait:2'
+  - ' '
+  - '{%wait:2'
+  - "\u5ABD\u5ABD\uFF1A\u7433\u7433\uFF0C\u597D\u4E86\u5C31\u8D95\u5FEB\u51FA\u4F86\u5E6B\u5FD9\uFF01"
+  - '{%wait:2'
+  - ' '
+  HandleObject: []
+  Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &268649072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9989,6 +10059,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &309490361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12138,6 +12210,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &378675565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14288,7 +14362,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &408259896
 MonoBehaviour:
@@ -14307,6 +14381,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!4 &408850678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709258971796315125, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
@@ -14709,7 +14785,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &432207644
 MonoBehaviour:
@@ -14728,6 +14804,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: a0d4c6993f1a8574381e7507746b6ab3, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &432419831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17980,6 +18058,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &504465107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20426,7 +20506,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &568953405
 MonoBehaviour:
@@ -20456,6 +20536,8 @@ MonoBehaviour:
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!4 &569982721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709258971796315125, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
@@ -20667,7 +20749,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &583345090
 MonoBehaviour:
@@ -20688,6 +20770,8 @@ MonoBehaviour:
   HandleObject:
   - {fileID: 1631569206}
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &584038035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21616,6 +21700,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &597880756
 GameObject:
   m_ObjectHideFlags: 0
@@ -23340,6 +23426,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &637798666
 GameObject:
   m_ObjectHideFlags: 0
@@ -24449,6 +24537,8 @@ MonoBehaviour:
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &677848035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24647,6 +24737,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &680889424
 GameObject:
   m_ObjectHideFlags: 0
@@ -27751,6 +27843,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &773331690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29937,6 +30031,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 149399523}
+  - {fileID: 265601284}
   - {fileID: 432207643}
   - {fileID: 568953404}
   - {fileID: 828458965}
@@ -30124,7 +30219,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &828458966
 MonoBehaviour:
@@ -30149,6 +30244,8 @@ MonoBehaviour:
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &830174966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30619,7 +30716,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &842438318
 MonoBehaviour:
@@ -30640,6 +30737,8 @@ MonoBehaviour:
   HandleObject:
   - {fileID: 1631569206}
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &842805216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30849,7 +30948,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &844757754
 MonoBehaviour:
@@ -30868,6 +30967,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &846760739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31065,6 +31166,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &849313186
 GameObject:
   m_ObjectHideFlags: 0
@@ -31918,6 +32021,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &875244281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32116,6 +32221,8 @@ MonoBehaviour:
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &887032141
 GameObject:
   m_ObjectHideFlags: 0
@@ -32795,6 +32902,8 @@ MonoBehaviour:
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &923432131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35843,7 +35952,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &985041384
 MonoBehaviour:
@@ -35862,6 +35971,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &986702268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36931,7 +37042,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1009691886
 MonoBehaviour:
@@ -36950,6 +37061,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!4 &1012313666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709258971796315125, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
@@ -37966,6 +38079,8 @@ MonoBehaviour:
   - ' '
   HandleObject: []
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1054395784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39927,7 +40042,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1095109552
 MonoBehaviour:
@@ -39949,6 +40064,8 @@ MonoBehaviour:
   HandleObject:
   - {fileID: 1631569206}
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1095999502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41011,7 +41128,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -41025,7 +41142,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1141666454}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
@@ -42983,7 +43100,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1221909763
 MonoBehaviour:
@@ -43004,6 +43121,8 @@ MonoBehaviour:
   HandleObject:
   - {fileID: 1631569206}
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1223963182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43627,6 +43746,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!4 &1233210287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709258971796315125, guid: 4429ab7b8dab58143b8ce5fa236e1661, type: 3}
@@ -49218,7 +49339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1267232782
 MonoBehaviour:
@@ -49237,6 +49358,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!114 &1268483912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51913,6 +52036,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1370231309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54472,7 +54597,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1422723340
 MonoBehaviour:
@@ -54494,6 +54619,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1427744743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58439,6 +58566,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1547461146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60233,6 +60362,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1596760549
 GameObject:
   m_ObjectHideFlags: 0
@@ -60830,6 +60961,8 @@ MonoBehaviour:
   - ' '
   HandleObject: []
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1610436242
 GameObject:
   m_ObjectHideFlags: 0
@@ -60880,6 +61013,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1611026800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61327,6 +61462,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1640174815
 GameObject:
   m_ObjectHideFlags: 0
@@ -62536,7 +62673,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1658025128
 MonoBehaviour:
@@ -62557,6 +62694,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1658302565
 GameObject:
   m_ObjectHideFlags: 0
@@ -64984,6 +65123,8 @@ MonoBehaviour:
   - ' '
   HandleObject: []
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1723805139
 GameObject:
   m_ObjectHideFlags: 0
@@ -65560,6 +65701,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1736898307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65669,7 +65812,7 @@ MonoBehaviour:
   DialogueObjects:
   - {fileID: 0}
   - {fileID: 149399524}
-  - {fileID: 0}
+  - {fileID: 265601285}
   PlayerCtrlr: {fileID: 1141666455}
   SubTitleCtrlr: {fileID: 20542129}
 --- !u!1001 &1739485756
@@ -68212,6 +68355,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1 &1805220176
 GameObject:
   m_ObjectHideFlags: 0
@@ -69573,6 +69718,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!114 &1848742718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70859,6 +71006,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1889049975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71778,6 +71927,8 @@ MonoBehaviour:
   HandleObject:
   - {fileID: 0}
   Voices: []
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1919408127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73493,6 +73644,8 @@ MonoBehaviour:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &1958914571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75139,7 +75292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 825319719}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999746352
 MonoBehaviour:
@@ -75173,6 +75326,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &2001006908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76718,6 +76873,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &2043554991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77898,6 +78055,8 @@ MonoBehaviour:
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  DialogueText: {fileID: 0}
+  SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &2084818615
 PrefabInstance:
   m_ObjectHideFlags: 0

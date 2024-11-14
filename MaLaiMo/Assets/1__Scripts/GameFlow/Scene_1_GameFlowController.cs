@@ -14,7 +14,7 @@ public partial class GameEventController
         PlayerCtrlr.m_bCanControl = true;
 
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
-        GlobalDeclare.SetDialogueEvent((byte)Lv1_Dialogue.KnockDoor);
+        GlobalDeclare.SetDialogueEvent((byte)Lv1_Dialogue.HintMove);
         GlobalDeclare.SetPlayerMovable(true);
         DialogueObjects[(byte)Lv1_Dialogue.FacePackage].CallAction(false);
     }

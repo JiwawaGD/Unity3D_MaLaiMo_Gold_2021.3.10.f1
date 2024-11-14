@@ -19,12 +19,12 @@ public class DialogueManager : MonoBehaviour
     [Header("添加的音效")]
     public AudioClip[] Voices;
 
-    Text DialogueText;
+    public Text DialogueText;
+    public SubTitleController SubTitleCtrlr;
 
     int ActionCount;
 
     AudioSource aud;
-    SubTitleController SubTitleCtrlr;
     int currentPos = 0; //當前打字位置
     bool m_bIsPlaying = false;
 

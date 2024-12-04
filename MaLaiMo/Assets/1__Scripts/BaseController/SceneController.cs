@@ -1,11 +1,9 @@
 using System.Collections;
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-
 using DG.Tweening;
 
 public partial class SceneController : MonoBehaviour
@@ -22,19 +20,19 @@ public partial class SceneController : MonoBehaviour
 
     [Header("Volume參數設定")]
     [SerializeField]
-    float fTargetIntensity = 1f;
+    protected float fTargetIntensity = 1f;
     readonly float fChangeSpeed = 1f;
 
     [SerializeField] GameObject[] taskListUi;
     [Space]
     [Header("物件旋轉參數設定")]
-    bool isMoveingObject = false;    // 是否正在移動物件
-    public Vector3 originalPosition;    // 原始位置
-    public Quaternion originalRotation; // 原始旋轉
+    protected bool isMoveingObject = false;    // 是否正在移動物件
+    protected Vector3 originalPosition;    // 原始位置
+    protected Quaternion originalRotation; // 原始旋轉
 
-    [SerializeField] AUDManager audManager;
+    [SerializeField] protected AUDManager audManager;
     // 音效管理器
-    [Header("遊戲結束畫面UI")] public GameObject FinalUI;
+
     [Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件功能")] public bool romanager;
     [Header("全域變數")] public Volume postProcessVolume;
@@ -44,38 +42,28 @@ public partial class SceneController : MonoBehaviour
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
     [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
+    [SerializeField] [Header("對話程序")] public DialogueManager[] DialogueObjects;
     [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("Video 撥放器")] VideoPlayer videoPlayer;
-    [SerializeField] [Header("QRCode UI")] GameObject QRCodeUI;
-    [SerializeField] [Header("準心 UI")] GameObject CrosshairUI;
-    [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
-    [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
-    [SerializeField] [Header("追蹤物件位置")] Transform[] Targers;
-    [SerializeField] [Header("鋼琴提示介面")] GameObject PianoUI;
-    int m_iGrandmaRushCount;
-    Scene currentScene;
+    [SerializeField] [Header("Video 撥放器")] public VideoPlayer videoPlayer;
+    [SerializeField] [Header("QRCode UI")] public GameObject QRCodeUI;
+    [SerializeField] [Header("準心 UI")] public GameObject CrosshairUI;
+    [SerializeField] [Header("追蹤物件位置")] protected Transform[] Targers;
+    protected Scene currentScene;
 
     ItemController TempItem;
 
-    [SerializeField] [Header("電視 White noise 材質球")] Material Lv1_matTVWhiteNoise;
-
     #region Canvas Zone
-    GameObject goCanvas;
+    public GameObject goCanvas;
     Image imgUIBackGround;
     Text txtTitle;
 
-    Image imgInstructions;
-    Text txtInstructions;
-    Text txtIntroduce;
+    protected Image imgInstructions;
+    protected Text txtInstructions;
+    protected Text txtIntroduce;
 
-    Button ExitBtn;
-    Text txtEnterGameHint;
-    Button EnterGameBtn;
-    #endregion
-
-    #region Light Zone
-    public GameObject goPhotoFrameLight;
+    protected Button ExitBtn;
+    protected Text txtEnterGameHint;
+    protected Button EnterGameBtn;
     #endregion
 
     #region Static Boolean Zone
@@ -91,63 +79,21 @@ public partial class SceneController : MonoBehaviour
     public static bool m_bToiletGhostHasShow = false;
     #endregion
 
-    #region Game Point
-    bool bLv1_HasGrandmaRoomKey = false;
-    bool bLv1_HasFlashlight = false;
-    bool bLv1_TriggerRiceFuneral = false;
 
-    bool bLv2_HasGrandmaRoomKey = false;
-    bool bLv2_HasFlashlight = false;
-    bool bLv2_TriggerLastAnimateAfterPhotoFrame = false;
-    #endregion
-
-    #region - All Scene Items -
-    [Header("場景一物件")]
-    [SerializeField] [Header("Lv1_阿嬤的房間門")] ItemController Lv1_Grandma_ROOM_Door_Item;
-    [SerializeField] [Header("Lv1_房間燈開關")] ItemController Lv1_Light_Switch_Item;
-    [SerializeField] [Header("Lv1_手電筒")] ItemController Lv1_FlashLight_Item;
-    [SerializeField] [Header("Lv1_水龍頭")] ItemController Lv1_Faucet_Item;
-    [SerializeField] [Header("Lv1_水龍頭水粒子")] GameObject Lv1_Faucet_Flush_Obj;
-    [SerializeField] [Header("Lv1_廁所門")] ItemController Lv1_Toilet_Door_Item;
-    [SerializeField] [Header("Lv1_鋼琴")] ItemController Lv1_Piano_Item;
-    [SerializeField] [Header("Lv1_娃娃 Ani")] Animator Lv1_Doll_Ani;
-
-    [SerializeField] [Header("Lv1_還沒摺的蓮花紙")] GameObject Lv1_Lotus_Paper_Obj;
-    [SerializeField] [Header("Lv1_蓮花紙旁的蠟燭")] GameObject Lv1_Lotus_Candle_Obj;
-    [SerializeField] [Header("Lv1_摺好的紙蓮花")] GameObject Lv1_Finished_Lotus_Paper_Obj;
-    [SerializeField] [Header("Lv1_放紙蓮花的盤子")] GameObject Lv1_Lotus_Paper_Plate_Obj;
-
-    [Header("場景二物件")]
-    [SerializeField] [Header("Lv2_手電筒")] ItemController Lv2_FlashLight_Item;
-    [SerializeField] [Header("Lv2_小邊桌")] ItemController Lv2_SideTable_Item;
-    [SerializeField] [Header("Lv2_阿嬤房間門")] ItemController Lv2_Grandma_Room_Door_Item;
-
-    [SerializeField] [Header("Lv2_鬼阿嬤")] GameObject Lv2_Grandma_Ghost_Obj;
-    [SerializeField] [Header("Lv2_廚房物件_狀態一")] GameObject Lv2_Furniture_State_1_Obj;
-    [SerializeField] [Header("Lv2_廚房物件_狀態二")] GameObject Lv2_Furniture_State_2_Obj;
-    [SerializeField] [Header("Lv2_廁所鬼頭")] GameObject Lv2_Toilet_Door_GhostHead_Obj;
-    [SerializeField] [Header("Lv2_阿嬤哭聲撥放器")] GameObject Lv2_Grandma_Cry_Audio_Obj;
-    [SerializeField] [Header("Lv2_走廊門框")] GameObject Lv2_Corridor_Door_Frame_Obj;
-    [SerializeField] [Header("Lv2_取代走廊門框的牆壁")] GameObject Lv2_Wall_Replace_Door_Frame_Obj;
-    #endregion
 
     #region - Empty Field => For Memory -
-    BoxCollider TempBoxCollider;
-    GameObject TempGameObject;
+    public BoxCollider TempBoxCollider;
+    public GameObject TempGameObject;
     #endregion
 
-    bool bIsPaused = false;
-    bool bIsMouseEnabled = false;
-    bool bIsUIOpen = false;
-    bool bIsGameEnd = false;
-    bool bNeedShowDialog = false;
-    bool bIsPlayingLotus = false;
-    bool bIsPlayingPiano = false;
-    bool bHasTriggerLotus = false;
+    protected bool bIsPaused = false;
+    protected bool bIsMouseEnabled = false;
+    protected bool bIsUIOpen = false;
+    protected bool bNeedShowDialog = false;
 
     // 以上未還未整理的程式碼
 
-    void Awake()
+    public virtual void Awake()
     {
         if (playerCtrlr == null)
             playerCtrlr = GameObject.Find("_Player/LingLing").GetComponent<PlayerController>();
@@ -175,33 +121,22 @@ public partial class SceneController : MonoBehaviour
         StudioUI.SetActive(false);  // 攝影棚畫面UI
     }
 
-    void Start()
+    public virtual void Start()
     {
-        RegisterButton();
+        
         SetCrosshairEnable(true);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
     }
 
-    void Update()
+    public void Update()
     {
         KeyboardCheck();
 
         if (bIsPaused && bIsMouseEnabled)
             MouseCheck();
     }
-
-    #region - Basic Function -
-    void RegisterButton()
-    {
-        // 返回
-        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
-
-        // 進入蓮花遊戲
-        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
-    }
-    #endregion
 
     public void SetGameSetting()
     {
@@ -230,7 +165,7 @@ public partial class SceneController : MonoBehaviour
     }
 
     // 旋轉物件 (物件ID)
-    void ProcessRoMoving(int iIndex)
+    public void ProcessRoMoving(int iIndex)
     {
         if (RO_OBJ[saveRotaObj] == null)
             return;
@@ -292,7 +227,7 @@ public partial class SceneController : MonoBehaviour
         txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
         txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
 
-        GetM_bInUIView();
+        GegameManager_bInUIView();
     }
 
     // 執行物件動畫
@@ -327,18 +262,6 @@ public partial class SceneController : MonoBehaviour
         m_bShowItemAnimate = false;
     }
 
-    // 執行玩家移動到指定區域
-    public IEnumerator ProcessPlayerSetPianoAni(int index)
-    {
-        bIsPlayingPiano = true;
-        Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
-        Transform tfCameraPos = tfPianoPos.GetChild(0);
-
-        yield return StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
-
-        if (bIsPlayingPiano == true)
-            PianoUI.SetActive(true);
-    }
 
     // 限制角色視角 (暫無使用)
     public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
@@ -364,72 +287,10 @@ public partial class SceneController : MonoBehaviour
         txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
     }
 
-    public void ButtonFunction(ButtonEventID _eventID)
-    {
-        switch (_eventID)
-        {
-            case ButtonEventID.UI_Back:
-                break;
-            case ButtonEventID.Enter_Game:
-                if (bIsUIOpen)
-                {
-                    RestoreItemLocation();
-                    bIsPlayingLotus = true;
 
-                    Transform tfPlayingLotusPos = GameObject.Find("Lv1_Playing_Lotus_Pos").GetComponent<Transform>();
-                    Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
-                    StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
-                }
-                break;
-        }
-    }
-
-    void QuitLotusGame()
-    {
-        bIsPlayingLotus = false;
-        playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
-
-        playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
-        playerCtrlr.m_bCanControl = true;
-        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-
-        LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
-        LotusCtrlr.SendMessage("SetLotusCanvasEnable", false);
-
-        LotusGameManager.bIsGamePause = true;
-    }
-
-    void QuitPiano()
-    {
-        bIsPlayingPiano = false;
-        PianoUI.SetActive(false);
-        playerCtrlr.m_bCanControl = true;
-        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-    }
-
-    // 離開蓮花遊戲
-    public void ExitLotusGame()
-    {
-        m_bPlayLotusEnable = false;
-        bIsPlayingLotus = false;
-        playerCtrlr.m_bCanControl = true;
-        playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
-
-        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-
-        SceneManager.UnloadSceneAsync(3);
-
-        Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
-        Lv1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
-    }
 
     // 鍵盤檢查
-    void KeyboardCheck()
+    public virtual void KeyboardCheck()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -447,14 +308,6 @@ public partial class SceneController : MonoBehaviour
                     }
                 }
             }
-            else if (bIsPlayingLotus)
-            {
-                QuitLotusGame();
-            }
-            else if (bIsPlayingPiano)
-            {
-                QuitPiano();
-            }
             else
             {
                 // 顯示遊戲狀態
@@ -463,7 +316,7 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    void RestoreItemLocation()
+    public void RestoreItemLocation()
     {
         CameraVolume.enabled = false;
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = false;
@@ -478,7 +331,7 @@ public partial class SceneController : MonoBehaviour
         StudioUI.SetActive(false);
     }
 
-    void MouseCheck()   // 滑鼠檢查MouseButtonDown(0)
+    public void MouseCheck()   // 滑鼠檢查MouseButtonDown(0)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -506,7 +359,7 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    public bool GetM_bInUIView()    // 取得是否在 UI 畫面中
+    public bool GegameManager_bInUIView()    // 取得是否在 UI 畫面中
     {
         return m_bInUIView;
     }
@@ -518,7 +371,7 @@ public partial class SceneController : MonoBehaviour
         StartCoroutine(ChangeVignetteIntensity());
     }
 
-    private IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
+    public IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
         yield return new WaitForSeconds(11f);
         playerCtrlr.m_bCanControl = true;
@@ -555,15 +408,7 @@ public partial class SceneController : MonoBehaviour
         //}
     }
 
-    void ShowQRCode()
-    {
-        bIsGameEnd = false;
-        m_bReturnToBegin = true;
-        FinalUI.SetActive(false);
-        QRCodeUI.SetActive(true);
-    }
-
-    void BackToBaseGame()
+    public void BackToBaseGame()
     {
         m_bReturnToBegin = false;
         QRCodeUI.SetActive(false);
@@ -571,12 +416,12 @@ public partial class SceneController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void SetCrosshairEnable(bool bEnable)
+    public void SetCrosshairEnable(bool bEnable)
     {
         CrosshairUI.SetActive(bEnable);
     }
 
-    IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
+    public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
         playerCtrlr.m_bCanControl = false;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -584,14 +429,14 @@ public partial class SceneController : MonoBehaviour
 
         // 移動玩家
         float fTotalMoveTime = 1.0f;
-        float fCurrentMoveTime = 0.0f;
+        float fCurrengameManageroveTime = 0.0f;
 
-        while (fCurrentMoveTime < fTotalMoveTime)
+        while (fCurrengameManageroveTime < fTotalMoveTime)
         {
-            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, r_V3TargetPos, fCurrentMoveTime / (fTotalMoveTime * 5f));
-            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, r_PlayerRotation, fCurrentMoveTime / (fTotalMoveTime * 5f));
+            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, r_V3TargetPos, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
+            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, r_PlayerRotation, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
 
-            fCurrentMoveTime += Time.deltaTime;
+            fCurrengameManageroveTime += Time.deltaTime;
 
             yield return null;
         }
@@ -622,17 +467,10 @@ public partial class SceneController : MonoBehaviour
     }
 
     // 延遲動作
-    IEnumerator DelayedAction()
+    public IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
     }
 
-    // 延遲載入大廳場景
-    IEnumerator DelayLodelobby()
-    {
-        audManager.Play(1, "Opening_Scene", false);
-        FinalUI.SetActive(true);
-        SceneManager.LoadScene(0);
-        yield return null;
-    }
+
 }

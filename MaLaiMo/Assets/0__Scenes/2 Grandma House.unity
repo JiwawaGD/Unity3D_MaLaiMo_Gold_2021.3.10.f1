@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
+  m_IndirectSpecularColor: {r: 0.6717807, g: 0.5618909, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3583,10 +3583,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  originalPosition: {x: 0, y: 0, z: 0}
-  originalRotation: {x: 0, y: 0, z: 0, w: 0}
   audManager: {fileID: 1573324029}
-  FinalUI: {fileID: 199250117}
   objSpeed: 0
   romanager: 0
   postProcessVolume: {fileID: 200508678}
@@ -3628,35 +3625,11 @@ MonoBehaviour:
   videoPlayer: {fileID: 456187765}
   QRCodeUI: {fileID: 1572172555}
   CrosshairUI: {fileID: 1732535470}
-  RawImgGrandmaUI: {fileID: 1004443802}
-  WaterSurfaceObj: {fileID: 6713334281513266840}
   Targers:
   - {fileID: 49421017}
-  PianoUI: {fileID: 1229581536}
-  Lv1_matTVWhiteNoise: {fileID: 2100000, guid: 73d334872b1a68543a4a49e88eca71fa, type: 2}
-  goPhotoFrameLight: {fileID: 2006070695}
-  Lv1_Grandma_ROOM_Door_Item: {fileID: 7531463202181120725}
-  Lv1_Light_Switch_Item: {fileID: 3873584950318243655}
-  Lv1_FlashLight_Item: {fileID: 6637050183465352076}
-  Lv1_Faucet_Item: {fileID: 2078085731}
-  Lv1_Faucet_Flush_Obj: {fileID: 686363091839247043}
-  Lv1_Toilet_Door_Item: {fileID: 919132147963965173}
-  Lv1_Piano_Item: {fileID: 5415235234845558811}
-  Lv1_Doll_Ani: {fileID: 919132148147202927}
-  Lv1_Lotus_Paper_Obj: {fileID: 919132148275264021}
-  Lv1_Lotus_Candle_Obj: {fileID: 5081120470536952852}
-  Lv1_Finished_Lotus_Paper_Obj: {fileID: 6304827103742342870}
-  Lv1_Lotus_Paper_Plate_Obj: {fileID: 1283658131790064}
-  Lv2_FlashLight_Item: {fileID: 7386399851727559096}
-  Lv2_SideTable_Item: {fileID: 919132148583437482}
-  Lv2_Grandma_Room_Door_Item: {fileID: 244506308}
-  Lv2_Grandma_Ghost_Obj: {fileID: 919132149564771306}
-  Lv2_Furniture_State_1_Obj: {fileID: 258935950}
-  Lv2_Furniture_State_2_Obj: {fileID: 1376908321}
-  Lv2_Toilet_Door_GhostHead_Obj: {fileID: 919132147963965172}
-  Lv2_Grandma_Cry_Audio_Obj: {fileID: 129824810}
-  Lv2_Corridor_Door_Frame_Obj: {fileID: 1679270733}
-  Lv2_Wall_Replace_Door_Frame_Obj: {fileID: 5879970208904369701}
+  goCanvas: {fileID: 0}
+  TempBoxCollider: {fileID: 0}
+  TempGameObject: {fileID: 0}
 --- !u!4 &110714931
 Transform:
   m_ObjectHideFlags: 0

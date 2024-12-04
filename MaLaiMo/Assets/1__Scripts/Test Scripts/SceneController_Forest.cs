@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestManager : MonoBehaviour
+public class SceneController_Forest : SceneController
 {
     public Button Btn_Straight;
     public Button Btn_Back;
@@ -36,11 +36,9 @@ public class TestManager : MonoBehaviour
         Back,
     }
 
-    void Start()
+    public override void Awake()
     {
-        //Btn_Straight.onClick.AddListener(GoStraight);
-        //Btn_Back.onClick.AddListener(GoBack);
-        //Btn_Reset.onClick.AddListener(Reset);
+       // DialogueObjects[0].CallAction(false);
     }
 
     public void GoStraight()

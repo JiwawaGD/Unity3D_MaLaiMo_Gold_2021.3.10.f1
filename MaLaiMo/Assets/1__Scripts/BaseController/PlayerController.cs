@@ -48,11 +48,10 @@ public class PlayerController : MonoBehaviour
 
     ItemController current_Item;
     ItemController last_Item;
-    SceneController gameManager;
 
     SubTitleController SubtitleCtrlr;
 
-    void Awake()
+    public virtual void Awake()
     {
         rig = GetComponent<Rigidbody>();
         ani = GetComponent<Animation>();
@@ -61,26 +60,24 @@ public class PlayerController : MonoBehaviour
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
-        if (gameManager == null)
-            gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController>();
-
         if (SubtitleCtrlr == null)
             SubtitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
-    void Start()
+    public void Start()
     {
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(tfPlayerCamera.position, tfPlayerCamera.position + (tfPlayerCamera.forward * m_fRayLength));
     }
 
-    void Update()
+    public void Update()
     {
         RayHitCheck();
 
@@ -92,11 +89,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         if (SubtitleCtrlr.m_bIsPlayingCannotMove)
             return;
-
         // 滑鼠顯示、無法控制時不可控制
         if (m_bCursorShow || !m_bCanControl)
         {
@@ -145,7 +141,7 @@ public class PlayerController : MonoBehaviour
         // 例如，更新相應的變數，調整滑鼠靈敏度
     }
 
-    void InitValue()
+    public void InitValue()
     {
         m_fUDSensitivity = 230;
         m_fRLSensitivity = 180;
@@ -161,7 +157,7 @@ public class PlayerController : MonoBehaviour
         audioSource.loop = false;
     }
 
-    void View()
+    public void View()
     {
         // 左右轉 (只轉 *角色* )
         if (m_bLimitRotation)
@@ -183,7 +179,7 @@ public class PlayerController : MonoBehaviour
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;
     }
 
-    void Move() // 移動
+    public void Move() // 移動
     {
         v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         v3_MovePos.x = v3_MoveValue.x * Time.deltaTime * m_fMoveSpeed;
@@ -216,7 +212,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Ray check for item interact
-    void RayHitCheck()  // 檢查射線是否打到物件
+    public void RayHitCheck()  // 檢查射線是否打到物件
     {
         m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
@@ -249,13 +245,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlaySound(AudioClip clip)  // 播放音效
+    public void PlaySound(AudioClip clip)  // 播放音效
     {
         audioSource.clip = clip;
         audioSource.Play();
     }
 
-    void PlayWalkingSound() // 播放走路音效
+    public void PlayWalkingSound() // 播放走路音效
     {
         PlaySound(walkingSound);
     }

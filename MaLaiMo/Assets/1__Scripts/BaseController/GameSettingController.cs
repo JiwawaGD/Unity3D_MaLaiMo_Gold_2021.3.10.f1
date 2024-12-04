@@ -60,7 +60,7 @@ public class GameSettingController : MonoBehaviour
         fSensitivity = 0.5f;
     }
 
-    public void SetMusic()
+    public void SeGMusic()
     {
         fMusic = MusicSlider.value;
     }

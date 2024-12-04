@@ -22,7 +22,7 @@ public class LotusGameManager : MonoBehaviour
     RectTransform HintRectTf;
     Transform TfLotus;
     AnimatorStateInfo LotusState;
-    SceneController GM;
+    SceneController_Room GM;
 
     public static bool bIsGamePause = false;
 
@@ -68,7 +68,7 @@ public class LotusGameManager : MonoBehaviour
 
     void Start()
     {
-        GM = GameObject.Find("GameManager").GetComponent<SceneController>();
+        GM = GameObject.Find("GameManager").GetComponent<SceneController_Room>();
 
         iAllLotusCount = 30;
 

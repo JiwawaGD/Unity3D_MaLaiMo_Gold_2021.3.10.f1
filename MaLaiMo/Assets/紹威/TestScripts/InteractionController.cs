@@ -4,6 +4,7 @@ using System.Collections;
 
 public class InteractionController : MonoBehaviour
 {
+    [Header("基本設置")]
     public float interactionDistance = 3f;
     public LayerMask InteractiveItem;
     public GameObject promptImage;
@@ -12,29 +13,39 @@ public class InteractionController : MonoBehaviour
     public Camera playerCamera;
     public Camera coinCloseupCamera;
 
+    [Header("硬幣結果物件")]
     public GameObject coinPlusPlus;   // ++ 結果
     public GameObject coinMinusMinus; // -- 結果
     public GameObject coinPlusMinus;  // +- 結果
 
-    public GameObject hand; // 手部模型
+    [Header("投擲設置")]
+    public GameObject hand;
+    public float throwingDuration = 1f;
+    public float holdDuration = 6.15f;
+    public float closeupDuration = 3f;
+    public float returnDelay = 0.5f;
 
-    public float throwingDuration = 1f;  // 鏡頭旋轉到20.9度的時間
-    public float holdDuration = 6.15f;   // 保持在20.9度的時間
-    public float closeupDuration = 3f;   // 硬幣特寫的持續時間
-    public float returnDelay = 0.5f;     // 從特寫視角回到玩家視角的延遲
+    [Header("模式設置")]
+    public bool useFixedPattern = false; // 是否使用固定模式（三次必中）
 
     private bool isLookingAtCoin = false;
     private FirstPersonController fpsController;
     private bool isThrowingCoin = false;
     private Quaternion originalRotation;
     private bool canDetectCoin = true;
+    private int throwCount = 0; // 追蹤投擲次數
 
     void Start()
+    {
+        InitializeComponents();
+    }
+
+    void InitializeComponents()
     {
         fpsController = GetComponent<FirstPersonController>();
         if (fpsController == null)
         {
-            Debug.LogError("FirstPersonController not found on this GameObject!");
+            Debug.LogError("FirstPersonController not found!");
         }
 
         promptImage.SetActive(false);
@@ -42,6 +53,7 @@ public class InteractionController : MonoBehaviour
         coinCloseupCamera.gameObject.SetActive(false);
         hand.SetActive(false);
         DisableAllCoinObjects();
+        throwCount = 0;
     }
 
     void Update()
@@ -50,37 +62,37 @@ public class InteractionController : MonoBehaviour
 
         if (canDetectCoin)
         {
-            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, interactionDistance, InteractiveItem))
-            {
-                isLookingAtCoin = true;
-                promptImage.SetActive(true);
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    ShowUIPreview();
-                }
-
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    promptImage.SetActive(false);
-                    itemCoinObj.SetActive(false);
-                    canDetectCoin = false;
-                    StartCoroutine(ThrowCoin());
-                }
-            }
-            else
-            {
-                promptImage.SetActive(false);
-                isLookingAtCoin = false;
-            }
+            HandleCoinDetection();
         }
     }
-    /// <summary>
-    /// 顯示硬幣投擲的預覽畫面
-    /// </summary>
+
+    void HandleCoinDetection()
+    {
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactionDistance, InteractiveItem))
+        {
+            isLookingAtCoin = true;
+            promptImage.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ShowUIPreview();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartThrowingSequence();
+            }
+        }
+        else
+        {
+            promptImage.SetActive(false);
+            isLookingAtCoin = false;
+        }
+    }
+
     void ShowUIPreview()
     {
         uiPreviewPanel.SetActive(true);
@@ -88,19 +100,22 @@ public class InteractionController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-    /// <summary>
-    /// 關閉所有硬幣物件
-    /// </summary>
+
     void DisableAllCoinObjects()
     {
         coinPlusPlus.SetActive(false);
         coinMinusMinus.SetActive(false);
         coinPlusMinus.SetActive(false);
     }
-    /// <summary>
-    /// 投擲硬幣
-    /// </summary>
-    /// <returns></returns>
+
+    void StartThrowingSequence()
+    {
+        promptImage.SetActive(false);
+        itemCoinObj.SetActive(false);
+        canDetectCoin = false;
+        StartCoroutine(ThrowCoin());
+    }
+
     IEnumerator ThrowCoin()
     {
         isThrowingCoin = true;
@@ -108,6 +123,65 @@ public class InteractionController : MonoBehaviour
         fpsController.enabled = false;
         DisableAllCoinObjects();
 
+        // 執行投擲動畫
+        yield return StartCoroutine(PerformThrowAnimation());
+
+        // 決定結果
+        GameObject selectedCoin = DetermineCoinResult(out string resultString);
+        Debug.Log($"硬幣投擲結果: {resultString} (第 {throwCount + 1} 次)");
+        selectedCoin.SetActive(true);
+
+        // 顯示結果
+        yield return StartCoroutine(ShowResult());
+
+        // 重置狀態
+        ResetState();
+        throwCount++;
+
+        // 如果是固定模式且完成三次投擲，重置計數
+        if (useFixedPattern && throwCount > 2)
+        {
+            throwCount = 0;
+        }
+    }
+
+    GameObject DetermineCoinResult(out string resultString)
+    {
+        if (useFixedPattern)
+        {
+            // 固定模式：前兩次無杯，第三次聖杯
+            if (throwCount >= 2)
+            {
+                resultString = "正反 (+-)";
+                return coinPlusMinus;
+            }
+            else
+            {
+                resultString = "反反 (--)";
+                return coinMinusMinus;
+            }
+        }
+        else
+        {
+            // 隨機模式
+            int result = Random.Range(0, 3);
+            switch (result)
+            {
+                case 0:
+                    resultString = "正正 (++)";
+                    return coinPlusPlus;
+                case 1:
+                    resultString = "反反 (--)";
+                    return coinMinusMinus;
+                default:
+                    resultString = "正反 (+-)";
+                    return coinPlusMinus;
+            }
+        }
+    }
+
+    IEnumerator PerformThrowAnimation()
+    {
         originalRotation = playerCamera.transform.localRotation;
         Quaternion throwRotation = Quaternion.Euler(20.9f, originalRotation.eulerAngles.y, originalRotation.eulerAngles.z);
 
@@ -116,30 +190,10 @@ public class InteractionController : MonoBehaviour
         hand.SetActive(true);
         yield return new WaitForSeconds(holdDuration);
         hand.SetActive(false);
+    }
 
-        int result = Random.Range(0, 3);
-        GameObject selectedCoin = null;
-        string resultString = "";
-
-        switch (result)
-        {
-            case 0:
-                selectedCoin = coinPlusPlus;
-                resultString = "正正 (++)";
-                break;
-            case 1:
-                selectedCoin = coinMinusMinus;
-                resultString = "反反 (--)";
-                break;
-            case 2:
-                selectedCoin = coinPlusMinus;
-                resultString = "正反 (+-)";
-                break;
-        }
-
-        Debug.Log("硬幣投擲結果: " + resultString);
-        selectedCoin.SetActive(true);
-
+    IEnumerator ShowResult()
+    {
         playerCamera.gameObject.SetActive(false);
         coinCloseupCamera.gameObject.SetActive(true);
 
@@ -148,25 +202,18 @@ public class InteractionController : MonoBehaviour
 
         coinCloseupCamera.gameObject.SetActive(false);
         playerCamera.gameObject.SetActive(true);
+    }
 
+    void ResetState()
+    {
         playerCamera.transform.localRotation = originalRotation;
-
         DisableAllCoinObjects();
         fpsController.enabled = true;
         isThrowingCoin = false;
-        // 注意：我們不在這裡重新啟用提示圖像，它會在下一次射線檢測到物體時自動顯示
-
-        // 重新啟用射線檢測和 itemCoinObj
         canDetectCoin = true;
         itemCoinObj.SetActive(true);
     }
-    /// <summary>
-    /// 平滑旋轉相機
-    /// </summary>
-    /// <param name="startRotation"></param>
-    /// <param name="endRotation"></param>
-    /// <param name="duration"></param>
-    /// <returns></returns>
+
     IEnumerator SmoothRotateCamera(Quaternion startRotation, Quaternion endRotation, float duration)
     {
         float elapsedTime = 0f;

@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     public float fSensitivityAmplifier;
 
     // Const value  
-    readonly float m_fMoveSpeed = 90f;
+    readonly float m_fMoveSpeed = 3;
     readonly float m_fRayLength = 1.2f;
     readonly int m_iInteractiveLayer = 10;  // 互動圖層
-    readonly Vector3 v3_zero = Vector3.zero;
+    readonly Vector3 v3_zero = new Vector3(0,-9.8f,0);
 
     public bool m_bLimitRotation = false;
     float m_fHorizantalRotationValue;
@@ -181,15 +181,20 @@ public class PlayerController : MonoBehaviour
 
     public void Move() // 移動
     {
-        v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        v3_MovePos.x = v3_MoveValue.x * Time.deltaTime * m_fMoveSpeed;
-        v3_MovePos.z = v3_MoveValue.z * Time.deltaTime * m_fMoveSpeed;
+        float fMoveHorizontal = Input.GetAxis("Horizontal");
+        float fMoveVertical = Input.GetAxis("Vertical");
 
-        v3_MovePos = tfTransform.right * v3_MovePos.x + tfTransform.forward * v3_MovePos.z;
+        v3_MovePos = tfTransform.right * fMoveHorizontal + tfTransform.forward * fMoveVertical;
+
+        //v3_MoveValue = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        //v3_MovePos.x = v3_MoveValue.x * Time.deltaTime * m_fMoveSpeed;
+        //v3_MovePos.z = v3_MoveValue.z * Time.deltaTime * m_fMoveSpeed;
+
+        //v3_MovePos = tfTransform.right * v3_MovePos.x + tfTransform.forward * v3_MovePos.z;
 
         if (v3_MovePos != v3_zero)
         {
-            rig.velocity = v3_MovePos;
+            tfTransform.Translate(v3_MovePos * m_fMoveSpeed * Time.deltaTime, Space.World);
             isWalking = true;
         }
         else

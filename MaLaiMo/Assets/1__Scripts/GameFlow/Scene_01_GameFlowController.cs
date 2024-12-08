@@ -27,7 +27,7 @@ public partial class GameEventController
         Transform tfRoomDoor = GameObject.Find("__ITEMS/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
         Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
 
-        if (tfRoomDoor.localRotation.z == 90 || tfRoomDoor.localRotation.z == 0)
+        if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
         {
             string strPlayAniName = tfRoomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
 

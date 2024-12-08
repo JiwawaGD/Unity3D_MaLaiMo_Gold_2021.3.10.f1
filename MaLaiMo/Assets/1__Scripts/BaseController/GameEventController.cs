@@ -4,10 +4,9 @@ using UnityEngine;
 public partial class GameEventController : MonoBehaviour
 {
     #region - Field -
-    [SerializeField] [Header("對話物件")] public DialogueManager[] DialogueObjects;
-
+    [SerializeField] [Header("場景控制器")] SceneController SceneCtrlr;
     [SerializeField] [Header("玩家")] PlayerController PlayerCtrlr;
-
+    [SerializeField] [Header("對話物件")] public DialogueManager[] DialogueObjects;
     [SerializeField] [Header("字幕控制器")] SubTitleController SubTitleCtrlr;
     #endregion
 
@@ -33,6 +32,8 @@ public partial class GameEventController : MonoBehaviour
     #region - Event Function -
     void Lv1_Event(GameEventID r_EventID)
     {
+        Debug.Log(string.Format("[Lv1_Event] GameEventID : {0}", r_EventID));
+
         switch (r_EventID)
         {
             case GameEventID.Lv1_TalkToPackage:

@@ -9,7 +9,7 @@ using DG.Tweening;
 public partial class SceneController : MonoBehaviour
 {
     // 確定需要保留的區域
-    [SerializeField] GameEventController GameEventCtrlr;
+    [SerializeField] protected GameEventController GameEventCtrlr;
     //
 
     public static SceneController instance;
@@ -79,8 +79,6 @@ public partial class SceneController : MonoBehaviour
     public static bool m_bToiletGhostHasShow = false;
     #endregion
 
-
-
     #region - Empty Field => For Memory -
     public BoxCollider TempBoxCollider;
     public GameObject TempGameObject;
@@ -93,6 +91,7 @@ public partial class SceneController : MonoBehaviour
 
     // 以上未還未整理的程式碼
 
+    #region - External Virtual -
     public virtual void Awake()
     {
         if (playerCtrlr == null)
@@ -123,12 +122,62 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void Start()
     {
-        
         SetCrosshairEnable(true);
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
     }
+
+    /// <summary>
+    /// 使物件顯示眼睛圖案 & 可互動
+    /// </summary>
+    /// <param name="r_ItemID">物件的 ID</param>
+    public virtual void ShowHint(HintItemID r_ItemID)
+    {
+        ItemController NextItem = null;
+
+        switch (r_ItemID)
+        {
+            case HintItemID.Empty:
+                break;
+            case HintItemID.Lv1_Begin:
+                break;
+            case HintItemID.Lv1_OpenRoomDoor:
+                NextItem = GameObject.Find("__ITEMS/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
+                break;
+            case HintItemID.Lv2_Begin:
+                break;
+            default:
+                break;
+        }
+
+        NextItem.bActive = true;
+        NextItem.SetHintable(true);
+    }
+
+    public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
+    {
+        GameEventCtrlr.RecGameEvent(r_SceneTypeID, r_EventID);
+    }
+
+    public virtual void RecEventCallback(LevelTypeID r_SceneTypeID, int r_iCallBackID)
+    {
+        switch (r_SceneTypeID)
+        {
+            case LevelTypeID.BeginScene:
+                break;
+            case LevelTypeID.Introduce:
+                break;
+            case LevelTypeID.Lv1_GrandmaHouse:
+                Lv1_EventCallBack(r_iCallBackID);
+                break;
+            case LevelTypeID.Lv2_GrandmaHouse:
+                break;
+        }
+    }
+
+    public virtual void Lv1_EventCallBack(int r_EventID) { }
+    #endregion
 
     public void Update()
     {
@@ -143,26 +192,6 @@ public partial class SceneController : MonoBehaviour
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
     }
 
-    public void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
-    {
-        GameEventCtrlr.RecGameEvent(r_SceneTypeID, r_EventID);
-    }
-
-    // 顯示眼睛 Hint 圖示
-    public void ShowHint(HintItemID r_ItemID)
-    {
-        ItemController NextItem = null;
-
-        switch (r_ItemID)
-        {
-            default:
-                NextItem = null;
-                break;
-        }
-
-        NextItem.bActive = true;
-        NextItem.SetHintable(true);
-    }
 
     // 旋轉物件 (物件ID)
     public void ProcessRoMoving(int iIndex)
@@ -286,8 +315,6 @@ public partial class SceneController : MonoBehaviour
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
     }
-
-
 
     // 鍵盤檢查
     public virtual void KeyboardCheck()
@@ -471,6 +498,4 @@ public partial class SceneController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
     }
-
-
 }

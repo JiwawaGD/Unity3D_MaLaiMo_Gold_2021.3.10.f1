@@ -10,14 +10,20 @@ public enum LevelTypeID
 
 public enum GameEventID
 {
-    Close_UI = 0,
+    None = 0,
 
     // Lv1 : Scene_1
     Lv1_TalkToPackage = 1,
-    Lv1_GrandmaRoomDoorOpen,
+    Lv1_GrandmaRoomDoorSwitch,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
+}
+
+public enum Lv1_EventCallBackID
+{
+    none = 0,
+    Lv1_TalkToPackage = 1,
 }
 
 public enum HintItemID
@@ -26,6 +32,7 @@ public enum HintItemID
 
     // Lv1 : Scene_1
     Lv1_Begin = 1,
+    Lv1_OpenRoomDoor = 2,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

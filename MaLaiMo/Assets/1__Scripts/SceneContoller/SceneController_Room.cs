@@ -2,20 +2,25 @@ using System.Collections;
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-
-using DG.Tweening;
 
 public class SceneController_Room : SceneController
 {
+    [SerializeField] LevelTypeID CurrentLevel;
+
+    #region - 待整理的欄位 -
     [Header("遊戲結束畫面UI")] public GameObject FinalUI;
-    [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
     [SerializeField] [Header("洗手台的水")] GameObject WaterSurfaceObj;
 
     [SerializeField] [Header("鋼琴提示介面")] GameObject PianoUI;
     [SerializeField] [Header("電視 White noise 材質球")] Material Lv1_matTVWhiteNoise;
+
+    [SerializeField] [Header("阿嬤收尾嚇人影片 UI")] RawImage RawImgGrandmaUI;
+    #endregion
+
+    #region Light Zone
+    public GameObject goPhotoFrameLight;
+    #endregion
 
     #region - All Scene Items -
     [Header("場景一物件")]
@@ -47,7 +52,6 @@ public class SceneController_Room : SceneController
     [SerializeField] [Header("Lv2_取代走廊門框的牆壁")] GameObject Lv2_Wall_Replace_Door_Frame_Obj;
     #endregion
 
-
     #region Game Point
     bool bLv1_HasGrandmaRoomKey = false;
     bool bLv1_HasFlashlight = false;
@@ -56,20 +60,50 @@ public class SceneController_Room : SceneController
     bool bLv2_HasGrandmaRoomKey = false;
     bool bLv2_HasFlashlight = false;
     bool bLv2_TriggerLastAnimateAfterPhotoFrame = false;
-    #endregion
-
 
     bool bIsPlayingPiano = false;
     bool bIsPlayingLotus = false;
     bool bIsGameEnd = false;
     bool bHasTriggerLotus = false;
     int m_iGrandmaRushCount;
+    #endregion
+
+    #region - External Override -
+    public override void Awake()
+    {
+        //base.Awake(); 
+    }
 
     public override void Start()
     {
-        base.Start();
-        RegisterButton();
+        //RegisterButton();
+        //base.Start();
+
+        GameEventCtrlr.RecGameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
     }
+
+    public override void KeyboardCheck() { }
+
+    public override void Lv1_EventCallBack(int r_EventID)
+    {
+        switch ((Lv1_EventCallBackID)r_EventID)
+        {
+            case Lv1_EventCallBackID.none:
+                break;
+            case Lv1_EventCallBackID.Lv1_TalkToPackage:
+                ShowHint(HintItemID.Lv1_OpenRoomDoor);
+                break;
+            default:
+                Debug.LogError(string.Format("[Lv1_EventCallBack] Error GameEventID : {0}", r_EventID));
+                break;
+        }
+    }
+
+    public override void ShowHint(HintItemID r_ItemID)
+    {
+        base.ShowHint(r_ItemID);
+    }
+    #endregion
 
     #region - Basic Function -
     void RegisterButton()
@@ -80,13 +114,6 @@ public class SceneController_Room : SceneController
         // 進入蓮花遊戲
         EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
     }
-    #endregion
-
-
-    #region Light Zone
-    public GameObject goPhotoFrameLight;
-    #endregion
-
 
     // 執行玩家移動到指定區域
     public IEnumerator ProcessPlayerSetPianoAni(int index)
@@ -108,41 +135,6 @@ public class SceneController_Room : SceneController
         playerCtrlr.m_bCanControl = true;
         playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
         playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-    }
-
-    // 鍵盤檢查
-    public override void KeyboardCheck()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            // 關閉 UI 畫面
-            if (m_bInUIView)
-            {
-                if (isMoveingObject)
-                {
-                    romanager = false;
-
-                    if (!romanager)
-                    {
-                        RestoreItemLocation();
-                        Ro_Light.enabled = false;
-                    }
-                }
-            }
-            else if (bIsPlayingLotus)
-            {
-                QuitLotusGame();
-            }
-            else if (bIsPlayingPiano)
-            {
-                QuitPiano();
-            }
-            else
-            {
-                // 顯示遊戲狀態
-                SetGameState();
-            }
-        }
     }
 
     void ShowQRCode()
@@ -216,4 +208,5 @@ public class SceneController_Room : SceneController
                 break;
         }
     }
+    #endregion
 }

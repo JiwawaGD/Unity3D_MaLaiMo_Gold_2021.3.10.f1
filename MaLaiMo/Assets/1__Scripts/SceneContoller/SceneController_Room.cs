@@ -2,11 +2,7 @@ using System.Collections;
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-
-using DG.Tweening;
 
 public class SceneController_Room : SceneController
 {

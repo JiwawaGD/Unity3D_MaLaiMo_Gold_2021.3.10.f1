@@ -96592,8 +96592,9 @@ GameObject:
   - component: {fileID: 458588300638135531}
   - component: {fileID: 7531463202181120724}
   - component: {fileID: 6852587049895655309}
-  - component: {fileID: 2357778397805165365}
   - component: {fileID: 7531463202181120726}
+  - component: {fileID: 2357778397805165365}
+  - component: {fileID: 7531463202181120729}
   - component: {fileID: 7531463202181120728}
   - component: {fileID: 7531463202181120725}
   m_Layer: 0
@@ -176178,7 +176179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrentLevelID: 2
   EventID: 2
-  bAlwaysActive: 0
+  bAlwaysActive: 1
   fHintRange: 4
   bActive: 0
 --- !u!65 &7531463202181120726
@@ -176290,6 +176291,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &7531463202181120729
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270890333292960132}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 61e11ebcceef8a14a87582db5eaacaf0, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 61e11ebcceef8a14a87582db5eaacaf0, type: 2}
+  - {fileID: 7400000, guid: d853959d508333340bc8de47fb1c8a8f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &7532227920724407721
 GameObject:
   m_ObjectHideFlags: 0

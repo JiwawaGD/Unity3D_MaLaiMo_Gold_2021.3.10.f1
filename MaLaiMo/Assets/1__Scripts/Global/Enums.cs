@@ -14,7 +14,7 @@ public enum GameEventID
 
     // Lv1 : Scene_1
     Lv1_TalkToPackage = 1,
-    Lv1_GrandmaRoomDoorOpen,
+    Lv1_GrandmaRoomDoorSwitch,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

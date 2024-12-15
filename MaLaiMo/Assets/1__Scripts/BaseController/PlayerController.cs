@@ -5,7 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static float MouseSensitivity = 1.0f;
-    public Transform ro_tfItemObj;  // 旋轉物件
+    public Transform ro_tfItemObj;
+
+    [SerializeField] [Header("Mouse Settings")] 
+    private float smoothTime = 0.1f; // 添加平滑時間
+    private float currentRotationVelocityX = 3f; // X軸當前速度
+    private float currentRotationVelocityY = 0f; // Y軸當前速度
+    private float targetRotationX = 0f; // 目標X軸旋轉
+    private float targetRotationY = 0f; // 目標Y軸旋轉
 
     private Vector3 originalCameraPosition; // 原始攝影機位置
 
@@ -159,22 +166,58 @@ public class PlayerController : MonoBehaviour
 
     public void View()
     {
-        // 左右轉 (只轉 *角色* )
+        float mouseX = Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * MouseSensitivity;
+
+        // 計算目標旋轉值
+        targetRotationX += mouseX * Time.deltaTime;
+        targetRotationY += mouseY * Time.deltaTime; // 注意這裡是減法，因為我們要反轉Y軸
+
+        // 限制垂直旋轉範圍
+        targetRotationY = Mathf.Clamp(targetRotationY, -75f, 75f);
+
         if (m_bLimitRotation)
         {
-            m_fHorizantalRotationValue += Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime;
-            m_fHorizantalRotationValue = Mathf.Clamp(m_fHorizantalRotationValue, m_fHorizantalRotationRange.x, m_fHorizantalRotationRange.y);
+            // 使用 SmoothDamp 實現平滑旋轉
+            m_fHorizantalRotationValue = Mathf.SmoothDamp(
+                m_fHorizantalRotationValue, 
+                targetRotationX, 
+                ref currentRotationVelocityX, 
+                smoothTime
+            );
+
+            m_fHorizantalRotationValue = Mathf.Clamp(
+                m_fHorizantalRotationValue, 
+                m_fHorizantalRotationRange.x, 
+                m_fHorizantalRotationRange.y
+            );
 
             tfTransform.localEulerAngles = Vector3.up * m_fHorizantalRotationValue;
         }
         else
         {
-            tfTransform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime);
+            // 平滑處理自由旋轉
+            float smoothedRotationX = Mathf.SmoothDamp(
+                tfTransform.eulerAngles.y, 
+                tfTransform.eulerAngles.y + mouseX * Time.deltaTime, 
+                ref currentRotationVelocityX, 
+                smoothTime
+            );
+            
+            tfTransform.eulerAngles = new Vector3(
+                tfTransform.eulerAngles.x,
+                smoothedRotationX,
+                tfTransform.eulerAngles.z
+            );
         }
 
-        // 上下轉 (只轉 *攝影機* )
-        m_fVerticalRotationValue += Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * MouseSensitivity * Time.deltaTime;
-        m_fVerticalRotationValue = Mathf.Clamp(m_fVerticalRotationValue, -75, 75);
+        // 攝影機垂直旋轉的平滑處理
+        m_fVerticalRotationValue = Mathf.SmoothDamp(
+            m_fVerticalRotationValue, 
+            targetRotationY, 
+            ref currentRotationVelocityY, 
+            smoothTime
+        );
 
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;
     }

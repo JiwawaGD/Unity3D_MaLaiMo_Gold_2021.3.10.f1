@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3612,34 +3612,6 @@ MonoBehaviour:
   TempBoxCollider: {fileID: 0}
   TempGameObject: {fileID: 0}
   CurrentLevel: 0
-  FinalUI: {fileID: 0}
-  WaterSurfaceObj: {fileID: 0}
-  PianoUI: {fileID: 0}
-  Lv1_matTVWhiteNoise: {fileID: 0}
-  RawImgGrandmaUI: {fileID: 0}
-  goPhotoFrameLight: {fileID: 0}
-  Lv1_Grandma_ROOM_Door_Item: {fileID: 0}
-  Lv1_Light_Switch_Item: {fileID: 0}
-  Lv1_FlashLight_Item: {fileID: 0}
-  Lv1_Faucet_Item: {fileID: 0}
-  Lv1_Faucet_Flush_Obj: {fileID: 0}
-  Lv1_Toilet_Door_Item: {fileID: 0}
-  Lv1_Piano_Item: {fileID: 0}
-  Lv1_Doll_Ani: {fileID: 0}
-  Lv1_Lotus_Paper_Obj: {fileID: 0}
-  Lv1_Lotus_Candle_Obj: {fileID: 0}
-  Lv1_Finished_Lotus_Paper_Obj: {fileID: 0}
-  Lv1_Lotus_Paper_Plate_Obj: {fileID: 0}
-  Lv2_FlashLight_Item: {fileID: 0}
-  Lv2_SideTable_Item: {fileID: 0}
-  Lv2_Grandma_Room_Door_Item: {fileID: 0}
-  Lv2_Grandma_Ghost_Obj: {fileID: 0}
-  Lv2_Furniture_State_1_Obj: {fileID: 0}
-  Lv2_Furniture_State_2_Obj: {fileID: 0}
-  Lv2_Toilet_Door_GhostHead_Obj: {fileID: 0}
-  Lv2_Grandma_Cry_Audio_Obj: {fileID: 0}
-  Lv2_Corridor_Door_Frame_Obj: {fileID: 0}
-  Lv2_Wall_Replace_Door_Frame_Obj: {fileID: 0}
 --- !u!1001 &111824127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41051,6 +41023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ro_tfItemObj: {fileID: 1370385198}
+  smoothTime: 0.1
   ItemLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -41076,8 +41049,8 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_AngularDrag: 1
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112

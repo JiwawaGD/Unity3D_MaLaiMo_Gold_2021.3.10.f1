@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d3ffeacabf0efa4d95f8fd1672a457b
+guid: 17f82faf201a43645bc6cf02ed415eeb
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
@@ -10,8 +10,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Gift
+      name: Material #25
     second: {fileID: 2100000, guid: 577b0876d2044b44dacfe3427783e5a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #26
+    second: {fileID: 2100000, guid: 58bd70853044e634a9814facd1b44440, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -32,7 +37,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5

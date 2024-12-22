@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
@@ -11,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     [Tooltip("{%wait: second\n" +
              "{%object: index; active; alpha(-1為None)\n" +
              "{%voice: index; volume\n" +
+             "{%function: index;\n" +
              "普通字串直接打")]
     public string[] ActionEvent;
 
@@ -24,7 +24,6 @@ public class DialogueManager : MonoBehaviour
     public UnityEvent[] Functions;
 
     public Text DialogueText;
-    public SubTitleController SubTitleCtrlr;
 
     int ActionCount;
 
@@ -37,25 +36,8 @@ public class DialogueManager : MonoBehaviour
         ActionCount = 0;
         DialogueText = GameObject.Find("_Dialogue/DialogueUICanvas/DialogueText").GetComponent<Text>();
         aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
-        SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
-    public void CallAction(bool r_bPlayerCanMove)
-    {
-        GlobalDeclare.byCurrentDialogIndex = (byte)Lv1_Dialogue.Empty;
-
-        if (SubTitleCtrlr == null)
-            SubTitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
-
-        SubTitleCtrlr.CurrentDialogue = gameObject.name;
-        SubTitleCtrlr.m_bIsPlayingCannotMove = !r_bPlayerCanMove;
-
-        if (aud == null)
-            aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
-
-        if (!m_bIsPlaying)
-            StartCoroutine(StartAction());
-    }
 
     public IEnumerator StartAction()
     {

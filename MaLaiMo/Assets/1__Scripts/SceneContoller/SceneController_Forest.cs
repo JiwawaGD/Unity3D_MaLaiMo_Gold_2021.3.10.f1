@@ -43,7 +43,7 @@ public class SceneController_Forest : SceneController
 
     public override void Start()
     {
-        PlayDialogue(0);
+        PlayDialogue((byte) Lv3_Dialogue.Lv3_000_LookNote);
     }
     public void GoStraight()
     {

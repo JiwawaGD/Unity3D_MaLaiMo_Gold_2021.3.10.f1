@@ -94,3 +94,9 @@ public enum Lv2_Dialogue
     Lv2_008_LookNote,
     Lv2_009_LeaveForest
 }
+
+public enum Lv3_Dialogue
+{
+    Lv3_000_LookNote = 0,
+    Lv3_001_LeaveForest
+}

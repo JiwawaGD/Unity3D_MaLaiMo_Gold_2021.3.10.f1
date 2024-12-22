@@ -56,8 +56,6 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
 
-    SubTitleController SubtitleCtrlr;
-
     public virtual void Awake()
     {
         rig = GetComponent<Rigidbody>();
@@ -67,8 +65,6 @@ public class PlayerController : MonoBehaviour
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
-        if (SubtitleCtrlr == null)
-            SubtitleCtrlr = GameObject.Find("_Controller/SubTitleController").GetComponent<SubTitleController>();
     }
 
     public void Start()
@@ -98,8 +94,6 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (SubtitleCtrlr.m_bIsPlayingCannotMove)
-            return;
         // 滑鼠顯示、無法控制時不可控制
         if (m_bCursorShow || !m_bCanControl)
         {

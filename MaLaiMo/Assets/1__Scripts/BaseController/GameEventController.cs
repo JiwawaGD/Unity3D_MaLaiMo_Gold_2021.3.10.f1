@@ -7,7 +7,6 @@ public partial class GameEventController : MonoBehaviour
     [SerializeField] [Header("場景控制器")] SceneController SceneCtrlr;
     [SerializeField] [Header("玩家")] PlayerController PlayerCtrlr;
     [SerializeField] [Header("對話物件")] public DialogueManager[] DialogueObjects;
-    [SerializeField] [Header("字幕控制器")] SubTitleController SubTitleCtrlr;
     #endregion
 
     #region - Basic Function -

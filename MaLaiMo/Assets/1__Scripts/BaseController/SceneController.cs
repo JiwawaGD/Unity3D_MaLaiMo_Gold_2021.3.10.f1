@@ -500,4 +500,9 @@ public partial class SceneController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
     }
+
+    public void PlayDialogue(int index)
+    {
+        StartCoroutine(DialogueObjects[index].StartAction());
+    }
 }

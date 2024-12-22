@@ -38,9 +38,13 @@ public class SceneController_Forest : SceneController
 
     public override void Awake()
     {
-       // DialogueObjects[0].CallAction(false);
+        // DialogueObjects[0].CallAction(false);
     }
 
+    public override void Start()
+    {
+        PlayDialogue(0);
+    }
     public void GoStraight()
     {
         CheckIsGoRight(GoWay.Straight);

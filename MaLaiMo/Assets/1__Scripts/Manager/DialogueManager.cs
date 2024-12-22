@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class DialogueManager : MonoBehaviour
     [Header("添加的音效")]
     public AudioClip[] Voices;
 
+    [Header("調用的函式")]
+    public UnityEvent[] Functions;
+
     public Text DialogueText;
     public SubTitleController SubTitleCtrlr;
 
@@ -28,7 +32,7 @@ public class DialogueManager : MonoBehaviour
     int currentPos = 0; //當前打字位置
     bool m_bIsPlaying = false;
 
-    void Start()
+    void Awake()
     {
         ActionCount = 0;
         DialogueText = GameObject.Find("_Dialogue/DialogueUICanvas/DialogueText").GetComponent<Text>();
@@ -53,10 +57,10 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(StartAction());
     }
 
-    IEnumerator StartAction()
+    public IEnumerator StartAction()
     {
+        print("StartAction");
         m_bIsPlaying = true;
-
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -82,9 +86,17 @@ public class DialogueManager : MonoBehaviour
             var VoiceVolume = Int64.Parse(Voicedata[1]);
             aud.PlayOneShot(Voices[VoiceIndex], VoiceVolume);
         }
+        else if (ActionEvent[ActionCount].Contains("{%function:"))
+        {
+            var FunctionAction = ActionEvent[ActionCount].Substring(11);
+            string[] Functiondata = FunctionAction.Split(";");
+            var FunctionIndex = Int64.Parse(Functiondata[0]);
+            Functions[FunctionIndex]?.Invoke();
+        }
         else
         {
-            if (SubTitleCtrlr.CurrentDialogue == gameObject.name)
+            //if (SubTitleCtrlr.CurrentDialogue == gameObject.name)
+            print(DialogueText);
                 DialogueText.text = ActionEvent[ActionCount];
         }
 
@@ -97,8 +109,8 @@ public class DialogueManager : MonoBehaviour
         {
             ActionCount = 0;
             m_bIsPlaying = false;
-            SubTitleCtrlr.m_bIsPlayingCannotMove = false;
-            SubTitleCtrlr.CheckHasDealDelay();
+            //SubTitleCtrlr.m_bIsPlayingCannotMove = false;
+            //SubTitleCtrlr.CheckHasDealDelay();
             StopCoroutine(StartAction());
         }
     }

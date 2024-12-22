@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.175846, g: 5.939911, b: 6.9079666, a: 1}
+  m_IndirectSpecularColor: {r: 5.6728134, g: 6.5854683, b: 7.8232574, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5426,7 +5426,7 @@ Transform:
   - {fileID: 1272427767}
   - {fileID: 10538900}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &540808684
 GameObject:
@@ -6311,7 +6311,8 @@ MonoBehaviour:
   - ' '
   HandleObject: []
   Voices: []
-  DialogueText: {fileID: 0}
+  Functions: []
+  DialogueText: {fileID: 711824282}
   SubTitleCtrlr: {fileID: 0}
 --- !u!1001 &605504667
 PrefabInstance:
@@ -6478,7 +6479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &657039710
 Transform:
   m_ObjectHideFlags: 0
@@ -6498,7 +6499,7 @@ Transform:
   - {fileID: 998234745}
   - {fileID: 1253054265}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &662139447
 PrefabInstance:
@@ -7051,6 +7052,7 @@ MonoBehaviour:
   DialogueObjects:
   - {fileID: 845060145}
   - {fileID: 604172083}
+  - {fileID: 0}
   settingObjects: {fileID: 662139448}
   videoPlayer: {fileID: 0}
   QRCodeUI: {fileID: 1522408228}
@@ -8767,6 +8769,7 @@ MonoBehaviour:
   - ' '
   HandleObject: []
   Voices: []
+  Functions: []
   DialogueText: {fileID: 0}
   SubTitleCtrlr: {fileID: 0}
 --- !u!1 &846117365
@@ -9499,6 +9502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ro_tfItemObj: {fileID: 0}
+  smoothTime: 0.1
   ItemLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -11835,7 +11839,7 @@ Transform:
   m_Children:
   - {fileID: 2000120142}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1107283831
 PrefabInstance:
@@ -14280,7 +14284,7 @@ Transform:
   m_Children:
   - {fileID: 1155387440}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1406281501
 GameObject:

@@ -80,3 +80,17 @@ public enum Lv1_Dialogue
     FacePackage = 1,
     HintMove = 2,
 }
+
+public enum Lv2_Dialogue
+{
+    Lv2_000_Begin = 0,
+    Lv2_001_E_FilialPietyCurtain,
+    Lv2_002_E_Seat,
+    Lv2_003_E_Grandmother,
+    Lv2_004_E_Drink,
+    Lv2_005_BackLivingRoom,
+    Lv2_006_E_Flashlight,
+    Lv2_007_GoOut,
+    Lv2_008_LookNote,
+    Lv2_009_LeaveForest
+}

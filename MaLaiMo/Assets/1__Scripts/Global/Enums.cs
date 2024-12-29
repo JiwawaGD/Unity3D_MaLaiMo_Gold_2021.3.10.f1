@@ -74,11 +74,80 @@ public enum PlayerAnimateType
     FacePackageStandUp,
 }
 
-public enum Lv1_Dialogue
+public enum Room_Dialogue
 {
-    Empty = 0,
-    FacePackage = 1,
-    HintMove = 2,
+    //LV1
+    Lv1_000_FacePackage = 0,
+    Lv1_001_HintMove,
+    Lv1_002_OpenDoor,
+    Lv1_003_E_Mother,
+    Lv1_004_E_Coin,
+    Lv1_005_CoinPass,
+    Lv1_006_CoinNotPass,
+    Lv1_007_E_Table,
+    Lv1_008_E_FlowerCircle,
+    Lv1_009_E_Lotus_Finish,
+    Lv1_010_E_Lotus_AlreadyFinish,
+    Lv1_011_E_Table,
+    Lv1_012_TalkWithMom_NotFinish,
+    Lv1_013_TalkWithMom_Finish,
+    Lv1_014_E_Wardrobe,
+    Lv1_015_E_Painting,
+    Lv1_016_E_Door_NotPainting,
+    Lv1_017_E_Door_Painting,
+
+    //LV_2
+    Lv2_000_Begin,
+    Lv2_001_E_FilialPietyCurtain,
+    Lv2_002_E_Seat,
+    Lv2_003_E_Grandmother,
+    Lv2_004_E_Drink,
+    Lv2_005_BackLivingRoom,
+    Lv2_006_E_Flashlight,
+
+    //LV_4
+    Lv4_000_Begin,
+    Lv4_001_E_Calendar,
+    Lv4_002_DoorOpen,
+    Lv4_003_FlushSound,
+    Lv4_004_DropIntoWaterSound,
+    Lv4_005_TubStrangeSound,
+    Lv4_006_E_Door,
+    Lv4_007_TearCalendar,
+    Lv4_008_NearLivingRoomTable,
+    Lv4_09_TearCalendar,
+    Lv4_010_E_Telephone,
+    Lv4_011_TakeOnPhone,
+    Lv4_012_KnockDoorSound,
+    Lv4_013_E_Piano,
+    Lv4_014_CorrectMelody,
+    Lv4_015_E_Amulet,
+    Lv4_016_E_Bed,
+    Lv4_017_E_Amulet,
+    Lv4_018_E_CalendarPaper,
+    Lv4_019_AfterAnimation,
+    Lv4_020_E_Tub,
+
+    //LV_5
+    Lv5_000_E_CalendarBook,
+    Lv5_001_E_Door,
+    Lv5_002_StartCeremony,
+    Lv5_003_ConductCeremony,
+    Lv5_004_E_Hug,
+    Lv5_005_E_Amulet
+}
+
+public enum OutSide_Dialogue
+{
+    //LV_2
+    Lv2_007_GoOut = 0,
+}
+
+public enum Forest_Dialogue
+{
+    //LV_3
+    Lv3_000_LookNote = 0,
+    Lv3_001_LeaveForest,
 }
 
 public enum Lv2_Dialogue

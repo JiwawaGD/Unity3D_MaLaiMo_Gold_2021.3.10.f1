@@ -15,7 +15,7 @@ public partial class GameEventController
         PlayerCtrlr.m_bCanControl = true;
 
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
-        GlobalDeclare.SetDialogueEvent((byte)Lv1_Dialogue.HintMove);
+        GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
         GlobalDeclare.SetPlayerMovable(true);
 
         SceneCtrlr.RecEventCallback(LevelTypeID.Lv1_GrandmaHouse, (int)Lv1_EventCallBackID.Lv1_TalkToPackage);

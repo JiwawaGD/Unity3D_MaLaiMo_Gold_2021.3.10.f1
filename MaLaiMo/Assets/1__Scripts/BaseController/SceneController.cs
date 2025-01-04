@@ -11,6 +11,7 @@ using DG.Tweening;
 public partial class SceneController : MonoBehaviour
 {
     // 確定需要保留的區域
+    [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] protected GameEventController GameEventCtrlr;
     //
 
@@ -145,7 +146,7 @@ public partial class SceneController : MonoBehaviour
             case HintItemID.Lv1_Begin:
                 break;
             case HintItemID.Lv1_OpenRoomDoor:
-                NextItem = GameObject.Find("__ITEMS/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
+                NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
                 break;
             case HintItemID.Lv2_Begin:
                 break;

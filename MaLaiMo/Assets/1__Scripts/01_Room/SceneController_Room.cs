@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneController_Room : SceneController
 {
-    [SerializeField] LevelTypeID CurrentLevel;
-
     #region - Light Zone -
     #endregion
 

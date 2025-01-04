@@ -26,7 +26,8 @@ public class ItemController : MonoBehaviour
     Transform tfInteract;
     #endregion
 
-    SceneController gameManager;
+    GameEventController GameEventCtrlr;
+    SceneController SceneCtrlr;
     Transform tfPlayerCamera;
     Vector3 v3This;
     bool bShowHint;
@@ -71,8 +72,11 @@ public class ItemController : MonoBehaviour
         if (tfInteract == null)
             tfInteract = InteractObj.transform;
 
-        if (gameManager == null)
-            gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController>();
+        if (GameEventCtrlr == null || SceneCtrlr == null)
+        {
+            GameEventCtrlr = GameObject.Find("_Common_Controller/GameEventController").GetComponent<GameEventController>();
+            SceneCtrlr = GameEventCtrlr.SceneCtrlr;
+        }
 
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
@@ -101,7 +105,7 @@ public class ItemController : MonoBehaviour
     public void SendGameEvent()
     {
         ItemDisable();
-        gameManager.GameEvent(m_CurrentLevelID, EventID);
+        SceneCtrlr.GameEvent(m_CurrentLevelID, EventID);
     }
 
     void ItemDisable()

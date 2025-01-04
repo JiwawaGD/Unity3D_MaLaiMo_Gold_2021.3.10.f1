@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public static float MouseSensitivity = 1.0f;
     public Transform ro_tfItemObj;
 
-    [SerializeField] [Header("Mouse Settings")] 
+    [SerializeField]
+    [Header("Mouse Settings")]
     private float smoothTime = 0.1f; // 添加平滑時間
     private float currentRotationVelocityX = 3f; // X軸當前速度
     private float currentRotationVelocityY = 0f; // Y軸當前速度
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     readonly float m_fMoveSpeed = 3f;
     readonly float m_fRayLength = 1.2f;
     readonly int m_iInteractiveLayer = 10;  // 互動圖層
-    readonly Vector3 v3_zero = new Vector3(0,-9.8f,0);
+    readonly Vector3 v3_zero = new Vector3(0, -9.8f, 0);
 
     public bool m_bLimitRotation = false;
     float m_fHorizantalRotationValue;
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
     ItemController current_Item;
     ItemController last_Item;
 
+    #region Internal Function
     public virtual void Awake()
     {
         rig = GetComponent<Rigidbody>();
@@ -66,20 +68,12 @@ public class PlayerController : MonoBehaviour
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
 
     }
-
     public void Start()
     {
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        //Gizmos.DrawLine(tfPlayerCamera.position, tfPlayerCamera.position + (tfPlayerCamera.forward * m_fRayLength));
-    }
-
     public void Update()
     {
         RayHitCheck();
@@ -91,7 +85,6 @@ public class PlayerController : MonoBehaviour
                 SetCursor();
         }
     }
-
     public void FixedUpdate()
     {
         // 滑鼠顯示、無法控制時不可控制
@@ -127,6 +120,12 @@ public class PlayerController : MonoBehaviour
         View();
         Move();
     }
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawLine(tfPlayerCamera.position, tfPlayerCamera.position + (tfPlayerCamera.forward * m_fRayLength));
+    }
+    #endregion
 
     public void DefaultCursorState()
     {
@@ -145,7 +144,7 @@ public class PlayerController : MonoBehaviour
     public void InitValue()
     {
         m_fUDSensitivity = 230;
-        m_fRLSensitivity = 180;
+        m_fRLSensitivity = 280;
 
         fSensitivityAmplifier = GlobalDeclare.fSensitivity;
 
@@ -168,21 +167,22 @@ public class PlayerController : MonoBehaviour
         targetRotationY += mouseY * Time.deltaTime; // 注意這裡是減法，因為我們要反轉Y軸
 
         // 限制垂直旋轉範圍
-        targetRotationY = Mathf.Clamp(targetRotationY, -75f, 75f);
+        targetRotationY = Mathf.Clamp(targetRotationY, m_fVerticalRotationRange.x, m_fVerticalRotationRange.y);
 
         if (m_bLimitRotation)
         {
             // 使用 SmoothDamp 實現平滑旋轉
-            m_fHorizantalRotationValue = Mathf.SmoothDamp(
-                m_fHorizantalRotationValue, 
-                targetRotationX, 
-                ref currentRotationVelocityX, 
-                smoothTime
-            );
+            m_fHorizantalRotationValue = Mathf.SmoothDamp
+                (
+                    m_fHorizantalRotationValue,
+                    targetRotationX,
+                    ref currentRotationVelocityX,
+                    smoothTime
+                );
 
             m_fHorizantalRotationValue = Mathf.Clamp(
-                m_fHorizantalRotationValue, 
-                m_fHorizantalRotationRange.x, 
+                m_fHorizantalRotationValue,
+                m_fHorizantalRotationRange.x,
                 m_fHorizantalRotationRange.y
             );
 
@@ -192,12 +192,12 @@ public class PlayerController : MonoBehaviour
         {
             // 平滑處理自由旋轉
             float smoothedRotationX = Mathf.SmoothDamp(
-                tfTransform.eulerAngles.y, 
-                tfTransform.eulerAngles.y + mouseX * Time.deltaTime, 
-                ref currentRotationVelocityX, 
+                tfTransform.eulerAngles.y,
+                tfTransform.eulerAngles.y + mouseX * Time.deltaTime,
+                ref currentRotationVelocityX,
                 smoothTime
             );
-            
+
             tfTransform.eulerAngles = new Vector3(
                 tfTransform.eulerAngles.x,
                 smoothedRotationX,
@@ -207,9 +207,9 @@ public class PlayerController : MonoBehaviour
 
         // 攝影機垂直旋轉的平滑處理
         m_fVerticalRotationValue = Mathf.SmoothDamp(
-            m_fVerticalRotationValue, 
-            targetRotationY, 
-            ref currentRotationVelocityY, 
+            m_fVerticalRotationValue,
+            targetRotationY,
+            ref currentRotationVelocityY,
             smoothTime
         );
 
@@ -297,5 +297,4 @@ public class PlayerController : MonoBehaviour
     {
         PlaySound(walkingSound);
     }
-
 }

@@ -5,8 +5,8 @@ public partial class GameEventController
     #region - Game Event -
     void Lv1_TalkToPackage()
     {
-        Transform tfPlayer = GameObject.Find("_Player/LingLing").transform;
-        Transform tfTalkToPackagePos = GameObject.Find("_Location/TalkToPackagePos").transform;
+        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
+        Transform tfTalkToPackagePos = GameObject.Find("_Scene01_MoveLocation/TalkToPackagePos").transform;
 
         tfPlayer.localPosition = tfTalkToPackagePos.localPosition;
         tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
@@ -18,7 +18,7 @@ public partial class GameEventController
         GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
         GlobalDeclare.SetPlayerMovable(true);
 
-        SceneCtrlr.RecEventCallback(LevelTypeID.Lv1_GrandmaHouse, (int)Lv1_EventCallBackID.Lv1_TalkToPackage);
+        DialogueObjects[(byte)Room_Dialogue.Lv1_000_FacePackage].StartAction();
     }
 
     void Lv1_GrandmaRoomDoorSwitch()

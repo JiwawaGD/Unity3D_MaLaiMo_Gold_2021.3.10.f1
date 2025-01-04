@@ -6,12 +6,16 @@ using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
+    public Text DialogueText;
+
     [Header("執行事項")]
-    [Tooltip("{%wait: second\n" +
+    [Tooltip("{%wait: 持續時間 (sec)\n\n" +
              "{%object: index; active; alpha(-1為None)\n" +
+             "e.g. {%object:0;true;1\n\n" +
              "{%voice: index; volume\n" +
-             "{%function: index;\n" +
-             "普通字串直接打")]
+             "e.g. {%voice:0;1\n\n" +
+             "{%function: index;\n\n" +
+             "字幕字串直接打")]
     public string[] ActionEvent;
 
     [Header("需處理物件")]
@@ -23,8 +27,6 @@ public class DialogueManager : MonoBehaviour
     [Header("調用的函式")]
     public UnityEvent[] Functions;
 
-    public Text DialogueText;
-
     int ActionCount;
 
     AudioSource aud;
@@ -34,15 +36,15 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         ActionCount = 0;
-        DialogueText = GameObject.Find("_Dialogue/DialogueUICanvas/DialogueText").GetComponent<Text>();
-        aud = GameObject.Find("_Sound/對話音效管理器").GetComponent<AudioSource>();
+        DialogueText = GameObject.Find("_Common_Canvas/DialogueUICanvas/DialogueText").GetComponent<Text>();
+        aud = GameObject.Find("_Common_Sound/對話音效管理器").GetComponent<AudioSource>();
     }
-
 
     public IEnumerator StartAction()
     {
-        print("StartAction");
+        Debug.LogWarning(string.Format("Object : {0} StartAction > Action : {1}", this.name, ActionEvent[ActionCount]));
         m_bIsPlaying = true;
+
         if (ActionEvent[ActionCount].Contains("{%wait:"))
         {
             var WaitingTime = float.Parse(ActionEvent[ActionCount].Substring(7));
@@ -79,7 +81,7 @@ public class DialogueManager : MonoBehaviour
         {
             //if (SubTitleCtrlr.CurrentDialogue == gameObject.name)
             print(DialogueText);
-                DialogueText.text = ActionEvent[ActionCount];
+            DialogueText.text = ActionEvent[ActionCount];
         }
 
         if (ActionCount < ActionEvent.Length - 1)

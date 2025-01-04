@@ -4,7 +4,7 @@ using UnityEngine;
 public partial class GameEventController : MonoBehaviour
 {
     #region - Field -
-    [SerializeField] [Header("場景控制器")] SceneController SceneCtrlr;
+    [SerializeField] [Header("場景控制器")] public SceneController SceneCtrlr;
     [SerializeField] [Header("玩家")] PlayerController PlayerCtrlr;
     [SerializeField] [Header("對話物件")] public DialogueManager[] DialogueObjects;
     #endregion
@@ -31,7 +31,7 @@ public partial class GameEventController : MonoBehaviour
     #region - Event Function -
     void Lv1_Event(GameEventID r_EventID)
     {
-        Debug.Log(string.Format("[Lv1_Event] GameEventID : {0}", r_EventID));
+        Debug.LogWarning(string.Format("[Lv1_Event] GameEventID : {0}", r_EventID));
 
         switch (r_EventID)
         {
@@ -67,7 +67,7 @@ public partial class GameEventController : MonoBehaviour
     #region - Animation Type -
     public void ProcessPlayerAnimator(string r_sAnimationName)
     {
-        Transform tfPlayer = GameObject.Find("_Player/LingLing").transform;
+        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
         Animation Am = tfPlayer.GetComponent<Animation>();
 
         Am.PlayQueued(r_sAnimationName);

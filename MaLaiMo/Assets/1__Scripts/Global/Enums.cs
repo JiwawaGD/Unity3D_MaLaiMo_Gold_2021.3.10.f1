@@ -76,8 +76,10 @@ public enum PlayerAnimateType
 
 public enum Room_Dialogue
 {
+    Lv_null = 0,
+
     //LV1
-    Lv1_000_FacePackage = 0,
+    Lv1_000_FacePackage = 1,
     Lv1_001_HintMove,
     Lv1_002_OpenDoor,
     Lv1_003_E_Mother,
@@ -97,7 +99,7 @@ public enum Room_Dialogue
     Lv1_017_E_Door_Painting,
 
     //LV_2
-    Lv2_000_Begin,
+    Lv2_000_Begin = 1,
     Lv2_001_E_FilialPietyCurtain,
     Lv2_002_E_Seat,
     Lv2_003_E_Grandmother,
@@ -106,7 +108,7 @@ public enum Room_Dialogue
     Lv2_006_E_Flashlight,
 
     //LV_4
-    Lv4_000_Begin,
+    Lv4_000_Begin = 0,
     Lv4_001_E_Calendar,
     Lv4_002_DoorOpen,
     Lv4_003_FlushSound,
@@ -129,7 +131,7 @@ public enum Room_Dialogue
     Lv4_020_E_Tub,
 
     //LV_5
-    Lv5_000_E_CalendarBook,
+    Lv5_000_E_CalendarBook = 1,
     Lv5_001_E_Door,
     Lv5_002_StartCeremony,
     Lv5_003_ConductCeremony,

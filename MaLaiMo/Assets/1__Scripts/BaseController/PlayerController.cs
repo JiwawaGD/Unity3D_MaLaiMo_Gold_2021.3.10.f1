@@ -1,11 +1,9 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public static float MouseSensitivity = 1.0f;
-    public Transform ro_tfItemObj;
 
     [SerializeField]
     [Header("Mouse Settings")]

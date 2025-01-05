@@ -6723,6 +6723,11 @@ MonoBehaviour:
     textureOffset: {x: 0, y: 0, z: 0}
     falloffMode: 0
   m_Version: 2
+--- !u!1 &1385312069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1890006327737951807, guid: cbc0bf4cbba395040ac93643a5438c0d, type: 3}
+  m_PrefabInstance: {fileID: 1890006326945214455}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1413610613
 GameObject:
   m_ObjectHideFlags: 0
@@ -11623,7 +11628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2289103652087373669, guid: 6cb64fffa45eff44c87ad1b974ab1ed2, type: 3}
       propertyPath: Functions.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2289103652087373669, guid: 6cb64fffa45eff44c87ad1b974ab1ed2, type: 3}
       propertyPath: Functions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -11647,7 +11652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2289103652087373669, guid: 6cb64fffa45eff44c87ad1b974ab1ed2, type: 3}
       propertyPath: Functions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2289103652087373669, guid: 6cb64fffa45eff44c87ad1b974ab1ed2, type: 3}
       propertyPath: Functions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -11861,6 +11866,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: GoCanvas
+      value: 
+      objectReference: {fileID: 1385312069}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: CrosshairUI
       value: 

@@ -35,7 +35,7 @@ public enum HintItemID
     Lv1_OpenRoomDoor = 2,
 
     // Lv2 : Scene_2
-    Lv2_Begin = 101,
+    Lv2_Begin = 1,
 }
 
 public enum ObjItemID

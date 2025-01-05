@@ -36,9 +36,29 @@ public class SceneController_Room : SceneController
 
     public override void KeyboardTrigger() { }
 
-    public override void ShowHint(HintItemID r_ItemID)
+    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
-        base.ShowHint(r_ItemID);
+        ItemController NextItem = null;
+
+        switch (r_SceneTypeID)
+        {
+            case LevelTypeID.Lv1_GrandmaHouse:
+                switch (r_ItemID)
+                {
+                    case HintItemID.Lv1_OpenRoomDoor:
+                        NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
+                        break;
+                }
+                break;
+            case LevelTypeID.BeginScene:
+            case LevelTypeID.Introduce:
+            case LevelTypeID.Lv2_GrandmaHouse:
+                Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
+                break;
+        }
+
+        NextItem.bActive = true;
+        NextItem.SetHintable(true);
     }
     #endregion
 
@@ -112,14 +132,14 @@ public class SceneController_Room : SceneController
         GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
         GlobalDeclare.SetPlayerMovable(true);
 
-        ShowHint(HintItemID.Lv1_OpenRoomDoor);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_OpenRoomDoor);
 
         PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
     }
 
     void Lv1_GrandmaRoomDoorSwitch()
     {
-        Transform tfRoomDoor = GameObject.Find("__ITEMS/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
         Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
 
         if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)

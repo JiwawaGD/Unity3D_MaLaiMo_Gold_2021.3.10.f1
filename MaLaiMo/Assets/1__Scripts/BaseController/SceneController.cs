@@ -30,7 +30,7 @@ public partial class SceneController : MonoBehaviour
     //
 
     /// 待調整的區域
-    public GameObject GoCanvas;
+    public GameObject ItemCanvas;
     ///
     [Header("============ 以下待整理 ============\n")]
 
@@ -108,15 +108,15 @@ public partial class SceneController : MonoBehaviour
 
         AudManager = PlayerCtrlr.GetComponentInChildren<AUDManager>();
 
-        if (GoCanvas == null)
-            GoCanvas = GameObject.Find("_Common_Canvas/_Item Canvas");
+        if (ItemCanvas == null)
+            ItemCanvas = GameObject.Find("_Common_Canvas/_Item Canvas");
 
-        imgUIBackGround = GoCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
-        txtTitle = GoCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
+        imgUIBackGround = ItemCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
+        txtTitle = ItemCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
 
-        imgInstructions = GoCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
-        txtInstructions = GoCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
-        txtIntroduce = GoCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
+        imgInstructions = ItemCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
+        txtInstructions = ItemCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
+        txtIntroduce = ItemCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
 
         //ExitBtn = GoCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
         //txtEnterGameHint = GoCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
@@ -177,28 +177,7 @@ public partial class SceneController : MonoBehaviour
     /// 使物件顯示眼睛圖案 & 可互動
     /// </summary>
     /// <param name="r_ItemID">物件的 ID</param>
-    public virtual void ShowHint(HintItemID r_ItemID)
-    {
-        ItemController NextItem = null;
-
-        switch (r_ItemID)
-        {
-            case HintItemID.Empty:
-                break;
-            case HintItemID.Lv1_Begin:
-                break;
-            case HintItemID.Lv1_OpenRoomDoor:
-                NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
-                break;
-            case HintItemID.Lv2_Begin:
-                break;
-            default:
-                break;
-        }
-
-        NextItem.bActive = true;
-        NextItem.SetHintable(true);
-    }
+    public virtual void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID) { }
 
     public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID) { }
     #endregion
@@ -236,6 +215,15 @@ public partial class SceneController : MonoBehaviour
         GlobalDeclare.SetItemAniObject("Empty");
         GlobalDeclare.SetItemAniName("Empty");
         m_bShowItemAnimate = false;
+    }
+
+    /// <summary>
+    /// 執行 DialogueManager 的事件
+    /// </summary>
+    /// <param name="index">事件 ID</param>
+    public void PlayDialogue(int index)
+    {
+        StartCoroutine(DialogueObjects[index].StartAction());
     }
     #endregion
 
@@ -296,7 +284,7 @@ public partial class SceneController : MonoBehaviour
         PlayerCtrlr.m_bCanControl = !r_bEnable;
         PlayerCtrlr.SetCursor();
 
-        GoCanvas.SetActive(r_bEnable);
+        ItemCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
         imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.60f) : new Color(0, 0, 0, 0.60f);
         imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
@@ -499,10 +487,5 @@ public partial class SceneController : MonoBehaviour
     public IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
-    }
-
-    public void PlayDialogue(int index)
-    {
-        StartCoroutine(DialogueObjects[index].StartAction());
     }
 }

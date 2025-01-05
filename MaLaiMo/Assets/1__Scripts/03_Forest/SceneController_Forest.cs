@@ -36,10 +36,10 @@ public class SceneController_Forest : SceneController
         Back,
     }
 
-    public override void Awake()
-    {
-        // DialogueObjects[0].CallAction(false);
-    }
+    //public override void Awake()
+    //{
+    //    // DialogueObjects[0].CallAction(false);
+    //}
 
     public override void Start()
     {

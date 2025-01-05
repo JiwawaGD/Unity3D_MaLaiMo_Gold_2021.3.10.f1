@@ -95,33 +95,33 @@ public partial class SceneController : MonoBehaviour
     // 以上未還未整理的程式碼
 
     #region - External Virtual -
-    public virtual void Awake()
-    {
-        if (playerCtrlr == null)
-            playerCtrlr = GameObject.Find("_Player/LingLing").GetComponent<PlayerController>();
+    //public virtual void Awake()
+    //{
+    //    if (playerCtrlr == null)
+    //        playerCtrlr = GameObject.Find("_Player/LingLing").GetComponent<PlayerController>();
 
-        audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
+    //    audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
 
-        if (goCanvas == null)
-            goCanvas = GameObject.Find("_Canvas/_UICanvas");
+    //    if (goCanvas == null)
+    //        goCanvas = GameObject.Find("_Canvas/_UICanvas");
 
-        imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
-        txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
+    //    imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
+    //    txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
 
-        imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
-        txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
-        txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
+    //    imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
+    //    txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
+    //    txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
 
-        ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
+    //    ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
 
-        txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
-        EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
+    //    txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
+    //    EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
 
-        TempItem = null;    // 暫存物件
-        currentScene = SceneManager.GetActiveScene();   // 當前場景
-        Ro_Light.enabled = false;   // 旋轉物件使用燈關
-        StudioUI.SetActive(false);  // 攝影棚畫面UI
-    }
+    //    TempItem = null;    // 暫存物件
+    //    currentScene = SceneManager.GetActiveScene();   // 當前場景
+    //    Ro_Light.enabled = false;   // 旋轉物件使用燈關
+    //    StudioUI.SetActive(false);  // 攝影棚畫面UI
+    //}
 
     public virtual void Start()
     {
@@ -182,7 +182,7 @@ public partial class SceneController : MonoBehaviour
     public virtual void Lv1_EventCallBack(int r_EventID) { }
     #endregion
 
-    public void Update()
+    public virtual void Update()
     {
         KeyboardCheck();
 

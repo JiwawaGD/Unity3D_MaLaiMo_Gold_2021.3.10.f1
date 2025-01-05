@@ -6,6 +6,8 @@ public class OutSidePlayer : PlayerController
 
     public override void Awake()
     {
+        m_bCursorShow = false;
+        m_bCanControl = true;
     }
 
     void OnTriggerEnter(Collider other)

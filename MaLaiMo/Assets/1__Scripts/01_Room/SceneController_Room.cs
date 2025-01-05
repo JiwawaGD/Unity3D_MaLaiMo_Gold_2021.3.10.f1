@@ -16,10 +16,10 @@ public class SceneController_Room : SceneController
     #endregion
 
     #region - External Override -
-    public override void Awake()
-    {
-        //base.Awake(); 
-    }
+    //public override void Awake()
+    //{
+    //    //base.Awake(); 
+    //}
 
     public override void Start()
     {

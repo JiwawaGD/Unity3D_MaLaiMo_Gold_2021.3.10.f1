@@ -112,6 +112,8 @@ public class SceneController_Room : SceneController
         GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
         GlobalDeclare.SetPlayerMovable(true);
 
+        ShowHint(HintItemID.Lv1_OpenRoomDoor);
+
         PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
     }
 

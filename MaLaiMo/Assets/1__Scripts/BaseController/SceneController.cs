@@ -12,31 +12,45 @@ public partial class SceneController : MonoBehaviour
 {
     // 確定需要保留的區域
     [SerializeField] LevelTypeID CurrentLevel;
-    [SerializeField] protected GameEventController GameEventCtrlr;
+    [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
+
+    [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
+    [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
+
+    /// <summary>
+    /// 角色控制器
+    /// </summary>
+    [HideInInspector] public PlayerController PlayerCtrlr;
+    /// <summary>
+    /// 音效控制器
+    /// </summary>
+    [HideInInspector] protected AUDManager AudManager;
+
+    protected Scene CurrentScene;
     //
 
-    public static SceneController instance;
-    public string CurrentDialogue;
+    /// 待調整的區域
+    public GameObject GoCanvas;
+    ///
 
     [Space]
     [SerializeField] Volume CameraVolume;
 
-    [Header("Volume參數設定")]
-    [SerializeField]
-    protected float fTargetIntensity = 1f;
-    readonly float fChangeSpeed = 1f;
+    //[Header("Volume參數設定")]
+    //[SerializeField]
+    //protected float fTargetIntensity = 1f;
+    //readonly float fChangeSpeed = 1f;
 
-    [SerializeField] GameObject[] taskListUi;
+    //[SerializeField] GameObject[] taskListUi;
+
     [Space]
     [Header("物件旋轉參數設定")]
     protected bool isMoveingObject = false;    // 是否正在移動物件
     protected Vector3 originalPosition;    // 原始位置
     protected Quaternion originalRotation; // 原始旋轉
 
-    [SerializeField] protected AUDManager audManager;
-    // 音效管理器
 
-    [Header("物件移動速度")] public float objSpeed;
+    //[Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件功能")] public bool romanager;
     [Header("全域變數")] public Volume postProcessVolume;
     [Header("物件位置")] public GameObject itemObjTransform;
@@ -44,19 +58,13 @@ public partial class SceneController : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
-    [Header("玩家")] public PlayerController playerCtrlr;
-    [SerializeField] [Header("對話程序")] public DialogueManager[] DialogueObjects;
-    [SerializeField] [Header("設定頁面")] public GameObject settingObjects;
-    [SerializeField] [Header("Video 撥放器")] public VideoPlayer videoPlayer;
-    [SerializeField] [Header("QRCode UI")] public GameObject QRCodeUI;
-    [SerializeField] [Header("準心 UI")] public GameObject CrosshairUI;
-    [SerializeField] [Header("追蹤物件位置")] protected Transform[] Targers;
-    protected Scene currentScene;
+    //[SerializeField] [Header("Video 撥放器")] public VideoPlayer videoPlayer;
+    //[SerializeField] [Header("QRCode UI")] public GameObject QRCodeUI;
+    [SerializeField] [Header("追蹤物件位置")] protected Transform[] Targets;
 
-    ItemController TempItem;
+    //ItemController TempItem;
 
     #region Canvas Zone
-    public GameObject goCanvas;
     Image imgUIBackGround;
     Text txtTitle;
 
@@ -82,11 +90,6 @@ public partial class SceneController : MonoBehaviour
     public static bool m_bToiletGhostHasShow = false;
     #endregion
 
-    #region - Empty Field => For Memory -
-    public BoxCollider TempBoxCollider;
-    public GameObject TempGameObject;
-    #endregion
-
     protected bool bIsPaused = false;
     protected bool bIsMouseEnabled = false;
     protected bool bIsUIOpen = false;
@@ -94,34 +97,34 @@ public partial class SceneController : MonoBehaviour
 
     // 以上未還未整理的程式碼
 
-    #region - External Virtual -
-    //public virtual void Awake()
-    //{
-    //    if (playerCtrlr == null)
-    //        playerCtrlr = GameObject.Find("_Player/LingLing").GetComponent<PlayerController>();
+    #region - Internal Virtual -
+    public virtual void Awake()
+    {
+        CurrentScene = SceneManager.GetActiveScene();   // 當前場景
 
-    //    audManager = playerCtrlr.GetComponentInChildren<AUDManager>();
+        if (PlayerCtrlr == null)
+            PlayerCtrlr = GameObject.Find("_Common_Player/LingLing").GetComponent<PlayerController>();
 
-    //    if (goCanvas == null)
-    //        goCanvas = GameObject.Find("_Canvas/_UICanvas");
+        AudManager = PlayerCtrlr.GetComponentInChildren<AUDManager>();
 
-    //    imgUIBackGround = goCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
-    //    txtTitle = goCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
+        if (GoCanvas == null)
+            GoCanvas = GameObject.Find("_Common_Canvas/_Item Canvas");
 
-    //    imgInstructions = goCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
-    //    txtInstructions = goCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
-    //    txtIntroduce = goCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
+        imgUIBackGround = GoCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
+        txtTitle = GoCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
 
-    //    ExitBtn = goCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
+        imgInstructions = GoCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
+        txtInstructions = GoCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
+        txtIntroduce = GoCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
 
-    //    txtEnterGameHint = goCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
-    //    EnterGameBtn = goCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
+        //ExitBtn = GoCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
+        //txtEnterGameHint = GoCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
+        //EnterGameBtn = GoCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
 
-    //    TempItem = null;    // 暫存物件
-    //    currentScene = SceneManager.GetActiveScene();   // 當前場景
-    //    Ro_Light.enabled = false;   // 旋轉物件使用燈關
-    //    StudioUI.SetActive(false);  // 攝影棚畫面UI
-    //}
+        //TempItem = null;    // 暫存物件
+        //Ro_Light.enabled = false;   // 旋轉物件使用燈關
+        //StudioUI.SetActive(false);  // 攝影棚畫面UI
+    }
 
     public virtual void Start()
     {
@@ -129,6 +132,44 @@ public partial class SceneController : MonoBehaviour
 
         // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
         //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+    }
+
+    public virtual void Update()
+    {
+        KeyboardTrigger();
+
+        if (bIsPaused && bIsMouseEnabled)
+            MouseCheck();
+    }
+    #endregion
+
+    #region - External Virtual -
+
+    // 鍵盤檢查
+    public virtual void KeyboardTrigger()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // 關閉 UI 畫面
+            if (m_bInUIView)
+            {
+                if (isMoveingObject)
+                {
+                    romanager = false;
+
+                    if (!romanager)
+                    {
+                        RestoreItemLocation();
+                        Ro_Light.enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                // 顯示遊戲狀態
+                SetGameState();
+            }
+        }
     }
 
     /// <summary>
@@ -158,43 +199,49 @@ public partial class SceneController : MonoBehaviour
         NextItem.SetHintable(true);
     }
 
-    public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
-    {
-        GameEventCtrlr.RecGameEvent(r_SceneTypeID, r_EventID);
-    }
-
-    public virtual void RecEventCallback(LevelTypeID r_SceneTypeID, int r_iCallBackID)
-    {
-        switch (r_SceneTypeID)
-        {
-            case LevelTypeID.BeginScene:
-                break;
-            case LevelTypeID.Introduce:
-                break;
-            case LevelTypeID.Lv1_GrandmaHouse:
-                Lv1_EventCallBack(r_iCallBackID);
-                break;
-            case LevelTypeID.Lv2_GrandmaHouse:
-                break;
-        }
-    }
-
-    public virtual void Lv1_EventCallBack(int r_EventID) { }
+    public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID) { }
     #endregion
 
-    public virtual void Update()
+    #region - Base Function -
+    public void ProcessPlayerAnimator(string r_sAnimationName)
     {
-        KeyboardCheck();
+        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
+        Animation Am = tfPlayer.GetComponent<Animation>();
 
-        if (bIsPaused && bIsMouseEnabled)
-            MouseCheck();
+        Am.PlayQueued(r_sAnimationName);
+        GlobalDeclare.SetPlayerAnimateType(PlayerAnimateType.Empty);
     }
+
+    /// <summary>
+    /// 執行物件動畫
+    /// </summary>
+    /// <param name="r_sObject">動畫物件</param>
+    /// <param name="r_sTriggerName">動畫名稱</param>
+    public void ProcessAnimator(string r_sObject, string r_sTriggerName)
+    {
+        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
+            return;
+
+        GameObject obj = GameObject.Find(r_sObject);
+        Animator ani = obj.transform.GetComponent<Animator>();
+        ani.SetTrigger(r_sTriggerName);
+
+        if (obj.transform.GetComponent<ItemController>() != null)
+        {
+            obj.transform.GetComponent<ItemController>().SetHintable(false);
+            obj.transform.GetComponent<ItemController>().bActive = false;
+        }
+
+        GlobalDeclare.SetItemAniObject("Empty");
+        GlobalDeclare.SetItemAniName("Empty");
+        m_bShowItemAnimate = false;
+    }
+    #endregion
 
     public void SetGameSetting()
     {
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
     }
-
 
     // 旋轉物件 (物件ID)
     public void ProcessRoMoving(int iIndex)
@@ -245,10 +292,10 @@ public partial class SceneController : MonoBehaviour
     public void UIState(UIItemID r_ItemID, bool r_bEnable)
     {
         m_bInUIView = r_bEnable;
-        playerCtrlr.m_bCanControl = !r_bEnable;
-        playerCtrlr.SetCursor();
+        PlayerCtrlr.m_bCanControl = !r_bEnable;
+        PlayerCtrlr.SetCursor();
 
-        goCanvas.SetActive(r_bEnable);
+        GoCanvas.SetActive(r_bEnable);
         ExitBtn.gameObject.SetActive(r_bEnable);
         imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.60f) : new Color(0, 0, 0, 0.60f);
         imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
@@ -262,27 +309,6 @@ public partial class SceneController : MonoBehaviour
         GegameManager_bInUIView();
     }
 
-    // 執行物件動畫
-    public void ProcessAnimator(string r_sObject, string r_sTriggerName)
-    {
-        if (r_sObject.Contains("null") || r_sTriggerName.Contains("null"))
-            return;
-
-        GameObject obj = GameObject.Find(r_sObject);
-        Animator ani = obj.transform.GetComponent<Animator>();
-        ani.SetTrigger(r_sTriggerName);
-
-        if (obj.transform.GetComponent<ItemController>() != null)
-        {
-            obj.transform.GetComponent<ItemController>().SetHintable(false);
-            obj.transform.GetComponent<ItemController>().bActive = false;
-        }
-
-        GlobalDeclare.SetItemAniObject("Empty");
-        GlobalDeclare.SetItemAniName("Empty");
-        m_bShowItemAnimate = false;
-    }
-
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
     {
         if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
@@ -294,18 +320,17 @@ public partial class SceneController : MonoBehaviour
         m_bShowItemAnimate = false;
     }
 
-
     // 限制角色視角 (暫無使用)
     public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
     {
         m_bSetPlayerViewLimit = false;
-        playerCtrlr.m_bLimitRotation = bLimitRotation;
-        playerCtrlr.m_fHorizantalRotationRange.x = fViewLimit[0];
-        playerCtrlr.m_fHorizantalRotationRange.y = fViewLimit[1];
+        PlayerCtrlr.m_bLimitRotation = bLimitRotation;
+        PlayerCtrlr.m_fHorizantalRotationRange.x = fViewLimit[0];
+        PlayerCtrlr.m_fHorizantalRotationRange.y = fViewLimit[1];
 
         if (bLimitRotation)
         {
-            playerCtrlr.tfTransform.localEulerAngles = Vector3.up * fViewLimit[2];
+            PlayerCtrlr.tfTransform.localEulerAngles = Vector3.up * fViewLimit[2];
             Debug.Log("Value : " + fViewLimit[2]);
         }
     }
@@ -317,33 +342,6 @@ public partial class SceneController : MonoBehaviour
         EnterGameBtn.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.gameObject.SetActive(r_bEnable);
         txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
-    }
-
-    // 鍵盤檢查
-    public virtual void KeyboardCheck()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            // 關閉 UI 畫面
-            if (m_bInUIView)
-            {
-                if (isMoveingObject)
-                {
-                    romanager = false;
-
-                    if (!romanager)
-                    {
-                        RestoreItemLocation();
-                        Ro_Light.enabled = false;
-                    }
-                }
-            }
-            else
-            {
-                // 顯示遊戲狀態
-                SetGameState();
-            }
-        }
     }
 
     public void RestoreItemLocation()
@@ -372,10 +370,10 @@ public partial class SceneController : MonoBehaviour
 
     public void SetGameState()  // 設定遊戲狀態
     {
-        playerCtrlr.SetCursor();
+        PlayerCtrlr.SetCursor();
         bIsPaused = !bIsPaused;
         Time.timeScale = bIsPaused ? 0f : 1f;
-        settingObjects.SetActive(bIsPaused);
+        SettingPanel.SetActive(bIsPaused);
         bIsMouseEnabled = bIsPaused;
     }
 
@@ -383,7 +381,7 @@ public partial class SceneController : MonoBehaviour
     {
         if (!GlobalDeclare.bLotusGameComplete &&
              m_bPlayLotusEnable &&
-             currentScene.name == "2 Grandma House")
+             CurrentScene.name == "2 Grandma House")
         {
 
         }
@@ -396,16 +394,16 @@ public partial class SceneController : MonoBehaviour
 
     public void StopReadding()  // 停止閱讀查看物件
     {
-        playerCtrlr.m_bCanControl = false;
-        playerCtrlr.m_bLimitRotation = true;
+        PlayerCtrlr.m_bCanControl = false;
+        PlayerCtrlr.m_bLimitRotation = true;
         StartCoroutine(ChangeVignetteIntensity());
     }
 
     public IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
         yield return new WaitForSeconds(11f);
-        playerCtrlr.m_bCanControl = true;
-        playerCtrlr.m_bLimitRotation = false;
+        PlayerCtrlr.m_bCanControl = true;
+        PlayerCtrlr.m_bLimitRotation = false;
         //VolumeProfile profile = postProcessVolume.sharedProfile;
 
         //if (profile.TryGet(out Vignette vignette) &&
@@ -441,8 +439,8 @@ public partial class SceneController : MonoBehaviour
     public void BackToBaseGame()
     {
         m_bReturnToBegin = false;
-        QRCodeUI.SetActive(false);
-        playerCtrlr.SetCursor();
+        //QRCodeUI.SetActive(false);
+        PlayerCtrlr.SetCursor();
         SceneManager.LoadScene(0);
     }
 
@@ -453,9 +451,9 @@ public partial class SceneController : MonoBehaviour
 
     public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
-        playerCtrlr.m_bCanControl = false;
-        playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-        playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        PlayerCtrlr.m_bCanControl = false;
+        PlayerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        PlayerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
 
         // 移動玩家
         float fTotalMoveTime = 1.0f;
@@ -463,16 +461,16 @@ public partial class SceneController : MonoBehaviour
 
         while (fCurrengameManageroveTime < fTotalMoveTime)
         {
-            playerCtrlr.transform.localPosition = Vector3.Lerp(playerCtrlr.transform.localPosition, r_V3TargetPos, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
-            playerCtrlr.transform.localRotation = Quaternion.Slerp(playerCtrlr.transform.localRotation, r_PlayerRotation, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
+            PlayerCtrlr.transform.localPosition = Vector3.Lerp(PlayerCtrlr.transform.localPosition, r_V3TargetPos, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
+            PlayerCtrlr.transform.localRotation = Quaternion.Slerp(PlayerCtrlr.transform.localRotation, r_PlayerRotation, fCurrengameManageroveTime / (fTotalMoveTime * 5f));
 
             fCurrengameManageroveTime += Time.deltaTime;
 
             yield return null;
         }
 
-        playerCtrlr.transform.localPosition = r_V3TargetPos;
-        playerCtrlr.transform.localRotation = r_PlayerRotation;
+        PlayerCtrlr.transform.localPosition = r_V3TargetPos;
+        PlayerCtrlr.transform.localRotation = r_PlayerRotation;
 
         // 移動玩家 Camera
         float fTotalViewTime = 1.0f;
@@ -480,14 +478,14 @@ public partial class SceneController : MonoBehaviour
 
         while (fCurrentViewTime < fTotalViewTime)
         {
-            playerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(playerCtrlr.tfPlayerCamera.localRotation, r_CameraRotation, fCurrentViewTime / (fTotalViewTime * 5f));
+            PlayerCtrlr.tfPlayerCamera.localRotation = Quaternion.Slerp(PlayerCtrlr.tfPlayerCamera.localRotation, r_CameraRotation, fCurrentViewTime / (fTotalViewTime * 5f));
 
             fCurrentViewTime += Time.deltaTime;
 
             yield return null;
         }
 
-        playerCtrlr.tfPlayerCamera.localRotation = r_CameraRotation;
+        PlayerCtrlr.tfPlayerCamera.localRotation = r_CameraRotation;
     }
 
     public void GameQuit()

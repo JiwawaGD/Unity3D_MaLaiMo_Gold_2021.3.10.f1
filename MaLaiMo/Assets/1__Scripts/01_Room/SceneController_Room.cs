@@ -6,45 +6,35 @@ using UnityEngine.SceneManagement;
 
 public class SceneController_Room : SceneController
 {
-    #region - Light Zone -
-    #endregion
-
-    #region - All Scene Items -
-    #endregion
-
-    #region - Game Point (記錄點) -
-    #endregion
-
-    #region - External Override -
+    #region - Internal Override -
     public override void Awake()
     {
-        //base.Awake(); 
+        base.Awake();
     }
 
     public override void Start()
     {
-        //RegisterButton();
-        //base.Start();
-
-        GameEventCtrlr.RecGameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
+        GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
     }
+    #endregion
 
-    public override void KeyboardCheck() { }
-
-    public override void Lv1_EventCallBack(int r_EventID)
+    #region - External Override -
+    public override void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
     {
-        switch ((Lv1_EventCallBackID)r_EventID)
+        switch (r_SceneTypeID)
         {
-            case Lv1_EventCallBackID.none:
+            case LevelTypeID.Lv1_GrandmaHouse:
+                Lv1_Event(r_EventID);
                 break;
-            case Lv1_EventCallBackID.Lv1_TalkToPackage:
-                ShowHint(HintItemID.Lv1_OpenRoomDoor);
-                break;
-            default:
-                Debug.LogError(string.Format("[Lv1_EventCallBack] Error GameEventID : {0}", r_EventID));
+            case LevelTypeID.BeginScene:
+            case LevelTypeID.Introduce:
+            case LevelTypeID.Lv2_GrandmaHouse:
+                Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
                 break;
         }
     }
+
+    public override void KeyboardTrigger() { }
 
     public override void ShowHint(HintItemID r_ItemID)
     {
@@ -53,13 +43,22 @@ public class SceneController_Room : SceneController
     #endregion
 
     #region - Basic Function -
-    void RegisterButton()
+    void Lv1_Event(GameEventID r_EventID)
     {
-        // 返回
-        ExitBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.UI_Back));
+        Debug.LogWarning(string.Format("[Lv1_Event] GameEventID : {0}", r_EventID));
 
-        // 進入蓮花遊戲
-        EnterGameBtn.onClick.AddListener(() => ButtonFunction(ButtonEventID.Enter_Game));
+        switch (r_EventID)
+        {
+            case GameEventID.Lv1_TalkToPackage:
+                Lv1_TalkToPackage();
+                break;
+            case GameEventID.Lv1_GrandmaRoomDoorSwitch:
+                Lv1_GrandmaRoomDoorSwitch();
+                break;
+            default:
+                Debug.LogError(string.Format("[Lv1_Event] Error GameEventID : {0}", r_EventID));
+                break;
+        }
     }
 
     // 執行玩家移動到指定區域
@@ -74,67 +73,6 @@ public class SceneController_Room : SceneController
 
         //if (bIsPlayingPiano == true)
         //    PianoUI.SetActive(true);
-    }
-
-    void QuitPiano()
-    {
-        //bIsPlayingPiano = false;
-        //PianoUI.SetActive(false);
-        //playerCtrlr.m_bCanControl = true;
-        //playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        //playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-    }
-
-    void ShowQRCode()
-    {
-        //bIsGameEnd = false;
-        m_bReturnToBegin = true;
-        //FinalUI.SetActive(false);
-        QRCodeUI.SetActive(true);
-    }
-
-    // 延遲載入大廳場景
-    IEnumerator DelayLodelobby()
-    {
-        audManager.Play(1, "Opening_Scene", false);
-        //FinalUI.SetActive(true);
-        SceneManager.LoadScene(0);
-        yield return null;
-    }
-
-    void QuitLotusGame()
-    {
-        //bIsPlayingLotus = false;
-        //playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        //Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
-
-        //playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
-        //playerCtrlr.m_bCanControl = true;
-        //playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        //playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-
-        //LotusGameManager LotusCtrlr = GameObject.Find("LotusGameController").GetComponent<LotusGameManager>();
-        //LotusCtrlr.SendMessage("SetLotusCanvasEnable", false);
-
-        //LotusGameManager.bIsGamePause = true;
-    }
-
-    // 離開蓮花遊戲
-    public void ExitLotusGame()
-    {
-        //m_bPlayLotusEnable = false;
-        //bIsPlayingLotus = false;
-        //playerCtrlr.m_bCanControl = true;
-        //playerCtrlr.tfPlayerCamera.gameObject.SetActive(true);
-        //playerCtrlr.transform.localPosition = new Vector3(-3, 0.8f, -2.5f);
-
-        //playerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-        //playerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = true;
-
-        //SceneManager.UnloadSceneAsync(3);
-
-        //Lv1_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, -2f, -2.4f);
-        //Lv1_Finished_Lotus_Paper_Obj.transform.localPosition = new Vector3(-3.9f, 0.6f, -2.4f);
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -154,6 +92,40 @@ public class SceneController_Room : SceneController
                 //    StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
                 //}
                 break;
+        }
+    }
+    #endregion
+
+    #region - Game Event -
+    void Lv1_TalkToPackage()
+    {
+        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
+        Transform tfTalkToPackagePos = GameObject.Find("_Scene01_MoveLocation/TalkToPackagePos").transform;
+
+        tfPlayer.localPosition = tfTalkToPackagePos.localPosition;
+        tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
+
+        PlayerCtrlr.DefaultCursorState();
+        PlayerCtrlr.m_bCanControl = true;
+
+        ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
+        GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
+        GlobalDeclare.SetPlayerMovable(true);
+
+        PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
+    }
+
+    void Lv1_GrandmaRoomDoorSwitch()
+    {
+        Transform tfRoomDoor = GameObject.Find("__ITEMS/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+        Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+
+        if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
+        {
+            string strPlayAniName = tfRoomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
+
+            AniRoomDoor[strPlayAniName].time = 0f;
+            AniRoomDoor.PlayQueued(strPlayAniName);
         }
     }
     #endregion

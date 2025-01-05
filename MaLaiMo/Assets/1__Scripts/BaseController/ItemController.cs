@@ -26,7 +26,6 @@ public class ItemController : MonoBehaviour
     Transform tfInteract;
     #endregion
 
-    GameEventController GameEventCtrlr;
     SceneController SceneCtrlr;
     Transform tfPlayerCamera;
     Vector3 v3This;
@@ -72,10 +71,26 @@ public class ItemController : MonoBehaviour
         if (tfInteract == null)
             tfInteract = InteractObj.transform;
 
-        if (GameEventCtrlr == null || SceneCtrlr == null)
+        if (SceneCtrlr == null)
         {
-            GameEventCtrlr = GameObject.Find("_Common_Controller/GameEventController").GetComponent<GameEventController>();
-            SceneCtrlr = GameEventCtrlr.SceneCtrlr;
+            string strSceneCtrlrName = "";
+
+            switch (m_CurrentLevelID)
+            {
+                case LevelTypeID.BeginScene:
+                    break;
+                case LevelTypeID.Introduce:
+                    break;
+                case LevelTypeID.Lv1_GrandmaHouse:
+                    strSceneCtrlrName = "_Scene01_Controller/SceneController";
+                    break;
+                case LevelTypeID.Lv2_GrandmaHouse:
+                    break;
+                default:
+                    break;
+            }
+
+            SceneCtrlr = GameObject.Find(strSceneCtrlrName).GetComponent<SceneController>();
         }
 
         if (tfPlayerCamera == null)

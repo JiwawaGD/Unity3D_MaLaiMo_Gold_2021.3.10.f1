@@ -45,13 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentLevel: 2
-  GameEventCtrlr: {fileID: 0}
-  CurrentDialogue: 
+  DialogueObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SettingPanel: {fileID: 0}
+  CrosshairUI: {fileID: 0}
+  PlayerCtrlr: {fileID: 0}
+  GoCanvas: {fileID: 0}
   CameraVolume: {fileID: 0}
-  fTargetIntensity: 1
-  taskListUi: []
-  audManager: {fileID: 0}
-  objSpeed: 0
   romanager: 0
   postProcessVolume: {fileID: 0}
   itemObjTransform: {fileID: 0}
@@ -59,16 +62,7 @@ MonoBehaviour:
   saveRotaObj: 0
   StudioUI: {fileID: 0}
   Ro_Light: {fileID: 0}
-  playerCtrlr: {fileID: 0}
-  DialogueObjects: []
-  settingObjects: {fileID: 0}
-  videoPlayer: {fileID: 0}
-  QRCodeUI: {fileID: 0}
-  CrosshairUI: {fileID: 0}
-  Targers: []
-  goCanvas: {fileID: 0}
-  TempBoxCollider: {fileID: 0}
-  TempGameObject: {fileID: 0}
+  Targets: []
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

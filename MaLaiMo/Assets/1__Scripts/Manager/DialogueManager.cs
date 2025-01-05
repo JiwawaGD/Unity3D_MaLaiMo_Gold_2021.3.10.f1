@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         ActionCount = 0;
-        DialogueText = GameObject.Find("_Common_Canvas/DialogueUICanvas/DialogueText").GetComponent<Text>();
+        DialogueText = GameObject.Find("_Common_Canvas/_Dialogue Canvas/DialogueText").GetComponent<Text>();
         aud = GameObject.Find("_Common_Sound/對話音效管理器").GetComponent<AudioSource>();
     }
 
@@ -80,7 +80,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             //if (SubTitleCtrlr.CurrentDialogue == gameObject.name)
-            print(DialogueText);
+            //print(DialogueText);
             DialogueText.text = ActionEvent[ActionCount];
         }
 

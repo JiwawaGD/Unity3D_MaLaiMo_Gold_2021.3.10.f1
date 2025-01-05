@@ -21,7 +21,7 @@ public class MoveMode : MonoBehaviour
     }
     public IEnumerator ChangeVignetteIntensity()
     {
-        Volume postProcessVolume = SceneController.instance.postProcessVolume;
+        Volume postProcessVolume = gameManager.postProcessVolume;
 
         VolumeProfile profile = postProcessVolume.sharedProfile;
 
@@ -45,14 +45,14 @@ public class MoveMode : MonoBehaviour
                 elapsedTime += Time.deltaTime * changeSpeed;
                 yield return null;
             }
-            gameManager.playerCtrlr.m_bCanControl = true;
-            gameManager.playerCtrlr.m_bLimitRotation = false;
+            gameManager.PlayerCtrlr.m_bCanControl = true;
+            gameManager.PlayerCtrlr.m_bLimitRotation = false;
             KeepstoryReadding();
         }
     }
     public void KeepstoryReadding()
     {
-        Volume postProcessVolume = SceneController.instance.postProcessVolume;
+        Volume postProcessVolume = gameManager.postProcessVolume;
 
         VolumeProfile profile = postProcessVolume.sharedProfile;
         CloudLayer cloudLayer = null;

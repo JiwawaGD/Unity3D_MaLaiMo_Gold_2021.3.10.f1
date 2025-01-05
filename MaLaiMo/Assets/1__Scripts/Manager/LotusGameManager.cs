@@ -83,7 +83,7 @@ public class LotusGameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            GM.ExitLotusGame();
+            //GM.ExitLotusGame();
             GlobalDeclare.bLotusGameComplete = true;
         }
 

@@ -11,10 +11,10 @@ public class Mom_Controller : MonoBehaviour
 
     public Animator Mon_Animator;
     private bool isWaiting = true;
-    private bool StartTracing = false;
-    private Vector3[] path;
+    private bool Finish;
     private bool CanMove = true;
     private Transform CurrentStep;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using DG.Tweening;
 public class OutSidePlayer : PlayerController
 {
 
+    public Image InToForestBlackImg;
     public override void Awake()
     {
         m_bCursorShow = false;
@@ -14,11 +16,8 @@ public class OutSidePlayer : PlayerController
     {
         if (other.name == "森林傳送點")
         {
-            SceneManager.LoadScene("5 Forest_Scene");
-        }
-        else if (other.name == "室內傳送點")
-        { 
-            SceneManager.LoadScene("2 Grandma House");
+            InToForestBlackImg.DOFade(1f, 2)
+                              .OnComplete(() => SceneManager.LoadScene("5 Forest_Scene"));
         }
     }
 }

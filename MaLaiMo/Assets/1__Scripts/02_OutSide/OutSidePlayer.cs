@@ -16,7 +16,7 @@ public class OutSidePlayer : PlayerController
     {
         if (other.name == "森林傳送點")
         {
-            InToForestBlackImg.DOFade(1f, 2)
+            InToForestBlackImg.DOFade(1f, 1)
                               .OnComplete(() => SceneManager.LoadScene("5 Forest_Scene"));
         }
     }

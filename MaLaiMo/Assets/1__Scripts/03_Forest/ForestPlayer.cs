@@ -16,7 +16,7 @@ public class ForestPlayer : PlayerController
     {
         base.Awake();
         if (gameManager == null)
-            gameManager = GameObject.Find("_Controller/SceneController").GetComponent<SceneController_Forest>();
+            gameManager = GameObject.Find("_Scene01_Controller/SceneController").GetComponent<SceneController_Forest>();
         m_bCursorShow = false;
         m_bCanControl = true;
     }

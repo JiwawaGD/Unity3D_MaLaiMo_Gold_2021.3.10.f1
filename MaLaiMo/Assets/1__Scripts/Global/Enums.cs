@@ -162,8 +162,6 @@ public enum Lv2_Dialogue
     Lv2_005_BackLivingRoom,
     Lv2_006_E_Flashlight,
     Lv2_007_GoOut,
-    Lv2_008_LookNote,
-    Lv2_009_LeaveForest
 }
 
 public enum Lv3_Dialogue

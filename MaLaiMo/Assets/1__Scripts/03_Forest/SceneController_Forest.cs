@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SceneController_Forest : SceneController
 {
@@ -10,6 +11,7 @@ public class SceneController_Forest : SceneController
     public Text txt_SuccessCount;
     public Text txt_PassCount;
     public Text txt_Title;
+    public Image TransitionImg;
 
     bool[] m_baHasPlayLevel = new bool[7];
 
@@ -43,7 +45,8 @@ public class SceneController_Forest : SceneController
 
     public override void Start()
     {
-        PlayDialogue((byte) Lv3_Dialogue.Lv3_000_LookNote);
+        TransitionImg.DOFade(0f, 1)
+                  .OnComplete(() => PlayDialogue((byte)Lv3_Dialogue.Lv3_000_LookNote));
     }
     public void GoStraight()
     {

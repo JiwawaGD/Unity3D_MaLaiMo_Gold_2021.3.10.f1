@@ -48,6 +48,12 @@ public class SceneController_Room : SceneController
                     case HintItemID.Lv1_OpenRoomDoor:
                         NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
                         break;
+                    case HintItemID.Lv1_FirstTalkToMom:
+                        NextItem = GameObject.Find("_Scene01_Map/Mom").GetComponent<ItemController>();
+                        break;
+                    case HintItemID.Lv1_ClipBoard:
+                        NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Clipboard").GetComponent<ItemController>();
+                        break;
                 }
                 break;
             case LevelTypeID.BeginScene:
@@ -74,6 +80,9 @@ public class SceneController_Room : SceneController
                 break;
             case GameEventID.Lv1_GrandmaRoomDoorSwitch:
                 Lv1_GrandmaRoomDoorSwitch();
+                break;
+            case GameEventID.Lv1_FirstTalkToMom:
+                Lv1_FirstTalkToMom();
                 break;
             default:
                 Debug.LogError(string.Format("[Lv1_Event] Error GameEventID : {0}", r_EventID));
@@ -149,6 +158,14 @@ public class SceneController_Room : SceneController
             AniRoomDoor[strPlayAniName].time = 0f;
             AniRoomDoor.PlayQueued(strPlayAniName);
         }
+
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_FirstTalkToMom);
+    }
+
+    void Lv1_FirstTalkToMom()
+    {
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_ClipBoard);
+        PlayDialogue((int)Room_Dialogue.Lv1_003_E_Mother);
     }
     #endregion
 }

@@ -94,7 +94,7 @@ public class ItemController : MonoBehaviour
         }
 
         if (tfPlayerCamera == null)
-            tfPlayerCamera = GameObject.Find("Player Camera").transform;
+            tfPlayerCamera = GameObject.Find("_Common_Player/LingLing/Player Camera").transform;
     }
 
     void Initialize()

@@ -295,4 +295,9 @@ public class PlayerController : MonoBehaviour
     {
         PlaySound(walkingSound);
     }
+
+    public void CanControl()
+    {
+        m_bCanControl = true;
+    }
 }

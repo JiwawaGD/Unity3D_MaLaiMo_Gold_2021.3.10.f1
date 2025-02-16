@@ -15,7 +15,7 @@ public class SceneController_Forest : SceneController
 
     bool[] m_baHasPlayLevel = new bool[7];
 
-    SceneType CurrentScene;
+    public SceneType CurrentScene_2;
 
     int m_iSuccessCount;
     int m_iPassLevelCount;
@@ -62,14 +62,14 @@ public class SceneController_Forest : SceneController
     {
         bool bPassSuccess = false;
 
-        if (CurrentScene == SceneType.A_Right && way == GoWay.Straight)
+        if (CurrentScene_2 == SceneType.A_Right && way == GoWay.Straight)
         {
             m_iPassLevelCount++;
             m_iSuccessCount++;
 
             bPassSuccess = true;
         }
-        else if (CurrentScene != SceneType.A_Right && way == GoWay.Back)
+        else if (CurrentScene_2 != SceneType.A_Right && way == GoWay.Back)
         {
             m_iPassLevelCount++;
 
@@ -104,7 +104,7 @@ public class SceneController_Forest : SceneController
                 return;
             }
 
-            if (CurrentScene == SceneType.A_Right)
+            if (CurrentScene_2 == SceneType.A_Right)
             {
                 switch (m_iSuccessCount)
                 {
@@ -152,7 +152,7 @@ public class SceneController_Forest : SceneController
             m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
         }
 
-        CurrentScene = NextSceneType;
+        CurrentScene_2 = NextSceneType;
         txt_Title.text = "目前關卡 : " + CurrentScene.ToString();
     }
 

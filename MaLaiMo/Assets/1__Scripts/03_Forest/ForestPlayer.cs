@@ -15,6 +15,7 @@ public class ForestPlayer : PlayerController
     public override void Awake()
     {
         base.Awake();
+        m_bCanControl = false;
         if (gameManager == null)
             gameManager = GameObject.Find("_Scene01_Controller/SceneController").GetComponent<SceneController_Forest>();
         m_bCursorShow = false;

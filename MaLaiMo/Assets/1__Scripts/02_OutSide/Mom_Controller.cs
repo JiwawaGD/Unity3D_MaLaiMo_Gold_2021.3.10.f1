@@ -14,11 +14,16 @@ public class Mom_Controller : MonoBehaviour
     private bool Finish;
     private bool CanMove = true;
     private Transform CurrentStep;
+    private Material material;
 
     // Start is called before the first frame update
     void Start()
     {
+        material = gameObject.GetComponent<MeshRenderer>().material;
         CurrentStep = Step[0];
+        Color baseColor = material.GetColor("_BaseColor");  // HDRP / URP Shader 使用 _BaseColor
+        material.DOColor(new Color(baseColor.r, baseColor.g, baseColor.b, 0), "_BaseColor", 2)
+                .OnComplete(() => gameObject.SetActive(false));
     }
 
     // Update is called once per frame
@@ -74,6 +79,9 @@ public class Mom_Controller : MonoBehaviour
         else if (other.name == "第三階段")
         {
             print("跑完");
+            Color baseColor = material.GetColor("_BaseColor");  // HDRP / URP Shader 使用 _BaseColor
+            material.DOColor(new Color(baseColor.r, baseColor.g, baseColor.b, 0), "_BaseColor", 2)
+                    .OnComplete(() => gameObject.SetActive(false));
         }
     }
 

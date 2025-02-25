@@ -3,10 +3,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class SceneController_Room : SceneController
 {
-    #region - Internal Override -
+    #region - Internal -
+    [Header("=== By Scene 各場景使用欄位 ===\r\n")]
+    public Image _toOutSideBlackImg;
+    #endregion
+
+    #region - Override -
     public override void Awake()
     {
         base.Awake();
@@ -14,6 +20,10 @@ public class SceneController_Room : SceneController
 
     public override void Start()
     {
+        // 預設讓大門是可以互動狀態
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
+
+        // 室內場景的第一個可互動物件
         GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
     }
     #endregion
@@ -38,33 +48,44 @@ public class SceneController_Room : SceneController
 
     public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
-        ItemController NextItem = null;
-
-        switch (r_SceneTypeID)
+        try
         {
-            case LevelTypeID.Lv1_GrandmaHouse:
-                switch (r_ItemID)
-                {
-                    case HintItemID.Lv1_OpenRoomDoor:
-                        NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
-                        break;
-                    case HintItemID.Lv1_FirstTalkToMom:
-                        NextItem = GameObject.Find("_Scene01_Map/Mom").GetComponent<ItemController>();
-                        break;
-                    case HintItemID.Lv1_ClipBoard:
-                        NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Clipboard").GetComponent<ItemController>();
-                        break;
-                }
-                break;
-            case LevelTypeID.BeginScene:
-            case LevelTypeID.Introduce:
-            case LevelTypeID.Lv2_GrandmaHouse:
-                Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
-                break;
-        }
+            ItemController NextItem = null;
 
-        NextItem.bActive = true;
-        NextItem.SetHintable(true);
+            switch (r_SceneTypeID)
+            {
+                case LevelTypeID.Lv1_GrandmaHouse:
+                    switch (r_ItemID)
+                    {
+                        case HintItemID.Lv1_OpenRoomDoor:
+                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
+                            break;
+                        case HintItemID.Lv1_FirstTalkToMom:
+                            NextItem = GameObject.Find("_Scene01_Map/Mom").GetComponent<ItemController>();
+                            break;
+                        case HintItemID.Lv1_ClipBoard:
+                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Clipboard").GetComponent<ItemController>();
+                            break;
+                        case HintItemID.Lv1_Item_GoOutSide:
+                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor").GetComponent<ItemController>();
+                            break;
+                    }
+                    break;
+                case LevelTypeID.BeginScene:
+                case LevelTypeID.Introduce:
+                case LevelTypeID.Lv2_GrandmaHouse:
+                    Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
+                    break;
+            }
+
+            NextItem.bActive = true;
+            NextItem.SetHintable(true);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogError("[ERROR] Show Hint Error >> " + exception.Message);
+            throw;
+        }
     }
     #endregion
 
@@ -83,6 +104,9 @@ public class SceneController_Room : SceneController
                 break;
             case GameEventID.Lv1_FirstTalkToMom:
                 Lv1_FirstTalkToMom();
+                break;
+            case GameEventID.Lv1_GoOutSide:
+                Lv1_GoOutSide();
                 break;
             default:
                 Debug.LogError(string.Format("[Lv1_Event] Error GameEventID : {0}", r_EventID));
@@ -166,6 +190,14 @@ public class SceneController_Room : SceneController
     {
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_ClipBoard);
         PlayDialogue((int)Room_Dialogue.Lv1_003_E_Mother);
+    }
+
+    void Lv1_GoOutSide()
+    {
+        PlayerCtrlr.m_bCanControl = true;
+
+        _toOutSideBlackImg.DOFade(1f, 1)
+                          .OnComplete(() => SceneManager.LoadScene("4 Outdoor_Scene"));
     }
     #endregion
 }

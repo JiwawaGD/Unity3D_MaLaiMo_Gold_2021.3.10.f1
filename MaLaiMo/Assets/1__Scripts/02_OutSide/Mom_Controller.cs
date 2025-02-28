@@ -4,8 +4,7 @@ using DG.Tweening;
 public class Mom_Controller : MonoBehaviour
 {
     public Transform player;
-    public float maxDistance = 20f;
-    public float resumeDistance = 3f;
+    public float maxDistance = 15f;
     public float rotationSpeed = 5f;
     public Transform[] Step;
 
@@ -16,17 +15,13 @@ public class Mom_Controller : MonoBehaviour
     private Transform CurrentStep;
     private Material material;
 
-    // Start is called before the first frame update
     void Start()
     {
         material = gameObject.GetComponent<MeshRenderer>().material;
         CurrentStep = Step[0];
-        Color baseColor = material.GetColor("_BaseColor");  // HDRP / URP Shader 使用 _BaseColor
-        material.DOColor(new Color(baseColor.r, baseColor.g, baseColor.b, 0), "_BaseColor", 2)
-                .OnComplete(() => gameObject.SetActive(false));
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         float distance = Vector3.Distance(transform.position, player.position);
@@ -37,25 +32,25 @@ public class Mom_Controller : MonoBehaviour
             {
                 isWaiting = true;
                 //Mon_Animator.SetBool("isWalking", false);
-                MomLookAt(player);
+                MomLookAt(player, 0.5f);
             }
         }
-        else if (distance <= resumeDistance)
+        else 
         {
             if (isWaiting == true)
             {
                 isWaiting = false;
-                MomLookAt(CurrentStep);
+                MomLookAt(CurrentStep, 0.5f);
                 //Mon_Animator.SetBool("isWalking", true);
             }
             transform.Translate(Vector3.forward * 3 * Time.deltaTime);
         }
     }
     //媽媽轉向玩家
-    void MomLookAt(Transform target)
+    void MomLookAt(Transform target,float time)
     {
         CanMove = false;
-        transform.DOLookAt(target.position, 1)
+        transform.DOLookAt(target.position, time)
                  .OnComplete(() =>
                  {
                      CanMove = true;
@@ -68,17 +63,19 @@ public class Mom_Controller : MonoBehaviour
         {
             CanMove = false;
             CurrentStep = Step[1];
-            MomLookAt(CurrentStep);
+            MomLookAt(CurrentStep, 0.5f);
         }
         else if (other.name == "第二階段")
         {
             CanMove = false;
             CurrentStep = Step[2];
-            MomLookAt(CurrentStep);
+            MomLookAt(CurrentStep, 0.5f);
         }
         else if (other.name == "第三階段")
         {
-            print("跑完");
+            CanMove = false;
+            CurrentStep = Step[3];
+            MomLookAt(CurrentStep, 0.1f);
             Color baseColor = material.GetColor("_BaseColor");  // HDRP / URP Shader 使用 _BaseColor
             material.DOColor(new Color(baseColor.r, baseColor.g, baseColor.b, 0), "_BaseColor", 2)
                     .OnComplete(() => gameObject.SetActive(false));

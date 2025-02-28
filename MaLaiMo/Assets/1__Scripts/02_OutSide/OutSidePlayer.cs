@@ -12,7 +12,7 @@ public class OutSidePlayer : PlayerController
     public override void Awake()
     {
         m_bCursorShow = false;
-        m_bCanControl = true;
+        m_bCanControl = false;
         transform.LookAt(Mom);
     }
 
@@ -20,9 +20,9 @@ public class OutSidePlayer : PlayerController
     {
         if (other.name == "森林傳送點")
         {
-            m_bCanControl = true;
-            InToForestBlackImg.DOFade(1f, 1);
-                              //.OnComplete(() => SceneManager.LoadScene("5 Forest_Scene"));
+            m_bCanControl = false;
+            InToForestBlackImg.DOFade(1f, 1)
+                              .OnComplete(() => SceneManager.LoadScene("5 Forest_Scene"));
         }
     }
 }

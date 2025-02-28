@@ -8168,7 +8168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31400d93f33e6740ac095ca7b7d8433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.1
+  smoothTime: 0.01
   ItemLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -8177,7 +8177,7 @@ MonoBehaviour:
   fSensitivityAmplifier: 0
   m_bLimitRotation: 0
   m_fHorizantalRotationRange: {x: 0, y: 0}
-  m_fVerticalRotationRange: {x: 0, y: 0}
+  m_fVerticalRotationRange: {x: -75, y: 75}
   m_bCursorShow: 0
   m_bCanControl: 0
   m_bRayOnItem: 0
@@ -10566,6 +10566,10 @@ PrefabInstance:
     - target: {fileID: 1890006328065534177, guid: cbc0bf4cbba395040ac93643a5438c0d, type: 3}
       propertyPath: m_Name
       value: _Common_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273851318673273522, guid: cbc0bf4cbba395040ac93643a5438c0d, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9027038039539845119, guid: cbc0bf4cbba395040ac93643a5438c0d, type: 3}
       propertyPath: m_Name

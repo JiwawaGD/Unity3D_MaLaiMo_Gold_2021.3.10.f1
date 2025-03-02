@@ -1,40 +1,18 @@
 fileFormatVersion: 2
-guid: 7d3947f1678bb2f4c8c42bd2a0eeac5b
+guid: bca5d415aa53fb04db5a1b1973bb903e
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Aunt_anim_walking
+    second: Aunt_anim_write
   - first:
-      74: -8028539104891748954
-    second: Aunt_anim_standing
-  externalObjects:
+      74: -5405653242291790180
+    second: Aunt_anim_watchyou
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: cloth.001
-    second: {fileID: 2100000, guid: 30365c89e0908a14cb2579e1ff6fe37d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: eyes_001.001
-    second: {fileID: 2100000, guid: c36acb0f34292db46a54ec5125159186, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hair.001
-    second: {fileID: 2100000, guid: e62939b7e515be74aad4e759a1f54976, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: hand.001
-    second: {fileID: 2100000, guid: 482239f63fc9c824ea7fe2f4b9d45952, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: skin.001
-    second: {fileID: 2100000, guid: e5c48c870ec6dca4e8ff410328b88df0, type: 2}
+      74: 4854180139978558704
+    second: Aunt_anim_backwrite
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -64,11 +42,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Aunt_anim_walking
+      name: Aunt_anim_write
       takeName: Take 001
       internalID: 0
-      firstFrame: 1
-      lastFrame: 40
+      firstFrame: 342
+      lastFrame: 400
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -93,18 +71,47 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Aunt_anim_standing
+      name: Aunt_anim_watchyou
       takeName: Take 001
       internalID: 0
-      firstFrame: 41
-      lastFrame: 340
+      firstFrame: 401
+      lastFrame: 430
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Aunt_anim_backwrite
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 430
+      lastFrame: 460
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -178,7 +185,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Bip001
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
@@ -186,7 +193,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

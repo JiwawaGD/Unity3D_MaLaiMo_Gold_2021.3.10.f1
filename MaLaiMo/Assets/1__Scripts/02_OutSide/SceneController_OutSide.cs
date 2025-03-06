@@ -4,11 +4,11 @@ using DG.Tweening;
 
 public class SceneController_OutSide : SceneController
 {
-    public Transform mom; // NPC 目标
-    public RectTransform uiElement; // 头顶 UI
-    public RectTransform arrowIndicator; // 屏幕边缘箭头
+    public Transform mom; 
+    public RectTransform uiElement; 
+    public RectTransform arrowIndicator; 
     public Camera PlayerCamera;
-    public Transform Player; // 玩家
+    public Transform Player; 
 
     private Vector3 IconPos;
     public override void Start()
@@ -27,7 +27,7 @@ public class SceneController_OutSide : SceneController
         {
             uiElement.gameObject.SetActive(true);
             arrowIndicator.gameObject.SetActive(false);
-            Vector3 headOffset = new Vector3(0, 1f, 0); //標記在頭上
+            Vector3 headOffset = new Vector3(0, 1.8f, 0); //標記在頭上
             uiElement.position = PlayerCamera.WorldToScreenPoint(mom.position + headOffset);
         }
         else

@@ -1,19 +1,25 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 
 public class SceneController_OutSide : SceneController
 {
-    public Transform mom; 
-    public RectTransform uiElement; 
-    public RectTransform arrowIndicator; 
+    #region < Fields >
+    public Transform mom;
+    public RectTransform uiElement;
+    public RectTransform arrowIndicator;
     public Camera PlayerCamera;
-    public Transform Player; 
+    public Transform Player;
 
     private Vector3 IconPos;
+    #endregion
+
+    #region < Unity Hook >
     public override void Start()
     {
-        PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
+        if (!GlobalDeclare._firstStartGameLevel_2)
+        {
+            GlobalDeclare._firstStartGameLevel_2 = true;
+            PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
+        }
     }
 
     public override void Update()
@@ -58,4 +64,5 @@ public class SceneController_OutSide : SceneController
             arrowIndicator.position = new Vector3(screenX, screenY, 0);
         }
     }
+    #endregion 
 }

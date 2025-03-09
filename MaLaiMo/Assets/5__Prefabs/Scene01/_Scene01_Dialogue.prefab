@@ -1729,21 +1729,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueText: {fileID: 0}
   ActionEvent:
+  - '{%function:0'
   - "(\u6536\u62FE\u8863\u7269\u8072)"
   - '{%wait:1'
-  - ' '
-  - '{%wait:1'
+  - 
   - "\u7433\u7433\uFF1A\u9019\u6A23\u5C31\u6574\u7406\u5F97\u5DEE\u4E0D\u591A\u4E86\u3002"
-  - '{%wait:2'
-  - ' '
+  - '{%wait:1'
+  - 
   - '{%object:0;true;1'
+  - '{%wait:1'
+  - '{%function:1'
   - '{%wait:2'
   - '{%object:0;true;0'
-  - 
   HandleObject:
   - {fileID: 1641917823255276970}
   Voices: []
-  Functions: []
+  Functions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SceneController_Room, Assembly-CSharp
+        m_MethodName: SetPlayerControl
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SceneController_Room, Assembly-CSharp
+        m_MethodName: SetPlayerControl
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &2289103652113929372
 GameObject:
   m_ObjectHideFlags: 0

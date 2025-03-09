@@ -6,12 +6,11 @@ using DG.Tweening;
 
 public class SceneController_Room : SceneController
 {
-    #region - Internal -
-    [Header("=== By Scene 各場景使用欄位 ===\r\n")]
-    public Image _toOutSideBlackImg;
+    #region < Fields >
+    [Header("=== By Scene 各場景使用欄位 ===\r\n")] public GameObject _temp;
     #endregion
 
-    #region - Override -
+    #region < Unity Hook >
     public override void Awake()
     {
         base.Awake();
@@ -19,20 +18,31 @@ public class SceneController_Room : SceneController
 
     public override void Start()
     {
-        // 預設讓大門是可以互動狀態
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
+        base.Start();
 
-        // 室內場景的第一個可互動物件
-        GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
+        if (!GlobalDeclare._firstStartGameLevel_1)
+        {
+            GlobalDeclare._firstStartGameLevel_1 = true;
 
-        // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
-        SetItemCanvasEnable(false);
-        GlobalDeclare._bHoldingRiceFuneral = true;
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
+            // 預設讓大門是可以互動狀態
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
+
+            // 室內場景的第一個可互動物件
+            GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
+
+            // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
+            GlobalDeclare._holdingRiceFuneral = true;
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
+        }
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
     #endregion
 
-    #region - External Override -
+    #region < Override Function >
     public override void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
     {
         base.GameEvent(r_SceneTypeID, r_EventID);
@@ -48,7 +58,18 @@ public class SceneController_Room : SceneController
         }
     }
 
-    public override void KeyboardTrigger() { }
+    public override void KeyboardCheck()
+    {
+        base.KeyboardCheck();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (GlobalDeclare._waitingPlayLotusPaper)
+            {
+                // *TODO* Play Lotus
+            }
+        }
+    }
 
     public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
@@ -103,7 +124,14 @@ public class SceneController_Room : SceneController
     }
     #endregion
 
-    #region - Basic Function -
+    #region < API - Call From Dialogue System>
+    public void SetPlayerControl(bool r_bEnable)
+    {
+        PlayerController._bCanControl = r_bEnable;
+    }
+    #endregion
+
+    #region < Basic Function >
     void Lv1_Event(GameEventID r_EventID)
     {
         try
@@ -136,29 +164,9 @@ public class SceneController_Room : SceneController
             throw;
         }
     }
-
-    public void ButtonFunction(ButtonEventID _eventID)
-    {
-        switch (_eventID)
-        {
-            case ButtonEventID.UI_Back:
-                break;
-            case ButtonEventID.Enter_Game:
-                //if (bIsUIOpen)
-                //{
-                //    RestoreItemLocation();
-                //    bIsPlayingLotus = true;
-
-                //    Transform tfPlayingLotusPos = GameObject.Find("Lv1_Playing_Lotus_Pos").GetComponent<Transform>();
-                //    Transform tfCameraPos = tfPlayingLotusPos.GetChild(0);
-                //    StartCoroutine(PlayerToAniPos(tfPlayingLotusPos.position, tfPlayingLotusPos.rotation, tfCameraPos.rotation));
-                //}
-                break;
-        }
-    }
     #endregion
 
-    #region - Game Event -
+    #region < Game Event >
     void Lv1_TalkToPackage()
     {
         Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
@@ -167,12 +175,8 @@ public class SceneController_Room : SceneController
         tfPlayer.localPosition = tfTalkToPackagePos.localPosition;
         tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
 
-        PlayerCtrlr.DefaultCursorState();
-        PlayerCtrlr.m_bCanControl = true;
-
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
         GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
-        GlobalDeclare.SetPlayerMovable(true);
 
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_OpenRoomDoor);
 
@@ -203,20 +207,19 @@ public class SceneController_Room : SceneController
 
     void Lv1_GoOutSide()
     {
-        PlayerCtrlr.m_bCanControl = true;
-
         _toOutSideBlackImg.DOFade(1f, 1)
                           .OnComplete(() => SceneManager.LoadScene("4 Outdoor_Scene"));
     }
 
     void Lv1_LotusPaperCheck()
     {
-        Vector3 v3TargetPos = new Vector3(-3.1f, 0.35f, -1.9f);
-        Vector3 v3PlayerEndRotation = new Vector3(0f, 0f, 0f);
-        Vector3 v3PlayerCamEndRotation = new Vector3(0f, 275f, 0f);
+        Vector3 v3TargetPos = new(-3.1f, 0.35f, -1.9f);
+        Vector3 v3PlayerEndRotation = new(0f, 0f, 0f);
+        Vector3 v3PlayerCamEndRotation = new(0f, 275f, 0f);
 
         PlayerCtrlr.MoveToTargetPosition(v3TargetPos, v3PlayerEndRotation, v3PlayerCamEndRotation, 2f, () =>
         {
+            GlobalDeclare._waitingPlayLotusPaper = true;
             UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
         });
     }

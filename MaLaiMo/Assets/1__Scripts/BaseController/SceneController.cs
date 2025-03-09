@@ -19,6 +19,8 @@ public partial class SceneController : MonoBehaviour
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
 
+    [SerializeField] [Header("轉場黑色過場圖片")] public Image _toOutSideBlackImg;
+
     /// <summary>
     /// 角色控制器
     /// </summary>
@@ -108,15 +110,16 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void Start()
     {
+        // 預設開啟遊戲準心
         SetCrosshairEnable(true);
 
-        // 尚未完成前情提要的串接，因此先在 Start 的地方跑動畫
-        //playerCtrlr.gameObject.GetComponent<Animation>().PlayQueued("Player_Wake_Up");
+        // 預設關閉 Canvas Group
+        SetItemCanvasEnable(false);
     }
 
     public virtual void Update()
     {
-        KeyboardTrigger();
+        KeyboardCheck();
 
         if (bIsPaused && bIsMouseEnabled)
             MouseCheck();
@@ -128,7 +131,7 @@ public partial class SceneController : MonoBehaviour
     /// <summary>
     /// 鍵盤偵測
     /// </summary>
-    public virtual void KeyboardTrigger()
+    public virtual void KeyboardCheck()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -335,7 +338,7 @@ public partial class SceneController : MonoBehaviour
 
     public void StopReadding()  // 停止閱讀查看物件
     {
-        PlayerCtrlr.m_bCanControl = false;
+        PlayerController._bCanControl = false;
         PlayerCtrlr.m_bLimitRotation = true;
         StartCoroutine(ChangeVignetteIntensity());
     }
@@ -343,7 +346,7 @@ public partial class SceneController : MonoBehaviour
     public IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
         yield return new WaitForSeconds(11f);
-        PlayerCtrlr.m_bCanControl = true;
+        PlayerController._bCanControl = true;
         PlayerCtrlr.m_bLimitRotation = false;
         //VolumeProfile profile = postProcessVolume.sharedProfile;
 
@@ -387,7 +390,7 @@ public partial class SceneController : MonoBehaviour
 
     public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
-        PlayerCtrlr.m_bCanControl = false;
+        PlayerController._bCanControl = false;
         PlayerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
         PlayerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
 
@@ -458,7 +461,7 @@ public partial class SceneController : MonoBehaviour
     }
     #endregion
 
-    #region - 確定有使用到的 Method -
+    #region - 有使用到的 Method -
     /// <summary>
     /// 旋轉物件UI畫面
     /// </summary>
@@ -472,7 +475,6 @@ public partial class SceneController : MonoBehaviour
         SetItemCanvasEnable(r_bEnable);
 
         m_bInUIView = r_bEnable;
-        PlayerCtrlr.m_bCanControl = !r_bEnable;
         PlayerCtrlr.SetCursor();
 
         _itemCanvasHandler._txtTopTitle.text = GlobalDeclare.item_Title[iItemID];

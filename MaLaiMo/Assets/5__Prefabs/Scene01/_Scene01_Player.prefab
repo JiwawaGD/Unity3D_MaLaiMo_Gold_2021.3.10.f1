@@ -821,19 +821,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ab5aeb43a68cd4f8b1ebafbcf1364b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fMouseSensitivity: 1
+  m_fUDSensitivity: 230
+  m_fRLSensitivity: 230
+  fSensitivityAmplifier: 0
   smoothTime: 0.01
   ItemLayer:
     serializedVersion: 2
     m_Bits: 1024
   audioSource: {fileID: 1713845294306215918}
   walkingSound: {fileID: 8300000, guid: 120dfbab182084441a82a51be154f20a, type: 3}
-  fSensitivityAmplifier: 0
   m_bLimitRotation: 0
   m_fHorizantalRotationRange: {x: 0, y: 0}
   m_fVerticalRotationRange: {x: -75, y: 75}
-  m_bCursorShow: 0
-  m_bCanControl: 0
-  m_bRayOnItem: 0
+  _bCursorShow: 0
+  _bCanControl: 0
+  _bRayOnItem: 0
   tfPlayerCamera: {fileID: 1713845293964516958}
   tfTransform: {fileID: 1713845294306215916}
   _rig: {fileID: 1713845294306215912}

@@ -8,7 +8,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region < Fields >
-    public static float MouseSensitivity = 1.0f;
+    public float _fMouseSensitivity = 1.0f;
+
+    [Header("視野 - 上下靈敏度")]
+    public float m_fUDSensitivity = 230f;
+    [Header("視野 - 左右靈敏度")]
+    public float m_fRLSensitivity = 230f;
+
+    public float fSensitivityAmplifier;
 
     [SerializeField]
     [Header("Mouse Settings")]
@@ -27,11 +34,6 @@ public class PlayerController : MonoBehaviour
 
     private bool isWalking = false; // 是否正在走路
 
-    // Can be setted by player
-    float m_fUDSensitivity; // 上下轉速
-    float m_fRLSensitivity; // 左右轉速
-    public float fSensitivityAmplifier;
-
     // Const value  
     readonly float m_fMoveSpeed = 3f;
     readonly float m_fRayLength = 1.2f;
@@ -44,9 +46,9 @@ public class PlayerController : MonoBehaviour
     float m_fVerticalRotationValue;
     public Vector2 m_fVerticalRotationRange;
 
-    [HideInInspector] public bool m_bCursorShow;
-    [HideInInspector] public bool m_bCanControl;
-    [HideInInspector] public bool m_bRayOnItem;
+    [HideInInspector] public bool _bCursorShow;
+    [HideInInspector] public static bool _bCanControl = true;
+    [HideInInspector] public bool _bRayOnItem;
 
     Vector3 v3_MovePos;
 
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
-        Cursor.lockState = CursorLockMode.Locked;
+        DefaultCursorState();
     }
 
     public void Update()
@@ -92,7 +94,7 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
         // 滑鼠顯示、無法控制時不可控制
-        if (m_bCursorShow || !m_bCanControl)
+        if (_bCursorShow || !_bCanControl)
         {
             _rig.velocity = Vector3.zero;
             return;
@@ -126,15 +128,12 @@ public class PlayerController : MonoBehaviour
     #region < Internal Method >
     void InitValue()
     {
-        m_fUDSensitivity = 230;
-        m_fRLSensitivity = 280;
-
         fSensitivityAmplifier = GlobalDeclare.fSensitivity;
 
         if (fSensitivityAmplifier == 0)
             fSensitivityAmplifier = 0.5f;
 
-        m_bCursorShow = false;
+        _bCursorShow = false;
 
         audioSource.volume = 1f;
         audioSource.loop = false;
@@ -142,8 +141,8 @@ public class PlayerController : MonoBehaviour
 
     void View()
     {
-        float mouseX = Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * MouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * _fMouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * _fMouseSensitivity;
 
         // 計算目標旋轉值
         targetRotationX += mouseX * Time.deltaTime;
@@ -229,13 +228,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void RayHitCheck()
     {
-        m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
+        _bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
                                        out hit,                     // RaycastHit
                                        m_fRayLength,                // RayLength
                                        ItemLayer);                  // ItemLayer);
 
-        if (m_bRayOnItem)
+        if (_bRayOnItem)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
 
@@ -274,34 +273,34 @@ public class PlayerController : MonoBehaviour
     #region < API >
     public void DefaultCursorState()
     {
-        m_bCursorShow = false;
+        _bCursorShow = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = m_bCursorShow;
+        Cursor.visible = _bCursorShow;
     }
 
     public void SetMouseSensitivity(float sensitivity)
     {
-        MouseSensitivity = sensitivity;
+        _fMouseSensitivity = sensitivity;
         // 在這裡處理滑鼠靈敏度的邏輯
         // 例如，更新相應的變數，調整滑鼠靈敏度
     }
 
     public void SetCursor()
     {
-        m_bCursorShow = !m_bCursorShow;
+        _bCursorShow = !_bCursorShow;
 
-        if (m_bCursorShow)
+        if (_bCursorShow)
             Cursor.lockState = CursorLockMode.None;
         else
             Cursor.lockState = CursorLockMode.Locked;
 
-        Cursor.visible = m_bCursorShow;
+        Cursor.visible = _bCursorShow;
     }
 
     public void MoveToTargetPosition(Vector3 r_v3TargetPos, Vector3 r_v3PlayerEndRotation, Vector3 r_v3CameraEndRotation, float r_fDuration, Action onCompleteCallback = null)
     {
         // 角色不可操控
-        m_bCanControl = false;
+        PlayerController._bCanControl = false;
 
         this._rig.useGravity = false;
         this._collider.enabled = false;

@@ -45,7 +45,8 @@ public class MoveMode : MonoBehaviour
                 elapsedTime += Time.deltaTime * changeSpeed;
                 yield return null;
             }
-            gameManager.PlayerCtrlr.m_bCanControl = true;
+
+            PlayerController._bCanControl = true;
             gameManager.PlayerCtrlr.m_bLimitRotation = false;
             KeepstoryReadding();
         }

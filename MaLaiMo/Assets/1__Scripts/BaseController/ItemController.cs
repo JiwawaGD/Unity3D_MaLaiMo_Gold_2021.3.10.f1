@@ -3,6 +3,7 @@
 [RequireComponent(typeof(BoxCollider))]
 public class ItemController : MonoBehaviour
 {
+    #region < Field >
     [Header("遊戲場景編號")]
     public LevelTypeID m_CurrentLevelID;
 
@@ -31,7 +32,9 @@ public class ItemController : MonoBehaviour
     Vector3 v3This;
     bool bShowHint;
     float fDistanceWithPlayer;
+    #endregion
 
+    #region < Unity Hook >
     void Awake()
     {
         GetFields();
@@ -56,7 +59,34 @@ public class ItemController : MonoBehaviour
                 HintObj.SetActive(false);
         }
     }
+    #endregion
 
+    #region < API >
+    public void SetItemInteractive(bool r_bShow)
+    {
+        InteractObj.SetActive(r_bShow);
+
+        if (r_bShow)
+            tfInteract.LookAt(tfPlayerCamera);
+    }
+
+    public void SetHintable(bool r_bShow)
+    {
+        gameObject.layer = r_bShow ? LayerMask.NameToLayer("InteractiveItem") : LayerMask.NameToLayer("Default");
+        bShowHint = r_bShow;
+    }
+
+    public void SendGameEvent()
+    {
+        ItemDisable();
+        SceneCtrlr.GameEvent(m_CurrentLevelID, EventID);
+    }
+    #endregion
+
+    #region < Internal Method >
+    /// <summary>
+    /// Find & Set Field Data
+    /// </summary>
     void GetFields()
     {
         if (HintObj == null)
@@ -97,30 +127,13 @@ public class ItemController : MonoBehaviour
             tfPlayerCamera = GameObject.Find("_Common_Player/LingLing/Player Camera").transform;
     }
 
+    /// <summary>
+    /// Init Value
+    /// </summary>
     void Initialize()
     {
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
         v3This = transform.position;
-    }
-
-    public void SetItemInteractive(bool r_bShow)
-    {
-        InteractObj.SetActive(r_bShow);
-
-        if (r_bShow)
-            tfInteract.LookAt(tfPlayerCamera);
-    }
-
-    public void SetHintable(bool r_bShow)
-    {
-        gameObject.layer = r_bShow ? LayerMask.NameToLayer("InteractiveItem") : LayerMask.NameToLayer("Default");
-        bShowHint = r_bShow;
-    }
-
-    public void SendGameEvent()
-    {
-        ItemDisable();
-        SceneCtrlr.GameEvent(m_CurrentLevelID, EventID);
     }
 
     void ItemDisable()
@@ -135,4 +148,5 @@ public class ItemController : MonoBehaviour
         SetHintable(bActive);
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
+    #endregion
 }

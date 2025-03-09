@@ -1,8 +1,13 @@
+using System;
+
+using DG.Tweening;
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    #region < Fields >
     public static float MouseSensitivity = 1.0f;
 
     [SerializeField]
@@ -43,35 +48,35 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool m_bCanControl;
     [HideInInspector] public bool m_bRayOnItem;
 
-    Vector3 v3_MoveValue;
     Vector3 v3_MovePos;
 
     public Transform tfPlayerCamera;
     public Transform tfTransform;
-    public Rigidbody rig;
+    public Rigidbody _rig;
+    public CapsuleCollider _collider;
     RaycastHit hit;
-    Animation ani;
 
     ItemController current_Item;
     ItemController last_Item;
+    #endregion
 
-    #region Internal Function
+    #region < Unity Hook >
     public virtual void Awake()
     {
-        rig = GetComponent<Rigidbody>();
-        ani = GetComponent<Animation>();
+        _rig = GetComponent<Rigidbody>();
         tfTransform = transform;
 
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
-
     }
+
     public void Start()
     {
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
         Cursor.lockState = CursorLockMode.Locked;
     }
+
     public void Update()
     {
         RayHitCheck();
@@ -83,30 +88,22 @@ public class PlayerController : MonoBehaviour
                 SetCursor();
         }
     }
+
     public void FixedUpdate()
     {
         // 滑鼠顯示、無法控制時不可控制
         if (m_bCursorShow || !m_bCanControl)
         {
-            rig.velocity = Vector3.zero;
+            _rig.velocity = Vector3.zero;
             return;
         }
-
-        //// 播放動畫時不可控制
-        //if (ani.isPlaying)
-        //{
-        //    m_fVerticalRotationValue = 0;
-        //    m_fHorizantalRotationValue = 0;
-        //    rig.velocity = Vector3.zero;
-        //    return;
-        //}
 
         // 播放走路音效
         if (isWalking)
         {
             // 音效未播放時播放音效
             if (!audioSource.isPlaying)
-                PlayWalkingSound();
+                PlaySound(walkingSound);
         }
         else
         {
@@ -118,28 +115,16 @@ public class PlayerController : MonoBehaviour
         View();
         Move();
     }
+
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        //Gizmos.color = Color.red;
         //Gizmos.DrawLine(tfPlayerCamera.position, tfPlayerCamera.position + (tfPlayerCamera.forward * m_fRayLength));
     }
     #endregion
 
-    public void DefaultCursorState()
-    {
-        m_bCursorShow = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = m_bCursorShow;
-    }
-
-    public void SetMouseSensitivity(float sensitivity)
-    {
-        MouseSensitivity = sensitivity;
-        // 在這裡處理滑鼠靈敏度的邏輯
-        // 例如，更新相應的變數，調整滑鼠靈敏度
-    }
-
-    public void InitValue()
+    #region < Internal Method >
+    void InitValue()
     {
         m_fUDSensitivity = 230;
         m_fRLSensitivity = 280;
@@ -155,7 +140,7 @@ public class PlayerController : MonoBehaviour
         audioSource.loop = false;
     }
 
-    public void View()
+    void View()
     {
         float mouseX = Input.GetAxis("Mouse X") * m_fRLSensitivity * fSensitivityAmplifier * MouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * m_fUDSensitivity * fSensitivityAmplifier * MouseSensitivity;
@@ -214,7 +199,7 @@ public class PlayerController : MonoBehaviour
         tfPlayerCamera.localEulerAngles = -Vector3.right * m_fVerticalRotationValue;
     }
 
-    public void Move() // 移動
+    void Move()
     {
         float fMoveHorizontal = Input.GetAxis("Horizontal");
         float fMoveVertical = Input.GetAxis("Vertical");
@@ -234,25 +219,15 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rig.velocity = v3_zero;
+            _rig.velocity = v3_zero;
             isWalking = false;
         }
     }
 
-    public void SetCursor()
-    {
-        m_bCursorShow = !m_bCursorShow;
-
-        if (m_bCursorShow)
-            Cursor.lockState = CursorLockMode.None;
-        else
-            Cursor.lockState = CursorLockMode.Locked;
-
-        Cursor.visible = m_bCursorShow;
-    }
-
-    // Ray check for item interact
-    public void RayHitCheck()  // 檢查射線是否打到物件
+    /// <summary>
+    /// 檢查射線是否打到物件
+    /// </summary>
+    void RayHitCheck()
     {
         m_bRayOnItem = Physics.Raycast(tfPlayerCamera.position,     // Origin
                                        tfPlayerCamera.forward,      // Direction
@@ -285,19 +260,70 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlaySound(AudioClip clip)  // 播放音效
+    /// <summary>
+    /// 播放音效
+    /// </summary>
+    /// <param name="clip"></param>
+    void PlaySound(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.Play();
     }
+    #endregion
 
-    public void PlayWalkingSound() // 播放走路音效
+    #region < API >
+    public void DefaultCursorState()
     {
-        PlaySound(walkingSound);
+        m_bCursorShow = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = m_bCursorShow;
     }
 
-    public void CanControl()
+    public void SetMouseSensitivity(float sensitivity)
     {
-        m_bCanControl = true;
+        MouseSensitivity = sensitivity;
+        // 在這裡處理滑鼠靈敏度的邏輯
+        // 例如，更新相應的變數，調整滑鼠靈敏度
     }
+
+    public void SetCursor()
+    {
+        m_bCursorShow = !m_bCursorShow;
+
+        if (m_bCursorShow)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
+
+        Cursor.visible = m_bCursorShow;
+    }
+
+    public void MoveToTargetPosition(Vector3 r_v3TargetPos, Vector3 r_v3PlayerEndRotation, Vector3 r_v3CameraEndRotation, float r_fDuration, Action onCompleteCallback = null)
+    {
+        // 角色不可操控
+        m_bCanControl = false;
+
+        this._rig.useGravity = false;
+        this._collider.enabled = false;
+
+        // 建立一個 Tween 序列
+        Sequence sequence = DOTween.Sequence();
+
+        // 加入移動動畫
+        sequence.Append(transform.DOMove(r_v3TargetPos, r_fDuration).SetEase(Ease.Linear));
+
+        // 假設要旋轉到某個角度，這裡可以使用一個目標的旋轉角度 (例如: Vector3.zero 代表不旋轉)
+        sequence.Join(transform.DORotate(r_v3PlayerEndRotation, r_fDuration, RotateMode.Fast));
+        sequence.Join(tfPlayerCamera.DORotate(r_v3CameraEndRotation, r_fDuration, RotateMode.Fast));
+
+        // 當動畫結束時，執行回呼函式（如果有的話）
+        sequence.OnComplete(() =>
+        {
+            transform.position = r_v3TargetPos;
+
+            // 執行回呼
+            onCompleteCallback?.Invoke();
+        });
+    }
+    #endregion
 }

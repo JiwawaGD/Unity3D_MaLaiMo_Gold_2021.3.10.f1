@@ -608,7 +608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713845294306215910}
   m_LocalRotation: {x: 0, y: 0.6755903, z: -0, w: -0.73727727}
-  m_LocalPosition: {x: -7.5, y: 0.8, z: -13.1}
+  m_LocalPosition: {x: -7.5, y: 1, z: -13.1}
   m_LocalScale: {x: 0.5, y: 0.8, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -835,8 +835,9 @@ MonoBehaviour:
   m_bCanControl: 0
   m_bRayOnItem: 0
   tfPlayerCamera: {fileID: 1713845293964516958}
-  tfTransform: {fileID: 0}
-  rig: {fileID: 0}
+  tfTransform: {fileID: 1713845294306215916}
+  _rig: {fileID: 1713845294306215912}
+  _collider: {fileID: 1713845294306215913}
 --- !u!1001 &1713845293899035018
 PrefabInstance:
   m_ObjectHideFlags: 0

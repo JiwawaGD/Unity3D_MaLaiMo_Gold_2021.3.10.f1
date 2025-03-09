@@ -1,5 +1,3 @@
-using System.Collections;
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -213,7 +211,14 @@ public class SceneController_Room : SceneController
 
     void Lv1_LotusPaperCheck()
     {
-        UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
+        Vector3 v3TargetPos = new Vector3(-3.1f, 0.35f, -1.9f);
+        Vector3 v3PlayerEndRotation = new Vector3(0f, 0f, 0f);
+        Vector3 v3PlayerCamEndRotation = new Vector3(0f, 275f, 0f);
+
+        PlayerCtrlr.MoveToTargetPosition(v3TargetPos, v3PlayerEndRotation, v3PlayerCamEndRotation, 2f, () =>
+        {
+            UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
+        });
     }
     #endregion
 }

@@ -125,7 +125,9 @@ public partial class SceneController : MonoBehaviour
 
     #region - External Virtual -
 
-    // 鍵盤檢查
+    /// <summary>
+    /// 鍵盤偵測
+    /// </summary>
     public virtual void KeyboardTrigger()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -208,6 +210,7 @@ public partial class SceneController : MonoBehaviour
     }
     #endregion
 
+    #region - 還不確定要不要保留的程式 -
     public void SetGameSetting()
     {
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
@@ -453,6 +456,7 @@ public partial class SceneController : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
     }
+    #endregion
 
     #region - 確定有使用到的 Method -
     /// <summary>

@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
 
     public IEnumerator StartAction()
     {
-        Debug.LogWarning(string.Format("Object : {0} StartAction > Action : {1}", this.name, ActionEvent[ActionCount]));
+        Debug.LogWarning(string.Format("[DIALOGUE]   <color=yellow><b>{0}</b></color>  StartAction  :::  <{1}>", this.name, ActionEvent[ActionCount]));
         m_bIsPlaying = true;
 
         if (ActionEvent[ActionCount].Contains("{%wait:"))

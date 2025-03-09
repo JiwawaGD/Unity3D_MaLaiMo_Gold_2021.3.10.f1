@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using DG.Tweening;
 using static UnityEngine.GraphicsBuffer;
 
@@ -50,9 +50,9 @@ public class Mom_Controller : MonoBehaviour
             }
             transform.Translate(Vector3.forward * 3.5f * Time.deltaTime);
         }
-        print(maxDistance);
+        //print(maxDistance);
     }
-    //¶ı¶ıÂà¦Vª±®a
+    //åª½åª½è½‰å‘ç©å®¶
     void MomLookAt(Transform target,float time)
     {
         CanMove = false;
@@ -65,29 +65,29 @@ public class Mom_Controller : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "²Ä¤@¶¥¬q")
+        if (other.name == "ç¬¬ä¸€éšæ®µ")
         {
             CanMove = false;
             CurrentStep = Step[1];
             MomLookAt(CurrentStep, 0.5f);
         }
-        else if (other.name == "²Ä¤@¶¥¬q(¥[¶ZÂ÷)")
+        else if (other.name == "ç¬¬ä¸€éšæ®µ(åŠ è·é›¢)")
         {
             maxDistance = 15f;
         }
-        else if (other.name == "²Ä¤G¶¥¬q")
+        else if (other.name == "ç¬¬äºŒéšæ®µ")
         {
             CanMove = false;
             CurrentStep = Step[2];
             MomLookAt(CurrentStep, 0.5f);
         }
-        else if (other.name == "²Ä¤T¶¥¬q")
+        else if (other.name == "ç¬¬ä¸‰éšæ®µ")
         {
             CanMove = false;
             CurrentStep = Step[3];
             MomLookAt(CurrentStep, 0.1f);
         }
-        else if (other.name == "²Ä¥|¶¥¬q")
+        else if (other.name == "ç¬¬å››éšæ®µ")
         {
             CanMove = false;
             Finish = true;
@@ -95,7 +95,7 @@ public class Mom_Controller : MonoBehaviour
             MomLookAt(CurrentStep, 0.1f);
 
         }
-        else if (other.name == "²Ä¤­¶¥¬q") 
+        else if (other.name == "ç¬¬äº”éšæ®µ") 
         {
             CanMove = false;
             CurrentStep = Step[5];

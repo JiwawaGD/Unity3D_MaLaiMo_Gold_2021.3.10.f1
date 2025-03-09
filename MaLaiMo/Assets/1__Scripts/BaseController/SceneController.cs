@@ -14,6 +14,8 @@ public partial class SceneController : MonoBehaviour
     [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
 
+    [SerializeField] [Header("Item Canvas Handler")] ItemCanvasHandler _itemCanvasHandler;
+    [SerializeField] [Header("Item Canvas Group")] CanvasGroup _itemCanvasGroup;
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
 
@@ -21,16 +23,15 @@ public partial class SceneController : MonoBehaviour
     /// 角色控制器
     /// </summary>
     [HideInInspector] public PlayerController PlayerCtrlr;
+
     /// <summary>
     /// 音效控制器
     /// </summary>
     [HideInInspector] protected AUDManager AudManager;
 
     protected Scene CurrentScene;
-    //
 
     /// 待調整的區域
-    public GameObject ItemCanvas;
     ///
     [Header("============ 以下待整理 ============\n")]
 
@@ -66,16 +67,6 @@ public partial class SceneController : MonoBehaviour
     //ItemController TempItem;
 
     #region Canvas Zone
-    Image imgUIBackGround;
-    Text txtTitle;
-
-    protected Image imgInstructions;
-    protected Text txtInstructions;
-    protected Text txtIntroduce;
-
-    protected Button ExitBtn;
-    protected Text txtEnterGameHint;
-    protected Button EnterGameBtn;
     #endregion
 
     #region Static Boolean Zone
@@ -108,23 +99,11 @@ public partial class SceneController : MonoBehaviour
 
         AudManager = PlayerCtrlr.GetComponentInChildren<AUDManager>();
 
-        if (ItemCanvas == null)
-            ItemCanvas = GameObject.Find("_Common_Canvas/_Item Canvas");
+        if (_itemCanvasHandler == null)
+            _itemCanvasHandler = GameObject.Find("_Common_Canvas/_Item Canvas").GetComponent<ItemCanvasHandler>();
 
-        imgUIBackGround = ItemCanvas.transform.GetChild(0).GetComponent<Image>();     // 背景
-        txtTitle = ItemCanvas.transform.GetChild(2).GetComponent<Text>();             // 標題
-
-        imgInstructions = ItemCanvas.transform.GetChild(3).GetComponent<Image>();             // 說明圖示
-        txtInstructions = ItemCanvas.transform.GetChild(3).GetComponentInChildren<Text>();    // 說明文字
-        txtIntroduce = ItemCanvas.transform.GetChild(4).GetComponentInChildren<Text>();       // 介紹文字
-
-        //ExitBtn = GoCanvas.transform.GetChild(5).GetComponent<Button>();            // 返回按鈕
-        //txtEnterGameHint = GoCanvas.transform.GetChild(6).GetComponent<Text>();     // 進入遊戲提示
-        //EnterGameBtn = GoCanvas.transform.GetChild(7).GetComponent<Button>();       // 進入遊戲按鈕
-
-        //TempItem = null;    // 暫存物件
-        //Ro_Light.enabled = false;   // 旋轉物件使用燈關
-        //StudioUI.SetActive(false);  // 攝影棚畫面UI
+        if (_itemCanvasGroup == null)
+            _itemCanvasGroup = GameObject.Find("_Common_Canvas/_Item Canvas").GetComponent<CanvasGroup>();
     }
 
     public virtual void Start()
@@ -173,13 +152,15 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 使物件顯示眼睛圖案 & 可互動
-    /// </summary>
-    /// <param name="r_ItemID">物件的 ID</param>
-    public virtual void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID) { }
+    public virtual void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
+    {
+        Debug.Log(string.Format("[SHOW HINT] <color=lime><b>{0}</b></color>  Item Active in Scene : {1}", r_ItemID, r_SceneTypeID));
+    }
 
-    public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID) { }
+    public virtual void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
+    {
+        Debug.Log(string.Format("[GAME EVENT] <color=cyan><b>{0}</b></color> Trigger in Scene : {1}", r_EventID, r_SceneTypeID));
+    }
     #endregion
 
     #region - Base Function -
@@ -247,7 +228,10 @@ public partial class SceneController : MonoBehaviour
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 
-    // 顯示進入旋轉遊戲按鈕
+    /// <summary>
+    /// 顯示進入旋轉按鈕
+    /// </summary>
+    /// <param name="O_ItemID"></param>
     public void ShowObj(ObjItemID O_ItemID)
     {
         StudioUI.SetActive(true);
@@ -277,27 +261,6 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    // 旋轉物件UI畫面
-    public void UIState(UIItemID r_ItemID, bool r_bEnable)
-    {
-        m_bInUIView = r_bEnable;
-        PlayerCtrlr.m_bCanControl = !r_bEnable;
-        PlayerCtrlr.SetCursor();
-
-        ItemCanvas.SetActive(r_bEnable);
-        ExitBtn.gameObject.SetActive(r_bEnable);
-        imgUIBackGround.color = r_bEnable ? new Color(0, 0, 0, 0.60f) : new Color(0, 0, 0, 0.60f);
-        imgInstructions.color = r_bEnable ? new Color(0, 0, 0, 1) : new Color(0, 0, 0, 0);
-        int iItemID = (int)r_ItemID;
-
-        txtTitle.text = GlobalDeclare.UITitle[iItemID];
-
-        txtIntroduce.text = GlobalDeclare.UIIntroduce[iItemID];
-        txtInstructions.text = GlobalDeclare.TxtInstructionsmage[iItemID];
-
-        GegameManager_bInUIView();
-    }
-
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
     {
         if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
@@ -309,7 +272,11 @@ public partial class SceneController : MonoBehaviour
         m_bShowItemAnimate = false;
     }
 
-    // 限制角色視角 (暫無使用)
+    /// <summary>
+    /// 限制角色視角 (暫無使用)
+    /// </summary>
+    /// <param name="bLimitRotation"></param>
+    /// <param name="fViewLimit"></param>
     public void SetPlayerViewLimit(bool bLimitRotation, float[] fViewLimit)
     {
         m_bSetPlayerViewLimit = false;
@@ -322,15 +289,6 @@ public partial class SceneController : MonoBehaviour
             PlayerCtrlr.tfTransform.localEulerAngles = Vector3.up * fViewLimit[2];
             Debug.Log("Value : " + fViewLimit[2]);
         }
-    }
-
-    // 顯示進入蓮花遊戲按鈕
-    public void ShowEnterGame(bool r_bEnable)
-    {
-        bIsUIOpen = r_bEnable;
-        EnterGameBtn.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.gameObject.SetActive(r_bEnable);
-        txtEnterGameHint.text = r_bEnable ? "按 *R* 開始摺紙 \r\n(Press *R* Origami Lotus Paper)" : "";
     }
 
     public void RestoreItemLocation()
@@ -346,15 +304,6 @@ public partial class SceneController : MonoBehaviour
         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 0.1f);
         isMoveingObject = false;
         StudioUI.SetActive(false);
-    }
-
-    public void MouseCheck()   // 滑鼠檢查MouseButtonDown(0)
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // 在此處理滑鼠點擊事件
-            // 可以使用 EventSystem 或 Raycasting 等方法進行 UI 按鈕的選擇處理
-        }
     }
 
     public void SetGameState()  // 設定遊戲狀態
@@ -433,11 +382,6 @@ public partial class SceneController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void SetCrosshairEnable(bool bEnable)
-    {
-        CrosshairUI.SetActive(bEnable);
-    }
-
     public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
         PlayerCtrlr.m_bCanControl = false;
@@ -483,9 +427,74 @@ public partial class SceneController : MonoBehaviour
         Application.Quit();
     }
 
-    // 延遲動作
+    /// <summary>
+    /// 執行玩家移動到指定區域
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public IEnumerator ProcessPlayerSetPianoAni(int index)
+    {
+        //bIsPlayingPiano = true;
+        //Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
+        //Transform tfCameraPos = tfPianoPos.GetChild(0);
+
+        //yield return StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
+        yield return null;
+
+        //if (bIsPlayingPiano == true)
+        //    PianoUI.SetActive(true);
+    }
+
+    /// <summary>
+    /// 延遲動作
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator DelayedAction()
     {
         yield return new WaitForSeconds(2.5f);
     }
+
+    #region - 確定有使用到的 Method -
+    /// <summary>
+    /// 旋轉物件UI畫面
+    /// </summary>
+    /// <param name="r_ItemID"> Item 的 ID</param>
+    /// <param name="r_bEnable"> 開關狀態</param>
+    /// <param name="r_bNeedSubTitle"> 是否打開下方小 Info</param>
+    public void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
+    {
+        int iItemID = (int)r_ItemID;
+
+        SetItemCanvasEnable(r_bEnable);
+
+        m_bInUIView = r_bEnable;
+        PlayerCtrlr.m_bCanControl = !r_bEnable;
+        PlayerCtrlr.SetCursor();
+
+        _itemCanvasHandler._txtTopTitle.text = GlobalDeclare.item_Title[iItemID];
+        _itemCanvasHandler._txtMainInfo.text = GlobalDeclare.item_MainInfo[iItemID];
+        _itemCanvasHandler._txtBottonInfo.text = r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[iItemID] : "";
+    }
+
+    /// <summary>
+    /// 滑鼠檢查MouseButtonDown(0)
+    /// </summary>
+    public void MouseCheck()
+    {
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        // 在此處理滑鼠點擊事件
+        //}
+    }
+
+    public void SetCrosshairEnable(bool bEnable)
+    {
+        CrosshairUI.SetActive(bEnable);
+    }
+
+    public void SetItemCanvasEnable(bool r_bEnable)
+    {
+        _itemCanvasGroup.alpha = r_bEnable ? 1 : 0;
+    }
+    #endregion
 }

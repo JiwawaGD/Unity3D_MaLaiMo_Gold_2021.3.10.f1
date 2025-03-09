@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 using DG.Tweening;
 
 public class SceneController_Room : SceneController
@@ -25,21 +26,26 @@ public class SceneController_Room : SceneController
 
         // 室內場景的第一個可互動物件
         GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
+
+        // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
+        SetItemCanvasEnable(false);
+        GlobalDeclare._bHoldingRiceFuneral = true;
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
     }
     #endregion
 
     #region - External Override -
     public override void GameEvent(LevelTypeID r_SceneTypeID, GameEventID r_EventID)
     {
+        base.GameEvent(r_SceneTypeID, r_EventID);
+
         switch (r_SceneTypeID)
         {
             case LevelTypeID.Lv1_GrandmaHouse:
                 Lv1_Event(r_EventID);
                 break;
-            case LevelTypeID.BeginScene:
-            case LevelTypeID.Introduce:
-            case LevelTypeID.Lv2_GrandmaHouse:
-                Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
+            default:
+                Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID : {0}", r_SceneTypeID));
                 break;
         }
     }
@@ -48,6 +54,8 @@ public class SceneController_Room : SceneController
 
     public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
+        base.ShowHint(r_SceneTypeID, r_ItemID);
+
         try
         {
             ItemController NextItem = null;
@@ -55,26 +63,34 @@ public class SceneController_Room : SceneController
             switch (r_SceneTypeID)
             {
                 case LevelTypeID.Lv1_GrandmaHouse:
+                    string itemName = "";
+
                     switch (r_ItemID)
                     {
                         case HintItemID.Lv1_OpenRoomDoor:
-                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").GetComponent<ItemController>();
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door";
                             break;
                         case HintItemID.Lv1_FirstTalkToMom:
-                            NextItem = GameObject.Find("_Scene01_Map/Mom").GetComponent<ItemController>();
+                            itemName = "_Scene01_Map/Mom";
                             break;
                         case HintItemID.Lv1_ClipBoard:
-                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Clipboard").GetComponent<ItemController>();
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Clipboard";
                             break;
                         case HintItemID.Lv1_Item_GoOutSide:
-                            NextItem = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor").GetComponent<ItemController>();
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor";
+                            break;
+                        case HintItemID.Lv1_Item_LotusPaper:
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Paper";
+                            break;
+                        default:
+                            Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
                     }
+
+                    NextItem = GameObject.Find(itemName).GetComponent<ItemController>();
                     break;
-                case LevelTypeID.BeginScene:
-                case LevelTypeID.Introduce:
-                case LevelTypeID.Lv2_GrandmaHouse:
-                    Debug.LogError(string.Format("[SceneCtrlr - Room] Error SceneTypeID"));
+                default:
+                    Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Scene ID :: {0}", r_SceneTypeID));
                     break;
             }
 
@@ -83,7 +99,7 @@ public class SceneController_Room : SceneController
         }
         catch (System.Exception exception)
         {
-            Debug.LogError("[ERROR] Show Hint Error >> " + exception.Message);
+            Debug.LogError(string.Format("[ERROR] Show Hint <{0}> Error :: {1}", r_ItemID, exception.Message));
             throw;
         }
     }
@@ -92,40 +108,35 @@ public class SceneController_Room : SceneController
     #region - Basic Function -
     void Lv1_Event(GameEventID r_EventID)
     {
-        Debug.LogWarning(string.Format("[Lv1_Event] GameEventID : {0}", r_EventID));
-
-        switch (r_EventID)
+        try
         {
-            case GameEventID.Lv1_TalkToPackage:
-                Lv1_TalkToPackage();
-                break;
-            case GameEventID.Lv1_GrandmaRoomDoorSwitch:
-                Lv1_GrandmaRoomDoorSwitch();
-                break;
-            case GameEventID.Lv1_FirstTalkToMom:
-                Lv1_FirstTalkToMom();
-                break;
-            case GameEventID.Lv1_GoOutSide:
-                Lv1_GoOutSide();
-                break;
-            default:
-                Debug.LogError(string.Format("[Lv1_Event] Error GameEventID : {0}", r_EventID));
-                break;
+            switch (r_EventID)
+            {
+                case GameEventID.Lv1_TalkToPackage:
+                    Lv1_TalkToPackage();
+                    break;
+                case GameEventID.Lv1_GrandmaRoomDoorSwitch:
+                    Lv1_GrandmaRoomDoorSwitch();
+                    break;
+                case GameEventID.Lv1_FirstTalkToMom:
+                    Lv1_FirstTalkToMom();
+                    break;
+                case GameEventID.Lv1_GoOutSide:
+                    Lv1_GoOutSide();
+                    break;
+                case GameEventID.Lv1_LotusPaper:
+                    Lv1_LotusPaperCheck();
+                    break;
+                default:
+                    Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
+                    break;
+            }
         }
-    }
-
-    // 執行玩家移動到指定區域
-    public IEnumerator ProcessPlayerSetPianoAni(int index)
-    {
-        //bIsPlayingPiano = true;
-        //Transform tfPianoPos = GameObject.Find("PianoTarget").GetComponent<Transform>();
-        //Transform tfCameraPos = tfPianoPos.GetChild(0);
-
-        //yield return StartCoroutine(PlayerToAniPos(Targers[index].position, tfPianoPos.rotation, tfCameraPos.rotation));
-        yield return null;
-
-        //if (bIsPlayingPiano == true)
-        //    PianoUI.SetActive(true);
+        catch (System.Exception exception)
+        {
+            Debug.LogError(string.Format("[<color=red><b>Error</b></color>] [Lv1_Event] Event  <color=red><b>{0}</b></color>  Error  ::  {1}", r_EventID, exception.Message));
+            throw;
+        }
     }
 
     public void ButtonFunction(ButtonEventID _eventID)
@@ -198,6 +209,11 @@ public class SceneController_Room : SceneController
 
         _toOutSideBlackImg.DOFade(1f, 1)
                           .OnComplete(() => SceneManager.LoadScene("4 Outdoor_Scene"));
+    }
+
+    void Lv1_LotusPaperCheck()
+    {
+        UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
     }
     #endregion
 }

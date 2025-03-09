@@ -18,6 +18,7 @@ public enum GameEventID
     Lv1_FirstTalkToMom = 3,
     Lv1_ClipBoard = 4,
     Lv1_GoOutSide = 5,
+    Lv1_LotusPaper = 6,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -36,9 +37,10 @@ public enum HintItemID
     // Lv1 : Scene_1
     Lv1_Begin = 1,
     Lv1_OpenRoomDoor = 2,
-    Lv1_FirstTalkToMom,
-    Lv1_ClipBoard,
+    Lv1_FirstTalkToMom = 3,
+    Lv1_ClipBoard = 4,
     Lv1_Item_GoOutSide = 5,
+    Lv1_Item_LotusPaper = 6,
 
     // Lv2 : Scene_2
     Lv2_Begin = 1,
@@ -62,7 +64,12 @@ public enum UIItemID
     Empty = 0,
 
     // Lv1 : Scene_1
-    Lv1_Begin = 1,
+    Lv1_UI_Begin_null = 1,
+    Lv1_UI_OpenRoomDoor_null = 2,
+    Lv1_UI_FirstTalkToMom_null = 3,
+    Lv1_UI_ClipBoard_null = 4,
+    Lv1_UI_GoOutSide_null = 5,
+    Lv1_UI_LotusPaper = 6,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

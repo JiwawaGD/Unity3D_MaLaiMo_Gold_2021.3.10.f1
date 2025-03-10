@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public class SceneController_OutSide : SceneController
 {
@@ -8,6 +9,7 @@ public class SceneController_OutSide : SceneController
     public RectTransform arrowIndicator;
     public Camera PlayerCamera;
     public Transform Player;
+    public GameObject ForestTP;
 
     private Vector3 IconPos;
     #endregion
@@ -15,16 +17,26 @@ public class SceneController_OutSide : SceneController
     #region < Unity Hook >
     public override void Start()
     {
-        if (!GlobalDeclare._firstStartGameLevel_2)
+        if (GlobalDeclare._firstStartGameLevel_2 == false) //並非執行初次森林事件，就執行媽媽引導玩家
         {
-            GlobalDeclare._firstStartGameLevel_2 = true;
+            ForestTP.SetActive(true);
+            mom.gameObject.SetActive(true);
+            uiElement.gameObject.SetActive(true);
+            arrowIndicator.gameObject.SetActive(true);
+            Player.LookAt(mom);
+            Player.GetComponent<OutSidePlayer>()._bCanControl = false;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
+        }
+        else 
+        {
+
         }
     }
 
     public override void Update()
     {
         base.Update();
+        if (GlobalDeclare._firstStartGameLevel_2 == true) return;
         Vector3 npcViewportPos = PlayerCamera.WorldToViewportPoint(mom.position);
         Vector3 npcDirection = (mom.position - Player.position).normalized;
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using static UnityEngine.GraphicsBuffer;
+using System.Collections;
 
 public class Mom_Controller : MonoBehaviour
 {
@@ -79,32 +80,33 @@ public class Mom_Controller : MonoBehaviour
         {
             CanMove = false;
             CurrentStep = Step[2];
+            maxDistance = 5f;
             MomLookAt(CurrentStep, 0.5f);
         }
         else if (other.name == "第三階段")
         {
             CanMove = false;
             CurrentStep = Step[3];
+            maxDistance = 15f;
             MomLookAt(CurrentStep, 0.1f);
         }
         else if (other.name == "第四階段")
         {
-            CanMove = false;
-            Finish = true;
             CurrentStep = Step[4];
-            MomLookAt(CurrentStep, 0.1f);
+            maxDistance = 0f;
+        }
+    }
 
-        }
-        else if (other.name == "第五階段") 
-        {
-            CanMove = false;
-            CurrentStep = Step[5];
-            MomLookAt(CurrentStep, 0.1f);
-            cloth.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
-            eyes.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
-            hair_back.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
-            hair_forward.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2)
-                              .OnComplete(() => gameObject.SetActive(false));
-        }
+    public IEnumerator InToForest()
+    {
+        Finish = true;
+        CanMove = false;
+        MomLookAt(CurrentStep, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        cloth.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
+        eyes.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
+        hair_back.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
+        hair_forward.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2)
+                                 .OnComplete(() => gameObject.SetActive(false));
     }
 }

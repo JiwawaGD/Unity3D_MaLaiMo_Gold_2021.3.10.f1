@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 m_fVerticalRotationRange;
 
     [HideInInspector] public bool _bCursorShow;
-    [HideInInspector] public static bool _bCanControl = true;
+    [HideInInspector] public bool _bCanControl = true;
     [HideInInspector] public bool _bRayOnItem;
 
     Vector3 v3_MovePos;

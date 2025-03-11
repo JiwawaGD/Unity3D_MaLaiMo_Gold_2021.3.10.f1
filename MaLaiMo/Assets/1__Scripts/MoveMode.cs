@@ -46,7 +46,7 @@ public class MoveMode : MonoBehaviour
                 yield return null;
             }
 
-            PlayerCtrlr._bCanControl = true;
+            //PlayerController._bCanControl = true;
             gameManager.PlayerCtrlr.m_bLimitRotation = false;
             KeepstoryReadding();
         }

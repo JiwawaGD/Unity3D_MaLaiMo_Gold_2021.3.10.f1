@@ -19,7 +19,7 @@ public class OutSidePlayer : PlayerController
     {
         if (other.name == "森林傳送點")
         {
-            _bCanControl = false;
+            this._bCanControl = false;
             StartCoroutine(InToForest());
         }
     }

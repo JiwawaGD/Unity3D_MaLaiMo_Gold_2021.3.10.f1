@@ -132,7 +132,7 @@ public partial class GlobalDeclare
                     break;
                 case LevelTypeID.Lv1_GrandmaHouse:
                     break;
-                case LevelTypeID.Lv2_GrandmaHouse:
+                case LevelTypeID.Lv2_OutSideDoor:
                     break;
             }
         }

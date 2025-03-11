@@ -8,6 +8,8 @@ public class SceneController_Room : SceneController
 {
     #region < Fields >
     [Header("=== By Scene 各場景使用欄位 ===\r\n")] public GameObject _temp;
+
+    [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
     #endregion
 
     #region < Unity Hook >
@@ -20,12 +22,12 @@ public class SceneController_Room : SceneController
     {
         base.Start();
 
+        // 預設讓大門是可以互動狀態
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
+
         if (!GlobalDeclare._firstStartGameLevel_1)
         {
             GlobalDeclare._firstStartGameLevel_1 = true;
-
-            // 預設讓大門是可以互動狀態
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
 
             // 室內場景的第一個可互動物件
             GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
@@ -33,6 +35,14 @@ public class SceneController_Room : SceneController
             // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
             GlobalDeclare._holdingRiceFuneral = true;
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
+        }
+        else
+        {
+            // 設定玩家傳送座標
+            SetPlayerLocation(this._outsideGoInTransitPos.localPosition);
+
+            // 非第一次進場場景 > 轉場圖片 Fade Out
+            TransitFadeOut();
         }
     }
 
@@ -122,12 +132,22 @@ public class SceneController_Room : SceneController
             throw;
         }
     }
+
+    public override void TransitFadeOut()
+    {
+        base.TransitFadeOut();
+    }
+
+    public override void SetPlayerLocation(Vector3 location)
+    {
+        base.SetPlayerLocation(location);
+    }
     #endregion
 
-    #region < API - Call From Dialogue System>
-    public void SetPlayerControl(bool r_bEnable)
+    #region < API - Call From Dialogue System >
+    public override void SetPlayerControl(bool r_bEnable)
     {
-        PlayerController._bCanControl = r_bEnable;
+        base.SetPlayerControl(r_bEnable);
     }
     #endregion
 
@@ -207,8 +227,8 @@ public class SceneController_Room : SceneController
 
     void Lv1_GoOutSide()
     {
-        _toOutSideBlackImg.DOFade(1f, 1)
-                          .OnComplete(() => SceneManager.LoadScene("4 Outdoor_Scene"));
+        _transitBlackImg.DOFade(1f, 1)
+                        .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide));
     }
 
     void Lv1_LotusPaperCheck()

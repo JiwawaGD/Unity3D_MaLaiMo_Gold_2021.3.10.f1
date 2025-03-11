@@ -5,7 +5,7 @@ public enum LevelTypeID
     BeginScene = 0,
     Introduce,
     Lv1_GrandmaHouse,
-    Lv2_GrandmaHouse,
+    Lv2_OutSideDoor,
 }
 
 public enum GameEventID
@@ -22,6 +22,7 @@ public enum GameEventID
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
+    Lv2_GoInside = 102,
 }
 
 public enum Lv1_EventCallBackID
@@ -43,7 +44,8 @@ public enum HintItemID
     Lv1_Item_LotusPaper = 6,
 
     // Lv2 : Scene_2
-    Lv2_Begin = 1,
+    Lv2_Begin = 101,
+    Lv2_GoInside = 102,
 }
 
 public enum ObjItemID

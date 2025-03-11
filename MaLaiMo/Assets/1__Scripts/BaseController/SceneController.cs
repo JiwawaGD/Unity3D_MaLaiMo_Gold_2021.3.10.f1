@@ -10,6 +10,7 @@ using DG.Tweening;
 
 public partial class SceneController : MonoBehaviour
 {
+    #region < Field >
     // 確定需要保留的區域
     [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
@@ -19,7 +20,7 @@ public partial class SceneController : MonoBehaviour
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
 
-    [SerializeField] [Header("轉場黑色過場圖片")] public Image _toOutSideBlackImg;
+    [SerializeField] [Header("轉場黑色過場圖片")] public Image _transitBlackImg;
 
     /// <summary>
     /// 角色控制器
@@ -33,26 +34,16 @@ public partial class SceneController : MonoBehaviour
 
     protected Scene CurrentScene;
 
-    /// 待調整的區域
-    ///
     [Header("============ 以下待整理 ============\n")]
 
     [Space]
     [SerializeField] Volume CameraVolume;
-
-    //[Header("Volume參數設定")]
-    //[SerializeField]
-    //protected float fTargetIntensity = 1f;
-    //readonly float fChangeSpeed = 1f;
-
-    //[SerializeField] GameObject[] taskListUi;
 
     [Space]
     [Header("物件旋轉參數設定")]
     protected bool isMoveingObject = false;    // 是否正在移動物件
     protected Vector3 originalPosition;    // 原始位置
     protected Quaternion originalRotation; // 原始旋轉
-
 
     //[Header("物件移動速度")] public float objSpeed;
     [Header("旋轉物件功能")] public bool romanager;
@@ -62,36 +53,22 @@ public partial class SceneController : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
-    //[SerializeField] [Header("Video 撥放器")] public VideoPlayer videoPlayer;
-    //[SerializeField] [Header("QRCode UI")] public GameObject QRCodeUI;
-    [SerializeField] [Header("追蹤物件位置")] protected Transform[] Targets;
-
-    //ItemController TempItem;
-
-    #region Canvas Zone
-    #endregion
 
     #region Static Boolean Zone
     public static bool m_bInUIView = false;
-    public static bool m_bIsEnterGameView = false;
-    public static bool m_bShowPlayerAnimate = false;
     public static bool m_bShowItemAnimate = false;
-    public static bool m_bShowDialog = false;
     public static bool m_bSetPlayerViewLimit = false;
-    public static bool m_bGrandmaRush = false;
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
-    public static bool m_bToiletGhostHasShow = false;
     #endregion
 
     protected bool bIsPaused = false;
     protected bool bIsMouseEnabled = false;
-    protected bool bIsUIOpen = false;
-    protected bool bNeedShowDialog = false;
+    #endregion
 
     // 以上未還未整理的程式碼
 
-    #region - Internal Virtual -
+    #region < Unity Hook >
     public virtual void Awake()
     {
         CurrentScene = SceneManager.GetActiveScene();   // 當前場景
@@ -126,7 +103,7 @@ public partial class SceneController : MonoBehaviour
     }
     #endregion
 
-    #region - External Virtual -
+    #region < External Virtual >
 
     /// <summary>
     /// 鍵盤偵測
@@ -166,9 +143,27 @@ public partial class SceneController : MonoBehaviour
     {
         Debug.Log(string.Format("[GAME EVENT] <color=cyan><b>{0}</b></color> Trigger in Scene : {1}", r_EventID, r_SceneTypeID));
     }
+
+    public virtual void TransitFadeOut()
+    {
+        this._transitBlackImg.color = new Color(0, 0, 0, 255f);
+
+        this._transitBlackImg.DOFade(0, 1f)
+                             .OnComplete(() => SetPlayerControl(true));
+    }
+
+    public virtual void SetPlayerLocation(Vector3 location)
+    {
+        this.PlayerCtrlr.transform.localPosition = location;
+    }
+
+    public virtual void SetPlayerControl(bool r_bEnable)
+    {
+        PlayerCtrlr._bCanControl = r_bEnable;
+    }
     #endregion
 
-    #region - Base Function -
+    #region < Base Function >
     public void ProcessPlayerAnimator(string r_sAnimationName)
     {
         Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
@@ -213,7 +208,7 @@ public partial class SceneController : MonoBehaviour
     }
     #endregion
 
-    #region - 還不確定要不要保留的程式 -
+    #region < 還不確定要不要保留的程式 >
     public void SetGameSetting()
     {
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
@@ -338,7 +333,7 @@ public partial class SceneController : MonoBehaviour
 
     public void StopReadding()  // 停止閱讀查看物件
     {
-        PlayerController._bCanControl = false;
+        PlayerCtrlr._bCanControl = false;
         PlayerCtrlr.m_bLimitRotation = true;
         StartCoroutine(ChangeVignetteIntensity());
     }
@@ -346,7 +341,7 @@ public partial class SceneController : MonoBehaviour
     public IEnumerator ChangeVignetteIntensity()  // 改變電影模式Vignette強度
     {
         yield return new WaitForSeconds(11f);
-        PlayerController._bCanControl = true;
+        PlayerCtrlr._bCanControl = true;
         PlayerCtrlr.m_bLimitRotation = false;
         //VolumeProfile profile = postProcessVolume.sharedProfile;
 
@@ -390,7 +385,7 @@ public partial class SceneController : MonoBehaviour
 
     public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
-        PlayerController._bCanControl = false;
+        PlayerCtrlr._bCanControl = false;
         PlayerCtrlr.gameObject.GetComponent<CapsuleCollider>().enabled = false;
         PlayerCtrlr.gameObject.GetComponent<Rigidbody>().useGravity = false;
 
@@ -461,9 +456,9 @@ public partial class SceneController : MonoBehaviour
     }
     #endregion
 
-    #region - 有使用到的 Method -
+    #region < 有使用到的 Method >
     /// <summary>
-    /// 旋轉物件UI畫面
+    /// Item Canvas State
     /// </summary>
     /// <param name="r_ItemID"> Item 的 ID</param>
     /// <param name="r_bEnable"> 開關狀態</param>

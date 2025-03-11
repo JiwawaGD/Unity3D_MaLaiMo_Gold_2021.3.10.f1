@@ -107,15 +107,14 @@ public class ItemController : MonoBehaviour
 
             switch (m_CurrentLevelID)
             {
-                case LevelTypeID.BeginScene:
-                    break;
-                case LevelTypeID.Introduce:
-                    break;
                 case LevelTypeID.Lv1_GrandmaHouse:
                     strSceneCtrlrName = "_Scene01_Controller/SceneController";
                     break;
-                case LevelTypeID.Lv2_GrandmaHouse:
+                case LevelTypeID.Lv2_OutSideDoor:
+                    strSceneCtrlrName = "_Scene02_Controller/SceneController";
                     break;
+                case LevelTypeID.BeginScene:
+                case LevelTypeID.Introduce:
                 default:
                     break;
             }

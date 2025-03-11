@@ -18,7 +18,7 @@ public class ForestPlayer : PlayerController
         if (gameManager == null)
             gameManager = GameObject.Find("_Scene01_Controller/SceneController").GetComponent<SceneController_Forest>();
         _bCursorShow = false;
-        _bCanControl = true;
+        this._bCanControl = true;
     }
 
     void OnTriggerEnter(Collider other)
@@ -26,7 +26,7 @@ public class ForestPlayer : PlayerController
         if (Ani.enabled == true) return;
         if (other.name == "左邊")
         {
-            _bCanControl = false;
+            this._bCanControl = false;
             Ani.enabled = true;
             canMove = false;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.63f);
@@ -48,7 +48,7 @@ public class ForestPlayer : PlayerController
         }
         else if (other.name == "右邊")
         {
-            _bCanControl = false;
+            this._bCanControl = false;
             Ani.enabled = true;
             canMove = false;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.63f);
@@ -87,6 +87,7 @@ public class ForestPlayer : PlayerController
             tfTransform.rotation = Quaternion.Euler(0, -220.95f, 0);
             tfPlayerCamera.localRotation = Quaternion.Euler(7.5f, 0, 0);
         }
-        _bCanControl = true;
+
+        this._bCanControl = true;
     }
 }

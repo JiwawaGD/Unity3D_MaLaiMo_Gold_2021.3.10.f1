@@ -50,10 +50,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  _itemCanvasHandler: {fileID: 0}
+  _itemCanvasGroup: {fileID: 0}
   SettingPanel: {fileID: 0}
   CrosshairUI: {fileID: 0}
+  _transitBlackImg: {fileID: 0}
   PlayerCtrlr: {fileID: 0}
-  GoCanvas: {fileID: 0}
   CameraVolume: {fileID: 0}
   romanager: 0
   postProcessVolume: {fileID: 0}
@@ -62,7 +65,8 @@ MonoBehaviour:
   saveRotaObj: 0
   StudioUI: {fileID: 0}
   Ro_Light: {fileID: 0}
-  Targets: []
+  _temp: {fileID: 0}
+  _outsideGoInTransitPos: {fileID: 0}
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

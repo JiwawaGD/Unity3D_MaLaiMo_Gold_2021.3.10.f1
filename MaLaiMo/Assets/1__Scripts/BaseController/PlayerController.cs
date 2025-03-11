@@ -300,8 +300,7 @@ public class PlayerController : MonoBehaviour
     public void MoveToTargetPosition(Vector3 r_v3TargetPos, Vector3 r_v3PlayerEndRotation, Vector3 r_v3CameraEndRotation, float r_fDuration, Action onCompleteCallback = null)
     {
         // 角色不可操控
-        PlayerController._bCanControl = false;
-
+        this._bCanControl = false;
         this._rig.useGravity = false;
         this._collider.enabled = false;
 

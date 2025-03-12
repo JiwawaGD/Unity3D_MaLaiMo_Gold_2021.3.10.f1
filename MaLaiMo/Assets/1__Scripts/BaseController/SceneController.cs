@@ -465,16 +465,14 @@ public partial class SceneController : MonoBehaviour
     /// <param name="r_bNeedSubTitle"> 是否打開下方小 Info</param>
     public void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
-        int iItemID = (int)r_ItemID;
-
         SetItemCanvasEnable(r_bEnable);
 
         m_bInUIView = r_bEnable;
         PlayerCtrlr.SetCursor();
 
-        _itemCanvasHandler._txtTopTitle.text = GlobalDeclare.item_Title[iItemID];
-        _itemCanvasHandler._txtMainInfo.text = GlobalDeclare.item_MainInfo[iItemID];
-        _itemCanvasHandler._txtBottonInfo.text = r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[iItemID] : "";
+        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[(int)r_ItemID] : "") : "";
     }
 
     /// <summary>

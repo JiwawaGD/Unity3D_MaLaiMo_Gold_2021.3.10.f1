@@ -10,6 +10,7 @@ public class SceneController_Room : SceneController
     [Header("=== By Scene 各場景使用欄位 ===\r\n")] public GameObject _temp;
 
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
+    [Header("蓮花遊戲控制器")] public LotusGameManager _lotusGameManager;
     #endregion
 
     #region < Unity Hook >
@@ -70,13 +71,20 @@ public class SceneController_Room : SceneController
 
     public override void KeyboardCheck()
     {
+        // 正在摺蓮花中 Scene Controller 暫停 Update
+        if (GlobalDeclare._playingLotusGame)
+        {
+            return;
+        }
+
         base.KeyboardCheck();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (GlobalDeclare._waitingPlayLotusPaper)
             {
-                // *TODO* Play Lotus
+                GlobalDeclare._playingLotusGame = true;
+                UIState(UIItemID.Empty, false);
             }
         }
     }
@@ -109,7 +117,7 @@ public class SceneController_Room : SceneController
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor";
                             break;
                         case HintItemID.Lv1_Item_LotusPaper:
-                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Paper";
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Handler";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -241,6 +249,8 @@ public class SceneController_Room : SceneController
         {
             GlobalDeclare._waitingPlayLotusPaper = true;
             UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
+            this._lotusGameManager.enabled = true;
+            this._lotusGameManager.SetPaperLocation();
         });
     }
     #endregion

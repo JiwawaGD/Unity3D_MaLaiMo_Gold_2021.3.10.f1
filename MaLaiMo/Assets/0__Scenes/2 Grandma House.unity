@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6717807, g: 0.5618909, b: 0.65947, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -692,6 +692,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1705136329449725103, guid: 6453f3b476f160146abe5056374ab98b, type: 3}
   m_PrefabInstance: {fileID: 67828912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &115682668 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a56d2ca44b8064db7372fd9f942be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &137471116 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 3121403868995816161, guid: 78b6f7cecadf79248bf5e2c27ab50b48, type: 3}
@@ -708,6 +719,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913c14b5b7c70444ab4cf8ba091e2f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &160696059 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6122991866704009811, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &164249573 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2289103651701633724, guid: 6cb64fffa45eff44c87ad1b974ab1ed2, type: 3}
@@ -5947,6 +5963,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7238548544165626235, guid: 6abdc80feff337c4eb70e9c18c466347, type: 3}
   m_PrefabInstance: {fileID: 1163512503}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1181485926 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2368842409098792041, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1200656599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6540,6 +6561,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5523901947080145029, guid: 21d840734402dc2459fe5530e4d0e21c, type: 3}
   m_PrefabInstance: {fileID: 1316987578}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1324251576 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3059084521138984996, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1330796661
 GameObject:
   m_ObjectHideFlags: 0
@@ -6609,6 +6635,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1351696808 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5155569401543696837, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1378228597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7257,6 +7288,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7399168542765517977, guid: 014ddd18d95ddf14380a3b3462abc2a3, type: 3}
   m_PrefabInstance: {fileID: 1521431112}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1525790923 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1140828605927406580, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1550927854 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2359819686114511449, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
@@ -7512,6 +7548,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7238548544165626235, guid: 6abdc80feff337c4eb70e9c18c466347, type: 3}
   m_PrefabInstance: {fileID: 1582698171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1603898213 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6652599583882473455, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1605411984 stripped
 Animator:
@@ -9408,6 +9449,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5523901947080145029, guid: 21d840734402dc2459fe5530e4d0e21c, type: 3}
   m_PrefabInstance: {fileID: 1804295153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1819131217 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7601009028527489880, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825432515
 PrefabInstance:
@@ -11368,6 +11414,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1713845294306215913, guid: 105d8345524374b43871dd13cf1a9103, type: 3}
+      propertyPath: m_Height
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713845294306215913, guid: 105d8345524374b43871dd13cf1a9103, type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713845294306215913, guid: 105d8345524374b43871dd13cf1a9103, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -11692,6 +11746,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Scene01_InteractItems
       objectReference: {fileID: 0}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[0]
+      value: 
+      objectReference: {fileID: 160696059}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[1]
+      value: 
+      objectReference: {fileID: 1324251576}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[2]
+      value: 
+      objectReference: {fileID: 1819131217}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[3]
+      value: 
+      objectReference: {fileID: 1603898213}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[4]
+      value: 
+      objectReference: {fileID: 1351696808}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[5]
+      value: 
+      objectReference: {fileID: 1181485926}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAni.Array.data[6]
+      value: 
+      objectReference: {fileID: 1525790923}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAniClip.Array.size
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAniClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 7865228b3e043a34eaa26c365d35d0ec, type: 3}
+    - target: {fileID: 3566978489954390431, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+      propertyPath: LotusPaperAniClip.Array.data[1]
+      value: 
+      objectReference: {fileID: 1827226128182048838, guid: 856a47044ccef3749a9dfc9cc410826c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
 --- !u!1001 &3121403868864786029
@@ -11832,6 +11930,10 @@ PrefabInstance:
       propertyPath: _transitBlackImg
       value: 
       objectReference: {fileID: 8273851318673273524}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: _lotusGameManager
+      value: 
+      objectReference: {fileID: 115682668}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: _outsideGoInTransitPos
       value: 

@@ -230,7 +230,7 @@ public class SceneController_Room : SceneController
     void Lv1_FirstTalkToMom()
     {
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_ClipBoard);
-        PlayDialogue((int)Room_Dialogue.Lv1_003_E_Mother);
+        //PlayDialogue((int)Room_Dialogue.Lv1_003_E_Mother);
     }
 
     void Lv1_GoOutSide()

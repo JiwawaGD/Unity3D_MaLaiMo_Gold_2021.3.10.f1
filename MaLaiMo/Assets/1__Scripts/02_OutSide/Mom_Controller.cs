@@ -13,6 +13,7 @@ public class Mom_Controller : MonoBehaviour
     public SkinnedMeshRenderer eyes;
     public SkinnedMeshRenderer hair_back;
     public SkinnedMeshRenderer hair_forward;
+    public int AFKTimeCount = 0;
 
     public Animator Mon_Animator;
     private float maxDistance = 5f;
@@ -40,6 +41,7 @@ public class Mom_Controller : MonoBehaviour
                 MomLookAt(player, 0.5f);
             }
             else transform.LookAt(player.position);
+            AFKTimeCount++;
         }
         else 
         {
@@ -50,6 +52,7 @@ public class Mom_Controller : MonoBehaviour
                 //Mon_Animator.SetBool("isWalking", true);
             }
             transform.Translate(Vector3.forward * 3.5f * Time.deltaTime);
+            AFKTimeCount = 0;
         }
         //print(maxDistance);
     }
@@ -102,7 +105,7 @@ public class Mom_Controller : MonoBehaviour
         Finish = true;
         CanMove = false;
         MomLookAt(CurrentStep, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         cloth.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
         eyes.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);
         hair_back.materials[0].DOColor(new Color(1, 1, 1, 0), "_BaseColor", 2);

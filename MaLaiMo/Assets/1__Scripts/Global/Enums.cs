@@ -14,15 +14,16 @@ public enum GameEventID
 
     // Lv1 : Scene_1
     Lv1_TalkToPackage = 1,
-    Lv1_GrandmaRoomDoorSwitch = 2,
-    Lv1_FirstTalkToMom = 3,
-    Lv1_ClipBoard = 4,
-    Lv1_GoOutSide = 5,
-    Lv1_LotusPaper = 6,
+    Lv1_GrandmaRoomDoorSwitch,
+    Lv1_FirstTalkToMom,
+    Lv1_ClipBoard,
+    Lv1_GoOutSide,
+    Lv1_LotusPaper,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
-    Lv2_GoInside = 102,
+    Lv2_GoInside,
+    Lv2_TalkToMom ,
 }
 
 public enum Lv1_EventCallBackID
@@ -37,15 +38,16 @@ public enum HintItemID
 
     // Lv1 : Scene_1
     Lv1_Begin = 1,
-    Lv1_OpenRoomDoor = 2,
-    Lv1_FirstTalkToMom = 3,
-    Lv1_ClipBoard = 4,
-    Lv1_Item_GoOutSide = 5,
-    Lv1_Item_LotusPaper = 6,
+    Lv1_OpenRoomDoor,
+    Lv1_FirstTalkToMom,
+    Lv1_ClipBoard,
+    Lv1_Item_GoOutSide,
+    Lv1_Item_LotusPaper,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
-    Lv2_GoInside = 102,
+    Lv2_GoInside,
+    Lv2_TalkToMom ,
 }
 
 public enum ObjItemID
@@ -97,7 +99,6 @@ public enum Room_Dialogue
     Lv1_000_FacePackage = 1,
     Lv1_001_HintMove,
     Lv1_002_OpenDoor,
-    Lv1_003_E_Mother,
     Lv1_004_E_Coin,
     Lv1_005_CoinPass,
     Lv1_006_CoinNotPass,
@@ -157,7 +158,8 @@ public enum Room_Dialogue
 public enum OutSide_Dialogue
 {
     //LV_2
-    Lv2_007_GoOut = 0,
+    Lv1_003_E_Mother = 0,
+    Lv2_007_GoOut,
 }
 
 public enum Forest_Dialogue

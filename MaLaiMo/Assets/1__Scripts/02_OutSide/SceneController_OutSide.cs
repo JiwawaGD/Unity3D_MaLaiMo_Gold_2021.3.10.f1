@@ -10,33 +10,32 @@ public class SceneController_OutSide : SceneController
     [Header("室內傳至室外的角色座標")] public Transform _insideGoOutTransitPos;
 
     public Transform mom;
+    public Mom_Controller mom_Controller;
     public RectTransform uiElement;
     public RectTransform arrowIndicator;
     public Camera PlayerCamera;
     public Transform Player;
     public GameObject ForestTP;
 
-    private Vector3 IconPos;
+
     #endregion
 
     #region < Unity Hook >
     public override void Start()
     {
         base.Start();
-
+        GlobalDeclare._firstStartGameLevel_2 = false;
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
-
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
         // 並非執行初次森林事件，就執行媽媽引導玩家
         if (!GlobalDeclare._firstStartGameLevel_2)
         {
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
-            uiElement.gameObject.SetActive(true);
-            arrowIndicator.gameObject.SetActive(true);
             PlayerCtrlr.tfTransform.LookAt(mom);
             PlayerCtrlr._bCanControl = false;
-            GlobalDeclare._firstStartGameLevel_2 = true;
+           // GlobalDeclare._firstStartGameLevel_2 = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
         }
         else
@@ -52,8 +51,15 @@ public class SceneController_OutSide : SceneController
     public override void Update()
     {
         base.Update();
-        if (GlobalDeclare._firstStartGameLevel_2 == true) return;
+        if (GlobalDeclare._firstStartGameLevel_2 == true || mom_Controller.AFKTimeCount < 1200)
+        {
+            uiElement.gameObject.SetActive(false);
+            arrowIndicator.gameObject.SetActive(false);
+            return;
+        }
 
+        uiElement.gameObject.SetActive(true);
+        arrowIndicator.gameObject.SetActive(true);
         Vector3 npcViewportPos = PlayerCamera.WorldToViewportPoint(mom.position);
         Vector3 npcDirection = (mom.position - Player.position).normalized;
 
@@ -134,6 +140,9 @@ public class SceneController_OutSide : SceneController
                         case HintItemID.Lv2_GoInside:
                             itemName = "_Scene02_InteractItems/Lv2_Front_Door";
                             break;
+                        case HintItemID.Lv2_TalkToMom:
+                            itemName = "_Scene02_InteractItems/LV2_Mom";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -177,6 +186,9 @@ public class SceneController_OutSide : SceneController
                 case GameEventID.Lv2_GoInside:
                     Lv2_GoInside();
                     break;
+                case GameEventID.Lv2_TalkToMom:
+                    Lv2_TalkToMom();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -197,6 +209,11 @@ public class SceneController_OutSide : SceneController
 
         _transitBlackImg.DOFade(1f, 1)
                         .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv1_Grandma_House));
+    }
+
+    void Lv2_TalkToMom()
+    {
+        PlayDialogue((byte)OutSide_Dialogue.Lv1_003_E_Mother);
     }
     #endregion
 }

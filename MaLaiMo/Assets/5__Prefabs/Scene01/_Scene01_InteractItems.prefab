@@ -93,7 +93,7 @@ Transform:
   m_Children:
   - {fileID: 2334038434214951696}
   m_Father: {fileID: 2359819685167649913}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &1266271130
 MeshFilter:
@@ -8806,10 +8806,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 420937901022847931}
-  - {fileID: 7888009706173057817}
   - {fileID: 2355042604207137079}
   - {fileID: 1266271127}
-  - {fileID: 8974317208910193115}
   - {fileID: 6559166870310438580}
   m_Father: {fileID: 2359819685594487074}
   m_RootOrder: 0
@@ -42367,8 +42365,8 @@ Transform:
   - {fileID: 1215540859835246893}
   - {fileID: 7461797261399717278}
   - {fileID: 6597794169912164264}
-  m_Father: {fileID: 2359819685167649913}
-  m_RootOrder: 1
+  m_Father: {fileID: 2060046316319626357}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 165, z: 0}
 --- !u!1 &7393490363566923796
 GameObject:
@@ -44233,7 +44231,7 @@ Transform:
   - {fileID: 2678624678949374244}
   - {fileID: 727944855}
   m_Father: {fileID: 2359819685167649913}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &646066890576388258
 BoxCollider:
@@ -44277,7 +44275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a56d2ca44b8064db7372fd9f942be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bLotusStates: 000000000000000000000000000000000000000000000000000000000000
   LotusPaperObj:
   - {fileID: 8473821316518502796}
   - {fileID: 5650423665229192175}
@@ -44294,38 +44291,53 @@ MonoBehaviour:
   - {fileID: 5155569401543696837}
   - {fileID: 2368842409098792041}
   - {fileID: 1140828605927406580}
+  _showLocation:
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  - {x: 0.1, y: 0.4, z: -0.1}
+  _showRotation:
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
+  - {x: 0, y: 180, z: 90}
   LotusPaperAniClip:
   - {fileID: 1827226128182048838, guid: 7865228b3e043a34eaa26c365d35d0ec, type: 3}
   - {fileID: 1827226128182048838, guid: 856a47044ccef3749a9dfc9cc410826c, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  HintObj: {fileID: 1540518834}
+  - {fileID: 1827226128182048838, guid: f5592bbe540c64d479ce72826bae2ac9, type: 3}
+  - {fileID: 1827226128182048838, guid: dcfb43db6e285384fb645ae7d08d0c42, type: 3}
+  - {fileID: 1827226128182048838, guid: 460ee75f147ac5c4e929ea9ba6d84b70, type: 3}
+  - {fileID: 1827226128182048838, guid: f2975ccd18e118c41b2acddb6295d833, type: 3}
+  - {fileID: 7305763989286624897, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 3331480001231313624, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 7763900400178948820, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 4158854374152108890, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -6433906736843073793, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -1872575951729975388, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 8097137769718155102, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 2573209799091518716, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -4558925911060184877, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 6427827424637284222, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -2927898224240705303, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 8570492885072560375, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 178977653971352395, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -4706474424722961232, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -4502615158862571429, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 7389573403680711904, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 5229127333716879620, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 5831567510302376055, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 1883328157701643046, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -1109789328567526917, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -808976272768947925, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 6684738774149489400, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: -348118288110330882, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
+  - {fileID: 3693132791039271546, guid: 3a055a4f7035e0640a7f1131974aba5c, type: 3}
   HintSprite:
   - {fileID: 21300000, guid: 13ef9c9ad26ac364dae2718d137b0fed, type: 3}
   - {fileID: 21300000, guid: 6597e1986b3e9de449f308d70a474c7b, type: 3}
@@ -44335,9 +44347,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 99d2757ccd765db4a9c4adf650b0dcff, type: 3}
   - {fileID: 21300000, guid: c48ce27856324394c952696775979a60, type: 3}
   - {fileID: 21300000, guid: e98370891204871479067ed5366bab3c, type: 3}
+  HintObj: {fileID: 1540518834}
   lotusAudioSource: {fileID: 0}
   goldPaper: []
-  LotusCanvas: {fileID: 0}
 --- !u!1 &7970853646070965392
 GameObject:
   m_ObjectHideFlags: 0
@@ -45637,6 +45649,8 @@ Transform:
   - {fileID: 7753232912669148589}
   - {fileID: 2825299570414867637}
   - {fileID: 2825299568382700824}
+  - {fileID: 7888009706173057817}
+  - {fileID: 8974317208910193115}
   m_Father: {fileID: 2359819685594487074}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60307,7 +60321,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8974317208910193115}
   - component: {fileID: 2359819684555531429}
-  - component: {fileID: 2359819684555531430}
   m_Layer: 0
   m_Name: Lv1_Finished_Lotus_Paper
   m_TagString: Untagged
@@ -60352,8 +60365,8 @@ Transform:
   - {fileID: 337816242192665015}
   - {fileID: 5393002962554277736}
   - {fileID: 125626414656227846}
-  m_Father: {fileID: 2359819685167649913}
-  m_RootOrder: 4
+  m_Father: {fileID: 2060046316319626357}
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2359819684555531429
 BoxCollider:
@@ -60368,23 +60381,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0.15, z: 0}
---- !u!114 &2359819684555531430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629175442595920737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3816441155e2479419dd50adf7a242cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CurrentLevelID: 2
-  EventID: 20
-  bAlwaysActive: 0
-  fHintRange: 4
-  bActive: 0
 --- !u!1 &8629772706003553170
 GameObject:
   m_ObjectHideFlags: 0
@@ -69691,7 +69687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795266759639050, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4795266759639050, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_LocalPosition.x

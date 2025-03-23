@@ -316,16 +316,6 @@ public partial class SceneController : MonoBehaviour
         bIsMouseEnabled = bIsPaused;
     }
 
-    public void GameStateCheck()    // 檢查遊戲狀態
-    {
-        if (!GlobalDeclare.bLotusGameComplete &&
-             m_bPlayLotusEnable &&
-             CurrentScene.name == "2 Grandma House")
-        {
-
-        }
-    }
-
     public bool GegameManager_bInUIView()    // 取得是否在 UI 畫面中
     {
         return m_bInUIView;

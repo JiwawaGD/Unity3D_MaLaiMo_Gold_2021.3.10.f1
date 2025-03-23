@@ -9,7 +9,6 @@ public partial class GlobalDeclare
     public static bool bCrossHairEnable; // 準心開關
     #endregion
 
-    public static bool bLotusGameComplete = false;  // 蓮花遊戲是否完成
     public static bool bCanControl = true;  // 是否可以控制 (用於遊戲暫停)
 
     public static byte byCurrentDialogIndex;

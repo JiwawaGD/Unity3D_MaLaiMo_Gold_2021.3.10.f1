@@ -1,22 +1,30 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
 using System.Collections;
+
+using UnityEngine;
+using UnityEngine.UI;
 
 public class LotusGameManager : MonoBehaviour
 {
     #region < Field >
-    [SerializeField] [Header("蓮花紙當前階段")] bool[] _bLotusStates;
-    [SerializeField] [Header("蓮花紙 - 物件")] GameObject[] LotusPaperObj;
-    [SerializeField] [Header("蓮花紙 - 動畫師")] Animator[] LotusPaperAni;
-    [SerializeField] [Header("蓮花紙 - 動畫片段")] AnimationClip[] LotusPaperAniClip;
-    [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
+    [SerializeField] [Header("七個蓮花紙 - 物件")] GameObject[] LotusPaperObj;
+    [SerializeField] [Header("七個蓮花紙 - 動畫控制器")] Animator[] LotusPaperAni;
+    [SerializeField] [Header("七個蓮花紙 - 表演座標")] Vector3[] _showLocation;
+    [SerializeField] [Header("七個蓮花紙 - 表演角度")] Vector3[] _showRotation;
+
+    [SerializeField] [Header("七個蓮花紙 - 全部動畫片段")] AnimationClip[] LotusPaperAniClip;
+
     [SerializeField] [Header("八個方向的提示 - 圖片")] Sprite[] HintSprite;
+
+    [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
     [SerializeField] [Header("音效撥放器")] AudioSource lotusAudioSource;
-    [SerializeField, Tooltip("金紙")] AudioClip[] goldPaper;
+    [SerializeField] [Header("金紙")] AudioClip[] goldPaper;
 
-    [Header("蓮花 Canvas")] public GameObject LotusCanvas;
+    readonly int _lotusObjectCount = 7;
 
+    int _currentState;
     int iAllLotusCount;
+    bool[] _bLotusStates;
     bool bIsAnimating;
 
     Image HintImg;
@@ -24,13 +32,10 @@ public class LotusGameManager : MonoBehaviour
     Transform TfLotus;
     AnimatorStateInfo LotusState;
 
-    Vector3 _v3ShowLocation = new(0.1f, 0.4f, -0.1f);
-    Vector3 _v3ShowRotation = new(0f, 0f, 90f);
-
     public static bool bIsGamePause = false;
 
     readonly string[] strLotusAniTriggerName = new string[30]
-{
+    {
         "State_1",
         "State_2",
         "State_3",
@@ -61,7 +66,7 @@ public class LotusGameManager : MonoBehaviour
         "State_7-22",
         "State_7-23",
         "State_7-24",
-};
+    };
     #endregion
 
     #region < API >
@@ -81,7 +86,6 @@ public class LotusGameManager : MonoBehaviour
     #region < Unity Hook >
     void Awake()
     {
-        //HintRectTf = HintObj.GetComponent<RectTransform>();
         HintImg = HintObj.GetComponent<Image>();
     }
 
@@ -101,15 +105,7 @@ public class LotusGameManager : MonoBehaviour
     void Update()
     {
         if (!GlobalDeclare._playingLotusGame)
-        {
             return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
-            //GM.ExitLotusGame();
-            GlobalDeclare.bLotusGameComplete = true;
-        }
 
         if (bIsAnimating)
             return;
@@ -117,33 +113,25 @@ public class LotusGameManager : MonoBehaviour
         if (bIsGamePause)
             return;
 
-        if (Input.GetKeyDown(KeyCode.W))
-            PlayLotusAni(KeyCode.W);
-
-        if (Input.GetKeyDown(KeyCode.A))
-            PlayLotusAni(KeyCode.A);
-
-        if (Input.GetKeyDown(KeyCode.S))
-            PlayLotusAni(KeyCode.S);
-
-        if (Input.GetKeyDown(KeyCode.D))
-            PlayLotusAni(KeyCode.D);
-
-        if (Input.GetKeyDown(KeyCode.Q))
-            PlayLotusAni(KeyCode.Q);
-
-        if (Input.GetKeyDown(KeyCode.E))
-            PlayLotusAni(KeyCode.E);
-
-        if (Input.GetKeyDown(KeyCode.C))
-            PlayLotusAni(KeyCode.C);
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            PlayLotusAni(KeyCode.Z);
+        KeyBoardCheck();
     }
     #endregion
 
     #region < Internal Method >
+    void KeyBoardCheck()
+    {
+        // 當有任何按鍵被按下
+        foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(key) &&
+                (key == KeyCode.W | key == KeyCode.A || key == KeyCode.S || key == KeyCode.D ||
+                 key == KeyCode.Q || key == KeyCode.E || key == KeyCode.Z || key == KeyCode.C))
+            {
+                PlayLotusAni(key);
+            }
+        }
+    }
+
     void PlayLotusAni(KeyCode r_key)
     {
         switch (r_key)
@@ -284,8 +272,6 @@ public class LotusGameManager : MonoBehaviour
                     StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[28], strLotusAniTriggerName[28], 28));
                 }
                 break;
-            default:
-                break;
         }
     }
 
@@ -296,7 +282,6 @@ public class LotusGameManager : MonoBehaviour
         HintImg.sprite = sprite;
 
         ani.SetTrigger(strTriggerName);
-        //lotusAudioSource.PlayOneShot(goldPaper[Random.Range(0, 2)]);
 
         yield return new WaitForSeconds(clip.length + 0.2f);
 
@@ -311,7 +296,6 @@ public class LotusGameManager : MonoBehaviour
         {
             SceneController gm = GameObject.Find("GameManager").GetComponent<SceneController>();
             gm.SendMessage("ExitLotusGame");
-            GlobalDeclare.bLotusGameComplete = true;
             return;
         }
 
@@ -320,23 +304,24 @@ public class LotusGameManager : MonoBehaviour
         {
             _bLotusStates[iStateIndex] = false;
             _bLotusStates[iStateIndex + 1] = true;
+            this._currentState = iStateIndex + 1;
             bIsAnimating = false;
         }
 
-        for (int index = 1; index < 7; index++)
+        // 設定 Lotus 物件座標
+        for (int lotusIndex = 1; lotusIndex < 7; lotusIndex++)
         {
-            if (_bLotusStates[index])
+            if (_bLotusStates[lotusIndex])
             {
                 // Hide
-                LotusPaperObj[index - 1].transform.localPosition = new Vector3(0f, -1f, 0f);
+                LotusPaperObj[lotusIndex - 1].transform.localPosition = new Vector3(0f, -1f, 0f);
 
                 // Show
-                LotusPaperObj[index].transform.localPosition = this._v3ShowLocation;
-                LotusPaperObj[index].transform.localRotation = Quaternion.Euler(this._v3ShowRotation);
+                LotusPaperObj[lotusIndex].transform.localPosition = this._showLocation[lotusIndex];
+                LotusPaperObj[lotusIndex].transform.localRotation = Quaternion.Euler(this._showRotation[lotusIndex]);
             }
         }
 
-        //HintRectTf.anchoredPosition = UIHintPosition(iStateIndex + 1);
         HintObj.SetActive(true);
     }
 

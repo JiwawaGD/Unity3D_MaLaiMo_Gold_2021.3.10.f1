@@ -161,6 +161,16 @@ public partial class SceneController : MonoBehaviour
     {
         PlayerCtrlr._bCanControl = r_bEnable;
     }
+
+    /// <summary>
+    /// 顯示進入旋轉按鈕
+    /// </summary>
+    /// <param name="O_ItemID"></param>
+    public virtual void ShowObj(ObjItemID O_ItemID)
+    {
+        StudioUI.SetActive(true);
+    }
+
     #endregion
 
     #region < Base Function >
@@ -227,39 +237,6 @@ public partial class SceneController : MonoBehaviour
         originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
         originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
-    }
-
-    /// <summary>
-    /// 顯示進入旋轉按鈕
-    /// </summary>
-    /// <param name="O_ItemID"></param>
-    public void ShowObj(ObjItemID O_ItemID)
-    {
-        StudioUI.SetActive(true);
-
-        switch (O_ItemID)
-        {
-            case ObjItemID.Lv1_Rice_Funeral:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
-                break;
-            case ObjItemID.Lv1_Lotus_Paper:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
-                break;
-            case ObjItemID.Lv1_Photo_Frame:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-                break;
-            case ObjItemID.Lv2_Photo_Frame:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-                break;
-            case ObjItemID.Lv2_Photo_Frame_Floor:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
-                break;
-        }
     }
 
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)

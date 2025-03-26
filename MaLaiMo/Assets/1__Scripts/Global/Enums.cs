@@ -24,6 +24,7 @@ public enum GameEventID
     Lv2_Begin = 101,
     Lv2_GoInside,
     Lv2_TalkToMom ,
+    Lv2_CheckPaper
 }
 
 public enum Lv1_EventCallBackID
@@ -48,19 +49,22 @@ public enum HintItemID
     Lv2_Begin = 101,
     Lv2_GoInside,
     Lv2_TalkToMom ,
+    Lv2_CheckPaper,
 }
 
 public enum ObjItemID
 {
-    Empty = 0,
-
-    // Lv1 : Scene_1
-    Lv1_Rice_Funeral,
+    // Lv1 : Scene_1室內
+    Lv1_Rice_Funeral = 0,
     Lv1_Lotus_Paper,
     Lv1_Photo_Frame,
     Lv1_Photo_Grandma,
     Lv2_Photo_Frame,
-    Lv2_Photo_Frame_Floor
+    Lv2_Photo_Frame_Floor,
+
+    // Lv2 : Scene_2戶外
+    Lv2_Paper = 0,
+
 }
 
 public enum UIItemID

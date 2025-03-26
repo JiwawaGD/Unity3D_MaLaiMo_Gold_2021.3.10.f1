@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class SceneController_OutSide : SceneController
 {
@@ -16,7 +17,7 @@ public class SceneController_OutSide : SceneController
     public Camera PlayerCamera;
     public Transform Player;
     public GameObject ForestTP;
-
+    public static string nowMission = "no";
 
     #endregion
 
@@ -28,8 +29,10 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_CheckPaper);
+
         // 並非執行初次森林事件，就執行媽媽引導玩家
-        if (!GlobalDeclare._firstStartGameLevel_2)
+        if (nowMission == "跟著媽媽")
         {
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
@@ -143,6 +146,9 @@ public class SceneController_OutSide : SceneController
                         case HintItemID.Lv2_TalkToMom:
                             itemName = "_Scene02_InteractItems/LV2_Mom";
                             break;
+                        case HintItemID.Lv2_CheckPaper:
+                            itemName = "_Scene02_InteractItems/book_w_a";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -174,6 +180,19 @@ public class SceneController_OutSide : SceneController
     {
         base.SetPlayerControl(r_bEnable);
     }
+
+    public override void ShowObj(ObjItemID O_ItemID)
+    {
+        base.ShowObj(O_ItemID);
+
+        switch (O_ItemID)
+        {
+            case ObjItemID.Lv2_Paper:
+                //RO_OBJ[saveRotaObj].transform.DOMove(
+                //    new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
+                break;
+        }
+    }
     #endregion
 
     #region < Basic Function >
@@ -188,6 +207,9 @@ public class SceneController_OutSide : SceneController
                     break;
                 case GameEventID.Lv2_TalkToMom:
                     Lv2_TalkToMom();
+                    break;
+                case GameEventID.Lv2_CheckPaper:
+                    ShowObj(ObjItemID.Lv2_Paper);
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

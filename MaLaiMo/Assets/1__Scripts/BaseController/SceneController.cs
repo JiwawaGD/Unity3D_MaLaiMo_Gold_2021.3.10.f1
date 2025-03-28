@@ -227,16 +227,16 @@ public partial class SceneController : MonoBehaviour
     // 旋轉物件 (物件ID)
     public void ProcessRoMoving(int iIndex)
     {
-        if (RO_OBJ[saveRotaObj] == null)
-            return;
-
+        //if (RO_OBJ[saveRotaObj] == null)
+        //    return;
+        print("進入");
         Ro_Light.enabled = true;
         CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
-        originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
-        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
-        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
+        //originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
+        //originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
+        //romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)

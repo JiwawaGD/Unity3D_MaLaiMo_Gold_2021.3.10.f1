@@ -30,7 +30,7 @@ public class SceneController_OutSide : SceneController
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_CheckPaper);
-
+        nowMission = "跟著媽媽";
         // 並非執行初次森林事件，就執行媽媽引導玩家
         if (nowMission == "跟著媽媽")
         {
@@ -209,7 +209,7 @@ public class SceneController_OutSide : SceneController
                     Lv2_TalkToMom();
                     break;
                 case GameEventID.Lv2_CheckPaper:
-                    ShowObj(ObjItemID.Lv2_Paper);
+                    ProcessRoMoving(0);
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

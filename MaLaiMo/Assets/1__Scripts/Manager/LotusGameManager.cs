@@ -17,15 +17,15 @@ public class LotusGameManager : MonoBehaviour
     [SerializeField] [Header("八個方向的提示 - 圖片")] Sprite[] HintSprite;
 
     [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
-    [SerializeField] [Header("音效撥放器")] AudioSource lotusAudioSource;
-    [SerializeField] [Header("金紙")] AudioClip[] goldPaper;
 
-    readonly int _lotusObjectCount = 7;
+    [SerializeField] [Header("摺完的蓮花 - 物件")] GameObject _finishedLotusPaper;
+
+    [SerializeField] [Header("音效撥放器")] AudioSource lotusAudioSource;
 
     int _currentState;
     int iAllLotusCount;
     bool[] _bLotusStates;
-    bool bIsAnimating;
+    bool _isAnimating;
 
     Image HintImg;
     RectTransform HintRectTf;
@@ -78,8 +78,8 @@ public class LotusGameManager : MonoBehaviour
     public void SetPaperLocation()
     {
         Transform tfPaper = LotusPaperObj[0].transform;
-        tfPaper.localPosition = new(0.1f, 0.4f, -0.1f);
-        tfPaper.localRotation = Quaternion.Euler(0f, 0f, 90f);
+        tfPaper.localPosition = this._showLocation[0];
+        tfPaper.localRotation = Quaternion.Euler(this._showRotation[0]);
     }
     #endregion
 
@@ -107,7 +107,7 @@ public class LotusGameManager : MonoBehaviour
         if (!GlobalDeclare._playingLotusGame)
             return;
 
-        if (bIsAnimating)
+        if (_isAnimating)
             return;
 
         if (bIsGamePause)
@@ -277,7 +277,7 @@ public class LotusGameManager : MonoBehaviour
 
     IEnumerator ProcessAnimator(Sprite sprite, Animator ani, AnimationClip clip, string strTriggerName, int iStateIndex)
     {
-        bIsAnimating = true;
+        _isAnimating = true;
         HintObj.SetActive(false);
         HintImg.sprite = sprite;
 
@@ -294,8 +294,8 @@ public class LotusGameManager : MonoBehaviour
 
         if (_bLotusStates[29])
         {
-            SceneController gm = GameObject.Find("GameManager").GetComponent<SceneController>();
-            gm.SendMessage("ExitLotusGame");
+            SceneController_Room sceneCtrlr = GameObject.Find("SceneController").GetComponent<SceneController_Room>();
+            sceneCtrlr.SendMessage("ExitLotusGame");
             return;
         }
 
@@ -305,7 +305,7 @@ public class LotusGameManager : MonoBehaviour
             _bLotusStates[iStateIndex] = false;
             _bLotusStates[iStateIndex + 1] = true;
             this._currentState = iStateIndex + 1;
-            bIsAnimating = false;
+            _isAnimating = false;
         }
 
         // 設定 Lotus 物件座標

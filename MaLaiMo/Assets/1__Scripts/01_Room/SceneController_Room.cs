@@ -185,10 +185,16 @@ public class SceneController_Room : SceneController
     }
     #endregion
 
-    #region < API - Call From Dialogue System >
+    #region < API >
+    // Call From Dialogue System 
     public override void SetPlayerControl(bool r_bEnable)
     {
         base.SetPlayerControl(r_bEnable);
+    }
+
+    public void LotusGameFinish()
+    {
+
     }
     #endregion
 
@@ -274,9 +280,9 @@ public class SceneController_Room : SceneController
 
     void Lv1_LotusPaperCheck()
     {
-        Vector3 v3TargetPos = new(-3.1f, 0.35f, -1.9f);
+        Vector3 v3TargetPos = new(-3.3f, 0.35f, -1.9f);
         Vector3 v3PlayerEndRotation = new(0f, 0f, 0f);
-        Vector3 v3PlayerCamEndRotation = new(0f, 275f, 0f);
+        Vector3 v3PlayerCamEndRotation = new(25f, 275f, 0f);
 
         PlayerCtrlr.MoveToTargetPosition(v3TargetPos, v3PlayerEndRotation, v3PlayerCamEndRotation, 2f, () =>
         {

@@ -342,14 +342,6 @@ public partial class SceneController : MonoBehaviour
         //}
     }
 
-    public void BackToBaseGame()
-    {
-        m_bReturnToBegin = false;
-        //QRCodeUI.SetActive(false);
-        PlayerCtrlr.SetCursor();
-        SceneManager.LoadScene(0);
-    }
-
     public IEnumerator PlayerToAniPos(Vector3 r_V3TargetPos, Quaternion r_PlayerRotation, Quaternion r_CameraRotation)
     {
         PlayerCtrlr._bCanControl = false;

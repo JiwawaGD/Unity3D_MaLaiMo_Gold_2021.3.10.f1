@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5.175846, g: 5.939911, b: 6.9079666, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -399,6 +399,7 @@ Transform:
   m_Children:
   - {fileID: 182465035}
   - {fileID: 336766784}
+  - {fileID: 1855654379541359025}
   m_Father: {fileID: 179163043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6169,6 +6170,7 @@ MonoBehaviour:
   _itemCanvasGroup: {fileID: 0}
   SettingPanel: {fileID: 870992345}
   CrosshairUI: {fileID: 1288634959}
+  _transitBlackImg: {fileID: 0}
   PlayerCtrlr: {fileID: 0}
   CameraVolume: {fileID: 71927085}
   romanager: 0
@@ -6178,7 +6180,6 @@ MonoBehaviour:
   saveRotaObj: 0
   StudioUI: {fileID: 0}
   Ro_Light: {fileID: 2000120143}
-  Targets: []
   Btn_Straight: {fileID: 0}
   Btn_Back: {fileID: 0}
   Btn_Reset: {fileID: 0}
@@ -8233,19 +8234,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31400d93f33e6740ac095ca7b7d8433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fMouseSensitivity: 1
+  m_fUDSensitivity: 230
+  m_fRLSensitivity: 230
+  fSensitivityAmplifier: 0
   smoothTime: 0.01
   ItemLayer:
     serializedVersion: 2
     m_Bits: 1024
   audioSource: {fileID: 903126625}
   walkingSound: {fileID: 8300000, guid: 120dfbab182084441a82a51be154f20a, type: 3}
-  fSensitivityAmplifier: 0
   m_bLimitRotation: 0
   m_fHorizantalRotationRange: {x: 0, y: 0}
   m_fVerticalRotationRange: {x: -75, y: 75}
-  m_bCursorShow: 0
-  m_bCanControl: 0
-  m_bRayOnItem: 0
+  _bCursorShow: 0
+  _bCanControl: 1
+  _bRayOnItem: 0
   tfPlayerCamera: {fileID: 71927084}
   tfTransform: {fileID: 0}
   _rig: {fileID: 0}
@@ -18517,6 +18521,68 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
+--- !u!1001 &1604755056355646794
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 24780008}
+    m_Modifications:
+    - target: {fileID: 346345370887040577, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_Name
+      value: old_Ficustree
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.565056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.056010604
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.1292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5002287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8658933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 119.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+--- !u!4 &1855654379541359025 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1118484711235319035, guid: 3970b29d3f0cc8b4c9e47b1b695e60ff, type: 3}
+  m_PrefabInstance: {fileID: 1604755056355646794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3916129480426861217
 GameObject:
   m_ObjectHideFlags: 0

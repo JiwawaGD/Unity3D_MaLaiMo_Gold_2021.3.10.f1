@@ -30,6 +30,7 @@ public class SceneController_OutSide : SceneController
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_CheckPaper);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         nowMission = "跟著媽媽";
         // 並非執行初次森林事件，就執行媽媽引導玩家
         if (nowMission == "跟著媽媽")
@@ -38,7 +39,7 @@ public class SceneController_OutSide : SceneController
             mom.gameObject.SetActive(true);
             PlayerCtrlr.tfTransform.LookAt(mom);
             PlayerCtrlr._bCanControl = false;
-           // GlobalDeclare._firstStartGameLevel_2 = true;
+            // GlobalDeclare._firstStartGameLevel_2 = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
         }
         else
@@ -149,6 +150,9 @@ public class SceneController_OutSide : SceneController
                         case HintItemID.Lv2_CheckPaper:
                             itemName = "_Scene02_InteractItems/book_w_a";
                             break;
+                        case HintItemID.LV2_10Dollar:
+                            itemName = "_Scene02_InteractItems/10Dollar";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -209,7 +213,10 @@ public class SceneController_OutSide : SceneController
                     Lv2_TalkToMom();
                     break;
                 case GameEventID.Lv2_CheckPaper:
-                    ProcessRoMoving(0);
+                    ProcessRoMoving(0); 
+                    break;
+                case GameEventID.LV2_10Dollar:
+                    ProcessRoMoving(1);
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

@@ -149,6 +149,9 @@ public class SceneController_OutSide : SceneController
                         case HintItemID.Lv2_CheckPaper:
                             itemName = "_Scene02_InteractItems/book_w_a";
                             break;
+                        case HintItemID.LV2_10Dollar:
+                            itemName = "_Scene02_InteractItems/LV2_10Dollar";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
                             break;

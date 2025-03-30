@@ -35,6 +35,7 @@ public class ItemController : MonoBehaviour
     #endregion
 
     #region < Unity Hook >
+    [System.Obsolete]
     void Awake()
     {
         GetFields();
@@ -90,13 +91,13 @@ public class ItemController : MonoBehaviour
     void GetFields()
     {
         if (HintObj == null)
-            HintObj = gameObject.transform.GetChild(0).GetChild(0).gameObject;
+            HintObj = transform.Find("InteractiveItem").Find("Hint").gameObject;
 
         if (tfHint == null)
             tfHint = HintObj.transform;
 
         if (InteractObj == null)
-            InteractObj = gameObject.transform.GetChild(0).GetChild(1).gameObject;
+            InteractObj = transform.Find("InteractiveItem").Find("Interact").gameObject;
 
         if (tfInteract == null)
             tfInteract = InteractObj.transform;
@@ -133,6 +134,9 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
         v3This = transform.position;
+
+        this.HintObj.SetActive(false);
+        this.InteractObj.SetActive(false);
     }
 
     void ItemDisable()

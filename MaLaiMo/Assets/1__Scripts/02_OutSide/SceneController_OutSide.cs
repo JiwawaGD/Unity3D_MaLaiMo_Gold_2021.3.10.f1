@@ -30,6 +30,7 @@ public class SceneController_OutSide : SceneController
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_CheckPaper);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         nowMission = "跟著媽媽";
         // 並非執行初次森林事件，就執行媽媽引導玩家
         if (nowMission == "跟著媽媽")
@@ -212,6 +213,9 @@ public class SceneController_OutSide : SceneController
                     Lv2_TalkToMom();
                     break;
                 case GameEventID.Lv2_CheckPaper:
+                    UIState(UIItemID.Lv2_Paper, true, false);
+                    break;
+                case GameEventID.LV2_10Dollar:
                     UIState(UIItemID.Lv2_Paper, true, false);
                     break;
                 default:

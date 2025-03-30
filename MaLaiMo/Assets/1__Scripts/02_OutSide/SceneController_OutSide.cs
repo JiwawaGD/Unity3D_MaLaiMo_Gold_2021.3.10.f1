@@ -209,7 +209,7 @@ public class SceneController_OutSide : SceneController
                     Lv2_TalkToMom();
                     break;
                 case GameEventID.Lv2_CheckPaper:
-                    ProcessRoMoving(0);
+                    UIState(UIItemID.Lv2_Paper, true, false);
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

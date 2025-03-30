@@ -80,7 +80,9 @@ public enum UIItemID
     Lv1_UI_LotusPaper = 6,
 
     // Lv2 : Scene_2
+    Lv2_Paper,
     Lv2_Begin = 101,
+
 }
 
 public enum ButtonEventID

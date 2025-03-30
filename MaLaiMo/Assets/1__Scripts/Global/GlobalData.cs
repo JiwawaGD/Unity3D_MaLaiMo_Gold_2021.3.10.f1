@@ -28,6 +28,7 @@ public partial class GlobalDeclare
         "",
         "",
         "蓮花摺紙",
+        "紙條"
     };
 
     public readonly static string[] item_MainInfo = new string[]
@@ -41,6 +42,11 @@ public partial class GlobalDeclare
         "佛教信仰中，紙蓮花具有祝福消業障之意，\r\n" +
         "希望往生親人能夠乘坐於蓮花上，\r\n" +
         "順利地前往西方極樂世界。\r\n",
+
+        "紙條上是媽媽的手寫字跡，寫著希望我幫忙做的事情。\r\n " +
+        "1.準備九朵紙蓮花，放到靈堂的桌上\r\n" +
+        "2.把給阿嬤的拜飯拿去廚房\r\n" +
+        "3.擺好靈堂的花圈",
     };
 
     public readonly static string[] item_BottonInfo = new string[]

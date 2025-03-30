@@ -432,6 +432,7 @@ public partial class SceneController : MonoBehaviour
         _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title[(int)r_ItemID] : "";
         _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo[(int)r_ItemID] : "";
         _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[(int)r_ItemID] : "") : "";
+        if (r_bEnable) ProcessRoMoving((int)r_ItemID);
     }
 
     /// <summary>

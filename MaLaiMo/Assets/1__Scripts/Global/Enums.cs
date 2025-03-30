@@ -24,7 +24,8 @@ public enum GameEventID
     Lv2_Begin = 101,
     Lv2_GoInside,
     Lv2_TalkToMom ,
-    Lv2_CheckPaper
+    Lv2_CheckPaper,
+    LV2_10Dollar
 }
 
 public enum Lv1_EventCallBackID
@@ -50,6 +51,7 @@ public enum HintItemID
     Lv2_GoInside,
     Lv2_TalkToMom ,
     Lv2_CheckPaper,
+    LV2_10Dollar
 }
 
 public enum ObjItemID
@@ -64,6 +66,7 @@ public enum ObjItemID
 
     // Lv2 : Scene_2戶外
     Lv2_Paper = 0,
+    Lv2_10Dollar = 1,
 
 }
 
@@ -80,7 +83,9 @@ public enum UIItemID
     Lv1_UI_LotusPaper = 6,
 
     // Lv2 : Scene_2
+    Lv2_Paper,
     Lv2_Begin = 101,
+
 }
 
 public enum ButtonEventID

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.6717807, g: 0.5618909, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12364,6 +12364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Scene01_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 7331355904016332642, guid: a1cc0141d4cbcb043a0802dc8a5f0298, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7331355904016332645, guid: a1cc0141d4cbcb043a0802dc8a5f0298, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -12428,6 +12432,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9010083951348208208, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010083951388404667, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9010083952225039832, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -12475,6 +12487,14 @@ PrefabInstance:
     - target: {fileID: 9010083952225039833, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
       propertyPath: m_Name
       value: _Scene01_VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010083952225039833, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010083952238956774, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f5abb7dc4048714ea0fa7c061e79022, type: 3}

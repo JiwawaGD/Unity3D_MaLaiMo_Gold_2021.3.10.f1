@@ -73,33 +73,33 @@ public class SceneController_Room : SceneController
     /// 顯示進入旋轉按鈕
     /// </summary>
     /// <param name="O_ItemID"></param>
-    public override void ShowObj(ObjItemID O_ItemID)
+    public override void ShowObj(UIItemID r_ItemID)
     {
-        base.ShowObj(O_ItemID);
+        base.ShowObj(r_ItemID);
 
-        switch (O_ItemID)
-        {
-            case ObjItemID.Lv1_Rice_Funeral:
-                RO_OBJ[(byte)O_ItemID].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
-                break;
-            case ObjItemID.Lv1_Lotus_Paper:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
-                break;
-            case ObjItemID.Lv1_Photo_Frame:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-                break;
-            case ObjItemID.Lv2_Photo_Frame:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-                break;
-            case ObjItemID.Lv2_Photo_Frame_Floor:
-                RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
-                break;
-        }
+        //switch (r_ItemID)
+        //{
+        //    case UIItemID.Lv1_Rice_Funeral:
+        //        RO_OBJ[(byte)O_ItemID].transform.DOMove(
+        //            new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
+        //        break;
+        //    case UIItemID.Lv1_Lotus_Paper:
+        //        RO_OBJ[saveRotaObj].transform.DOMove(
+        //            new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
+        //        break;
+        //    case UIItemID.Lv1_Photo_Frame:
+        //        RO_OBJ[saveRotaObj].transform.DOMove(
+        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
+        //        break;
+        //    case UIItemID.Lv2_Photo_Frame:
+        //        RO_OBJ[saveRotaObj].transform.DOMove(
+        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
+        //        break;
+        //    case UIItemID.Lv2_Photo_Frame_Floor:
+        //        RO_OBJ[saveRotaObj].transform.DOMove(
+        //            new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
+        //        break;
+        //}
     }
 
     public override void KeyboardCheck()

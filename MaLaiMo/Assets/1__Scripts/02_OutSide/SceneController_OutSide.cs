@@ -185,15 +185,15 @@ public class SceneController_OutSide : SceneController
         base.SetPlayerControl(r_bEnable);
     }
 
-    public override void ShowObj(ObjItemID O_ItemID)
+    public override void ShowObj(UIItemID r_ItemID)
     {
-        base.ShowObj(O_ItemID);
+        base.ShowObj(r_ItemID);
 
-        switch (O_ItemID)
+        switch (r_ItemID)
         {
-            case ObjItemID.Lv2_Paper:
-                //RO_OBJ[saveRotaObj].transform.DOMove(
-                //    new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
+            case UIItemID.Lv2_Paper:
+                RO_OBJ[saveRotaObj].transform.DOMove(
+                    new Vector3(-27.6957f, 1.870368f, 8.7448f), 0.5f);
                 break;
         }
     }

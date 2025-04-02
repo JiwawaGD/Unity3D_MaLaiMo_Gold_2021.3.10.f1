@@ -83,8 +83,8 @@ public enum UIItemID
     Lv1_UI_LotusPaper = 6,
 
     // Lv2 : Scene_2
-    Lv2_Paper,
-    Lv2_Begin = 101,
+    Lv2_Paper = 0,
+    Lv2_Begin,
 
 }
 

@@ -53,7 +53,7 @@ public partial class SceneController : MonoBehaviour
     [Header("儲存生成物件")] public int saveRotaObj;
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
-
+    [Header("環境光")] public GameObject EnvironmentLight;
     #region Static Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bShowItemAnimate = false;
@@ -166,7 +166,7 @@ public partial class SceneController : MonoBehaviour
     /// 顯示進入旋轉按鈕
     /// </summary>
     /// <param name="O_ItemID"></param>
-    public virtual void ShowObj(ObjItemID O_ItemID)
+    public virtual void ShowObj(UIItemID r_ItemID)
     {
         StudioUI.SetActive(true);
     }
@@ -227,16 +227,16 @@ public partial class SceneController : MonoBehaviour
     // 旋轉物件 (物件ID)
     public void ProcessRoMoving(int iIndex)
     {
-        //if (RO_OBJ[saveRotaObj] == null)
-        //    return;
+        if (RO_OBJ[saveRotaObj] == null)
+            return;
         print("進入");
         Ro_Light.enabled = true;
         CameraVolume.enabled = true;
         isMoveingObject = true;  // 正在移動物件
         saveRotaObj = iIndex;   // 儲存物件  
-        //originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
-        //originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
-        //romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
+        originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
+        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
+        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
     }
 
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
@@ -272,6 +272,7 @@ public partial class SceneController : MonoBehaviour
     public void RestoreItemLocation()
     {
         CameraVolume.enabled = false;
+        if (EnvironmentLight!= null) EnvironmentLight.SetActive(true);
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = false;
         print(RO_OBJ[saveRotaObj].transform.name);
 
@@ -425,13 +426,14 @@ public partial class SceneController : MonoBehaviour
     public void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         SetItemCanvasEnable(r_bEnable);
-
+        if(EnvironmentLight != null) EnvironmentLight.SetActive(false);
         m_bInUIView = r_bEnable;
         PlayerCtrlr.SetCursor();
 
         _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title[(int)r_ItemID] : "";
         _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo[(int)r_ItemID] : "";
         _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[(int)r_ItemID] : "") : "";
+        ShowObj(r_ItemID);
         if (r_bEnable) ProcessRoMoving((int)r_ItemID);
     }
 

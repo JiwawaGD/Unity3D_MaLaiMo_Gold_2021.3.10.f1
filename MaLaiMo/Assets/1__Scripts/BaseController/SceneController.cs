@@ -15,7 +15,7 @@ public partial class SceneController : MonoBehaviour
     [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
 
-    [SerializeField] [Header("Item Canvas Handler")] ItemCanvasHandler _itemCanvasHandler;
+    [SerializeField] [Header("Item Canvas Handler")]protected ItemCanvasHandler _itemCanvasHandler;
     [SerializeField] [Header("Item Canvas Group")] CanvasGroup _itemCanvasGroup;
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
@@ -54,6 +54,8 @@ public partial class SceneController : MonoBehaviour
     [Header("攝影棚畫面UI")] public GameObject StudioUI;
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
     [Header("環境光")] public GameObject EnvironmentLight;
+
+    private string SceneName;
     #region Static Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bShowItemAnimate = false;
@@ -87,6 +89,7 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void Start()
     {
+        SceneName = SceneManager.GetActiveScene().name;
         // 預設開啟遊戲準心
         SetCrosshairEnable(true);
 
@@ -423,16 +426,12 @@ public partial class SceneController : MonoBehaviour
     /// <param name="r_ItemID"> Item 的 ID</param>
     /// <param name="r_bEnable"> 開關狀態</param>
     /// <param name="r_bNeedSubTitle"> 是否打開下方小 Info</param>
-    public void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
+    public virtual void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         SetItemCanvasEnable(r_bEnable);
         if(EnvironmentLight != null) EnvironmentLight.SetActive(false);
         m_bInUIView = r_bEnable;
         PlayerCtrlr.SetCursor();
-
-        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo[(int)r_ItemID] : "") : "";
         ShowObj(r_ItemID);
         if (r_bEnable) ProcessRoMoving((int)r_ItemID);
     }

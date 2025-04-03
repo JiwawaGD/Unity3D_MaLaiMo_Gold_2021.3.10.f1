@@ -183,6 +183,14 @@ public class SceneController_Room : SceneController
     {
         base.SetPlayerLocation(location);
     }
+
+    public override void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
+    {
+        base.UIState(r_ItemID, r_bEnable, r_bNeedSubTitle);
+        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title_Room[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo_Room[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_Room[(int)r_ItemID] : "") : "";
+    }
     #endregion
 
     #region < API >

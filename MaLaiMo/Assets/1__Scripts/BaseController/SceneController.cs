@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 using DG.Tweening;
+using System.Collections.Generic;
 
 public partial class SceneController : MonoBehaviour
 {
@@ -55,7 +56,8 @@ public partial class SceneController : MonoBehaviour
     [Header("旋轉物件使用燈關")] public Light Ro_Light;
     [Header("環境光")] public GameObject EnvironmentLight;
 
-    private string SceneName;
+    public static bool[] paperMissionFinsih = new bool[] { false, false, false };
+    public static bool takeLotus = false;
     #region Static Boolean Zone
     public static bool m_bInUIView = false;
     public static bool m_bShowItemAnimate = false;
@@ -89,7 +91,6 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void Start()
     {
-        SceneName = SceneManager.GetActiveScene().name;
         // 預設開啟遊戲準心
         SetCrosshairEnable(true);
 

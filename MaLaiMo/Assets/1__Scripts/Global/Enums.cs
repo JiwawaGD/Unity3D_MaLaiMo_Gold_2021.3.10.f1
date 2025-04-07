@@ -25,6 +25,7 @@ public enum GameEventID
     Lv2_GoInside,
     Lv2_TalkToMom ,
     Lv2_CheckPaper,
+    Lv2_PutLotusPaper,
     LV2_10Dollar
 }
 
@@ -48,9 +49,10 @@ public enum HintItemID
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
-    Lv2_GoInside,
-    Lv2_TalkToMom ,
-    Lv2_CheckPaper,
+    Lv2_OutSideDoor,
+    Lv2_Mom ,
+    Lv2_Paper,
+    Lv2_Table,
     LV2_10Dollar
 }
 
@@ -167,7 +169,10 @@ public enum Room_Dialogue
 public enum OutSide_Dialogue
 {
     //LV_2
-    Lv1_003_E_Mother = 0,
+    Lv2_000_E_Mother_First = 0,
+    Lv2_001_E_Mother_PaperNotFinish,
+    Lv2_002_E_Mother_PaperFinish,
+    Lv2_003_E_Table,
     Lv2_007_GoOut,
 }
 
@@ -194,4 +199,11 @@ public enum Lv3_Dialogue
 {
     Lv3_000_LookNote = 0,
     Lv3_001_LeaveForest
+}
+
+public enum PaperMission
+{
+    PutLotusOnTable = 0,
+    TalkRiceToKitchen,
+    LayOutSideCircle,
 }

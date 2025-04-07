@@ -18,7 +18,8 @@ public class SceneController_OutSide : SceneController
     public Transform Player;
     public GameObject ForestTP;
     public static string nowMission = "no";
-
+    public GameObject[] paperFinish;
+    private static bool MomFirstTalk = false;
     #endregion
 
     #region < Unity Hook >
@@ -27,11 +28,22 @@ public class SceneController_OutSide : SceneController
         base.Start();
         GlobalDeclare._firstStartGameLevel_2 = false;
         // 大門 Hint 保持開著
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_GoInside);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_TalkToMom);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_CheckPaper);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         nowMission = "跟著媽媽";
+        for (int i = 0; i < paperMissionFinsih.Length; i++)
+        {
+            paperFinish[i].SetActive(paperMissionFinsih[i]);
+        }
+
+        if (takeLotus == true)
+        {
+            //拿紙蓮花
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
+        }
+
         // 並非執行初次森林事件，就執行媽媽引導玩家
         if (nowMission == "跟著媽媽")
         {
@@ -141,14 +153,17 @@ public class SceneController_OutSide : SceneController
 
                     switch (r_ItemID)
                     {
-                        case HintItemID.Lv2_GoInside:
+                        case HintItemID.Lv2_OutSideDoor:
                             itemName = "_Scene02_InteractItems/Lv2_Front_Door";
                             break;
-                        case HintItemID.Lv2_TalkToMom:
+                        case HintItemID.Lv2_Mom:
                             itemName = "_Scene02_InteractItems/LV2_Mom";
                             break;
-                        case HintItemID.Lv2_CheckPaper:
+                        case HintItemID.Lv2_Paper:
                             itemName = "_Scene02_InteractItems/book_w_a";
+                            break;
+                        case HintItemID.Lv2_Table:
+                            itemName = "_Scene02_InteractItems/Table";
                             break;
                         case HintItemID.LV2_10Dollar:
                             itemName = "_Scene02_InteractItems/LV2_10Dollar";
@@ -223,6 +238,10 @@ public class SceneController_OutSide : SceneController
                 case GameEventID.Lv2_CheckPaper:
                     UIState(UIItemID.Lv2_Paper, true, false);
                     break;
+                case GameEventID.Lv2_PutLotusPaper:
+                    takeLotus = false;
+                    Lv2_PutLotusPaper();
+                    break;
                 case GameEventID.LV2_10Dollar:
                     UIState(UIItemID.Lv2_Paper, true, false);
                     break;
@@ -250,7 +269,28 @@ public class SceneController_OutSide : SceneController
 
     void Lv2_TalkToMom()
     {
-        PlayDialogue((byte)OutSide_Dialogue.Lv1_003_E_Mother);
+        if (MomFirstTalk == false)
+        {
+            MomFirstTalk = true;
+            PlayDialogue((byte)OutSide_Dialogue.Lv2_000_E_Mother_First);
+        }
+        else
+        {
+            for (int i = 0; i < paperMissionFinsih.Length; i++)
+            {
+                if (paperMissionFinsih[i] == false)
+                {
+                    PlayDialogue((byte)OutSide_Dialogue.Lv2_001_E_Mother_PaperNotFinish);
+                    return;
+                }
+            }
+            PlayDialogue((byte)OutSide_Dialogue.Lv2_002_E_Mother_PaperFinish);
+        }
+    }
+
+    void Lv2_PutLotusPaper()
+    {
+        paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
     }
     #endregion
 }

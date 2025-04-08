@@ -19,6 +19,7 @@ public class SceneController_OutSide : SceneController
     public GameObject ForestTP;
     public static string nowMission = "no";
     public GameObject[] paperFinish;
+    public GameObject FlowerCircle;
     private static bool MomFirstTalk = false;
     #endregion
 
@@ -30,18 +31,29 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         nowMission = "跟著媽媽";
-        for (int i = 0; i < paperMissionFinsih.Length; i++)
-        {
-            paperFinish[i].SetActive(paperMissionFinsih[i]);
-        }
 
-        if (takeLotus == true)
+        if(MomFirstTalk == true)
         {
-            //拿紙蓮花
-            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
+            for (int i = 0; i < paperMissionFinsih.Length; i++)
+            {
+                paperFinish[i].SetActive(paperMissionFinsih[i]);
+                if (paperMissionFinsih[i] == true) break;
+                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
+            }
+
+            if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+            {
+                FlowerCircle.transform.rotation = Quaternion.Euler(0f, -10f, 0f);
+                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
+            }
+
+            if (takeLotus == true)
+            {
+                //拿紙蓮花
+                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
+            }
         }
 
         // 並非執行初次森林事件，就執行媽媽引導玩家
@@ -168,6 +180,9 @@ public class SceneController_OutSide : SceneController
                         case HintItemID.LV2_10Dollar:
                             itemName = "_Scene02_InteractItems/LV2_10Dollar";
                             break;
+                        case HintItemID.Lv2_FlowerCircle:
+                            itemName = "_Scene02_InteractItems/Lv2_FlowerCircle";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -245,6 +260,9 @@ public class SceneController_OutSide : SceneController
                 case GameEventID.LV2_10Dollar:
                     UIState(UIItemID.Lv2_Paper, true, false);
                     break;
+                case GameEventID.Lv2_FlowerCircle:
+                    Lv2_FlowerCircle();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -291,6 +309,14 @@ public class SceneController_OutSide : SceneController
     void Lv2_PutLotusPaper()
     {
         paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
+    }
+
+    void Lv2_FlowerCircle()
+    {
+        paperMissionFinsih[(int)PaperMission.LayOutSideCircle] = true;
+        PlayerCtrlr._bCanControl = false;
+        FlowerCircle.transform.DORotate(new Vector3(0, 0, 0), 1);
+        PlayDialogue((byte)OutSide_Dialogue.Lv2_003_E_FlowerCircle);
     }
     #endregion
 }

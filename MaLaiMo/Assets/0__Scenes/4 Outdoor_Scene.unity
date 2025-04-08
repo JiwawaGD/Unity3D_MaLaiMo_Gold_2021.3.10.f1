@@ -3756,7 +3756,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7168699967900797089, guid: 48d41c561555313488c7140754bca238, type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 7168699967900797089, guid: 48d41c561555313488c7140754bca238, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11728,7 +11728,6 @@ Transform:
   - {fileID: 1330702687}
   - {fileID: 2011344621}
   - {fileID: 569676460951394622}
-  - {fileID: 3296427038164032040}
   - {fileID: 221182510}
   m_Father: {fileID: 1968103037}
   m_RootOrder: 10
@@ -11997,6 +11996,7 @@ Transform:
   - {fileID: 1991555782}
   - {fileID: 1986601722}
   - {fileID: 1834972471}
+  - {fileID: 747905001}
   - {fileID: 819618622}
   m_Father: {fileID: 6582262539397046593}
   m_RootOrder: 3
@@ -12869,6 +12869,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6608502843659958459, guid: 4cc70b80664d31741b0b2ca8b98274f9, type: 3}
   m_PrefabInstance: {fileID: 746905624}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &747905000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 747905001}
+  - component: {fileID: 747905002}
+  m_Layer: 0
+  m_Name: Lv2_003_E_FlowerCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &747905001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747905000}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 702127064}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &747905002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747905000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913c14b5b7c70444ab4cf8ba091e2f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueText: {fileID: 0}
+  ActionEvent:
+  - "{//%voice:0;1 \u6728\u982D\u6469\u64E6\u8072"
+  - '{%wait:1'
+  - '{%function:0;'
+  HandleObject: []
+  Voices:
+  - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  Functions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1029059990}
+        m_TargetAssemblyTypeName: SceneController_OutSide, Assembly-CSharp
+        m_MethodName: SetPlayerControl
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1001 &753187042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14198,7 +14265,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 702127064}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &819618623
 MonoBehaviour:
@@ -14214,7 +14281,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueText: {fileID: 0}
   ActionEvent:
-  - '{%voice:0;1'
   - "\u5ABD\u5ABD\uFF1A\u4F86\u9019\u908A\uFF01"
   - '{%wait:2'
   - 
@@ -17064,6 +17130,7 @@ MonoBehaviour:
   Player: {fileID: 650221197}
   ForestTP: {fileID: 48387717}
   paperFinish: []
+  FlowerCircle: {fileID: 0}
 --- !u!1001 &1033478778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19347,6 +19414,70 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5802067977288007822, guid: ba1fc137c2eaa21489579b7fe9a7fc3e, type: 3}
   m_PrefabInstance: {fileID: 1140066000}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1141082764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141082765}
+  - component: {fileID: 1141082767}
+  - component: {fileID: 1141082766}
+  m_Layer: 0
+  m_Name: Lv2_FlowerCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1141082765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141082764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 494.652, y: -0.117, z: 476.953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3296427038164032040}
+  m_Father: {fileID: 1504342761}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1141082766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141082764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3816441155e2479419dd50adf7a242cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CurrentLevelID: 3
+  EventID: 105
+  bAlwaysActive: 1
+  fHintRange: 3
+  bActive: 0
+--- !u!65 &1141082767
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141082764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.2035837, z: 0.11643982}
+  m_Center: {x: 0, y: 0.3869171, z: -0.10222626}
 --- !u!1001 &1147319277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26400,6 +26531,7 @@ Transform:
   - {fileID: 2511457204064380363}
   - {fileID: 1894458976}
   - {fileID: 586150749}
+  - {fileID: 1141082765}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40934,23 +41066,23 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 691806181}
+    m_TransformParent: {fileID: 1141082765}
     m_Modifications:
     - target: {fileID: 8308078553251547826, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_RootOrder
-      value: 33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8308078553251547826, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.84494
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8308078553251547826, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1195906
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8308078553251547826, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.513916
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8308078553251547826, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40982,7 +41114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8649138626911391752, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}
       propertyPath: m_Name
-      value: flowercircle_01
+      value: flowercircle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61b6f42d892063c46a59bcae911320f2, type: 3}

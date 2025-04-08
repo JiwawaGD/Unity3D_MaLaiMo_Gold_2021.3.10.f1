@@ -26,7 +26,8 @@ public enum GameEventID
     Lv2_TalkToMom ,
     Lv2_CheckPaper,
     Lv2_PutLotusPaper,
-    LV2_10Dollar
+    LV2_10Dollar,
+    Lv2_FlowerCircle
 }
 
 public enum Lv1_EventCallBackID
@@ -53,7 +54,8 @@ public enum HintItemID
     Lv2_Mom ,
     Lv2_Paper,
     Lv2_Table,
-    LV2_10Dollar
+    LV2_10Dollar,
+    Lv2_FlowerCircle
 }
 
 public enum ObjItemID
@@ -172,7 +174,7 @@ public enum OutSide_Dialogue
     Lv2_000_E_Mother_First = 0,
     Lv2_001_E_Mother_PaperNotFinish,
     Lv2_002_E_Mother_PaperFinish,
-    Lv2_003_E_Table,
+    Lv2_003_E_FlowerCircle,
     Lv2_007_GoOut,
 }
 

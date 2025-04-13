@@ -11,6 +11,9 @@ public class SceneController_Room : SceneController
 
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
     [Header("蓮花遊戲控制器")] public LotusGameManager _lotusGameManager;
+
+    [Header("電視")] public GameObject _tvObject;
+    [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
     #endregion
 
     #region < Unity Hook >
@@ -76,30 +79,6 @@ public class SceneController_Room : SceneController
     public override void ShowObj(UIItemID r_ItemID)
     {
         base.ShowObj(r_ItemID);
-
-        //switch (r_ItemID)
-        //{
-        //    case UIItemID.Lv1_Rice_Funeral:
-        //        RO_OBJ[(byte)O_ItemID].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv1_Lotus_Paper:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv1_Photo_Frame:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv2_Photo_Frame:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv2_Photo_Frame_Floor:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
-        //        break;
-        //}
     }
 
     public override void KeyboardCheck()
@@ -118,6 +97,7 @@ public class SceneController_Room : SceneController
             {
                 GlobalDeclare._playingLotusGame = true;
                 UIState(UIItemID.Empty, false);
+                this._lotusGameManager.SetHintPosition();
             }
         }
     }
@@ -198,6 +178,12 @@ public class SceneController_Room : SceneController
     public override void SetPlayerControl(bool r_bEnable)
     {
         base.SetPlayerControl(r_bEnable);
+    }
+
+    public void SetTVNoise()
+    {
+        MeshRenderer tvRender = this._tvObject.transform.Find("Screen").GetComponent<MeshRenderer>();
+        tvRender.material = this._tvNoiseMaterial;
     }
 
     public void LotusGameFinish()

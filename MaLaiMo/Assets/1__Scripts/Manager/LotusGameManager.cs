@@ -4,9 +4,23 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum HintType
+{
+    Up,         // W
+    Left,       // A
+    Down,       // S
+    Right,      // D
+    UpperLeft,  // Q
+    UpperRight, // E
+    DownLeft,   // Z
+    DownRight,  // C
+}
+
 public class LotusGameManager : MonoBehaviour
 {
     #region < Field >
+    [SerializeField] [Header("場景控制器")] SceneController_Room _sceneController;
+
     [SerializeField] [Header("七個蓮花紙 - 物件")] GameObject[] LotusPaperObj;
     [SerializeField] [Header("七個蓮花紙 - 動畫控制器")] Animator[] LotusPaperAni;
     [SerializeField] [Header("七個蓮花紙 - 表演座標")] Vector3[] _showLocation;
@@ -14,9 +28,9 @@ public class LotusGameManager : MonoBehaviour
 
     [SerializeField] [Header("七個蓮花紙 - 全部動畫片段")] AnimationClip[] LotusPaperAniClip;
 
+    [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
     [SerializeField] [Header("八個方向的提示 - 圖片")] Sprite[] HintSprite;
 
-    [SerializeField] [Header("提示按鈕 - 物件")] GameObject HintObj;
 
     [SerializeField] [Header("摺完的蓮花 - 物件")] GameObject _finishedLotusPaper;
 
@@ -31,6 +45,8 @@ public class LotusGameManager : MonoBehaviour
     RectTransform HintRectTf;
     Transform TfLotus;
     AnimatorStateInfo LotusState;
+
+    private HintType _nextHintType;
 
     public static bool bIsGamePause = false;
 
@@ -80,6 +96,14 @@ public class LotusGameManager : MonoBehaviour
         Transform tfPaper = LotusPaperObj[0].transform;
         tfPaper.localPosition = this._showLocation[0];
         tfPaper.localRotation = Quaternion.Euler(this._showRotation[0]);
+    }
+
+    public void SetHintPosition()
+    {
+        SetHintPosition(HintType.Up);
+        HintImg.sprite = HintSprite[(int)HintType.Up];
+
+        this.HintObj.SetActive(true);
     }
     #endregion
 
@@ -139,147 +163,151 @@ public class LotusGameManager : MonoBehaviour
             case KeyCode.W:
                 if (_bLotusStates[0])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[0], LotusPaperAniClip[0], strLotusAniTriggerName[0], 0));
+                    StartCoroutine(ProcessAnimator(2, LotusPaperAni[0], LotusPaperAniClip[0], strLotusAniTriggerName[0], 0));
                 }
                 else if (_bLotusStates[3])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[3], LotusPaperAniClip[3], strLotusAniTriggerName[3], 3));
+                    StartCoroutine(ProcessAnimator(2, LotusPaperAni[3], LotusPaperAniClip[3], strLotusAniTriggerName[3], 3));
                 }
                 else if (_bLotusStates[9])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[9], strLotusAniTriggerName[9], 9));
+                    StartCoroutine(ProcessAnimator(6, LotusPaperAni[6], LotusPaperAniClip[9], strLotusAniTriggerName[9], 9));
                 }
                 else if (_bLotusStates[17])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[17], strLotusAniTriggerName[17], 17));
+                    StartCoroutine(ProcessAnimator(6, LotusPaperAni[6], LotusPaperAniClip[17], strLotusAniTriggerName[17], 17));
                 }
                 else if (_bLotusStates[25])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[25], strLotusAniTriggerName[25], 25));
+                    StartCoroutine(ProcessAnimator(5, LotusPaperAni[6], LotusPaperAniClip[25], strLotusAniTriggerName[25], 25));
                 }
                 break;
             case KeyCode.A:
                 if (_bLotusStates[2])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[2], LotusPaperAniClip[2], strLotusAniTriggerName[2], 2));
+                    StartCoroutine(ProcessAnimator(0, LotusPaperAni[2], LotusPaperAniClip[2], strLotusAniTriggerName[2], 2));
                 }
                 else if (_bLotusStates[8])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[8], strLotusAniTriggerName[8], 8));
+                    StartCoroutine(ProcessAnimator(0, LotusPaperAni[6], LotusPaperAniClip[8], strLotusAniTriggerName[8], 8));
                 }
                 else if (_bLotusStates[16])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[16], strLotusAniTriggerName[16], 16));
+                    StartCoroutine(ProcessAnimator(0, LotusPaperAni[6], LotusPaperAniClip[16], strLotusAniTriggerName[16], 16));
                 }
                 else if (_bLotusStates[24])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[0], LotusPaperAni[6], LotusPaperAniClip[24], strLotusAniTriggerName[24], 24));
+                    StartCoroutine(ProcessAnimator(0, LotusPaperAni[6], LotusPaperAniClip[24], strLotusAniTriggerName[24], 24));
                 }
                 break;
             case KeyCode.S:
                 if (_bLotusStates[1])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[1], LotusPaperAniClip[1], strLotusAniTriggerName[1], 1));
+                    StartCoroutine(ProcessAnimator(1, LotusPaperAni[1], LotusPaperAniClip[1], strLotusAniTriggerName[1], 1));
                 }
                 else if (_bLotusStates[4])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[4], LotusPaperAniClip[4], strLotusAniTriggerName[4], 4));
+                    StartCoroutine(ProcessAnimator(3, LotusPaperAni[4], LotusPaperAniClip[4], strLotusAniTriggerName[4], 4));
                 }
                 else if (_bLotusStates[7])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[7], strLotusAniTriggerName[7], 7));
+                    StartCoroutine(ProcessAnimator(1, LotusPaperAni[6], LotusPaperAniClip[7], strLotusAniTriggerName[7], 7));
                 }
                 else if (_bLotusStates[15])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[15], strLotusAniTriggerName[15], 15));
+                    StartCoroutine(ProcessAnimator(1, LotusPaperAni[6], LotusPaperAniClip[15], strLotusAniTriggerName[15], 15));
                 }
                 else if (_bLotusStates[23])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[1], LotusPaperAni[6], LotusPaperAniClip[23], strLotusAniTriggerName[23], 23));
+                    StartCoroutine(ProcessAnimator(1, LotusPaperAni[6], LotusPaperAniClip[23], strLotusAniTriggerName[23], 23));
                 }
                 break;
             case KeyCode.D:
                 if (_bLotusStates[5])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[5], LotusPaperAniClip[5], strLotusAniTriggerName[5], 5));
+                    StartCoroutine(ProcessAnimator(3, LotusPaperAni[5], LotusPaperAniClip[5], strLotusAniTriggerName[5], 5));
                 }
                 else if (_bLotusStates[6])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[6], strLotusAniTriggerName[6], 6));
+                    StartCoroutine(ProcessAnimator(2, LotusPaperAni[6], LotusPaperAniClip[6], strLotusAniTriggerName[6], 6));
                 }
                 else if (_bLotusStates[14])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[14], strLotusAniTriggerName[14], 14));
+                    StartCoroutine(ProcessAnimator(2, LotusPaperAni[6], LotusPaperAniClip[14], strLotusAniTriggerName[14], 14));
                 }
                 else if (_bLotusStates[22])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[2], LotusPaperAni[6], LotusPaperAniClip[22], strLotusAniTriggerName[22], 22));
+                    StartCoroutine(ProcessAnimator(2, LotusPaperAni[6], LotusPaperAniClip[22], strLotusAniTriggerName[22], 22));
                 }
                 break;
             case KeyCode.Q:
                 if (_bLotusStates[12])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[12], strLotusAniTriggerName[12], 12));
+                    StartCoroutine(ProcessAnimator(5, LotusPaperAni[6], LotusPaperAniClip[12], strLotusAniTriggerName[12], 12));
                 }
                 else if (_bLotusStates[20])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[20], strLotusAniTriggerName[20], 20));
+                    StartCoroutine(ProcessAnimator(5, LotusPaperAni[6], LotusPaperAniClip[20], strLotusAniTriggerName[20], 20));
                 }
                 else if (_bLotusStates[29])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[5], LotusPaperAni[6], LotusPaperAniClip[29], strLotusAniTriggerName[29], 29));
+                    StartCoroutine(ProcessAnimator(5, LotusPaperAni[6], LotusPaperAniClip[29], strLotusAniTriggerName[29], 29));
                 }
                 break;
             case KeyCode.E:
                 if (_bLotusStates[13])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[13], strLotusAniTriggerName[13], 13));
+                    StartCoroutine(ProcessAnimator(3, LotusPaperAni[6], LotusPaperAniClip[13], strLotusAniTriggerName[13], 13));
                 }
                 else if (_bLotusStates[21])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[3], LotusPaperAni[6], LotusPaperAniClip[21], strLotusAniTriggerName[21], 21));
+                    StartCoroutine(ProcessAnimator(3, LotusPaperAni[6], LotusPaperAniClip[21], strLotusAniTriggerName[21], 21));
                 }
                 else if (_bLotusStates[26])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[6], LotusPaperAni[6], LotusPaperAniClip[26], strLotusAniTriggerName[26], 26));
+                    StartCoroutine(ProcessAnimator(6, LotusPaperAni[6], LotusPaperAniClip[26], strLotusAniTriggerName[26], 26));
                 }
                 break;
             case KeyCode.C:
                 if (_bLotusStates[10])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[10], strLotusAniTriggerName[10], 10));
+                    StartCoroutine(ProcessAnimator(7, LotusPaperAni[6], LotusPaperAniClip[10], strLotusAniTriggerName[10], 10));
                 }
                 else if (_bLotusStates[18])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[18], strLotusAniTriggerName[18], 18));
+                    StartCoroutine(ProcessAnimator(7, LotusPaperAni[6], LotusPaperAniClip[18], strLotusAniTriggerName[18], 18));
                 }
                 else if (_bLotusStates[27])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[7], LotusPaperAni[6], LotusPaperAniClip[27], strLotusAniTriggerName[27], 27));
+                    StartCoroutine(ProcessAnimator(7, LotusPaperAni[6], LotusPaperAniClip[27], strLotusAniTriggerName[27], 27));
                 }
                 break;
             case KeyCode.Z:
                 if (_bLotusStates[11])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[11], strLotusAniTriggerName[11], 11));
+                    StartCoroutine(ProcessAnimator(4, LotusPaperAni[6], LotusPaperAniClip[11], strLotusAniTriggerName[11], 11));
                 }
                 else if (_bLotusStates[19])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[19], strLotusAniTriggerName[19], 19));
+                    StartCoroutine(ProcessAnimator(4, LotusPaperAni[6], LotusPaperAniClip[19], strLotusAniTriggerName[19], 19));
                 }
                 else if (_bLotusStates[28])
                 {
-                    StartCoroutine(ProcessAnimator(HintSprite[4], LotusPaperAni[6], LotusPaperAniClip[28], strLotusAniTriggerName[28], 28));
+                    StartCoroutine(ProcessAnimator(4, LotusPaperAni[6], LotusPaperAniClip[28], strLotusAniTriggerName[28], 28));
                 }
                 break;
         }
     }
 
-    IEnumerator ProcessAnimator(Sprite sprite, Animator ani, AnimationClip clip, string strTriggerName, int iStateIndex)
+    IEnumerator ProcessAnimator(int spriteIndex, Animator ani, AnimationClip clip, string strTriggerName, int iStateIndex)
     {
-        _isAnimating = true;
+        this._isAnimating = true;
+
         HintObj.SetActive(false);
-        HintImg.sprite = sprite;
+
+        HintType nextHintType = GetHintType(spriteIndex);
+        SetHintPosition(nextHintType);
+        HintImg.sprite = HintSprite[(int)nextHintType];
 
         ani.SetTrigger(strTriggerName);
 
@@ -292,10 +320,17 @@ public class LotusGameManager : MonoBehaviour
     {
         LotusState = ani.GetCurrentAnimatorStateInfo(0);
 
-        if (_bLotusStates[29])
+        if (_bLotusStates[5])
         {
-            SceneController_Room sceneCtrlr = GameObject.Find("SceneController").GetComponent<SceneController_Room>();
-            sceneCtrlr.SendMessage("ExitLotusGame");
+            Debug.Log("椅子被移動");
+        }
+        else if (_bLotusStates[17])
+        {
+            SetTVNoiseOn();
+        }
+        else if (_bLotusStates[29])
+        {
+            LotusGameFinish();
             return;
         }
 
@@ -325,42 +360,66 @@ public class LotusGameManager : MonoBehaviour
         HintObj.SetActive(true);
     }
 
-    Vector2 UIHintPosition(int iStateIndex)
+    HintType GetHintType(int spriteIndex)
     {
-        return iStateIndex switch
+        return spriteIndex switch
         {
-            0 => new Vector2(0, 400),      // W
-            1 => new Vector2(0, -400),     // S
-            2 => new Vector2(-500, 0),     // A
-            3 => new Vector2(0, 400),      // W
-            4 => new Vector2(0, -400),     // S
-            5 => new Vector2(500, 0),      // D
-            6 => new Vector2(500, 0),      // D
-            7 => new Vector2(0, -400),     // S
-            8 => new Vector2(-500, 0),     // A
-            9 => new Vector2(0, 400),      // W
-            10 => new Vector2(300, -300),  // C
-            11 => new Vector2(-300, -300), // Z
-            12 => new Vector2(-300, 300),  // Q
-            13 => new Vector2(300, 300),   // E
-            14 => new Vector2(500, 0),     // D
-            15 => new Vector2(0, -400),    // S
-            16 => new Vector2(-500, 0),    // A
-            17 => new Vector2(0, 400),     // W
-            18 => new Vector2(300, -300),  // C
-            19 => new Vector2(-300, -300), // Z
-            20 => new Vector2(-300, 300),  // Q
-            21 => new Vector2(300, 300),   // E
-            22 => new Vector2(500, 0),     // D
-            23 => new Vector2(0, -400),    // S
-            24 => new Vector2(-500, 0),    // A
-            25 => new Vector2(0, 400),     // W
-            26 => new Vector2(300, 300),   // E
-            27 => new Vector2(300, -300),  // C
-            28 => new Vector2(-300, -300), // Z
-            29 => new Vector2(-300, 300),  // Q
-            _ => new Vector2(0, 0),
+            0 => HintType.Up,
+            1 => HintType.Left,
+            2 => HintType.Down,
+            3 => HintType.Right,
+            4 => HintType.UpperLeft,
+            5 => HintType.UpperRight,
+            6 => HintType.DownLeft,
+            7 => HintType.DownRight,
+            _ => HintType.Up,
         };
+    }
+
+    void SetHintPosition(HintType hintType)
+    {
+        Vector3 hintPosition = Vector3.zero;
+
+        switch (hintType)
+        {
+            case HintType.Up:
+                hintPosition = new Vector3(0.04f, 0.45f, -0.13f);
+                break;
+            case HintType.Down:
+                hintPosition = new Vector3(0.19f, 0.05f, -0.13f);
+                break;
+            case HintType.Left:
+                hintPosition = new Vector3(0.25f, 0.25f, -0.35f);
+                break;
+            case HintType.Right:
+                hintPosition = new Vector3(0.25f, 0.25f, 0.1f);
+                break;
+            case HintType.UpperLeft:
+                hintPosition = new Vector3(0.04f, 0.38f, -0.3f);
+                break;
+            case HintType.UpperRight:
+                hintPosition = new Vector3(0.04f, 0.38f, 0.02f);
+                break;
+            case HintType.DownLeft:
+                hintPosition = new Vector3(0.18f, 0.1f, 0.06f);
+                break;
+            case HintType.DownRight:
+                hintPosition = new Vector3(0.18f, 0.1f, -0.3f);
+                break;
+        }
+
+        this.HintObj.transform.localPosition = hintPosition;
+    }
+
+    void SetTVNoiseOn()
+    {
+        this._sceneController.SetTVNoise();
+    }
+
+    void LotusGameFinish()
+    {
+        SceneController_Room sceneCtrlr = GameObject.Find("SceneController").GetComponent<SceneController_Room>();
+        sceneCtrlr.SendMessage("ExitLotusGame");
     }
     #endregion
 }

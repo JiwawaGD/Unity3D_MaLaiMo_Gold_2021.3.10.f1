@@ -16,7 +16,7 @@ public partial class SceneController : MonoBehaviour
     [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
 
-    [SerializeField] [Header("Item Canvas Handler")]protected ItemCanvasHandler _itemCanvasHandler;
+    [SerializeField] [Header("Item Canvas Handler")] protected ItemCanvasHandler _itemCanvasHandler;
     [SerializeField] [Header("Item Canvas Group")] CanvasGroup _itemCanvasGroup;
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
@@ -276,7 +276,7 @@ public partial class SceneController : MonoBehaviour
     public void RestoreItemLocation()
     {
         CameraVolume.enabled = false;
-        if (EnvironmentLight!= null) EnvironmentLight.SetActive(true);
+        if (EnvironmentLight != null) EnvironmentLight.SetActive(true);
         romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = false;
         print(RO_OBJ[saveRotaObj].transform.name);
 
@@ -430,11 +430,16 @@ public partial class SceneController : MonoBehaviour
     public virtual void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         SetItemCanvasEnable(r_bEnable);
-        if(EnvironmentLight != null) EnvironmentLight.SetActive(false);
+        if (EnvironmentLight != null) EnvironmentLight.SetActive(false);
         m_bInUIView = r_bEnable;
         PlayerCtrlr.SetCursor();
-        ShowObj(r_ItemID);
-        if (r_bEnable) ProcessRoMoving((int)r_ItemID);
+
+        // *TODO* 問 Tony
+        //if (r_bEnable)
+        //    ShowObj(r_ItemID);
+
+        //if (r_bEnable)
+        //    ProcessRoMoving((int)r_ItemID);
     }
 
     /// <summary>

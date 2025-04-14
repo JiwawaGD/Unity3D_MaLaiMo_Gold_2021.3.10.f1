@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class SceneController_OutSide : SceneController
 {
@@ -21,6 +20,7 @@ public class SceneController_OutSide : SceneController
     public GameObject[] paperFinish;
     public GameObject FlowerCircle;
     private static bool MomFirstTalk = false;
+    private static bool readPaper = false;
     #endregion
 
     #region < Unity Hook >
@@ -34,7 +34,7 @@ public class SceneController_OutSide : SceneController
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         nowMission = "跟著媽媽";
 
-        if(MomFirstTalk == true)
+        if(MomFirstTalk == true && readPaper == true)
         {
             for (int i = 0; i < paperMissionFinsih.Length; i++)
             {
@@ -45,7 +45,7 @@ public class SceneController_OutSide : SceneController
 
             if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
             {
-                FlowerCircle.transform.rotation = Quaternion.Euler(0f, -10f, 0f);
+                FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
                 ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
             }
 
@@ -57,7 +57,7 @@ public class SceneController_OutSide : SceneController
         }
 
         // 並非執行初次森林事件，就執行媽媽引導玩家
-        if (nowMission == "跟著媽媽")
+        if (nowMission == "跟著媽媽去森林")
         {
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
@@ -66,7 +66,11 @@ public class SceneController_OutSide : SceneController
            // GlobalDeclare._firstStartGameLevel_2 = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
         }
-        else
+        else if (nowMission == "頭七")
+        {
+
+        }
+        else 
         {
             // 設定玩家傳送座標
             SetPlayerLocation(this._insideGoOutTransitPos.localPosition);
@@ -251,6 +255,7 @@ public class SceneController_OutSide : SceneController
                     Lv2_TalkToMom();
                     break;
                 case GameEventID.Lv2_CheckPaper:
+                    readPaper = true;
                     UIState(UIItemID.Lv2_Paper, true, false);
                     break;
                 case GameEventID.Lv2_PutLotusPaper:
@@ -316,6 +321,7 @@ public class SceneController_OutSide : SceneController
         paperMissionFinsih[(int)PaperMission.LayOutSideCircle] = true;
         PlayerCtrlr._bCanControl = false;
         FlowerCircle.transform.DORotate(new Vector3(0, 0, 0), 1);
+        FlowerCircle.transform.DOMove(new Vector3(494.652f, -0.117f, 476.953f), 1);
         PlayDialogue((byte)OutSide_Dialogue.Lv2_003_E_FlowerCircle);
     }
     #endregion

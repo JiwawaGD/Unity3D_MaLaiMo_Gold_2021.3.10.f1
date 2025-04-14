@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 using DG.Tweening;
 
@@ -28,7 +29,7 @@ public class SceneController_Room : SceneController
 
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
-
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
         if (!GlobalDeclare._firstStartGameLevel_1)
         {
             GlobalDeclare._firstStartGameLevel_1 = true;
@@ -132,6 +133,9 @@ public class SceneController_Room : SceneController
                         case HintItemID.Lv1_Item_LotusPaper:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Handler";
                             break;
+                        case HintItemID.Lv1_Piano:
+                            itemName = "_Scene01_InteractItems/__Level_1_TODO/Lv1_Piano";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -213,6 +217,9 @@ public class SceneController_Room : SceneController
                     break;
                 case GameEventID.Lv1_LotusPaper:
                     Lv1_LotusPaperCheck();
+                    break;
+                case GameEventID.Lv1_Piano:
+                    //Lv1_LotusPaperCheck();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

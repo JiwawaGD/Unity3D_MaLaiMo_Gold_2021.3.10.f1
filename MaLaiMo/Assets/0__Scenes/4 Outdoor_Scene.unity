@@ -12166,6 +12166,7 @@ Transform:
   - {fileID: 1986601722}
   - {fileID: 1834972471}
   - {fileID: 747905001}
+  - {fileID: 996483118}
   - {fileID: 819618622}
   m_Father: {fileID: 6582262539397046593}
   m_RootOrder: 3
@@ -14439,7 +14440,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 702127064}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &819618623
 MonoBehaviour:
@@ -16821,6 +16822,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 124529913939185948, guid: 038bd9bd223f3a442b89926767d57d23, type: 3}
   m_PrefabInstance: {fileID: 985905818}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &996483117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996483118}
+  - component: {fileID: 996483119}
+  m_Layer: 0
+  m_Name: Lv2_004_FirstSevenDays_Half
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &996483118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996483117}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 702127064}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &996483119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996483117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913c14b5b7c70444ab4cf8ba091e2f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueText: {fileID: 0}
+  ActionEvent:
+  - '{%wait:10'
+  - "{//%voice:0;1 \u92FC\u7434A\u65CB\u5F8B"
+  - '{%wait:1'
+  - "\u7433\u7433\uFF1A\u597D\u50CF\u53EA\u6709\u6211\u807D\u5230\u22EF\u22EF"
+  - '{%wait:1'
+  - 
+  - '{%function:0;'
+  HandleObject: []
+  Voices:
+  - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
+  Functions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1029059990}
+        m_TargetAssemblyTypeName: SceneController_OutSide, Assembly-CSharp
+        m_MethodName: SetPlayerControl
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1001 &997475473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17280,6 +17352,7 @@ MonoBehaviour:
   - {fileID: 1986601723}
   - {fileID: 1834972472}
   - {fileID: 747905002}
+  - {fileID: 996483119}
   - {fileID: 819618623}
   _itemCanvasHandler: {fileID: 1241496510}
   _itemCanvasGroup: {fileID: 1241496509}

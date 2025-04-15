@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 using DG.Tweening;
 
@@ -11,6 +12,9 @@ public class SceneController_Room : SceneController
 
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
     [Header("蓮花遊戲控制器")] public LotusGameManager _lotusGameManager;
+
+    [Header("電視")] public GameObject _tvObject;
+    [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
     #endregion
 
     #region < Unity Hook >
@@ -25,7 +29,7 @@ public class SceneController_Room : SceneController
 
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
-
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
         if (!GlobalDeclare._firstStartGameLevel_1)
         {
             GlobalDeclare._firstStartGameLevel_1 = true;
@@ -76,30 +80,6 @@ public class SceneController_Room : SceneController
     public override void ShowObj(UIItemID r_ItemID)
     {
         base.ShowObj(r_ItemID);
-
-        //switch (r_ItemID)
-        //{
-        //    case UIItemID.Lv1_Rice_Funeral:
-        //        RO_OBJ[(byte)O_ItemID].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.32354f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv1_Lotus_Paper:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-27.8f, 1.8f, 8.745541f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv1_Photo_Frame:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv2_Photo_Frame:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-28f, 1.85f, 8.55254f), 0.5f);
-        //        break;
-        //    case UIItemID.Lv2_Photo_Frame_Floor:
-        //        RO_OBJ[saveRotaObj].transform.DOMove(
-        //            new Vector3(-27.762f, 1.801f, 8.55254f), 0.5f);
-        //        break;
-        //}
     }
 
     public override void KeyboardCheck()
@@ -118,6 +98,7 @@ public class SceneController_Room : SceneController
             {
                 GlobalDeclare._playingLotusGame = true;
                 UIState(UIItemID.Empty, false);
+                this._lotusGameManager.SetHintPosition();
             }
         }
     }
@@ -151,6 +132,9 @@ public class SceneController_Room : SceneController
                             break;
                         case HintItemID.Lv1_Item_LotusPaper:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Handler";
+                            break;
+                        case HintItemID.Lv1_Piano:
+                            itemName = "_Scene01_InteractItems/__Level_1_TODO/Lv1_Piano";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -200,6 +184,12 @@ public class SceneController_Room : SceneController
         base.SetPlayerControl(r_bEnable);
     }
 
+    public void SetTVNoise()
+    {
+        MeshRenderer tvRender = this._tvObject.transform.Find("Screen").GetComponent<MeshRenderer>();
+        tvRender.material = this._tvNoiseMaterial;
+    }
+
     public void LotusGameFinish()
     {
 
@@ -227,6 +217,9 @@ public class SceneController_Room : SceneController
                     break;
                 case GameEventID.Lv1_LotusPaper:
                     Lv1_LotusPaperCheck();
+                    break;
+                case GameEventID.Lv1_Piano:
+                    //Lv1_LotusPaperCheck();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));

@@ -322,7 +322,7 @@ public class LotusGameManager : MonoBehaviour
 
         if (_bLotusStates[5])
         {
-            Debug.Log("椅子被移動");
+            PlayChairMoveAnimation();
         }
         else if (_bLotusStates[17])
         {
@@ -411,6 +411,13 @@ public class LotusGameManager : MonoBehaviour
         this.HintObj.transform.localPosition = hintPosition;
     }
 
+    void PlayChairMoveAnimation()
+    {
+        Animation chairAnim = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_rosewood_Chair").GetComponent<Animation>();
+        chairAnim["chair_move"].time = 0f;
+        chairAnim.PlayQueued("chair_move"); 
+    }
+
     void SetTVNoiseOn()
     {
         this._sceneController.SetTVNoise();
@@ -418,8 +425,9 @@ public class LotusGameManager : MonoBehaviour
 
     void LotusGameFinish()
     {
-        SceneController_Room sceneCtrlr = GameObject.Find("SceneController").GetComponent<SceneController_Room>();
-        sceneCtrlr.SendMessage("ExitLotusGame");
+        this.LotusPaperObj[6].transform.localPosition = new Vector3(0f, -1f, 0f);
+        this._finishedLotusPaper.SetActive(true);
+        this._sceneController.LotusGameFinish();
     }
     #endregion
 }

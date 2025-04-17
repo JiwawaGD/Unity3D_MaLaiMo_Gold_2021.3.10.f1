@@ -30,6 +30,7 @@ public class SceneController_Room : SceneController
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
+
         if (!GlobalDeclare._firstStartGameLevel_1)
         {
             GlobalDeclare._firstStartGameLevel_1 = true;
@@ -192,7 +193,8 @@ public class SceneController_Room : SceneController
 
     public void LotusGameFinish()
     {
-
+        this._lotusGameManager.enabled = false;
+        PlayerCtrlr.SetCursor();
     }
     #endregion
 

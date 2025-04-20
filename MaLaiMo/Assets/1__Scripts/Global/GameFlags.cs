@@ -9,5 +9,7 @@
 
     #region < 場景一 : 室內場景 (靈堂 & 戶外)>
     public static bool _firstStartGameLevel_2 = false;
+    public static bool _waitingPlay10Dollar = false;
+    public static bool _played10DollarEvent = false;
     #endregion
 }

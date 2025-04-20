@@ -21,6 +21,8 @@ public class SceneController_OutSide : SceneController
     public GameObject FlowerCircle;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
+    [SerializeField] private InteractionController interactionController;
+
     #endregion
 
     #region < Unity Hook >
@@ -83,6 +85,10 @@ public class SceneController_OutSide : SceneController
     public override void Update()
     {
         base.Update();
+        if (GlobalDeclare._waitingPlay10Dollar && Input.GetKeyDown(KeyCode.R))
+        {
+            Start10DollarEvent();
+        }
         if (GlobalDeclare._firstStartGameLevel_2 == true || mom_Controller.AFKTimeCount < 1200)
         {
             uiElement.gameObject.SetActive(false);
@@ -153,6 +159,28 @@ public class SceneController_OutSide : SceneController
     {
         base.KeyboardCheck();
     }
+
+    void Start10DollarEvent()
+    {
+        SetItemCanvasEnable(false);
+        SetCrosshairEnable(true);
+
+        GlobalDeclare._waitingPlay10Dollar = false;
+        GlobalDeclare._played10DollarEvent = true;
+
+        // ✅ 改成使用 Serialized Reference
+        if (interactionController != null)
+        {
+            interactionController.StartThrowingSequence();
+        }
+        else
+        {
+            Debug.LogError("[錯誤] interactionController 尚未綁定！");
+        }
+    }
+
+
+
 
     public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
@@ -235,10 +263,15 @@ public class SceneController_OutSide : SceneController
     public override void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         base.UIState(r_ItemID, r_bEnable, r_bNeedSubTitle);
-        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title_OutSide[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo_OutSide[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_OutSide[(int)r_ItemID] : "") : "";
+
+        _itemCanvasHandler._txtTopTitle.text =
+            r_bEnable ? GlobalDeclare.item_Title_OutSide[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtMainInfo.text =
+            r_bEnable ? GlobalDeclare.item_MainInfo_OutSide[(int)r_ItemID] : "";
+        _itemCanvasHandler._txtBottonInfo.text =
+            r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_OutSide[(int)r_ItemID] : "") : "";
     }
+
     #endregion
 
     #region < Basic Function >
@@ -263,8 +296,10 @@ public class SceneController_OutSide : SceneController
                     Lv2_PutLotusPaper();
                     break;
                 case GameEventID.LV2_10Dollar:
-                    UIState(UIItemID.Lv2_Paper, true, false);
+                    UIState(UIItemID.Lv2_10Dollar, true, true); // ✅ index = 2
+                    GlobalDeclare._waitingPlay10Dollar = true;
                     break;
+
                 case GameEventID.Lv2_FlowerCircle:
                     Lv2_FlowerCircle();
                     break;
@@ -279,6 +314,14 @@ public class SceneController_OutSide : SceneController
             throw;
         }
     }
+    public void UIStateByIndex(LevelTypeID level, int index)
+    {
+        _itemCanvasHandler._txtTopTitle.text = GlobalDeclare.item_Title_OutSide[index];
+        _itemCanvasHandler._txtMainInfo.text = GlobalDeclare.item_MainInfo_OutSide[index];
+        _itemCanvasHandler._txtBottonInfo.text = GlobalDeclare.item_BottonInfo_OutSide[index];
+        _itemCanvasHandler._imgItem.sprite = _itemCanvasHandler._imgItem.sprite; // 若你有圖片陣列可在這改
+    }
+
     #endregion
 
     #region < Game Event >

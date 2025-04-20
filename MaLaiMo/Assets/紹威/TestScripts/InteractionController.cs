@@ -4,12 +4,9 @@ using System.Collections;
 
 public class InteractionController : MonoBehaviour
 {
+    public static InteractionController Instance;
     [Header("基本設置")]
     public float interactionDistance = 3f;
-    public LayerMask InteractiveItem;
-    public GameObject promptImage;
-    public GameObject itemCoinObj;
-    public GameObject uiPreviewPanel;
     public Camera playerCamera;
     public Camera coinCloseupCamera;
 
@@ -29,77 +26,18 @@ public class InteractionController : MonoBehaviour
     public bool useFixedPattern = false; // 是否使用固定模式（三次必中）
 
     private bool isLookingAtCoin = false;
-    private FirstPersonController fpsController;
     private bool isThrowingCoin = false;
     private Quaternion originalRotation;
     private bool canDetectCoin = true;
     private int throwCount = 0; // 追蹤投擲次數
 
+
     void Start()
     {
-        InitializeComponents();
-    }
-
-    void InitializeComponents()
-    {
-        fpsController = GetComponent<FirstPersonController>();
-        if (fpsController == null)
-        {
-            Debug.LogError("FirstPersonController not found!");
-        }
-
-        promptImage.SetActive(false);
-        uiPreviewPanel.SetActive(false);
-        coinCloseupCamera.gameObject.SetActive(false);
         hand.SetActive(false);
-        DisableAllCoinObjects();
-        throwCount = 0;
     }
 
-    void Update()
-    {
-        if (isThrowingCoin) return;
 
-        if (canDetectCoin)
-        {
-            HandleCoinDetection();
-        }
-    }
-
-    void HandleCoinDetection()
-    {
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactionDistance, InteractiveItem))
-        {
-            isLookingAtCoin = true;
-            promptImage.SetActive(true);
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ShowUIPreview();
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                StartThrowingSequence();
-            }
-        }
-        else
-        {
-            promptImage.SetActive(false);
-            isLookingAtCoin = false;
-        }
-    }
-
-    void ShowUIPreview()
-    {
-        uiPreviewPanel.SetActive(true);
-        fpsController.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
 
     void DisableAllCoinObjects()
     {
@@ -108,10 +46,10 @@ public class InteractionController : MonoBehaviour
         coinPlusMinus.SetActive(false);
     }
 
-    void StartThrowingSequence()
+    public void StartThrowingSequence()
     {
-        promptImage.SetActive(false);
-        itemCoinObj.SetActive(false);
+        hand.SetActive(true);
+
         canDetectCoin = false;
         StartCoroutine(ThrowCoin());
     }
@@ -119,8 +57,8 @@ public class InteractionController : MonoBehaviour
     IEnumerator ThrowCoin()
     {
         isThrowingCoin = true;
-        uiPreviewPanel.SetActive(false);
-        fpsController.enabled = false;
+        
+        
         DisableAllCoinObjects();
 
         // 執行投擲動畫
@@ -143,6 +81,8 @@ public class InteractionController : MonoBehaviour
         {
             throwCount = 0;
         }
+        hand.SetActive(true);
+
     }
 
     GameObject DetermineCoinResult(out string resultString)
@@ -208,10 +148,10 @@ public class InteractionController : MonoBehaviour
     {
         playerCamera.transform.localRotation = originalRotation;
         DisableAllCoinObjects();
-        fpsController.enabled = true;
+        
         isThrowingCoin = false;
         canDetectCoin = true;
-        itemCoinObj.SetActive(true);
+        
     }
 
     IEnumerator SmoothRotateCamera(Quaternion startRotation, Quaternion endRotation, float duration)

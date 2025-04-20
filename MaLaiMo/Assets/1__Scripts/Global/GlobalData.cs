@@ -33,12 +33,14 @@ public partial class GlobalDeclare
 
     public readonly static string[] item_Title_OutSide = new string[]
     {
-        "紙條"
+        "紙條",
+        "10元硬幣",
+        "10元代替"
     };
 
     public readonly static string[] item_Title_Forest = new string[]
     {
-        
+
     };
 
     public readonly static string[] item_MainInfo_Room = new string[]
@@ -60,6 +62,8 @@ public partial class GlobalDeclare
         "1.準備九朵紙蓮花，放到靈堂的桌上\r\n" +
         "2.把給阿嬤的拜飯拿去廚房\r\n" +
         "3.擺好靈堂的花圈",
+        "10元代替",
+        "10元硬幣",
     };
 
     public readonly static string[] item_MainInfo_Forest = new string[]
@@ -81,10 +85,15 @@ public partial class GlobalDeclare
 
     public readonly static string[] item_BottonInfo_OutSide = new string[]
     {
+       "", // 紙條
+    "按 <size=32><color=red><b>R</b></color></size> 繼續",
+    "按 <size=32><color=red><b>R</b></color></size> 繼續"  // ✅ index = 2
     };
 
     public readonly static string[] item_BottonInfo_Forest = new string[]
     {
     };
+
+
     #endregion
 }

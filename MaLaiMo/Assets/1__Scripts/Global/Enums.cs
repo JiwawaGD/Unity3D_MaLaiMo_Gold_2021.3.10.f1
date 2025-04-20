@@ -91,7 +91,7 @@ public enum UIItemID
     // Lv2 : Scene_2
     Lv2_Paper = 0,
     Lv2_Begin,
-
+    Lv2_10Dollar = 2, 
 }
 
 public enum ButtonEventID

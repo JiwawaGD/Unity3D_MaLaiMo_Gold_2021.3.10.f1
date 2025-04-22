@@ -137,6 +137,9 @@ public class SceneController_Room : SceneController
                         case HintItemID.Lv1_Piano:
                             itemName = "_Scene01_InteractItems/__Level_1_TODO/Lv1_Piano";
                             break;
+                        case HintItemID.Lv1_Item_FinishedLotus:
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Finished_Lotus_Paper";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -194,7 +197,18 @@ public class SceneController_Room : SceneController
     public void LotusGameFinish()
     {
         this._lotusGameManager.enabled = false;
-        PlayerCtrlr.SetCursor();
+
+        Vector3 playerLocation = new(-3.2f, 0.68f, -1.8f);
+        Vector3 playerRotation = new(0f, 270f, 0f);
+        Vector3 cameraRotation = new(-47f, 0f, 0f);
+
+        PlayerCtrlr.SetToTargetLocation(playerLocation, playerRotation, cameraRotation);
+
+        PlayerCtrlr._bCanControl = true;
+        PlayerCtrlr._rig.useGravity = true;
+        PlayerCtrlr._collider.enabled = true;
+
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_FinishedLotus);
     }
     #endregion
 
@@ -222,6 +236,9 @@ public class SceneController_Room : SceneController
                     break;
                 case GameEventID.Lv1_Piano:
                     //Lv1_LotusPaperCheck();
+                    break;
+                case GameEventID.Lv1_Event_HoldFinishLotusPaper:
+                    Lv1_Event_HoldFinishLotusPaper();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
@@ -294,6 +311,11 @@ public class SceneController_Room : SceneController
             this._lotusGameManager.enabled = true;
             this._lotusGameManager.SetPaperLocation();
         });
+    }
+
+    void Lv1_Event_HoldFinishLotusPaper()
+    {
+        Debug.Log("Lv1_Event_HoldFinishLotusPaper");
     }
     #endregion
 }

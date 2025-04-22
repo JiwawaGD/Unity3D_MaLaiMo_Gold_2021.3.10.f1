@@ -154,6 +154,11 @@ public class LotusGameManager : MonoBehaviour
                 PlayLotusAni(key);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            LotusGameFinish();
+        }
     }
 
     void PlayLotusAni(KeyCode r_key)
@@ -415,7 +420,7 @@ public class LotusGameManager : MonoBehaviour
     {
         Animation chairAnim = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_rosewood_Chair").GetComponent<Animation>();
         chairAnim["chair_move"].time = 0f;
-        chairAnim.PlayQueued("chair_move"); 
+        chairAnim.PlayQueued("chair_move");
     }
 
     void SetTVNoiseOn()
@@ -425,7 +430,9 @@ public class LotusGameManager : MonoBehaviour
 
     void LotusGameFinish()
     {
-        this.LotusPaperObj[6].transform.localPosition = new Vector3(0f, -1f, 0f);
+        for (int lotusIndex = 1; lotusIndex < 7; lotusIndex++)
+            this.LotusPaperObj[lotusIndex].transform.localPosition = new Vector3(0f, -1f, 0f);
+
         this._finishedLotusPaper.SetActive(true);
         this._sceneController.LotusGameFinish();
     }

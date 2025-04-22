@@ -297,6 +297,15 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = _bCursorShow;
     }
 
+    public void SetToTargetLocation(Vector3 r_v3TargetPos, Vector3 r_v3PlayerEndRotation, Vector3 r_v3CameraEndRotation)
+    {
+        this.transform.position = r_v3TargetPos;
+
+        this.tfTransform.rotation = Quaternion.Euler(r_v3PlayerEndRotation);
+        this.tfPlayerCamera.localRotation = Quaternion.Euler(r_v3CameraEndRotation);
+    }
+
+    // 透過 Tween 移動至指定座標
     public void MoveToTargetPosition(Vector3 r_v3TargetPos, Vector3 r_v3PlayerEndRotation, Vector3 r_v3CameraEndRotation, float r_fDuration, Action onCompleteCallback = null)
     {
         // 角色不可操控
@@ -323,6 +332,5 @@ public class PlayerController : MonoBehaviour
             onCompleteCallback?.Invoke();
         });
     }
-
     #endregion
 }

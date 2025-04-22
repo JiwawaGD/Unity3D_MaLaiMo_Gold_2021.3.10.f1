@@ -34,8 +34,8 @@ public partial class GlobalDeclare
     public readonly static string[] item_Title_OutSide = new string[]
     {
         "紙條",
-        "10元硬幣",
-        "10元代替"
+        "",
+        "兩枚十元硬幣"
     };
 
     public readonly static string[] item_Title_Forest = new string[]
@@ -63,7 +63,11 @@ public partial class GlobalDeclare
         "2.把給阿嬤的拜飯拿去廚房\r\n" +
         "3.擺好靈堂的花圈",
         "10元代替",
-        "10元硬幣",
+        "在道教信仰中，信眾會擲筊請求神明指示，當出現「一凸一平」，表示神明同意，為「聖杯」；\r\n "+
+        "出現「兩凸面朝上」，表示不同意，為「無杯」；\r\n "+
+        "如果擲到「兩平面朝上」，則表示神明沒有確切答覆，為「笑杯」，需要再重擲一次。\r\n "+
+        "在許多老一輩的觀念中，會用硬幣取代擲筊與亡者溝通。\r\n "+
+        "文字代表凸面，人頭代表平面。",
     };
 
     public readonly static string[] item_MainInfo_Forest = new string[]
@@ -86,8 +90,9 @@ public partial class GlobalDeclare
     public readonly static string[] item_BottonInfo_OutSide = new string[]
     {
        "", // 紙條
-    "按 <size=32><color=red><b>R</b></color></size> 繼續",
-    "按 <size=32><color=red><b>R</b></color></size> 繼續"  // ✅ index = 2
+        "按 <size=32><color=red><b>R</b></color></size> 繼續",
+        "按 <size=32><color=red><b>R</b></color></size> 可互動\r\n " +
+        "會有擲硬幣動畫",
     };
 
     public readonly static string[] item_BottonInfo_Forest = new string[]

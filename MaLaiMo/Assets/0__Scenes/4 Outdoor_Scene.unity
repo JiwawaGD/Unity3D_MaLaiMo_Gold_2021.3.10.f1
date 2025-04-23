@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11264,7 +11264,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650221196}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 0}
   m_Animations:
@@ -16982,13 +16982,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueText: {fileID: 0}
   ActionEvent:
-  - '{%wait:10'
   - "{//%voice:0;1 \u92FC\u7434A\u65CB\u5F8B"
   - '{%wait:1'
   - "\u7433\u7433\uFF1A\u597D\u50CF\u53EA\u6709\u6211\u807D\u5230\u22EF\u22EF"
   - '{%wait:1'
   - 
   - '{%function:0;'
+  - '{%function:1;'
   HandleObject: []
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
@@ -16999,6 +16999,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SceneController_OutSide, Assembly-CSharp
         m_MethodName: SetPlayerControl
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1029059990}
+        m_TargetAssemblyTypeName: SceneController_OutSide, Assembly-CSharp
+        m_MethodName: FinishHeardMelody
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -17496,6 +17508,7 @@ MonoBehaviour:
   ForestTP: {fileID: 48387717}
   paperFinish: []
   FlowerCircle: {fileID: 1141082764}
+  Player_Ani: {fileID: 650221205}
   interactionController: {fileID: 1029059991}
 --- !u!114 &1029059991
 MonoBehaviour:

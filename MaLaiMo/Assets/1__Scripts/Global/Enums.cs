@@ -179,6 +179,7 @@ public enum OutSide_Dialogue
     Lv2_001_E_Mother_PaperNotFinish,
     Lv2_002_E_Mother_PaperFinish,
     Lv2_003_E_FlowerCircle,
+    Lv2_004_FirstSevenDays_Half,
     Lv2_007_GoOut,
 }
 

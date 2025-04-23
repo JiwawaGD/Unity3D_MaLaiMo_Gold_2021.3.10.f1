@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneController_OutSide : SceneController
 {
@@ -16,9 +17,10 @@ public class SceneController_OutSide : SceneController
     public Camera PlayerCamera;
     public Transform Player;
     public GameObject ForestTP;
-    public static string nowMission = "no";
-    public GameObject[] paperFinish;
+    public static string nowMission = "";
+    [Header("代辦事項刪除線")] public GameObject[] paperFinish;
     public GameObject FlowerCircle;
+    public Animation Player_Ani;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
     [SerializeField] private InteractionController interactionController;
@@ -29,15 +31,17 @@ public class SceneController_OutSide : SceneController
     public override void Start()
     {
         base.Start();
+        TransitFadeOut();
         GlobalDeclare._firstStartGameLevel_2 = false;
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
-        nowMission = "跟著媽媽";
 
+
+        //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
         if(MomFirstTalk == true && readPaper == true)
         {
+            //判斷代辦事項刪除線是否開啟
             for (int i = 0; i < paperMissionFinsih.Length; i++)
             {
                 paperFinish[i].SetActive(paperMissionFinsih[i]);
@@ -51,6 +55,11 @@ public class SceneController_OutSide : SceneController
                 ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
             }
 
+            if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+            {
+                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
+            }
+
             if (takeLotus == true)
             {
                 //拿紙蓮花
@@ -58,7 +67,7 @@ public class SceneController_OutSide : SceneController
             }
         }
 
-        // 並非執行初次森林事件，就執行媽媽引導玩家
+        // 若目前任務為森林事件，就執行媽媽引導玩家
         if (nowMission == "跟著媽媽去森林")
         {
             ForestTP.SetActive(true);
@@ -68,17 +77,12 @@ public class SceneController_OutSide : SceneController
            // GlobalDeclare._firstStartGameLevel_2 = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
         }
+        // 若目前任務為頭七事件，就執行玩家拜拜動畫
         else if (nowMission == "頭七")
         {
-
-        }
-        else 
-        {
-            // 設定玩家傳送座標
-            SetPlayerLocation(this._insideGoOutTransitPos.localPosition);
-
-            // 非第一次進場場景 > 轉場圖片 Fade Out
-            TransitFadeOut();
+            Player_Ani.enabled = true;
+            Player_Ani.PlayQueued("Player_GoTOMourningHall");
+            StartCoroutine(FirstSevenDay());
         }
     }
 
@@ -366,6 +370,20 @@ public class SceneController_OutSide : SceneController
         FlowerCircle.transform.DORotate(new Vector3(0, 0, 0), 1);
         FlowerCircle.transform.DOMove(new Vector3(494.652f, -0.117f, 476.953f), 1);
         PlayDialogue((byte)OutSide_Dialogue.Lv2_003_E_FlowerCircle);
+    }
+
+    IEnumerator FirstSevenDay()
+    {
+        yield return new WaitForSeconds(9f);
+        Player_Ani.PlayQueued("Pray");
+        yield return new WaitForSeconds(9f);
+        PlayDialogue((byte)OutSide_Dialogue.Lv2_004_FirstSevenDays_Half);
+    }
+
+    public void FinishHeardMelody()
+    {
+        Player_Ani.enabled = false;
+        nowMission = "";
     }
     #endregion
 }

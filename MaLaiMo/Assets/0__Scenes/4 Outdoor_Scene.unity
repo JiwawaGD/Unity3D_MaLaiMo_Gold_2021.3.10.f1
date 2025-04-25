@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15851,6 +15851,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &900225669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8052985961012572280, guid: b5b6462a96cb58740b56630ed0abd0ab, type: 3}
+  m_PrefabInstance: {fileID: 130060374}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &910949978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17522,6 +17527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9b6e1222dce4a43a5e7aab5920bdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outSidePlayer: {fileID: 650221200}
+  sceneControllerOutSide: {fileID: 1029059990}
+  audManager: {fileID: 1494553558}
   interactionDistance: 3
   playerCamera: {fileID: 1597591853}
   coinCloseupCamera: {fileID: 2095705351}
@@ -17534,6 +17542,7 @@ MonoBehaviour:
   closeupDuration: 3
   returnDelay: 0.5
   useFixedPattern: 0
+  finishedAllThrows: 0
 --- !u!1001 &1033478778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26540,7 +26549,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491654262}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1491654264
 Camera:
   m_ObjectHideFlags: 0
@@ -26786,6 +26795,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9013834944653302247, guid: 66674a701198f574183654094de3ef18, type: 3}
   m_PrefabInstance: {fileID: 1493578198}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494553558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8675690754418267887, guid: 59ee06cf8da02a64291664fe1b114e1d, type: 3}
+  m_PrefabInstance: {fileID: 1051217980}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c197d7143fd0741a99b5866103d4c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1497455265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37964,6 +37984,14 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8052985961012572260, guid: b5b6462a96cb58740b56630ed0abd0ab, type: 3}
   m_PrefabInstance: {fileID: 130060374}
   m_PrefabAsset: {fileID: 0}
+--- !u!81 &2095705354
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900225669}
+  m_Enabled: 1
 --- !u!1001 &2100073943
 PrefabInstance:
   m_ObjectHideFlags: 0

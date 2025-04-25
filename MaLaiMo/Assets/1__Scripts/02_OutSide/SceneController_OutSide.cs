@@ -36,10 +36,11 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
+        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
 
 
         //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
-        if(MomFirstTalk == true && readPaper == true)
+        if (MomFirstTalk == true && readPaper == true)
         {
             //判斷代辦事項刪除線是否開啟
             for (int i = 0; i < paperMissionFinsih.Length; i++)
@@ -74,7 +75,7 @@ public class SceneController_OutSide : SceneController
             mom.gameObject.SetActive(true);
             PlayerCtrlr.tfTransform.LookAt(mom);
             PlayerCtrlr._bCanControl = false;
-           // GlobalDeclare._firstStartGameLevel_2 = true;
+            // GlobalDeclare._firstStartGameLevel_2 = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_007_GoOut);
         }
         // 若目前任務為頭七事件，就執行玩家拜拜動畫
@@ -89,8 +90,13 @@ public class SceneController_OutSide : SceneController
     public override void Update()
     {
         base.Update();
+
+        Debug.Log("Update: GlobalDeclare._waitingPlay10Dollar = " + GlobalDeclare._waitingPlay10Dollar);
+        Debug.Log("Update: PlayerCtrlr._bCanControl = " + PlayerCtrlr._bCanControl);
+
         if (GlobalDeclare._waitingPlay10Dollar && Input.GetKeyDown(KeyCode.R))
         {
+            Debug.Log("觸發 Start10DollarEvent()");
             Start10DollarEvent();
         }
         if (GlobalDeclare._firstStartGameLevel_2 == true || mom_Controller.AFKTimeCount < 1200)
@@ -168,19 +174,12 @@ public class SceneController_OutSide : SceneController
     {
         SetItemCanvasEnable(false);
         SetCrosshairEnable(true);
-
         GlobalDeclare._waitingPlay10Dollar = false;
         GlobalDeclare._played10DollarEvent = true;
 
-        // ✅ 改成使用 Serialized Reference
-        if (interactionController != null)
-        {
-            interactionController.StartThrowingSequence();
-        }
-        else
-        {
-            Debug.LogError("[錯誤] interactionController 尚未綁定！");
-        }
+        // 呼叫 InteractionController
+        interactionController.StartThrowingSequence();
+
     }
 
 
@@ -300,9 +299,17 @@ public class SceneController_OutSide : SceneController
                     Lv2_PutLotusPaper();
                     break;
                 case GameEventID.LV2_10Dollar:
-                    UIState(UIItemID.Lv2_10Dollar, true, true); // ✅ index = 2
+                    if (GlobalDeclare._played10DollarEvent && interactionController.finishedAllThrows)
+                    {
+                        Debug.Log("硬幣事件已完成，不再觸發");
+                        break; // 避免再次觸發
+                    }
+
+                    UIState(UIItemID.Lv2_10Dollar, true, true);
                     GlobalDeclare._waitingPlay10Dollar = true;
+                    SetPlayerControl(false);
                     break;
+
 
                 case GameEventID.Lv2_FlowerCircle:
                     Lv2_FlowerCircle();

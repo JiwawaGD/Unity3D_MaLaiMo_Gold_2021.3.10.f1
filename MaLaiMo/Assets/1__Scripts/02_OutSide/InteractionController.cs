@@ -52,6 +52,7 @@ public class InteractionController : MonoBehaviour
         coinPlusMinus.SetActive(false);
     }
 
+    // 在InteractionController.cs的StartThrowingSequence方法中
     public void StartThrowingSequence()
     {
         if (isThrowingCoin)
@@ -61,6 +62,18 @@ public class InteractionController : MonoBehaviour
         }
 
         isThrowingCoin = true;
+
+        // 確保禁用玩家控制
+        if (outSidePlayer != null)
+        {
+            outSidePlayer._bCanControl = false;
+        }
+
+        if (sceneControllerOutSide != null)
+        {
+            sceneControllerOutSide.SetPlayerControl(false);
+        }
+
         hand.SetActive(true);
         canDetectCoin = false;
         StartCoroutine(ThrowCoin());
@@ -159,24 +172,40 @@ public class InteractionController : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        outSidePlayer.enabled = true;
-        outSidePlayer._bCanControl = true;
+        // 這裡的引用可能有問題，確保正確引用outSidePlayer和sceneControllerOutSide
+        if (outSidePlayer != null)
+        {
+            outSidePlayer.enabled = true;
+            outSidePlayer._bCanControl = true;
+        }
 
-        sceneControllerOutSide.SetPlayerControl(true);
-        sceneControllerOutSide.SetCrosshairEnable(true);
+        if (sceneControllerOutSide != null)
+        {
+            sceneControllerOutSide.SetPlayerControl(true);
+            sceneControllerOutSide.SetCrosshairEnable(true);
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        Debug.Log("Reset 完成: throwCount = " + throwCount);
+        Debug.Log("Reset 完成: throwCount = " + throwCount + ", 玩家控制已恢復");
+        OnThrowingFinished();
     }
 
 
 
     void ResetState()
     {
+        Debug.Log("開始重置玩家狀態");
         StartCoroutine(ResetStateCoroutine());
+    }
 
+    public void OnThrowingFinished()
+    {
+        if (sceneControllerOutSide != null)
+        {
+            sceneControllerOutSide.OnCoinThrowingFinished();
+        }
     }
 
     IEnumerator SmoothRotateCamera(Quaternion startRotation, Quaternion endRotation, float duration)

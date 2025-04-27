@@ -23,6 +23,7 @@ public class SceneController_OutSide : SceneController
     public Animation Player_Ani;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
+    private bool isHandlingCoinEvent = false;
     [SerializeField] private InteractionController interactionController;
 
     #endregion
@@ -90,9 +91,6 @@ public class SceneController_OutSide : SceneController
     public override void Update()
     {
         base.Update();
-
-        Debug.Log("Update: GlobalDeclare._waitingPlay10Dollar = " + GlobalDeclare._waitingPlay10Dollar);
-        Debug.Log("Update: PlayerCtrlr._bCanControl = " + PlayerCtrlr._bCanControl);
 
         if (GlobalDeclare._waitingPlay10Dollar && Input.GetKeyDown(KeyCode.R))
         {
@@ -172,18 +170,18 @@ public class SceneController_OutSide : SceneController
 
     void Start10DollarEvent()
     {
+        // 已經在處理硬幣事件，直接返回
+        if (isHandlingCoinEvent) return;
+
+        isHandlingCoinEvent = true;
         SetItemCanvasEnable(false);
         SetCrosshairEnable(true);
         GlobalDeclare._waitingPlay10Dollar = false;
         GlobalDeclare._played10DollarEvent = true;
 
-        // 呼叫 InteractionController
+        // 呼叫InteractionController
         interactionController.StartThrowingSequence();
-
     }
-
-
-
 
     public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
     {
@@ -299,11 +297,8 @@ public class SceneController_OutSide : SceneController
                     Lv2_PutLotusPaper();
                     break;
                 case GameEventID.LV2_10Dollar:
-                    if (GlobalDeclare._played10DollarEvent && interactionController.finishedAllThrows)
-                    {
-                        Debug.Log("硬幣事件已完成，不再觸發");
-                        break; // 避免再次觸發
-                    }
+                    // 如果已經在處理硬幣事件，直接返回
+                    if (isHandlingCoinEvent) break;
 
                     UIState(UIItemID.Lv2_10Dollar, true, true);
                     GlobalDeclare._waitingPlay10Dollar = true;
@@ -391,6 +386,12 @@ public class SceneController_OutSide : SceneController
     {
         Player_Ani.enabled = false;
         nowMission = "";
+    }
+
+    public void OnCoinThrowingFinished()
+    {
+        isHandlingCoinEvent = false;
+        Debug.Log("硬幣投擲結束，可以再次互動");
     }
     #endregion
 }

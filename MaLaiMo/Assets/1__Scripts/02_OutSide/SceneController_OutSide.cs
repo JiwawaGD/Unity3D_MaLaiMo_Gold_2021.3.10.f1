@@ -37,7 +37,6 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
 
 
         //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
@@ -50,23 +49,7 @@ public class SceneController_OutSide : SceneController
                 if (paperMissionFinsih[i] == true) break;
                 ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
             }
-
-            if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
-            {
-                FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
-                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
-            }
-
-            if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
-            {
-                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
-            }
-
-            if (takeLotus == true)
-            {
-                //拿紙蓮花
-                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
-            }
+            CheckParperMission();
         }
 
         // 若目前任務為森林事件，就執行媽媽引導玩家
@@ -85,6 +68,26 @@ public class SceneController_OutSide : SceneController
             Player_Ani.enabled = true;
             Player_Ani.PlayQueued("Player_GoTOMourningHall");
             StartCoroutine(FirstSevenDay());
+        }
+    }
+
+    void CheckParperMission()
+    {
+        if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+        {
+            FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
+        }
+
+        if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+        {
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
+        }
+
+        if (takeLotus == true)
+        {
+            //拿紙蓮花
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
     }
 
@@ -202,16 +205,16 @@ public class SceneController_OutSide : SceneController
                             itemName = "_Scene02_InteractItems/Lv2_Front_Door";
                             break;
                         case HintItemID.Lv2_Mom:
-                            itemName = "_Scene02_InteractItems/LV2_Mom";
+                            itemName = "_Scene02_InteractItems/Lv2_Mom";
                             break;
                         case HintItemID.Lv2_Paper:
-                            itemName = "_Scene02_InteractItems/book_w_a";
+                            itemName = "_Scene02_InteractItems/Lv2_Paper";
                             break;
                         case HintItemID.Lv2_Table:
-                            itemName = "_Scene02_InteractItems/Table";
+                            itemName = "_Scene02_InteractItems/Lv2_Table";
                             break;
                         case HintItemID.LV2_10Dollar:
-                            itemName = "_Scene02_InteractItems/LV2_10Dollar";
+                            itemName = "_Scene02_InteractItems/Lv2_10Dollar";
                             break;
                         case HintItemID.Lv2_FlowerCircle:
                             itemName = "_Scene02_InteractItems/Lv2_FlowerCircle";
@@ -256,7 +259,7 @@ public class SceneController_OutSide : SceneController
         {
             case UIItemID.Lv2_Paper:
                 RO_OBJ[saveRotaObj].transform.DOMove(
-                    new Vector3(-27.6957f, 1.870368f, 8.7448f), 0.5f);
+                    new Vector3(-27.887f, 1.922f, 8.7448f), 0.5f);
                 break;
         }
     }
@@ -291,6 +294,8 @@ public class SceneController_OutSide : SceneController
                 case GameEventID.Lv2_CheckPaper:
                     readPaper = true;
                     UIState(UIItemID.Lv2_Paper, true, false);
+                    ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
+                    CheckParperMission();
                     break;
                 case GameEventID.Lv2_PutLotusPaper:
                     takeLotus = false;
@@ -345,6 +350,7 @@ public class SceneController_OutSide : SceneController
         {
             MomFirstTalk = true;
             PlayDialogue((byte)OutSide_Dialogue.Lv2_000_E_Mother_First);
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
         }
         else
         {

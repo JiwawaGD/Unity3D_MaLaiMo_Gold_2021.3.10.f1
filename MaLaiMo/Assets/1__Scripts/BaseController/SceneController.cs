@@ -126,6 +126,7 @@ public partial class SceneController : MonoBehaviour
                     if (!romanager)
                     {
                         RestoreItemLocation();
+                        SetItemCanvasEnable(false);
                         Ro_Light.enabled = false;
                     }
                 }
@@ -287,6 +288,7 @@ public partial class SceneController : MonoBehaviour
         RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 0.1f);
         isMoveingObject = false;
         StudioUI.SetActive(false);
+        PlayerCtrlr._bCanControl = true;
     }
 
     public void SetGameState()  // 設定遊戲狀態
@@ -435,11 +437,11 @@ public partial class SceneController : MonoBehaviour
         PlayerCtrlr.SetCursor();
 
         // *TODO* 問 Tony
-        //if (r_bEnable)
-        //    ShowObj(r_ItemID);
+        if (r_bEnable)
+            ShowObj(r_ItemID);
 
-        //if (r_bEnable)
-        //    ProcessRoMoving((int)r_ItemID);
+        if (r_bEnable)
+            ProcessRoMoving((int)r_ItemID);
     }
 
     /// <summary>

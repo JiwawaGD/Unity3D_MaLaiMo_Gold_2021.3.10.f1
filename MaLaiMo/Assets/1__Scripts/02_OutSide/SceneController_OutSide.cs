@@ -21,6 +21,7 @@ public class SceneController_OutSide : SceneController
     [Header("代辦事項刪除線")] public GameObject[] paperFinish;
     public GameObject FlowerCircle;
     public Animation Player_Ani;
+    public Animator MomAnimator;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
@@ -89,6 +90,11 @@ public class SceneController_OutSide : SceneController
             //拿紙蓮花
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
+    }
+
+    public void MomBackToWrite()
+    {
+        MomAnimator.SetInteger("Step", 2);
     }
 
     public override void Update()
@@ -346,6 +352,7 @@ public class SceneController_OutSide : SceneController
 
     void Lv2_TalkToMom()
     {
+        MomAnimator.SetInteger("Step", 1);
         if (MomFirstTalk == false)
         {
             MomFirstTalk = true;

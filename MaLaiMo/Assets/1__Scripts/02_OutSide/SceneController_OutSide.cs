@@ -19,6 +19,7 @@ public class SceneController_OutSide : SceneController
     public GameObject ForestTP;
     public static string nowMission = "";
     [Header("代辦事項刪除線")] public GameObject[] paperFinish;
+    public GameObject[] interactiopaperFinish;
     public GameObject FlowerCircle;
     public Animation Player_Ani;
     public Animator MomAnimator;
@@ -47,6 +48,7 @@ public class SceneController_OutSide : SceneController
             for (int i = 0; i < paperMissionFinsih.Length; i++)
             {
                 paperFinish[i].SetActive(paperMissionFinsih[i]);
+                interactiopaperFinish[i].SetActive(paperMissionFinsih[i]);
                 if (paperMissionFinsih[i] == true) break;
                 ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
             }
@@ -77,6 +79,7 @@ public class SceneController_OutSide : SceneController
         if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
         {
             FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
+            FlowerCircle.transform.position = new Vector3(FlowerCircle.transform.position.x, FlowerCircle.transform.position.y, 477.286f);
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
         }
 
@@ -352,6 +355,7 @@ public class SceneController_OutSide : SceneController
 
     void Lv2_TalkToMom()
     {
+        PlayerCtrlr._bCanControl = false;
         MomAnimator.SetInteger("Step", 1);
         if (MomFirstTalk == false)
         {
@@ -376,15 +380,21 @@ public class SceneController_OutSide : SceneController
     void Lv2_PutLotusPaper()
     {
         paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
+        paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
+        interactiopaperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
+        paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
+        interactiopaperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
     }
 
     void Lv2_FlowerCircle()
     {
-        paperMissionFinsih[(int)PaperMission.LayOutSideCircle] = true;
         PlayerCtrlr._bCanControl = false;
         FlowerCircle.transform.DORotate(new Vector3(0, 0, 0), 1);
         FlowerCircle.transform.DOMove(new Vector3(494.652f, -0.117f, 476.953f), 1);
         PlayDialogue((byte)OutSide_Dialogue.Lv2_003_E_FlowerCircle);
+        paperMissionFinsih[(int)PaperMission.LayOutSideCircle] = true;
+        paperFinish[(int)PaperMission.LayOutSideCircle].SetActive(true);
+        interactiopaperFinish[(int)PaperMission.LayOutSideCircle].SetActive(true);
     }
 
     IEnumerator FirstSevenDay()

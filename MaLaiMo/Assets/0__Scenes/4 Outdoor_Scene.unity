@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9153,7 +9153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &578739563
 Transform:
   m_ObjectHideFlags: 0
@@ -11917,7 +11917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &699402331
 Transform:
   m_ObjectHideFlags: 0
@@ -15467,11 +15467,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &900225669 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8052985961012572280, guid: b5b6462a96cb58740b56630ed0abd0ab, type: 3}
-  m_PrefabInstance: {fileID: 130060374}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &910949978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16213,7 +16208,7 @@ GameObject:
   - component: {fileID: 957636751}
   - component: {fileID: 957636750}
   m_Layer: 10
-  m_Name: ClipBoardwline
+  m_Name: Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17201,10 +17196,17 @@ MonoBehaviour:
   PlayerCamera: {fileID: 1597591853}
   Player: {fileID: 650221197}
   ForestTP: {fileID: 48387717}
-  paperFinish: []
+  paperFinish:
+  - {fileID: 218692066298389651}
+  - {fileID: 5493922801843919629}
+  - {fileID: 9039640804093233793}
+  interactiopaperFinish:
+  - {fileID: 578739562}
+  - {fileID: 699402330}
+  - {fileID: 1422234083}
   FlowerCircle: {fileID: 1141082764}
   Player_Ani: {fileID: 650221205}
-  MomAnimator: {fileID: 0}
+  MomAnimator: {fileID: 5866666020757433313}
   interactionController: {fileID: 1029059991}
 --- !u!114 &1029059991
 MonoBehaviour:
@@ -25018,7 +25020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1422234084
 Transform:
   m_ObjectHideFlags: 0
@@ -26635,6 +26637,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.4239998
       objectReference: {fileID: 0}
+    - target: {fileID: 1991541097901122171, guid: d70e6807e4967e941909bc9a9be6d031, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3422806650102798966, guid: d70e6807e4967e941909bc9a9be6d031, type: 3}
       propertyPath: far clip plane
       value: 4.78
@@ -26819,8 +26825,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.576
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3101549544254122521, guid: d70e6807e4967e941909bc9a9be6d031, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d70e6807e4967e941909bc9a9be6d031, type: 3}
 --- !u!108 &1509818475 stripped
 Light:
@@ -29608,7 +29613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrentLevelID: 3
   EventID: 103
-  bAlwaysActive: 0
+  bAlwaysActive: 1
   fHintRange: 3
   bActive: 0
 --- !u!65 &1656012153
@@ -33127,7 +33132,6 @@ MonoBehaviour:
   - "\u5ABD\u5ABD\uFF1A\u6211\u8A18\u5F97\u653E\u5728\u623F\u9593\u88E1\u4E86\uFF0C\u53EF\u4EE5\u53BB\u627E\u627E\u770B\u3002"
   - '{%wait:2'
   - 
-  - "{//%function:0; \u8F49\u8EAB\u56DE\u53BB"
   - '{%function:0;'
   HandleObject: []
   Voices:
@@ -36021,6 +36025,7 @@ MonoBehaviour:
   - "\u5ABD\u5ABD\uFF1A\u90FD\u505A\u597D\u4E86\u7684\u8A71\u518D\u8DDF\u6211\u8AAA\u3002"
   - '{%wait:2'
   - '{%function:0;'
+  - 
   - ' '
   HandleObject: []
   Voices:
@@ -37381,14 +37386,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 8052985961012572260, guid: b5b6462a96cb58740b56630ed0abd0ab, type: 3}
   m_PrefabInstance: {fileID: 130060374}
   m_PrefabAsset: {fileID: 0}
---- !u!81 &2095705354
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900225669}
-  m_Enabled: 1
 --- !u!1001 &2100073943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38591,7 +38588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &249738577058587210
 Transform:
   m_ObjectHideFlags: 0
@@ -42388,7 +42385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5510064996522134055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45041,7 +45038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!137 &9068387831588464273
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

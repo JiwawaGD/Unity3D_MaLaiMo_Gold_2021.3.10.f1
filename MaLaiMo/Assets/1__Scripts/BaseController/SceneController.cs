@@ -114,7 +114,7 @@ public partial class SceneController : MonoBehaviour
     /// </summary>
     public virtual void KeyboardCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             // 關閉 UI 畫面
             if (m_bInUIView)
@@ -125,6 +125,7 @@ public partial class SceneController : MonoBehaviour
 
                     if (!romanager)
                     {
+                        PlayerCtrlr.SetCursor();
                         RestoreItemLocation();
                         SetItemCanvasEnable(false);
                         Ro_Light.enabled = false;

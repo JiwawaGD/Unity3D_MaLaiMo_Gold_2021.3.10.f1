@@ -23,6 +23,7 @@ public class SceneController_OutSide : SceneController
     public GameObject FlowerCircle;
     public Animation Player_Ani;
     public Animator MomAnimator;
+    public GameObject HandAni;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
@@ -39,7 +40,7 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
-
+        //nowMission = "頭七";
 
         //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
         if (MomFirstTalk == true && readPaper == true)
@@ -68,6 +69,7 @@ public class SceneController_OutSide : SceneController
         // 若目前任務為頭七事件，就執行玩家拜拜動畫
         else if (nowMission == "頭七")
         {
+            Player.LookAt(FlowerCircle.transform.position);
             Player_Ani.enabled = true;
             Player_Ani.PlayQueued("Player_GoTOMourningHall");
             StartCoroutine(FirstSevenDay());
@@ -400,7 +402,7 @@ public class SceneController_OutSide : SceneController
     IEnumerator FirstSevenDay()
     {
         yield return new WaitForSeconds(9f);
-        Player_Ani.PlayQueued("Pray");
+        HandAni.SetActive(true);
         yield return new WaitForSeconds(9f);
         PlayDialogue((byte)OutSide_Dialogue.Lv2_004_FirstSevenDays_Half);
     }

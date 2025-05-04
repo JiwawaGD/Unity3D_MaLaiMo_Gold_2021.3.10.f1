@@ -9181,7 +9181,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
@@ -11945,7 +11945,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
@@ -15440,6 +15440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hand + 10dollar animation
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2486d5250d3295147a74ab94f30dcc2d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2486d5250d3295147a74ab94f30dcc2d, type: 3}
 --- !u!4 &899506720 stripped
@@ -17207,6 +17211,7 @@ MonoBehaviour:
   FlowerCircle: {fileID: 1141082764}
   Player_Ani: {fileID: 650221205}
   MomAnimator: {fileID: 5866666020757433313}
+  HandAni: {fileID: 639974357}
   interactionController: {fileID: 1029059991}
 --- !u!114 &1029059991
 MonoBehaviour:
@@ -24181,7 +24186,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
@@ -25048,7 +25053,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
+  m_MotionVectors: 0
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2

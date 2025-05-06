@@ -12,12 +12,9 @@ using System.Collections.Generic;
 public partial class SceneController : MonoBehaviour
 {
     #region < Field >
-    // 確定需要保留的區域
     [SerializeField] LevelTypeID CurrentLevel;
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
 
-    [SerializeField] [Header("Item Canvas Handler")] protected ItemCanvasHandler _itemCanvasHandler;
-    [SerializeField] [Header("Item Canvas Group")] CanvasGroup _itemCanvasGroup;
     [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
     [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
 
@@ -35,30 +32,46 @@ public partial class SceneController : MonoBehaviour
 
     protected Scene CurrentScene;
 
+    #region < ============ UI 相關 ============ >
+    [Space(10)]
+    [Header("============ UI 相關 ============")]
+    [SerializeField] [Header("Item Canvas Handler")] 
+    protected ItemCanvasHandler _itemCanvasHandler;
+
+    [SerializeField] [Header("Item Canvas Group")]
+    CanvasGroup _itemCanvasGroup;
+    #endregion
+
+    #region < ============ 攝影棚相關 ============ >
+    [Space(10)]
+    [Header("============ 攝影棚相關 ============")]
+
+    [Header("物件 Raw Image"), Tooltip("掛 ItemCanvas 中的 ItemRawImage")]
+    public GameObject _itemRawImage;
+
+    [Header("攝影棚光線"), Tooltip("掛 *攝影棚_環境* 中的 Area Light")]
+    public Light _itemRawImageLight;
+
+    [Header("Item 物件池"), Tooltip("掛 *攝影棚_物件* 中的 所有的物件")]
+    public GameObject[] _itemObjsForRawImage;
+
+    [Header("玩家攝影機 Vulume"), Tooltip("掛 *LingLing* 中的 Player Camera")]
+    [SerializeField] Volume _playerCameraVolume;
+
+    [HideInInspector]
+    public int _currentItemIndex;          //當前的 Item ID
+    private Vector3 originalPosition;     // 原始位置
+    private Quaternion originalRotation;  // 原始旋轉
+    #endregion
+
+    [Space(10)]
     [Header("============ 以下待整理 ============\n")]
-
-    [Space]
-    [SerializeField] Volume CameraVolume;
-
-    [Space]
-    [Header("物件旋轉參數設定")]
-    protected bool isMoveingObject = false;    // 是否正在移動物件
-    protected Vector3 originalPosition;    // 原始位置
-    protected Quaternion originalRotation; // 原始旋轉
-
-    //[Header("物件移動速度")] public float objSpeed;
-    [Header("旋轉物件功能")] public bool romanager;
     [Header("全域變數")] public Volume postProcessVolume;
-    [Header("物件位置")] public GameObject itemObjTransform;
-    [Header("生成後物件")] public GameObject[] RO_OBJ;
-    [Header("儲存生成物件")] public int saveRotaObj;
-    [Header("攝影棚畫面UI")] public GameObject StudioUI;
-    [Header("旋轉物件使用燈關")] public Light Ro_Light;
-    [Header("環境光")] public GameObject EnvironmentLight;
 
+    #region Static Boolean Zone
     public static bool[] paperMissionFinsih = new bool[] { false, false, false };
     public static bool takeLotus = false;
-    #region Static Boolean Zone
+
     public static bool m_bInUIView = false;
     public static bool m_bShowItemAnimate = false;
     public static bool m_bSetPlayerViewLimit = false;
@@ -69,9 +82,7 @@ public partial class SceneController : MonoBehaviour
     protected bool bIsPaused = false;
     protected bool bIsMouseEnabled = false;
     #endregion
-
-    // 以上未還未整理的程式碼
-
+    
     #region < Unity Hook >
     public virtual void Awake()
     {
@@ -95,7 +106,7 @@ public partial class SceneController : MonoBehaviour
         SetCrosshairEnable(true);
 
         // 預設關閉 Canvas Group
-        SetItemCanvasEnable(false);
+        SetItemCanvasState(false);
     }
 
     public virtual void Update()
@@ -119,18 +130,9 @@ public partial class SceneController : MonoBehaviour
             // 關閉 UI 畫面
             if (m_bInUIView)
             {
-                if (isMoveingObject)
-                {
-                    romanager = false;
-
-                    if (!romanager)
-                    {
-                        PlayerCtrlr.SetCursor();
-                        RestoreItemLocation();
-                        SetItemCanvasEnable(false);
-                        Ro_Light.enabled = false;
-                    }
-                }
+                PlayerCtrlr._bCanControl = true;
+                PlayerCtrlr.SetCursor();
+                UIState((int)UIItemID.Empty, false);
             }
             else
             {
@@ -168,15 +170,25 @@ public partial class SceneController : MonoBehaviour
         PlayerCtrlr._bCanControl = r_bEnable;
     }
 
-    /// <summary>
-    /// 顯示進入旋轉按鈕
-    /// </summary>
-    /// <param name="O_ItemID"></param>
-    public virtual void ShowObj(UIItemID r_ItemID)
+    public virtual void UIState(int r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
-        StudioUI.SetActive(true);
+        m_bInUIView = r_bEnable;
+
+        PlayerCtrlr.SetCursor();
+
+        SetItemCanvasState(r_bEnable);
+
+        if (r_bEnable)
+        {
+            ProcessItemMoving(r_ItemID);
+        }
+        else
+        {
+            RestoreItemLocation();
+        }
     }
 
+    public virtual void MoveItem(UIItemID r_ItemID) { }
     #endregion
 
     #region < Base Function >
@@ -230,21 +242,6 @@ public partial class SceneController : MonoBehaviour
         SetCrosshairEnable(GlobalDeclare.bCrossHairEnable);
     }
 
-    // 旋轉物件 (物件ID)
-    public void ProcessRoMoving(int iIndex)
-    {
-        if (RO_OBJ[saveRotaObj] == null)
-            return;
-        print("進入");
-        Ro_Light.enabled = true;
-        CameraVolume.enabled = true;
-        isMoveingObject = true;  // 正在移動物件
-        saveRotaObj = iIndex;   // 儲存物件  
-        originalPosition = RO_OBJ[saveRotaObj].transform.position;  // 儲存物件位置
-        originalRotation = RO_OBJ[saveRotaObj].transform.rotation;  // 儲存物件旋轉
-        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = true; // 啟用旋轉物件碰撞器
-    }
-
     public void ProcessItemAnimator(string r_strObject, string r_strTriggerName)
     {
         if (r_strObject.Contains("null") || r_strTriggerName.Contains("null"))
@@ -275,23 +272,6 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    public void RestoreItemLocation()
-    {
-        CameraVolume.enabled = false;
-        if (EnvironmentLight != null) EnvironmentLight.SetActive(true);
-        romanager = RO_OBJ[saveRotaObj].GetComponent<RotateObjDetect>().enabled = false;
-        print(RO_OBJ[saveRotaObj].transform.name);
-
-        //恢復物件位置
-        RO_OBJ[saveRotaObj].transform.DOMove(originalPosition, 0.1f);
-
-        //恢復物件角度
-        RO_OBJ[saveRotaObj].transform.DORotate(originalRotation.eulerAngles, 0.1f);
-        isMoveingObject = false;
-        StudioUI.SetActive(false);
-        PlayerCtrlr._bCanControl = true;
-    }
-
     public void SetGameState()  // 設定遊戲狀態
     {
         PlayerCtrlr.SetCursor();
@@ -299,11 +279,6 @@ public partial class SceneController : MonoBehaviour
         Time.timeScale = bIsPaused ? 0f : 1f;
         SettingPanel.SetActive(bIsPaused);
         bIsMouseEnabled = bIsPaused;
-    }
-
-    public bool GegameManager_bInUIView()    // 取得是否在 UI 畫面中
-    {
-        return m_bInUIView;
     }
 
     public void StopReadding()  // 停止閱讀查看物件
@@ -425,27 +400,6 @@ public partial class SceneController : MonoBehaviour
 
     #region < 有使用到的 Method >
     /// <summary>
-    /// Item Canvas State
-    /// </summary>
-    /// <param name="r_ItemID"> Item 的 ID</param>
-    /// <param name="r_bEnable"> 開關狀態</param>
-    /// <param name="r_bNeedSubTitle"> 是否打開下方小 Info</param>
-    public virtual void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
-    {
-        SetItemCanvasEnable(r_bEnable);
-        if (EnvironmentLight != null) EnvironmentLight.SetActive(false);
-        m_bInUIView = r_bEnable;
-        PlayerCtrlr.SetCursor();
-
-        // *TODO* 問 Tony
-        if (r_bEnable)
-            ShowObj(r_ItemID);
-
-        if (r_bEnable)
-            ProcessRoMoving((int)r_ItemID);
-    }
-
-    /// <summary>
     /// 滑鼠檢查MouseButtonDown(0)
     /// </summary>
     public void MouseCheck()
@@ -461,9 +415,39 @@ public partial class SceneController : MonoBehaviour
         CrosshairUI.SetActive(bEnable);
     }
 
-    public void SetItemCanvasEnable(bool r_bEnable)
+    public void SetItemCanvasState(bool r_bEnable)
     {
-        _itemCanvasGroup.alpha = r_bEnable ? 1 : 0;
+        this._itemRawImage.SetActive(r_bEnable);
+
+        this._itemCanvasGroup.alpha = r_bEnable ? 1 : 0;
+    }
+
+    // 旋轉物件 (物件ID)
+    public void ProcessItemMoving(int itemIndex)
+    {
+        if (_itemObjsForRawImage[itemIndex] == null)
+            return;
+
+        this._playerCameraVolume.enabled = true;
+        this._itemRawImageLight.enabled = true;
+
+        this._currentItemIndex = itemIndex;
+        this.originalPosition = _itemObjsForRawImage[this._currentItemIndex].transform.position;  // 儲存物件位置
+        this.originalRotation = _itemObjsForRawImage[this._currentItemIndex].transform.rotation;  // 儲存物件旋轉
+
+        this.MoveItem((UIItemID)itemIndex);
+    }
+
+    public void RestoreItemLocation()
+    {
+        this._playerCameraVolume.enabled = false;
+        this._itemRawImageLight.enabled = false;
+
+        //恢復物件位置
+        _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(originalPosition, 0.1f);
+
+        //恢復物件角度
+        _itemObjsForRawImage[this._currentItemIndex].transform.DORotate(originalRotation.eulerAngles, 0.1f);
     }
     #endregion
 }

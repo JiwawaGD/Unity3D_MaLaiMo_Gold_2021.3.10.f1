@@ -22,11 +22,6 @@ public partial class GlobalDeclare
     public readonly static string[] item_Title_Room = new string[]
     {
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
         "蓮花摺紙",
         "紙條"
     };
@@ -45,11 +40,6 @@ public partial class GlobalDeclare
 
     public readonly static string[] item_MainInfo_Room = new string[]
     {
-        "",
-        "",
-        "",
-        "",
-        "",
         "",
         "佛教信仰中，紙蓮花具有祝福消業障之意，\r\n" +
         "希望往生親人能夠乘坐於蓮花上，\r\n" +
@@ -79,11 +69,6 @@ public partial class GlobalDeclare
     public readonly static string[] item_BottonInfo_Room = new string[]
     {
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
         "按 <size=32><color=red><b>R</b></color></size> 開始摺蓮花\r\n(Press *R* Origami Lotus Paper)",
     };
 
@@ -97,8 +82,7 @@ public partial class GlobalDeclare
 
     public readonly static string[] item_BottonInfo_Forest = new string[]
     {
+
     };
-
-
     #endregion
 }

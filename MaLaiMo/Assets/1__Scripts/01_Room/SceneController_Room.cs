@@ -74,22 +74,11 @@ public class SceneController_Room : SceneController
         }
     }
 
-    /// <summary>
-    /// 顯示進入旋轉按鈕
-    /// </summary>
-    /// <param name="O_ItemID"></param>
-    public override void ShowObj(UIItemID r_ItemID)
-    {
-        base.ShowObj(r_ItemID);
-    }
-
     public override void KeyboardCheck()
     {
         // 正在摺蓮花中 Scene Controller 暫停 Update
         if (GlobalDeclare._playingLotusGame)
-        {
             return;
-        }
 
         base.KeyboardCheck();
 
@@ -98,7 +87,7 @@ public class SceneController_Room : SceneController
             if (GlobalDeclare._waitingPlayLotusPaper)
             {
                 GlobalDeclare._playingLotusGame = true;
-                UIState(UIItemID.Empty, false);
+                UIState((int)UIItemID.Empty, false);
                 this._lotusGameManager.SetHintPosition();
             }
         }
@@ -172,12 +161,25 @@ public class SceneController_Room : SceneController
         base.SetPlayerLocation(location);
     }
 
-    public override void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
+    public override void UIState(int r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         base.UIState(r_ItemID, r_bEnable, r_bNeedSubTitle);
-        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title_Room[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo_Room[(int)r_ItemID] : "";
-        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_Room[(int)r_ItemID] : "") : "";
+
+        _itemCanvasHandler._txtTopTitle.text = r_bEnable ? GlobalDeclare.item_Title_Room[r_ItemID] : "";
+        _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo_Room[r_ItemID] : "";
+        _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_Room[r_ItemID] : "") : "";
+    }
+
+    public override void MoveItem(UIItemID r_ItemID)
+    {
+        // *TODO* 因為攝影棚在 -50 的位置，因此 Y 需要設定 -50 (待優化)
+        switch (r_ItemID)
+        {
+            case UIItemID.Lv1_UI_LotusPaper:
+                this._itemObjsForRawImage[this._currentItemIndex].transform.DOMove(
+                    new Vector3(0f, -50f, 0f), 0.5f);
+                break;
+        }
     }
     #endregion
 
@@ -196,6 +198,8 @@ public class SceneController_Room : SceneController
 
     public void LotusGameFinish()
     {
+        GlobalDeclare._checkList01_lotusFinished = true;
+
         this._lotusGameManager.enabled = false;
 
         Vector3 playerLocation = new(-3.2f, 0.68f, -1.8f);
@@ -307,7 +311,7 @@ public class SceneController_Room : SceneController
         PlayerCtrlr.MoveToTargetPosition(v3TargetPos, v3PlayerEndRotation, v3PlayerCamEndRotation, 2f, () =>
         {
             GlobalDeclare._waitingPlayLotusPaper = true;
-            UIState(UIItemID.Lv1_UI_LotusPaper, true, true);
+            UIState((int)UIItemID.Lv1_UI_LotusPaper, true, true);
             this._lotusGameManager.enabled = true;
             this._lotusGameManager.SetPaperLocation();
         });

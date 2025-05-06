@@ -188,7 +188,7 @@ public class SceneController_OutSide : SceneController
         if (isHandlingCoinEvent) return;
 
         isHandlingCoinEvent = true;
-        SetItemCanvasEnable(false);
+        SetItemCanvasState(false);
         SetCrosshairEnable(true);
         GlobalDeclare._waitingPlay10Dollar = false;
         GlobalDeclare._played10DollarEvent = true;
@@ -262,29 +262,29 @@ public class SceneController_OutSide : SceneController
         base.SetPlayerControl(r_bEnable);
     }
 
-    public override void ShowObj(UIItemID r_ItemID)
+    public override void MoveItem(UIItemID r_ItemID)
     {
-        base.ShowObj(r_ItemID);
-
         switch (r_ItemID)
         {
             case UIItemID.Lv2_Paper:
-                RO_OBJ[saveRotaObj].transform.DOMove(
+                _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(
                     new Vector3(-27.887f, 1.922f, 8.7448f), 0.5f);
                 break;
         }
     }
 
-    public override void UIState(UIItemID r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
+    public override void UIState(int r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         base.UIState(r_ItemID, r_bEnable, r_bNeedSubTitle);
 
         _itemCanvasHandler._txtTopTitle.text =
-            r_bEnable ? GlobalDeclare.item_Title_OutSide[(int)r_ItemID] : "";
+            r_bEnable ? GlobalDeclare.item_Title_OutSide[r_ItemID] : "";
+
         _itemCanvasHandler._txtMainInfo.text =
-            r_bEnable ? GlobalDeclare.item_MainInfo_OutSide[(int)r_ItemID] : "";
+            r_bEnable ? GlobalDeclare.item_MainInfo_OutSide[r_ItemID] : "";
+
         _itemCanvasHandler._txtBottonInfo.text =
-            r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_OutSide[(int)r_ItemID] : "") : "";
+            r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_OutSide[r_ItemID] : "") : "";
     }
 
     #endregion
@@ -304,7 +304,7 @@ public class SceneController_OutSide : SceneController
                     break;
                 case GameEventID.Lv2_CheckPaper:
                     readPaper = true;
-                    UIState(UIItemID.Lv2_Paper, true, false);
+                    UIState((int)UIItemID.Lv2_Paper, true, false);
                     ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
                     CheckParperMission();
                     break;
@@ -316,7 +316,7 @@ public class SceneController_OutSide : SceneController
                     // 如果已經在處理硬幣事件，直接返回
                     if (isHandlingCoinEvent) break;
 
-                    UIState(UIItemID.Lv2_10Dollar, true, true);
+                    UIState((int)UIItemID.Lv2_10Dollar, true, true);
                     GlobalDeclare._waitingPlay10Dollar = true;
                     SetPlayerControl(false);
                     break;
@@ -336,14 +336,13 @@ public class SceneController_OutSide : SceneController
             throw;
         }
     }
+
     public void UIStateByIndex(LevelTypeID level, int index)
     {
         _itemCanvasHandler._txtTopTitle.text = GlobalDeclare.item_Title_OutSide[index];
         _itemCanvasHandler._txtMainInfo.text = GlobalDeclare.item_MainInfo_OutSide[index];
         _itemCanvasHandler._txtBottonInfo.text = GlobalDeclare.item_BottonInfo_OutSide[index];
-        _itemCanvasHandler._imgItem.sprite = _itemCanvasHandler._imgItem.sprite; // 若你有圖片陣列可在這改
     }
-
     #endregion
 
     #region < Game Event >

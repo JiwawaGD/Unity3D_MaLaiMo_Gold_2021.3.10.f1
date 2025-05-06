@@ -83,12 +83,7 @@ public enum UIItemID
     Empty = 0,
 
     // Lv1 : Scene_1
-    Lv1_UI_Begin_null = 1,
-    Lv1_UI_OpenRoomDoor_null = 2,
-    Lv1_UI_FirstTalkToMom_null = 3,
-    Lv1_UI_ClipBoard_null = 4,
-    Lv1_UI_GoOutSide_null = 5,
-    Lv1_UI_LotusPaper = 6,
+    Lv1_UI_LotusPaper = 1,
 
     // Lv2 : Scene_2
     Lv2_Paper = 0,

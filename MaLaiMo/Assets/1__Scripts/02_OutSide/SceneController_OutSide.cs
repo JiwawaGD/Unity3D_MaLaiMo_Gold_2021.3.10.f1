@@ -100,7 +100,7 @@ public class SceneController_OutSide : SceneController
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
 
-        if(GlobalDeclare._checkList02_putRiceFinished == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
+        if(GlobalDeclare._checkList02_putRiceToKitchen == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
         else Rice_Funeral.SetActive(false);
     }
 
@@ -421,7 +421,7 @@ public class SceneController_OutSide : SceneController
         if(FinishDollar == false) PlayDialogue((byte)OutSide_Dialogue.Lv2_008_DollarNotFinish);
         else
         {
-            GlobalDeclare._checkList02_putRiceFinished = true;
+            GlobalDeclare._checkList02_putRiceToKitchen = true;
             Rice_Funeral.SetActive(false);
         }
     }

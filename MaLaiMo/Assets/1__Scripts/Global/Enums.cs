@@ -21,6 +21,7 @@ public enum GameEventID
     Lv1_LotusPaper,
     Lv1_Piano,
     Lv1_Event_HoldFinishLotusPaper,
+    Lv1_Event_PutRiceOnKitchenTable,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -52,6 +53,7 @@ public enum HintItemID
     Lv1_Item_LotusPaper,
     Lv1_Piano,
     Lv1_Item_FinishedLotus,
+    Lv1_Item_PlaceToPutRice,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

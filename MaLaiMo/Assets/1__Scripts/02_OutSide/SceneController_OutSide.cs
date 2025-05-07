@@ -283,7 +283,7 @@ public class SceneController_OutSide : SceneController
                 break;
             case UIItemID.Lv2_10Dollar:
                 _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(
-                    new Vector3(-27.997f, 1.835f, 8.494f), 0.5f);
+                    new Vector3(-27.82f, 1.85f, 8.494f), 0.5f);
                 break;
         }
     }

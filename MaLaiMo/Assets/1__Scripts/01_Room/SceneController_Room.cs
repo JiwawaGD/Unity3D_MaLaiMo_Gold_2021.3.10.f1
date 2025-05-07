@@ -31,6 +31,12 @@ public class SceneController_Room : SceneController
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
 
+        // *TODO* 待確定使用的值
+        if (GlobalDeclare._checkList02_putRiceToKitchen)
+        {
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_PlaceToPutRice);
+        }
+
         if (!GlobalDeclare._firstStartGameLevel_1)
         {
             GlobalDeclare._firstStartGameLevel_1 = true;
@@ -128,6 +134,9 @@ public class SceneController_Room : SceneController
                             break;
                         case HintItemID.Lv1_Item_FinishedLotus:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Finished_Lotus_Paper";
+                            break;
+                        case HintItemID.Lv1_Item_PlaceToPutRice:
+                            itemName = "_Scene01_InteractItems/__Level_1/Item_PlaceToPutRice";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -244,6 +253,9 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_Event_HoldFinishLotusPaper:
                     Lv1_Event_HoldFinishLotusPaper();
                     break;
+                case GameEventID.Lv1_Event_PutRiceOnKitchenTable:
+                    Lv1_Event_PutRiceOnKitchenTable();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -320,6 +332,15 @@ public class SceneController_Room : SceneController
     void Lv1_Event_HoldFinishLotusPaper()
     {
         Debug.Log("Lv1_Event_HoldFinishLotusPaper");
+    }
+
+    void Lv1_Event_PutRiceOnKitchenTable()
+    {
+        GameObject riceAndSoup = GameObject.Find("_Scene01_Map/Kitchen/3Cuisine_1Soup");
+
+        riceAndSoup.GetComponent<MeshRenderer>().enabled = true;
+
+        paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] = true;
     }
     #endregion
 }

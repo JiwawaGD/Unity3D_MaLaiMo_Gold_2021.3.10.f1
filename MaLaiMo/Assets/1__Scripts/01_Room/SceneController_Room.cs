@@ -207,8 +207,6 @@ public class SceneController_Room : SceneController
 
     public void LotusGameFinish()
     {
-        GlobalDeclare._checkList01_lotusFinished = true;
-
         this._lotusGameManager.enabled = false;
 
         Vector3 playerLocation = new(-3.2f, 0.68f, -1.8f);
@@ -331,7 +329,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_HoldFinishLotusPaper()
     {
-        Debug.Log("Lv1_Event_HoldFinishLotusPaper");
+        GlobalDeclare._checkList01_lotusFinished = true;
     }
 
     void Lv1_Event_PutRiceOnKitchenTable()

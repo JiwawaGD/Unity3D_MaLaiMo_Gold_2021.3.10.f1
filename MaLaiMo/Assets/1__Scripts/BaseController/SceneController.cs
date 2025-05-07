@@ -82,7 +82,7 @@ public partial class SceneController : MonoBehaviour
     protected bool bIsPaused = false;
     protected bool bIsMouseEnabled = false;
     #endregion
-    
+
     #region < Unity Hook >
     public virtual void Awake()
     {
@@ -131,7 +131,6 @@ public partial class SceneController : MonoBehaviour
             if (m_bInUIView)
             {
                 PlayerCtrlr._bCanControl = true;
-                PlayerCtrlr.SetCursor();
                 UIState((int)UIItemID.Empty, false);
             }
             else
@@ -434,7 +433,7 @@ public partial class SceneController : MonoBehaviour
         this._currentItemIndex = itemIndex;
         this.originalPosition = _itemObjsForRawImage[this._currentItemIndex].transform.position;  // 儲存物件位置
         this.originalRotation = _itemObjsForRawImage[this._currentItemIndex].transform.rotation;  // 儲存物件旋轉
-
+        _itemObjsForRawImage[this._currentItemIndex].GetComponent<RotateObjDetect>().enabled = true;
         this.MoveItem((UIItemID)itemIndex);
     }
 
@@ -442,7 +441,7 @@ public partial class SceneController : MonoBehaviour
     {
         this._playerCameraVolume.enabled = false;
         this._itemRawImageLight.enabled = false;
-
+        _itemObjsForRawImage[this._currentItemIndex].GetComponent<RotateObjDetect>().enabled = false;
         //恢復物件位置
         _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(originalPosition, 0.1f);
 

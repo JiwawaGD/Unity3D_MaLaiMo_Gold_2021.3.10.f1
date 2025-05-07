@@ -24,9 +24,13 @@ public class SceneController_OutSide : SceneController
     public Animation Player_Ani;
     public Animator MomAnimator;
     public GameObject HandAni;
+    public GameObject EnvironmentLight;
+    public GameObject Rice_Funeral;
+    public static bool FinishDollar = false;
     private static bool MomFirstTalk = false;
     private static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
+
     [SerializeField] private InteractionController interactionController;
 
     #endregion
@@ -85,16 +89,19 @@ public class SceneController_OutSide : SceneController
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
         }
 
-        if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+        if (FinishDollar == false)
         {
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         }
 
-        if (takeLotus == true)
+        if (GlobalDeclare._checkList01_lotusFinished == true)
         {
-            //拿紙蓮花
+            //放紙蓮花
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
+
+        if(GlobalDeclare._checkList02_putRiceFinished == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
+        else Rice_Funeral.SetActive(false);
     }
 
     public void MomBackToWrite()
@@ -188,8 +195,9 @@ public class SceneController_OutSide : SceneController
         if (isHandlingCoinEvent) return;
 
         isHandlingCoinEvent = true;
-        SetItemCanvasState(false);
-        SetCrosshairEnable(true);
+        //SetItemCanvasState(false);
+        //SetCrosshairEnable(true);
+        UIState((int)UIItemID.Empty, false);
         GlobalDeclare._waitingPlay10Dollar = false;
         GlobalDeclare._played10DollarEvent = true;
 
@@ -229,6 +237,9 @@ public class SceneController_OutSide : SceneController
                             break;
                         case HintItemID.Lv2_FlowerCircle:
                             itemName = "_Scene02_InteractItems/Lv2_FlowerCircle";
+                            break;
+                        case HintItemID.Lv2_Cuisine_Soup:
+                            itemName = "_Scene02_InteractItems/Lv2_Cuisine_Soup";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv2_OutSideDoor] Error Item ID :: {0}", r_ItemID));
@@ -270,12 +281,19 @@ public class SceneController_OutSide : SceneController
                 _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(
                     new Vector3(-27.887f, 1.922f, 8.7448f), 0.5f);
                 break;
+            case UIItemID.Lv2_10Dollar:
+                _itemObjsForRawImage[this._currentItemIndex].transform.DOMove(
+                    new Vector3(-27.997f, 1.835f, 8.494f), 0.5f);
+                break;
         }
     }
 
     public override void UIState(int r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
         base.UIState(r_ItemID, r_bEnable, r_bNeedSubTitle);
+
+        if(r_bEnable == true) EnvironmentLight.SetActive(false);
+        else EnvironmentLight.SetActive(true);
 
         _itemCanvasHandler._txtTopTitle.text =
             r_bEnable ? GlobalDeclare.item_Title_OutSide[r_ItemID] : "";
@@ -292,8 +310,8 @@ public class SceneController_OutSide : SceneController
     #region < Basic Function >
     void Lv2_Event(GameEventID r_EventID)
     {
-        try
-        {
+        //try
+        //{
             switch (r_EventID)
             {
                 case GameEventID.Lv2_GoInside:
@@ -309,7 +327,7 @@ public class SceneController_OutSide : SceneController
                     CheckParperMission();
                     break;
                 case GameEventID.Lv2_PutLotusPaper:
-                    takeLotus = false;
+                    GlobalDeclare._checkList01_lotusFinished = false;
                     Lv2_PutLotusPaper();
                     break;
                 case GameEventID.LV2_10Dollar:
@@ -320,21 +338,22 @@ public class SceneController_OutSide : SceneController
                     GlobalDeclare._waitingPlay10Dollar = true;
                     SetPlayerControl(false);
                     break;
-
-
                 case GameEventID.Lv2_FlowerCircle:
                     Lv2_FlowerCircle();
+                    break;
+                case GameEventID.Lv2_Cuisine_Soup:
+                    Lv2_Cuisine_Soup();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
             }
-        }
-        catch (System.Exception exception)
-        {
-            Debug.LogError(string.Format("[<color=red><b>Error</b></color>] [Lv1_Event] Event  <color=red><b>{0}</b></color>  Error  ::  {1}", r_EventID, exception.Message));
-            throw;
-        }
+        //}
+        //catch (System.Exception exception)
+        //{
+        //    Debug.LogError(string.Format("[<color=red><b>Error</b></color>] [Lv1_Event] Event  <color=red><b>{0}</b></color>  Error  ::  {1}", r_EventID, exception.Message));
+        //    throw;
+        //}
     }
 
     public void UIStateByIndex(LevelTypeID level, int index)
@@ -396,6 +415,15 @@ public class SceneController_OutSide : SceneController
         paperMissionFinsih[(int)PaperMission.LayOutSideCircle] = true;
         paperFinish[(int)PaperMission.LayOutSideCircle].SetActive(true);
         interactiopaperFinish[(int)PaperMission.LayOutSideCircle].SetActive(true);
+    }
+    void Lv2_Cuisine_Soup()
+    {
+        if(FinishDollar == false) PlayDialogue((byte)OutSide_Dialogue.Lv2_008_DollarNotFinish);
+        else
+        {
+            GlobalDeclare._checkList02_putRiceFinished = true;
+            Rice_Funeral.SetActive(false);
+        }
     }
 
     IEnumerator FirstSevenDay()

@@ -28,7 +28,7 @@ public class InteractionController : MonoBehaviour
     public float returnDelay = 0.5f;
 
     [Header("模式設置")]
-    public bool useFixedPattern = false; // 是否使用固定模式（三次必中）
+    public bool useFixedPattern = true; // 是否使用固定模式（三次必中）
 
     public bool finishedAllThrows = false; // 新增變數
     private bool isLookingAtCoin = false;
@@ -107,6 +107,7 @@ public class InteractionController : MonoBehaviour
                 resultString = "正反 (+-)";
                 Debug.Log("投擲結果: " + resultString + " [勝利]");
                 finishedAllThrows = true; // 三次後標記完成
+                SceneController_OutSide.FinishDollar = true;
                 return coinPlusMinus;
             }
             else
@@ -114,7 +115,6 @@ public class InteractionController : MonoBehaviour
                 resultString = "反反 (--)";
                 Debug.Log("投擲結果: " + resultString + " [失敗]");
                 return coinMinusMinus;
-
             }
         }
         else

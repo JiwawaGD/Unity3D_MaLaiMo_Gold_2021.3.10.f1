@@ -29,7 +29,8 @@ public enum GameEventID
     Lv2_CheckPaper,
     Lv2_PutLotusPaper,
     LV2_10Dollar,
-    Lv2_FlowerCircle
+    Lv2_FlowerCircle,
+    Lv2_Cuisine_Soup,
 }
 
 public enum Lv1_EventCallBackID
@@ -59,7 +60,8 @@ public enum HintItemID
     Lv2_Paper,
     Lv2_Table,
     LV2_10Dollar,
-    Lv2_FlowerCircle
+    Lv2_FlowerCircle,
+    Lv2_Cuisine_Soup,
 }
 
 public enum ObjItemID
@@ -74,8 +76,7 @@ public enum ObjItemID
 
     // Lv2 : Scene_2戶外
     Lv2_Paper = 0,
-    Lv2_10Dollar = 1,
-
+    Lv2_10Dollar,
 }
 
 public enum UIItemID
@@ -87,8 +88,9 @@ public enum UIItemID
 
     // Lv2 : Scene_2
     Lv2_Paper = 0,
+    Lv2_10Dollar,
     Lv2_Begin,
-    Lv2_10Dollar = 2, 
+
 }
 
 public enum ButtonEventID
@@ -176,6 +178,7 @@ public enum OutSide_Dialogue
     Lv2_003_E_FlowerCircle,
     Lv2_004_FirstSevenDays_Half,
     Lv2_007_GoOut,
+    Lv2_008_DollarNotFinish,
 }
 
 public enum Forest_Dialogue

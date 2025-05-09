@@ -129,6 +129,7 @@ public enum Room_Dialogue
     Lv1_015_E_Painting,
     Lv1_016_E_Door_NotPainting,
     Lv1_017_E_Door_Painting,
+    Lv1_018_ShouldPutDown,
 
     //LV_2
     Lv2_000_Begin = 1,
@@ -181,6 +182,7 @@ public enum OutSide_Dialogue
     Lv2_004_FirstSevenDays_Half,
     Lv2_007_GoOut,
     Lv2_008_DollarNotFinish,
+    Lv2_009_ShouldPutDown
 }
 
 public enum Forest_Dialogue

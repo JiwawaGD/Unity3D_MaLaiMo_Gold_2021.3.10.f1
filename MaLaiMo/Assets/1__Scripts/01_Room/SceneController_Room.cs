@@ -32,7 +32,7 @@ public class SceneController_Room : SceneController
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
 
         // *TODO* 待確定使用的值
-        if (GlobalDeclare._checkList02_putRiceToKitchen)
+        if (GlobalDeclare._checkList02_holdRice)
         {
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_PlaceToPutRice);
         }
@@ -249,7 +249,8 @@ public class SceneController_Room : SceneController
                     //Lv1_LotusPaperCheck();
                     break;
                 case GameEventID.Lv1_Event_HoldFinishLotusPaper:
-                    Lv1_Event_HoldFinishLotusPaper();
+                    if (GlobalDeclare._checkList02_holdRice == false) Lv1_Event_HoldFinishLotusPaper();
+                    else PlayDialogue((byte)Room_Dialogue.Lv1_018_ShouldPutDown);
                     break;
                 case GameEventID.Lv1_Event_PutRiceOnKitchenTable:
                     Lv1_Event_PutRiceOnKitchenTable();
@@ -329,7 +330,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_HoldFinishLotusPaper()
     {
-        GlobalDeclare._checkList01_lotusFinished = true;
+        GlobalDeclare._checkList01_holdLotus = true;
     }
 
     void Lv1_Event_PutRiceOnKitchenTable()

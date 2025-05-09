@@ -125,7 +125,7 @@ public partial class SceneController : MonoBehaviour
     /// </summary>
     public virtual void KeyboardCheck()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             // 關閉 UI 畫面
             if (m_bInUIView)
@@ -138,6 +138,30 @@ public partial class SceneController : MonoBehaviour
                 // 顯示遊戲狀態
                 SetGameState();
             }
+        }
+        else if(Input.GetKeyDown(KeyCode.F1))
+        {
+            SceneController_OutSide.nowMission = "完成紙上任務";
+            GlobalDeclare._checkList02_holdRice = false;
+            GlobalDeclare._checkList01_holdLotus = false;
+            SceneController_OutSide.FinishDollar = false;
+            SceneController_OutSide.MomFirstTalk = false;
+            SceneController_OutSide.readPaper = false;
+            for(var i = 0; i < paperMissionFinsih.Length; i++)
+            {
+                paperMissionFinsih[i] = false;
+            }
+            SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
+        }
+        else if(Input.GetKeyDown(KeyCode.F2))
+        {
+            SceneController_OutSide.nowMission = "跟著媽媽去森林";
+            SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
+        }
+        else if(Input.GetKeyDown(KeyCode.F3))
+        {
+            SceneController_OutSide.nowMission = "頭七";
+            SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
         }
     }
 
@@ -155,8 +179,18 @@ public partial class SceneController : MonoBehaviour
     {
         this._transitBlackImg.color = new Color(0, 0, 0, 255f);
 
-        this._transitBlackImg.DOFade(0, 1f)
+        this._transitBlackImg.DOFade(0f, 2)
                              .OnComplete(() => SetPlayerControl(true));
+    }
+
+    public virtual void TransitFadeIn(string sceneName)
+    {
+        this._transitBlackImg.color = new Color(0, 0, 0, 0f);
+
+        SetPlayerControl(false);
+
+        this._transitBlackImg.DOFade(1f, 1)
+                        .OnComplete(() => SceneManager.LoadScene(sceneName));
     }
 
     public virtual void SetPlayerLocation(Vector3 location)

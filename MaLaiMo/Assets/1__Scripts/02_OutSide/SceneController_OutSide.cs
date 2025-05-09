@@ -17,7 +17,7 @@ public class SceneController_OutSide : SceneController
     public Camera PlayerCamera;
     public Transform Player;
     public GameObject ForestTP;
-    public static string nowMission = "";
+    public static string nowMission = "完成紙上任務";
     [Header("代辦事項刪除線")] public GameObject[] paperFinish;
     public GameObject[] interactiopaperFinish;
     public GameObject FlowerCircle;
@@ -27,10 +27,13 @@ public class SceneController_OutSide : SceneController
     public GameObject EnvironmentLight;
     public GameObject Rice_Funeral;
     public static bool FinishDollar = false;
-    private static bool MomFirstTalk = false;
-    private static bool readPaper = false;
+    public static bool MomFirstTalk = false;
+    public static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
-
+    /// <summary>
+    /// 角色控制器
+    /// </summary>
+    public GameObject[] TakingObjects;
     [SerializeField] private InteractionController interactionController;
 
     #endregion
@@ -43,25 +46,29 @@ public class SceneController_OutSide : SceneController
         GlobalDeclare._firstStartGameLevel_2 = false;
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
-        ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
-        //nowMission = "頭七";
 
-        //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
-        if (MomFirstTalk == true && readPaper == true)
+        if(nowMission == "完成紙上任務")
         {
-            //判斷代辦事項刪除線是否開啟
-            for (int i = 0; i < paperMissionFinsih.Length; i++)
+            MomAnimator.gameObject.SetActive(true);
+            if (GlobalDeclare._checkList01_holdLotus == true) TakingObjects[0].SetActive(true);
+            else if (GlobalDeclare._checkList02_holdRice == true) TakingObjects[1].SetActive(true);
+            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
+            //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
+            if (MomFirstTalk == true && readPaper == true)
             {
-                paperFinish[i].SetActive(paperMissionFinsih[i]);
-                interactiopaperFinish[i].SetActive(paperMissionFinsih[i]);
-                if (paperMissionFinsih[i] == true) break;
-                ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
+                //判斷代辦事項刪除線是否開啟
+                for (int i = 0; i < paperMissionFinsih.Length; i++)
+                {
+                    paperFinish[i].SetActive(paperMissionFinsih[i]);
+                    interactiopaperFinish[i].SetActive(paperMissionFinsih[i]);
+                    if (paperMissionFinsih[i] == true) break;
+                    ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
+                }
+                CheckParperMission();
             }
-            CheckParperMission();
         }
-
         // 若目前任務為森林事件，就執行媽媽引導玩家
-        if (nowMission == "跟著媽媽去森林")
+        else if (nowMission == "跟著媽媽去森林")
         {
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
@@ -94,13 +101,13 @@ public class SceneController_OutSide : SceneController
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.LV2_10Dollar);
         }
 
-        if (GlobalDeclare._checkList01_lotusFinished == true)
+        if (GlobalDeclare._checkList01_holdLotus == true)
         {
             //放紙蓮花
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
 
-        if(GlobalDeclare._checkList02_putRiceToKitchen == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
+        if(GlobalDeclare._checkList02_holdRice == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
         else Rice_Funeral.SetActive(false);
     }
 
@@ -315,7 +322,7 @@ public class SceneController_OutSide : SceneController
             switch (r_EventID)
             {
                 case GameEventID.Lv2_GoInside:
-                    Lv2_GoInside();
+                TransitFadeIn(GlobalDeclare.Lv1_Grandma_House);
                     break;
                 case GameEventID.Lv2_TalkToMom:
                     Lv2_TalkToMom();
@@ -327,22 +334,27 @@ public class SceneController_OutSide : SceneController
                     CheckParperMission();
                     break;
                 case GameEventID.Lv2_PutLotusPaper:
-                    GlobalDeclare._checkList01_lotusFinished = false;
                     Lv2_PutLotusPaper();
                     break;
                 case GameEventID.LV2_10Dollar:
-                    // 如果已經在處理硬幣事件，直接返回
-                    if (isHandlingCoinEvent) break;
+                    if (GlobalDeclare._checkList01_holdLotus == false && GlobalDeclare._checkList02_holdRice == false)
+                    {
+                        // 如果已經在處理硬幣事件，直接返回
+                        if (isHandlingCoinEvent) break;
 
-                    UIState((int)UIItemID.Lv2_10Dollar, true, true);
-                    GlobalDeclare._waitingPlay10Dollar = true;
-                    SetPlayerControl(false);
+                        UIState((int)UIItemID.Lv2_10Dollar, true, true);
+                        GlobalDeclare._waitingPlay10Dollar = true;
+                        SetPlayerControl(false);
+                    }
+                    else PlayDialogue((byte)OutSide_Dialogue.Lv2_009_ShouldPutDown);
                     break;
                 case GameEventID.Lv2_FlowerCircle:
-                    Lv2_FlowerCircle();
+                    if (GlobalDeclare._checkList01_holdLotus == false && GlobalDeclare._checkList02_holdRice == false) Lv2_FlowerCircle();
+                    else PlayDialogue((byte)OutSide_Dialogue.Lv2_009_ShouldPutDown);
                     break;
                 case GameEventID.Lv2_Cuisine_Soup:
-                    Lv2_Cuisine_Soup();
+                    if(GlobalDeclare._checkList01_holdLotus == false) Lv2_Cuisine_Soup();
+                    else PlayDialogue((byte)OutSide_Dialogue.Lv2_009_ShouldPutDown);
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
@@ -365,14 +377,6 @@ public class SceneController_OutSide : SceneController
     #endregion
 
     #region < Game Event >
-    void Lv2_GoInside()
-    {
-        SetPlayerControl(false);
-
-        _transitBlackImg.DOFade(1f, 1)
-                        .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv1_Grandma_House));
-    }
-
     void Lv2_TalkToMom()
     {
         PlayerCtrlr._bCanControl = false;
@@ -399,6 +403,8 @@ public class SceneController_OutSide : SceneController
 
     void Lv2_PutLotusPaper()
     {
+        TakingObjects[0].SetActive(false);
+        GlobalDeclare._checkList01_holdLotus = false;
         paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
         paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
         interactiopaperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
@@ -408,6 +414,8 @@ public class SceneController_OutSide : SceneController
 
     void Lv2_FlowerCircle()
     {
+        FlowerCircle.GetComponent<ItemController>().bAlwaysActive = false;
+        FlowerCircle.GetComponent<ItemController>().ItemDisable();
         PlayerCtrlr._bCanControl = false;
         FlowerCircle.transform.DORotate(new Vector3(0, 0, 0), 1);
         FlowerCircle.transform.DOMove(new Vector3(494.652f, -0.117f, 476.953f), 1);
@@ -421,7 +429,8 @@ public class SceneController_OutSide : SceneController
         if(FinishDollar == false) PlayDialogue((byte)OutSide_Dialogue.Lv2_008_DollarNotFinish);
         else
         {
-            GlobalDeclare._checkList02_putRiceToKitchen = true;
+            GlobalDeclare._checkList02_holdRice = true;
+            TakingObjects[1].SetActive(true);
             Rice_Funeral.SetActive(false);
         }
     }

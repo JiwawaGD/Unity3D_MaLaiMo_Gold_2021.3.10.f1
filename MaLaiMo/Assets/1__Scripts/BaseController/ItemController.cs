@@ -139,7 +139,7 @@ public class ItemController : MonoBehaviour
         this.InteractObj.SetActive(false);
     }
 
-    void ItemDisable()
+    public void ItemDisable()
     {
         if (bAlwaysActive)
             return;

@@ -5,8 +5,8 @@
     public static bool _waitingPlayLotusPaper = false;
     public static bool _playingLotusGame = false;
     public static bool _holdingRiceFuneral = false;
-    public static bool _checkList01_lotusFinished = false;
-    public static bool _checkList02_putRiceToKitchen = true;
+    public static bool _checkList01_holdLotus = false;
+    public static bool _checkList02_holdRice = false;
     #endregion
 
     #region < 場景二 : 室外場景 (靈堂 & 戶外)>

@@ -12,7 +12,7 @@ public class OutSidePlayer : PlayerController
 
     public override void Awake()
     {
-        
+
     }
 
     void OnTriggerEnter(Collider other)

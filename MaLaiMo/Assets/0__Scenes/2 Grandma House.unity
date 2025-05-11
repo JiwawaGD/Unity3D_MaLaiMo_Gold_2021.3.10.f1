@@ -5158,6 +5158,11 @@ Transform:
   m_Father: {fileID: 2036678220}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &675778453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6045867357237567110, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &680889424
 GameObject:
   m_ObjectHideFlags: 0
@@ -11922,6 +11927,84 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7238548544165626235, guid: 6abdc80feff337c4eb70e9c18c466347, type: 3}
   m_PrefabInstance: {fileID: 1681173977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1683083976
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1713845293165098353}
+    m_Modifications:
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9997377
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.02290547
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723692350702532697, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100218336133440227, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_Name
+      value: paper_lotus_final
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100218336133440227, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+--- !u!1 &1683083977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4100218336133440227, guid: f83181143dcc48342b64d66fcb20eae1, type: 3}
+  m_PrefabInstance: {fileID: 1683083976}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1686497320
 GameObject:
@@ -58483,6 +58566,11 @@ PrefabInstance:
       objectReference: {fileID: 387827513}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 105d8345524374b43871dd13cf1a9103, type: 3}
+--- !u!4 &1713845293165098353 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1713845292556358505, guid: 105d8345524374b43871dd13cf1a9103, type: 3}
+  m_PrefabInstance: {fileID: 1713845293165098352}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1714274818423693586
 Transform:
   m_ObjectHideFlags: 0
@@ -350759,6 +350847,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1898890845}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: LotusPaper
+      value: 
+      objectReference: {fileID: 675778453}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: CrosshairUI
       value: 
       objectReference: {fileID: 1890006326945214456}
@@ -350799,9 +350891,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 776866965}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: TakingObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: DialogueObjects.Array.size
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: TakingObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1683083977}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: TakingObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1683083977}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: DialogueObjects.Array.data[1]
       value: 

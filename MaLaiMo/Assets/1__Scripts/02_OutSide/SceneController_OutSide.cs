@@ -26,6 +26,7 @@ public class SceneController_OutSide : SceneController
     public GameObject HandAni;
     public GameObject EnvironmentLight;
     public GameObject Rice_Funeral;
+    public GameObject LotusPaper;
     public static bool FinishDollar = false;
     public static bool MomFirstTalk = false;
     public static bool readPaper = false;
@@ -33,7 +34,6 @@ public class SceneController_OutSide : SceneController
     /// <summary>
     /// 角色控制器
     /// </summary>
-    public GameObject[] TakingObjects;
     [SerializeField] private InteractionController interactionController;
 
     #endregion
@@ -106,8 +106,9 @@ public class SceneController_OutSide : SceneController
             //放紙蓮花
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Table);
         }
+        else if(paperMissionFinsih[(int)PaperMission.PutLotusOnTable] == true) LotusPaper.SetActive(true);
 
-        if(GlobalDeclare._checkList02_holdRice == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
+        if (GlobalDeclare._checkList02_holdRice == false && paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] == false) ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Cuisine_Soup);
         else Rice_Funeral.SetActive(false);
     }
 
@@ -404,6 +405,7 @@ public class SceneController_OutSide : SceneController
     void Lv2_PutLotusPaper()
     {
         TakingObjects[0].SetActive(false);
+        LotusPaper.SetActive(true);
         GlobalDeclare._checkList01_holdLotus = false;
         paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
         paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);

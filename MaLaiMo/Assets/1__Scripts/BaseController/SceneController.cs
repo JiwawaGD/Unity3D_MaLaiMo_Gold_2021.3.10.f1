@@ -60,6 +60,7 @@ public partial class SceneController : MonoBehaviour
 
     [HideInInspector]
     public int _currentItemIndex;          //當前的 Item ID
+    public GameObject[] TakingObjects;
     private Vector3 originalPosition;     // 原始位置
     private Quaternion originalRotation;  // 原始旋轉
     #endregion
@@ -151,7 +152,7 @@ public partial class SceneController : MonoBehaviour
             {
                 paperMissionFinsih[i] = false;
             }
-            SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
+            SceneManager.LoadScene(GlobalDeclare.Lv1_Grandma_House);
         }
         else if(Input.GetKeyDown(KeyCode.F2))
         {

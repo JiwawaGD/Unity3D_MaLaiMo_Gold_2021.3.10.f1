@@ -15,6 +15,7 @@ public class SceneController_Room : SceneController
 
     [Header("電視")] public GameObject _tvObject;
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
+    public GameObject LotusPaper;
     #endregion
 
     #region < Unity Hook >
@@ -331,6 +332,8 @@ public class SceneController_Room : SceneController
     void Lv1_Event_HoldFinishLotusPaper()
     {
         GlobalDeclare._checkList01_holdLotus = true;
+        TakingObjects[0].SetActive(true);
+        LotusPaper.SetActive(false);
     }
 
     void Lv1_Event_PutRiceOnKitchenTable()

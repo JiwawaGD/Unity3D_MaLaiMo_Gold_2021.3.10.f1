@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using static UnityEngine.GraphicsBuffer;
+using Unity.VisualScripting;
 
 public class SceneController_OutSide : SceneController
 {
@@ -27,10 +29,12 @@ public class SceneController_OutSide : SceneController
     public GameObject EnvironmentLight;
     public GameObject Rice_Funeral;
     public GameObject LotusPaper;
+    public GameObject MomHead;
     public static bool FinishDollar = false;
     public static bool MomFirstTalk = false;
     public static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
+    private Quaternion MomHeadOrgRo;
     /// <summary>
     /// 角色控制器
     /// </summary>
@@ -82,7 +86,6 @@ public class SceneController_OutSide : SceneController
         {
             Player.LookAt(FlowerCircle.transform.position);
             Player_Ani.enabled = true;
-            Player_Ani.PlayQueued("Player_GoTOMourningHall");
             StartCoroutine(FirstSevenDay());
         }
     }
@@ -114,13 +117,24 @@ public class SceneController_OutSide : SceneController
 
     public void MomBackToWrite()
     {
-        MomAnimator.SetInteger("Step", 2);
+        StartCoroutine(setMomBackToWriteAni());
     }
 
+    IEnumerator setMomBackToWriteAni() 
+    {
+        MomHead.transform.DORotateQuaternion(MomHeadOrgRo, 1)
+                      .OnComplete(() =>
+                      {
+                          MomAnimator.enabled = true;
+                          MomAnimator.SetInteger("Step", 2);
+
+                      });
+        yield return new WaitForSeconds(2f);
+        PlayerCtrlr._bCanControl = true;
+    }
     public override void Update()
     {
         base.Update();
-
         if (GlobalDeclare._waitingPlay10Dollar && Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("觸發 Start10DollarEvent()");
@@ -326,7 +340,7 @@ public class SceneController_OutSide : SceneController
                 TransitFadeIn(GlobalDeclare.Lv1_Grandma_House);
                     break;
                 case GameEventID.Lv2_TalkToMom:
-                    Lv2_TalkToMom();
+                StartCoroutine(Lv2_TalkToMom());
                     break;
                 case GameEventID.Lv2_CheckPaper:
                     readPaper = true;
@@ -378,29 +392,44 @@ public class SceneController_OutSide : SceneController
     #endregion
 
     #region < Game Event >
-    void Lv2_TalkToMom()
+    IEnumerator Lv2_TalkToMom()
     {
         PlayerCtrlr._bCanControl = false;
         MomAnimator.SetInteger("Step", 1);
-        if (MomFirstTalk == false)
-        {
-            MomFirstTalk = true;
-            PlayDialogue((byte)OutSide_Dialogue.Lv2_000_E_Mother_First);
-            ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
-        }
-        else
-        {
-            for (int i = 0; i < paperMissionFinsih.Length; i++)
-            {
-                if (paperMissionFinsih[i] == false)
-                {
-                    PlayDialogue((byte)OutSide_Dialogue.Lv2_001_E_Mother_PaperNotFinish);
-                    return;
-                }
-            }
-            PlayDialogue((byte)OutSide_Dialogue.Lv2_002_E_Mother_PaperFinish);
-        }
+        yield return new WaitForSeconds(1.1f);
+        MomAnimator.enabled = false;
+        MomHeadOrgRo = MomHead.transform.rotation;
+
+        Vector3 dir = (Player.position - MomHead.transform.position).normalized;
+        Vector3 faceDir = MomHead.transform.up;
+        float angle = Vector3.Angle(faceDir, dir);
+        float Y_pos = Mathf.Lerp(0f, -90f, 1f - (angle / 90f));  
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, dir); 
+        Quaternion offset = Quaternion.Euler(0f, Y_pos, 0f);         
+        MomHead.transform.DORotateQuaternion(rot * offset, 0.5f)
+                 .OnComplete(() =>
+                 {
+                     if (MomFirstTalk == false)
+                     {
+                         MomFirstTalk = true;
+                         PlayDialogue((byte)OutSide_Dialogue.Lv2_000_E_Mother_First);
+                         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
+                     }
+                     else
+                     {
+                         for (int i = 0; i < paperMissionFinsih.Length; i++)
+                         {
+                             if (paperMissionFinsih[i] == false)
+                             {
+                                 PlayDialogue((byte)OutSide_Dialogue.Lv2_001_E_Mother_PaperNotFinish);
+                                 return;
+                             }
+                         }
+                         PlayDialogue((byte)OutSide_Dialogue.Lv2_002_E_Mother_PaperFinish);
+                     }
+                 });
     }
+
 
     void Lv2_PutLotusPaper()
     {
@@ -439,16 +468,29 @@ public class SceneController_OutSide : SceneController
 
     IEnumerator FirstSevenDay()
     {
-        yield return new WaitForSeconds(9f);
+        PlayerCtrlr._bCanControl = false;
+        yield return new WaitForSeconds(2f);
+        PlayerCtrlr._bCanControl = false;
+        Player_Ani.PlayQueued("Player_GoTOMourningHall");
+        print(PlayerCtrlr._bCanControl);
+        yield return new WaitForSeconds(11f);
         HandAni.SetActive(true);
-        yield return new WaitForSeconds(9f);
+        yield return new WaitForSeconds(8f);
         PlayDialogue((byte)OutSide_Dialogue.Lv2_004_FirstSevenDays_Half);
     }
 
     public void FinishHeardMelody()
     {
+        StartCoroutine(FinishHeardMelodyIE());
+    }
+
+    IEnumerator FinishHeardMelodyIE()
+    {
+        HandAni.GetComponent<Animator>().SetTrigger("PutHandsDown");
+        yield return new WaitForSeconds(7f);
         Player_Ani.enabled = false;
         nowMission = "";
+        PlayerCtrlr._bCanControl = true;
     }
 
     public void OnCoinThrowingFinished()

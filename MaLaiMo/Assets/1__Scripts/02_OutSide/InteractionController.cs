@@ -176,7 +176,7 @@ public class InteractionController : MonoBehaviour
         if (outSidePlayer != null)
         {
             outSidePlayer.enabled = true;
-            outSidePlayer._bCanControl = true;
+            //outSidePlayer._bCanControl = true;
         }
 
         if (sceneControllerOutSide != null)

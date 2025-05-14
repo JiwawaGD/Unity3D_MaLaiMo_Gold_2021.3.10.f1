@@ -37,7 +37,7 @@ public class Mom_Controller : MonoBehaviour
             if (isWaiting == false)
             {
                 isWaiting = true;
-                //Mon_Animator.SetBool("isWalking", false);
+               Mon_Animator.SetBool("isWalking", false);
                 MomLookAt(player, 0.5f);
             }
             else transform.LookAt(player.position);
@@ -49,7 +49,7 @@ public class Mom_Controller : MonoBehaviour
             {
                 isWaiting = false;
                 MomLookAt(CurrentStep, 0.5f);
-                //Mon_Animator.SetBool("isWalking", true);
+                Mon_Animator.SetBool("isWalking", true);
             }
             transform.Translate(Vector3.forward * 3.5f * Time.deltaTime);
             AFKTimeCount = 0;

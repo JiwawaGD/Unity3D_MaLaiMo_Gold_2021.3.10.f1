@@ -70,7 +70,6 @@ public partial class SceneController : MonoBehaviour
     [Header("全域變數")] public Volume postProcessVolume;
 
     #region Static Boolean Zone
-    public static bool[] paperMissionFinsih = new bool[] { false, false, false };
     public static bool takeLotus = false;
 
     public static bool m_bInUIView = false;
@@ -148,9 +147,9 @@ public partial class SceneController : MonoBehaviour
             SceneController_OutSide.FinishDollar = false;
             SceneController_OutSide.MomFirstTalk = false;
             SceneController_OutSide.readPaper = false;
-            for(var i = 0; i < paperMissionFinsih.Length; i++)
+            for(var i = 0; i < SceneController_OutSide.paperMissionFinsih.Length; i++)
             {
-                paperMissionFinsih[i] = false;
+               SceneController_OutSide.paperMissionFinsih[i] = false;
             }
             SceneManager.LoadScene(GlobalDeclare.Lv1_Grandma_House);
         }

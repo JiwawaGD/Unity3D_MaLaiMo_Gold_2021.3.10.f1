@@ -33,6 +33,7 @@ public class SceneController_OutSide : SceneController
     public static bool FinishDollar = false;
     public static bool MomFirstTalk = false;
     public static bool readPaper = false;
+    public static bool[] paperMissionFinsih = new bool[] { false, false, false };
     private bool isHandlingCoinEvent = false;
     private bool MomTalking = false;
     private Quaternion MomHeadOrgRo;

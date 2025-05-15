@@ -34,6 +34,7 @@ public class SceneController_OutSide : SceneController
     public static bool MomFirstTalk = false;
     public static bool readPaper = false;
     private bool isHandlingCoinEvent = false;
+    private bool MomTalking = false;
     private Quaternion MomHeadOrgRo;
     /// <summary>
     /// 角色控制器
@@ -131,6 +132,7 @@ public class SceneController_OutSide : SceneController
                       });
         yield return new WaitForSeconds(2f);
         PlayerCtrlr._bCanControl = true;
+        MomTalking = false;
     }
     public override void Update()
     {
@@ -340,7 +342,7 @@ public class SceneController_OutSide : SceneController
                 TransitFadeIn(GlobalDeclare.Lv1_Grandma_House);
                     break;
                 case GameEventID.Lv2_TalkToMom:
-                StartCoroutine(Lv2_TalkToMom());
+                    if (MomTalking == false) StartCoroutine(Lv2_TalkToMom());
                     break;
                 case GameEventID.Lv2_CheckPaper:
                     readPaper = true;
@@ -394,6 +396,7 @@ public class SceneController_OutSide : SceneController
     #region < Game Event >
     IEnumerator Lv2_TalkToMom()
     {
+        MomTalking = true;
         PlayerCtrlr._bCanControl = false;
         MomAnimator.SetInteger("Step", 1);
         yield return new WaitForSeconds(1.1f);

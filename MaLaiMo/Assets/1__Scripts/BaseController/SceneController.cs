@@ -206,6 +206,7 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void UIState(int r_ItemID, bool r_bEnable, bool r_bNeedSubTitle = false)
     {
+        if (m_bInUIView == r_bEnable) return;
         m_bInUIView = r_bEnable;
 
         PlayerCtrlr.SetCursor();

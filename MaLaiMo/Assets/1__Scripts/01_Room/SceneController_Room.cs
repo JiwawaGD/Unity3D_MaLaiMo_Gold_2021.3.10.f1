@@ -343,6 +343,7 @@ public class SceneController_Room : SceneController
         riceAndSoup.GetComponent<MeshRenderer>().enabled = true;
 
         paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] = true;
+        GlobalDeclare._checkList02_holdRice = false;
     }
     #endregion
 }

@@ -52,8 +52,13 @@ public class SceneController_OutSide : SceneController
         GlobalDeclare._firstStartGameLevel_2 = false;
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
+        StartCoroutine(StartOutSideAction());
+    }
 
-        if(nowMission == "完成紙上任務")
+    IEnumerator StartOutSideAction()
+    {
+        yield return new WaitForSeconds(2f);
+        if (nowMission == "完成紙上任務")
         {
             MomAnimator.gameObject.SetActive(true);
             if (GlobalDeclare._checkList01_holdLotus == true) TakingObjects[0].SetActive(true);

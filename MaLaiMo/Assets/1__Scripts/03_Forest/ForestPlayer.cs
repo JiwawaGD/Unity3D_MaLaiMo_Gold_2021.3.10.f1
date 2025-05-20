@@ -69,6 +69,7 @@ public class ForestPlayer : PlayerController
             print("進去右邊");
         }
     }
+
     public override void Update()
     {
         base.Update();

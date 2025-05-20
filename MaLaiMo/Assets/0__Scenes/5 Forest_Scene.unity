@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.08892165, g: 0.08767731, b: 0.0974551, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12356,6 +12356,16 @@ MonoBehaviour:
   TransitionImg: {fileID: 557074396}
   CurrentScene_2: 0
   FinsihFirstDia: 0
+  SceneOnjects:
+  - {fileID: 24780007}
+  - {fileID: 728223322}
+  - {fileID: 1327047911}
+  - {fileID: 2034427106}
+  - {fileID: 502724641}
+  - {fileID: 717925534}
+  - {fileID: 2123579687}
+  - {fileID: 1488833055}
+  CurrentSceneOnject: {fileID: 24780007}
 --- !u!1001 &689050570
 PrefabInstance:
   m_ObjectHideFlags: 0

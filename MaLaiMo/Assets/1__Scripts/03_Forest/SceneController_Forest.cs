@@ -19,12 +19,14 @@ public class SceneController_Forest : SceneController
 
     public SceneType CurrentScene_2;
     public bool FinsihFirstDia = false;
+    public GameObject[] SceneOnjects;
+    public GameObject CurrentSceneOnject;
     int m_iSuccessCount;
     int m_iPassLevelCount;
 
     public enum SceneType
     {
-        A_Right,
+        A_Right = 0,
         B_Wrong,
         C_Wrong,
         D_Wrong,
@@ -167,7 +169,10 @@ public class SceneController_Forest : SceneController
         }
 
         CurrentScene_2 = NextSceneType;
-        txt_Title.text = "目前關卡 : " + CurrentScene.ToString();
+        CurrentSceneOnject.SetActive(false);
+        CurrentSceneOnject = SceneOnjects[(int)CurrentScene_2];
+        CurrentSceneOnject.SetActive(true);
+        //txt_Title.text = "目前關卡 : " + CurrentScene.ToString();
     }
 
     int GetRandomUnRepeatLevelIndex()

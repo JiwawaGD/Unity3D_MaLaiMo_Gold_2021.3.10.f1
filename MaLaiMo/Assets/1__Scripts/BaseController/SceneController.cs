@@ -77,6 +77,7 @@ public partial class SceneController : MonoBehaviour
     public static bool m_bSetPlayerViewLimit = false;
     public static bool m_bReturnToBegin = false;
     public static bool m_bPlayLotusEnable = false;
+    public Text Note;
     #endregion
 
     protected bool bIsPaused = false;
@@ -220,6 +221,15 @@ public partial class SceneController : MonoBehaviour
         {
             RestoreItemLocation();
         }
+    }
+    public virtual void UINote(string note, bool show)
+    {
+        if (show)
+        {
+            Note.text = note;
+            Note.GetComponent<CanvasGroup>().DOFade(1f, 1);
+        } 
+        else Note.GetComponent<CanvasGroup>().DOFade(0f, 1);
     }
 
     public virtual void MoveItem(UIItemID r_ItemID) { }

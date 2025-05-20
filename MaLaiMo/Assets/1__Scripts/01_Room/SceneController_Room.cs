@@ -31,11 +31,11 @@ public class SceneController_Room : SceneController
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
-
-        // *TODO* 待確定使用的值
-        if (GlobalDeclare._checkList02_holdRice)
+        if (GlobalDeclare._checkList01_holdLotus) TakingObjects[0].SetActive(true);
+        else if (GlobalDeclare._checkList02_holdRice)
         {
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_PlaceToPutRice);
+            TakingObjects[1].SetActive(true);
         }
 
         if (!GlobalDeclare._firstStartGameLevel_1)

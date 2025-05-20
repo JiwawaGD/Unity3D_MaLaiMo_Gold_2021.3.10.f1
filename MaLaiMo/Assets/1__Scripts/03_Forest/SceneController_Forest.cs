@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 
 public class SceneController_Forest : SceneController
 {
@@ -16,7 +18,7 @@ public class SceneController_Forest : SceneController
     bool[] m_baHasPlayLevel = new bool[7];
 
     public SceneType CurrentScene_2;
-
+    public bool FinsihFirstDia = false;
     int m_iSuccessCount;
     int m_iPassLevelCount;
 
@@ -57,6 +59,8 @@ public class SceneController_Forest : SceneController
         _itemCanvasHandler._txtMainInfo.text = r_bEnable ? GlobalDeclare.item_MainInfo_Forest[(int)r_ItemID] : "";
         _itemCanvasHandler._txtBottonInfo.text = r_bEnable ? (r_bNeedSubTitle ? GlobalDeclare.item_BottonInfo_Forest[(int)r_ItemID] : "") : "";
     }
+
+
 
     public void GoStraight()
     {
@@ -209,6 +213,12 @@ public class SceneController_Forest : SceneController
     {
         txt_SuccessCount.text = m_iSuccessCount.ToString();
         txt_PassCount.text = m_iPassLevelCount.ToString();
+    }
+
+    public void CallFlashLightNote() 
+    {
+        UINote("提示 - 按 E 開啟/關閉手電筒", true);
+        FinsihFirstDia = true;
     }
 
     void Reset()

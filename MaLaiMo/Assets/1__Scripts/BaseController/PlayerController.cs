@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public Transform tfTransform;
     public Rigidbody _rig;
     public CapsuleCollider _collider;
+    public Light FlashLight;
     RaycastHit hit;
 
     ItemController current_Item;
@@ -70,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         if (tfPlayerCamera == null)
             tfPlayerCamera = GameObject.Find("Player Camera").transform;
+        if (FlashLight == null)
+            FlashLight = tfPlayerCamera.GetComponent<Light>();
     }
 
     public void Start()
@@ -79,7 +82,7 @@ public class PlayerController : MonoBehaviour
         DefaultCursorState();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         RayHitCheck();
 

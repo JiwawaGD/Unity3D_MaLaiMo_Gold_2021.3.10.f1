@@ -18,7 +18,7 @@ public class ForestPlayer : PlayerController
         if (gameManager == null)
             gameManager = GameObject.Find("_Scene01_Controller/SceneController").GetComponent<SceneController_Forest>();
         _bCursorShow = false;
-        this._bCanControl = true;
+        this._bCanControl = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -67,6 +67,16 @@ public class ForestPlayer : PlayerController
                 });
             });
             print("進去右邊");
+        }
+    }
+    public override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.F) && gameManager.FinsihFirstDia == true)
+        {
+            if(FlashLight.enabled) FlashLight.enabled = false;
+            else FlashLight.enabled = true;
         }
     }
 

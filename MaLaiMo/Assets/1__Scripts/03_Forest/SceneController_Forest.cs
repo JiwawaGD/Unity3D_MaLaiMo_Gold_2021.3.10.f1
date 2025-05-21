@@ -222,7 +222,7 @@ public class SceneController_Forest : SceneController
 
     public void CallFlashLightNote() 
     {
-        UINote("提示 - 按 E 開啟/關閉手電筒", true);
+        UINote("提示 - 按 F 開啟/關閉手電筒", true);
         FinsihFirstDia = true;
     }
 

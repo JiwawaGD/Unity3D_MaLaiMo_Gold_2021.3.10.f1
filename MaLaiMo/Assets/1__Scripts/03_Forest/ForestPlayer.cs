@@ -83,7 +83,9 @@ public class ForestPlayer : PlayerController
             {
                 FlashLight.enabled = false;
                 FlashLight.intensity = 383.5371f;
-            } 
+            }
+            if (FlashLightMode < 2) FlashLightMode++;
+            else FlashLightMode = 0;
         }
     }
 

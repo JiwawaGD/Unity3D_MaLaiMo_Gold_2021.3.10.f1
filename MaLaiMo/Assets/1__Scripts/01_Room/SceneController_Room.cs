@@ -1,14 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
-
 using DG.Tweening;
 
 public class SceneController_Room : SceneController
 {
-    #region < Fields >
-    [Header("=== By Scene 各場景使用欄位 ===\r\n")] public GameObject _temp;
+    #region < Property >
+    [Space(10)]
+    [Header("============ By Scene 各場景使用欄位 ============")]
 
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
     [Header("蓮花遊戲控制器")] public LotusGameManager _lotusGameManager;
@@ -31,7 +31,11 @@ public class SceneController_Room : SceneController
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
-        if (GlobalDeclare._checkList01_holdLotus) TakingObjects[0].SetActive(true);
+
+        if (GlobalDeclare._checkList01_holdLotus)
+        {
+            TakingObjects[0].SetActive(true);
+        }
         else if (GlobalDeclare._checkList02_holdRice)
         {
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_PlaceToPutRice);
@@ -256,6 +260,15 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_Event_PutRiceOnKitchenTable:
                     Lv1_Event_PutRiceOnKitchenTable();
                     break;
+                case GameEventID.Lv1_Event_WardrobeInRoom:
+                    Lv1_Event_WardrobeInRoom();
+                    break;
+                case GameEventID.Lv1_Event_Graffiti:
+                    Lv1_Event_Graffiti();
+                    break;
+                case GameEventID.Lv1_Event_RoomDoorAfterGraffiti:
+                    Lv1_Event_RoomDoorAfterGraffiti();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -310,8 +323,8 @@ public class SceneController_Room : SceneController
 
     void Lv1_GoOutSide()
     {
-        _transitBlackImg.DOFade(1f, 1)
-                        .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide));
+        this._transitBlackImg.DOFade(1f, 1)
+                             .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide));
     }
 
     void Lv1_LotusPaperCheck()
@@ -344,6 +357,22 @@ public class SceneController_Room : SceneController
 
         SceneController_OutSide.paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] = true;
         GlobalDeclare._checkList02_holdRice = false;
+    }
+
+    void Lv1_Event_WardrobeInRoom()
+    {
+        Debug.Log("打開衣櫃");
+    }
+
+    void Lv1_Event_Graffiti()
+    {
+        Debug.Log("琳琳的蠟筆塗鴉畫");
+    }
+
+    void Lv1_Event_RoomDoorAfterGraffiti()
+    {
+        Debug.Log("還沒 E 過塗鴉畫 > 琳琳：再試著找一下吧。");
+        Debug.Log("E 過塗鴉畫 > 琳琳：怎麼都找不到");
     }
     #endregion
 }

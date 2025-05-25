@@ -22,6 +22,9 @@ public enum GameEventID
     Lv1_Piano,
     Lv1_Event_HoldFinishLotusPaper,
     Lv1_Event_PutRiceOnKitchenTable,
+    Lv1_Event_WardrobeInRoom,
+    Lv1_Event_Graffiti,
+    Lv1_Event_RoomDoorAfterGraffiti,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

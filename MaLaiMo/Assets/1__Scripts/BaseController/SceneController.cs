@@ -12,25 +12,11 @@ using System.Collections.Generic;
 public partial class SceneController : MonoBehaviour
 {
     #region < Field >
-    [SerializeField] LevelTypeID CurrentLevel;
+    #region < ============ 導演工具 =========== >
+    [Space(10)]
+    [Header("============ 導演工具 ============")]
     [SerializeField] [Header("對話程序")] DialogueManager[] DialogueObjects;
-
-    [SerializeField] [Header("設定頁面")] GameObject SettingPanel;
-    [SerializeField] [Header("UI - 準心")] GameObject CrosshairUI;
-
-    [SerializeField] [Header("轉場黑色過場圖片")] public Image _transitBlackImg;
-
-    /// <summary>
-    /// 角色控制器
-    /// </summary>
-    [HideInInspector] public PlayerController PlayerCtrlr;
-
-    /// <summary>
-    /// 音效控制器
-    /// </summary>
-    [HideInInspector] protected AUDManager AudManager;
-
-    protected Scene CurrentScene;
+    #endregion
 
     #region < ============ UI 相關 ============ >
     [Space(10)]
@@ -40,9 +26,18 @@ public partial class SceneController : MonoBehaviour
 
     [SerializeField] [Header("Item Canvas Group")]
     CanvasGroup _itemCanvasGroup;
+
+    [SerializeField] [Header("設定頁面")] 
+    GameObject SettingPanel;
+
+    [SerializeField] [Header("UI - 準心")]
+    GameObject CrosshairUI;
+
+    [SerializeField] [Header("轉場黑色過場圖片")] 
+    public Image _transitBlackImg;
     #endregion
 
-    #region < ============ 攝影棚相關 ============ >
+    #region < ============ 攝影棚相關 ========== >
     [Space(10)]
     [Header("============ 攝影棚相關 ============")]
 
@@ -60,14 +55,29 @@ public partial class SceneController : MonoBehaviour
 
     [HideInInspector]
     public int _currentItemIndex;          //當前的 Item ID
-    public GameObject[] TakingObjects;
     private Vector3 originalPosition;     // 原始位置
     private Quaternion originalRotation;  // 原始旋轉
+    #endregion
+
+    #region < ============ 跨場景使用 ========== >
+    [Space(10)]
+    [Header("============ 跨場景使用 ============")]
+    [Header("傳送後須拿著的物件")]
+    public GameObject[] TakingObjects;
+    #endregion
+
+    #region < ============ 控制器 ============= >
+    [Space(10)]
+    [Header("============ 控制器 ============")]
+    [HideInInspector] public PlayerController PlayerCtrlr;
+
+    [HideInInspector] protected AUDManager AudManager;
     #endregion
 
     [Space(10)]
     [Header("============ 以下待整理 ============\n")]
     [Header("全域變數")] public Volume postProcessVolume;
+    protected Scene CurrentScene;
 
     #region Static Boolean Zone
     public static bool takeLotus = false;

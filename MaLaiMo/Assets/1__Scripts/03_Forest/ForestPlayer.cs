@@ -10,7 +10,6 @@ public class ForestPlayer : PlayerController
     public Transform TargetLeft;
     public Transform TargetRight;
     public Animation Ani;
-    public int FlashLightMode = 0;
     SceneController_Forest gameManager;
 
     public override void Awake()
@@ -77,15 +76,8 @@ public class ForestPlayer : PlayerController
 
         if (Input.GetKeyDown(KeyCode.F) && gameManager.FinsihFirstDia == true)
         {
-            if (FlashLightMode == 0) FlashLight.enabled = true;
-            else if (FlashLightMode == 1) FlashLight.intensity = 3183.099f;
-            else if (FlashLightMode == 2)
-            {
-                FlashLight.enabled = false;
-                FlashLight.intensity = 383.5371f;
-            }
-            if (FlashLightMode < 2) FlashLightMode++;
-            else FlashLightMode = 0;
+            if (FlashLight.enabled == true) FlashLight.enabled = false;
+            else FlashLight.enabled = true;
         }
     }
 

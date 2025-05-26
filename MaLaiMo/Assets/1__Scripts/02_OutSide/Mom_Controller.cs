@@ -54,7 +54,6 @@ public class Mom_Controller : MonoBehaviour
             transform.Translate(Vector3.forward * 3.5f * Time.deltaTime);
             AFKTimeCount = 0;
         }
-        //print(maxDistance);
     }
     //媽媽轉向玩家
     void MomLookAt(Transform target,float time)

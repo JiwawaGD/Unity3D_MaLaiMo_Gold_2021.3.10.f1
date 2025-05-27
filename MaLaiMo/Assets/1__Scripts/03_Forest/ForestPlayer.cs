@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class ForestPlayer : PlayerController
 {
-    private string NowDirection = "向左";
+    public string NowDirection = "向左";
 
     public bool canMove = true;
     public Transform TargetLeft;
@@ -67,6 +68,19 @@ public class ForestPlayer : PlayerController
                 });
             });
             print("進去右邊");
+        }
+        else if (other.name == "鬼魂")
+        {
+            this._bCanControl = false;
+            SceneManager.LoadScene("5 Forest_Scene");
+        }
+        else if (other.name == "樹枝掉下觸發器")
+        {
+             //播放樹枝掉下動畫
+        }
+        else if (other.name == "屍體掉下觸發器")
+        {
+            //播放屍體掉下動畫
         }
     }
 

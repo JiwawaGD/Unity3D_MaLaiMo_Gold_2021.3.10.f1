@@ -21,6 +21,9 @@ public class SceneController_Forest : SceneController
     public bool FinsihFirstDia = false;
     public GameObject[] SceneOnjects;
     public GameObject CurrentSceneOnject;
+    public ForestPlayer ForestPlayer;
+    public GameObject E_WrongGhost;
+    public GameObject H_WrongGhost;
     int m_iSuccessCount;
     int m_iPassLevelCount;
 
@@ -170,6 +173,14 @@ public class SceneController_Forest : SceneController
 
         CurrentScene_2 = NextSceneType;
         CurrentSceneOnject.SetActive(false);
+        if(CurrentScene_2 == SceneType.F_Wrong && ForestPlayer.NowDirection == "向右")
+        {
+            E_WrongGhost.transform.position = new Vector3(-0.47f, 5.18f, -62.69f);
+        }
+        else if(CurrentScene_2 == SceneType.H_Wrong && ForestPlayer.NowDirection == "向右")
+        {
+            H_WrongGhost.transform.position = new Vector3(-0.47f, 5.18f, -62.69f);
+        }
         CurrentSceneOnject = SceneOnjects[(int)CurrentScene_2];
         CurrentSceneOnject.SetActive(true);
         //txt_Title.text = "目前關卡 : " + CurrentScene.ToString();

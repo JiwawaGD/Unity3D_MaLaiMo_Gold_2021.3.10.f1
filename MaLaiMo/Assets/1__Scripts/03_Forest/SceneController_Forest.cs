@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEditor.Experimental.GraphView;
-using Unity.VisualScripting;
 
 public class SceneController_Forest : SceneController
 {

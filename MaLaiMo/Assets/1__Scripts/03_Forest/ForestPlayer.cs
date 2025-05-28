@@ -11,6 +11,9 @@ public class ForestPlayer : PlayerController
     public Transform TargetLeft;
     public Transform TargetRight;
     public Animation Ani;
+    public Rigidbody TreeRig;
+    public Animator DeadBodyAni;
+    public Rigidbody DeadBodyRig;
     SceneController_Forest gameManager;
 
     public override void Awake()
@@ -77,10 +80,13 @@ public class ForestPlayer : PlayerController
         else if (other.name == "樹枝掉下觸發器")
         {
              //播放樹枝掉下動畫
+             TreeRig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
         else if (other.name == "屍體掉下觸發器")
         {
             //播放屍體掉下動畫
+            DeadBodyAni.enabled = false;
+            DeadBodyRig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
     }
 

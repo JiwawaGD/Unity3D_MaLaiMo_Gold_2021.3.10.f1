@@ -14,6 +14,7 @@ public class ForestPlayer : PlayerController
     public Rigidbody TreeRig;
     public Animator DeadBodyAni;
     public Rigidbody DeadBodyRig;
+    private bool alreadyTriggerDeadBody;
     SceneController_Forest gameManager;
 
     public override void Awake()
@@ -37,8 +38,8 @@ public class ForestPlayer : PlayerController
             if (NowDirection == "向左") gameManager.GoStraight();
             else
             {
-                gameManager.GoBack();
                 NowDirection = "向左";
+                gameManager.GoBack();
             }
             tfTransform.DOMove(new Vector3(51f, 5.799085f, -9.55f), 0.5f).OnComplete(() =>
             {
@@ -59,8 +60,8 @@ public class ForestPlayer : PlayerController
             if (NowDirection == "向右") gameManager.GoStraight();
             else
             {
-                gameManager.GoBack();
                 NowDirection = "向右";
+                gameManager.GoBack();
             }
             tfTransform.DOMove(new Vector3(50.468f, 5.799085f, 108.118f), 0.5f).OnComplete(() =>
             {
@@ -85,8 +86,8 @@ public class ForestPlayer : PlayerController
         else if (other.name == "屍體掉下觸發器")
         {
             //播放屍體掉下動畫
-            DeadBodyAni.enabled = false;
-            DeadBodyRig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            alreadyTriggerDeadBody = true;
+            
         }
     }
 
@@ -98,6 +99,16 @@ public class ForestPlayer : PlayerController
         {
             if (FlashLight.enabled == true) FlashLight.enabled = false;
             else FlashLight.enabled = true;
+        }
+
+        if (alreadyTriggerDeadBody == true)
+        {
+            if (DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                DeadBodyAni.gameObject.SetActive(false);
+                DeadBodyRig.gameObject.SetActive(true);
+                //DeadBodyRig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            }
         }
     }
 

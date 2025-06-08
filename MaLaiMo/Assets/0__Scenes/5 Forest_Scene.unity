@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.03487813, g: 0.03455084, b: 0.03966447, a: 1}
+  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7965,7 +7965,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385988187}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -7973,8 +7973,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &385988194
-CapsuleCollider:
+--- !u!65 &385988197
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7983,10 +7983,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.23189771
-  m_Height: 1.7237318
-  m_Direction: 1
-  m_Center: {x: -0.008633049, y: -0.514724, z: -0.051793665}
+  serializedVersion: 2
+  m_Size: {x: 0.46379524, y: 1.7237318, z: 0.35420266}
+  m_Center: {x: -0.008636847, y: -0.51472545, z: -0.051793665}
 --- !u!4 &390608377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8cc504f5d27298a4d9430b662219b690, type: 3}
@@ -9383,8 +9382,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12.49329, y: 1, z: 10.623784}
-  m_Center: {x: -4.818933, y: 0, z: 0.9391816}
+  m_Size: {x: 12.4933195, y: 1, z: 15.245151}
+  m_Center: {x: -4.8189473, y: 0, z: 2.472759}
 --- !u!54 &462480411
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21352,6 +21351,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: branch_falling
       objectReference: {fileID: 0}
+    - target: {fileID: 2501655182213293737, guid: fc50287dde755a94fba59100b111fd0a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8404827961715264693, guid: fc50287dde755a94fba59100b111fd0a, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8404827961715264693, guid: fc50287dde755a94fba59100b111fd0a, type: 3}
       propertyPath: m_Constraints
       value: 14
@@ -21578,17 +21585,17 @@ MonoBehaviour:
   DialogueText: {fileID: 0}
   ActionEvent:
   - "\u7433\u7433\uFF1A\u5ABD\u5ABD\u70BA\u4EC0\u9EBC\u5E36\u6211\u4F86\u9019\u88E1\uFF1F"
-  - '{%wait:3'
+  - //{//%wait:3
   - ' '
-  - '{%wait:0.5'
+  - //{//%wait:0.5
   - "\u7433\u7433\uFF1A\u9019\u88E1\u597D\u9ED1\u597D\u53EF\u6015\u22EF\u22EF\u5ABD\u5ABD\u5728\u54EA\u22EF\u22EF"
-  - '{%wait:3'
+  - //{//%wait:3
   - 
-  - '{%wait:0.5'
+  - //{%//wait:0.5
   - "\u7433\u7433\uFF1A\u5C0D\u4E86\uFF0C\u6709\u624B\u96FB\u7B52\uFF01"
-  - '{%wait:3'
+  - '{//%wait:3'
   - 
-  - '{%wait:0.5'
+  - '{//%wait:0.5'
   - '{%function:0'
   HandleObject: []
   Voices: []
@@ -29468,7 +29475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1467260510
 Transform:
   m_ObjectHideFlags: 0

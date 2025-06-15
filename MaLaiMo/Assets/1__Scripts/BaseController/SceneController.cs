@@ -21,19 +21,24 @@ public partial class SceneController : MonoBehaviour
     #region < ============ UI 相關 ============ >
     [Space(10)]
     [Header("============ UI 相關 ============")]
-    [SerializeField] [Header("Item Canvas Handler")] 
+    [SerializeField]
+    [Header("Item Canvas Handler")]
     protected ItemCanvasHandler _itemCanvasHandler;
 
-    [SerializeField] [Header("Item Canvas Group")]
+    [SerializeField]
+    [Header("Item Canvas Group")]
     CanvasGroup _itemCanvasGroup;
 
-    [SerializeField] [Header("設定頁面")] 
+    [SerializeField]
+    [Header("設定頁面")]
     GameObject SettingPanel;
 
-    [SerializeField] [Header("UI - 準心")]
+    [SerializeField]
+    [Header("UI - 準心")]
     GameObject CrosshairUI;
 
-    [SerializeField] [Header("轉場黑色過場圖片")] 
+    [SerializeField]
+    [Header("轉場黑色過場圖片")]
     public Image _transitBlackImg;
     #endregion
 
@@ -150,7 +155,7 @@ public partial class SceneController : MonoBehaviour
                 SetGameState();
             }
         }
-        else if(Input.GetKeyDown(KeyCode.F1))
+        else if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneController_OutSide.nowMission = "完成紙上任務";
             GlobalDeclare._checkList02_holdRice = false;
@@ -158,18 +163,18 @@ public partial class SceneController : MonoBehaviour
             SceneController_OutSide.FinishDollar = false;
             SceneController_OutSide.MomFirstTalk = false;
             SceneController_OutSide.readPaper = false;
-            for(var i = 0; i < SceneController_OutSide.paperMissionFinsih.Length; i++)
+            for (var i = 0; i < SceneController_OutSide.paperMissionFinsih.Length; i++)
             {
-               SceneController_OutSide.paperMissionFinsih[i] = false;
+                SceneController_OutSide.paperMissionFinsih[i] = false;
             }
             SceneManager.LoadScene(GlobalDeclare.Lv1_Grandma_House);
         }
-        else if(Input.GetKeyDown(KeyCode.F2))
+        else if (Input.GetKeyDown(KeyCode.F2))
         {
             SceneController_OutSide.nowMission = "跟著媽媽去森林";
             SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
         }
-        else if(Input.GetKeyDown(KeyCode.F3))
+        else if (Input.GetKeyDown(KeyCode.F3))
         {
             SceneController_OutSide.nowMission = "頭七";
             SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide);
@@ -232,17 +237,32 @@ public partial class SceneController : MonoBehaviour
             RestoreItemLocation();
         }
     }
+
     public virtual void UINote(string note, bool show)
     {
         if (show)
         {
             Note.text = note;
             Note.GetComponent<CanvasGroup>().DOFade(1f, 1);
-        } 
+        }
         else Note.GetComponent<CanvasGroup>().DOFade(0f, 1);
     }
 
     public virtual void MoveItem(UIItemID r_ItemID) { }
+
+    public virtual void ChangeItemGameEventID(string itemObjName, GameEventID newGameEventID)
+    {
+        ItemController item;
+        item = GameObject.Find(itemObjName).GetComponent<ItemController>();
+        item.SetNewGameEventID(newGameEventID);
+    }
+
+    public virtual void SetItemAlwaysActive(string itemObjName, bool alwaysActive)
+    {
+        ItemController item;
+        item = GameObject.Find(itemObjName).GetComponent<ItemController>();
+        item.SetAlwaysActive(alwaysActive);
+    }
     #endregion
 
     #region < Base Function >

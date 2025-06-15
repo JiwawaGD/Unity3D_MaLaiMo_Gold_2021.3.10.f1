@@ -4,20 +4,23 @@
 public class ItemController : MonoBehaviour
 {
     #region < Field >
+    [SerializeField]
     [Header("遊戲場景編號")]
-    public LevelTypeID m_CurrentLevelID;
+    private LevelTypeID m_CurrentLevelID;
 
+    [SerializeField]
     [Header("遊戲事件")]
-    public GameEventID EventID;
+    private GameEventID EventID;
 
-    [Header("是否可以無限觸發(裝飾物件)")]
-    public bool bAlwaysActive;
-
+    [SerializeField]
     [Header("物件可提示範圍")]
-    public float fHintRange;
+    private float fHintRange;
 
     [HideInInspector]
     public bool bActive;
+
+    [Header("是否可以無限觸發(裝飾物件)")]
+    public bool bAlwaysActive;
 
     #region UI
     GameObject HintObj;     // 眼睛 UI
@@ -82,6 +85,29 @@ public class ItemController : MonoBehaviour
         ItemDisable();
         SceneCtrlr.GameEvent(m_CurrentLevelID, EventID);
     }
+
+    public void ItemDisable()
+    {
+        if (bAlwaysActive)
+            return;
+
+        SetItemInteractive(false);
+
+        bActive = false;
+        HintObj.SetActive(bActive);
+        SetHintable(bActive);
+        gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
+    public void SetNewGameEventID(GameEventID newGameEventID)
+    {
+        this.EventID = newGameEventID;
+    }
+
+    public void SetAlwaysActive(bool alwaysActive)
+    {
+        this.bAlwaysActive = alwaysActive;
+    }
     #endregion
 
     #region < Internal Method >
@@ -137,19 +163,6 @@ public class ItemController : MonoBehaviour
 
         this.HintObj.SetActive(false);
         this.InteractObj.SetActive(false);
-    }
-
-    public void ItemDisable()
-    {
-        if (bAlwaysActive)
-            return;
-
-        SetItemInteractive(false);
-
-        bActive = false;
-        HintObj.SetActive(bActive);
-        SetHintable(bActive);
-        gameObject.layer = LayerMask.NameToLayer("Default");
     }
     #endregion
 }

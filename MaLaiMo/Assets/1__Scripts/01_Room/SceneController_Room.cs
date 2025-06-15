@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
@@ -18,6 +16,10 @@ public class SceneController_Room : SceneController
     [Header("孝濂動畫")] public Animator FilialPietyCurtain_Ani;
     public GameObject LotusPaper;
     private static bool FilialPietyCurtain_IsOpen = false;
+    #endregion
+
+    #region < ByScene Flag >
+    private bool _hasTriggerGraffiti = false;
     #endregion
 
     #region < Unity Hook >
@@ -66,7 +68,7 @@ public class SceneController_Room : SceneController
             TransitFadeOut();
         }
 
-        if(FilialPietyCurtain_IsOpen)
+        if (FilialPietyCurtain_IsOpen)
         {
             FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
         }
@@ -212,6 +214,16 @@ public class SceneController_Room : SceneController
                     new Vector3(0f, -50f, 0f), 0.5f);
                 break;
         }
+    }
+
+    public override void ChangeItemGameEventID(string itemObjName, GameEventID newGameEventID)
+    {
+        base.ChangeItemGameEventID(itemObjName, newGameEventID);
+    }
+
+    public override void SetItemAlwaysActive(string itemObjName, bool alwaysActive)
+    {
+        base.SetItemAlwaysActive(itemObjName, alwaysActive);
     }
     #endregion
 
@@ -385,11 +397,28 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_WardrobeInRoom()
     {
-        GameObject wardrobe = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Wardrobe");
-        Animator wardrobeAnim = wardrobe.GetComponent<Animator>();
-        wardrobeAnim.SetTrigger("Open");
+        {   // 開衣櫃
+            GameObject wardrobe = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Wardrobe");
+            Animator wardrobeAnim = wardrobe.GetComponent<Animator>();
+            wardrobeAnim.SetTrigger("Open");
 
-        Debug.Log("<缺> 木頭櫃打開的聲音");
+            Debug.Log("<缺> 木頭櫃打開的聲音");
+        }
+
+        {   // 關房門
+            Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+            Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+            AniRoomDoor.PlayQueued("Door_Close");
+        }
+
+        {   // 切換房門的 EventID 且重新開啟 Hint
+            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
+
+            SetItemAlwaysActive(itemName, true);
+            ChangeItemGameEventID(itemName, GameEventID.Lv1_Event_RoomDoorAfterGraffiti);
+
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_OpenRoomDoor);
+        }
 
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_5Clothes);
     }
@@ -405,23 +434,37 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_Graffiti()
     {
-        //GameObject crayon = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_5Clothes");
-        //Animator crayonAnim = crayon.GetComponent<Animator>();
-        //crayonAnim.SetTrigger("Move");
-
         Debug.Log("<缺> 拿紙的聲音");
+
+        {
+            this._hasTriggerGraffiti = true;
+        }
+
+        {   // 將房門的 AlwaysActive 關閉
+            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
+
+            SetItemAlwaysActive(itemName, false);
+        }
 
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
     }
 
     void Lv1_Event_RoomDoorAfterGraffiti()
     {
-        Debug.Log("事件 : 對門互動");
-        Debug.Log("情形一 : 還沒 E 過塗鴉畫");
-        Debug.Log("01 : 琳琳：再試著找一下吧。");
+        if (this._hasTriggerGraffiti)
+        {
+            Debug.Log("01 : 琳琳：怎麼都找不到");
 
-        Debug.Log("情形二 : E 過塗鴉畫");
-        Debug.Log("01 : 琳琳：怎麼都找不到");
+            {   // 開房門
+                Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+                Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+                AniRoomDoor.PlayQueued("Door_Open");
+            }
+        }
+        else
+        {
+            Debug.Log("01 : 琳琳：再試著找一下吧。");
+        }
     }
 
     void Lv1_E_FilialPietyCurtain()

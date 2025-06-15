@@ -26,6 +26,7 @@ public enum GameEventID
     Lv1_Event_5ClothesOnGraffiti,
     Lv1_Event_Graffiti,
     Lv1_Event_RoomDoorAfterGraffiti,
+    Lv1_E_FilialPietyCurtain,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -139,13 +140,13 @@ public enum Room_Dialogue
     Lv1_018_ShouldPutDown,
 
     //LV_2
-    Lv2_000_Begin = 1,
-    Lv2_001_E_FilialPietyCurtain,
-    Lv2_002_E_Seat,
-    Lv2_003_E_Grandmother,
-    Lv2_004_E_Drink,
-    Lv2_005_BackLivingRoom,
-    Lv2_006_E_Flashlight,
+    Lv1_000_Begin,
+    Lv1_001_E_FilialPietyCurtain,
+    Lv12_002_E_Seat,
+    Lv1_003_E_Grandmother,
+    Lv1_004_E_Drink,
+    Lv1_005_BackLivingRoom,
+    Lv1_006_E_Flashlight,
 
     //LV_4
     Lv4_000_Begin = 0,

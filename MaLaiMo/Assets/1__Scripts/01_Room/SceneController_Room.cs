@@ -15,7 +15,9 @@ public class SceneController_Room : SceneController
 
     [Header("電視")] public GameObject _tvObject;
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
+    [Header("孝濂動畫")] public Animator FilialPietyCurtain_Ani;
     public GameObject LotusPaper;
+    private static bool FilialPietyCurtain_IsOpen = false;
     #endregion
 
     #region < Unity Hook >
@@ -62,6 +64,11 @@ public class SceneController_Room : SceneController
 
             // 非第一次進場場景 > 轉場圖片 Fade Out
             TransitFadeOut();
+        }
+
+        if(FilialPietyCurtain_IsOpen)
+        {
+            FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
         }
     }
 
@@ -283,6 +290,9 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_Event_5ClothesOnGraffiti:
                     Lv1_Event_5ClothesOnGraffiti();
                     break;
+                case GameEventID.Lv1_E_FilialPietyCurtain:
+                    Lv1_E_FilialPietyCurtain();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -412,6 +422,12 @@ public class SceneController_Room : SceneController
 
         Debug.Log("情形二 : E 過塗鴉畫");
         Debug.Log("01 : 琳琳：怎麼都找不到");
+    }
+
+    void Lv1_E_FilialPietyCurtain()
+    {
+        FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
+        PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
     }
     #endregion
 }

@@ -23,6 +23,7 @@ public enum GameEventID
     Lv1_Event_HoldFinishLotusPaper,
     Lv1_Event_PutRiceOnKitchenTable,
     Lv1_Event_WardrobeInRoom,
+    Lv1_Event_5ClothesOnGraffiti,
     Lv1_Event_Graffiti,
     Lv1_Event_RoomDoorAfterGraffiti,
 
@@ -57,6 +58,9 @@ public enum HintItemID
     Lv1_Piano,
     Lv1_Item_FinishedLotus,
     Lv1_Item_PlaceToPutRice,
+    Lv1_Item_Wardrobe,
+    Lv1_Item_5Clothes,
+    Lv1_Item_Crayon,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,

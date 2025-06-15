@@ -29,8 +29,10 @@ public class SceneController_Room : SceneController
         base.Start();
 
         // 預設讓大門是可以互動狀態
+        // *TODO*
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Wardrobe);
 
         if (GlobalDeclare._checkList01_holdLotus)
         {
@@ -142,6 +144,15 @@ public class SceneController_Room : SceneController
                             break;
                         case HintItemID.Lv1_Item_PlaceToPutRice:
                             itemName = "_Scene01_InteractItems/__Level_1/Item_PlaceToPutRice";
+                            break;
+                        case HintItemID.Lv1_Item_Wardrobe:
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Wardrobe";
+                            break;
+                        case HintItemID.Lv1_Item_5Clothes:
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_5Clothes";
+                            break;
+                        case HintItemID.Lv1_Item_Crayon:
+                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Crayon";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -269,6 +280,9 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_Event_RoomDoorAfterGraffiti:
                     Lv1_Event_RoomDoorAfterGraffiti();
                     break;
+                case GameEventID.Lv1_Event_5ClothesOnGraffiti:
+                    Lv1_Event_5ClothesOnGraffiti();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -361,18 +375,43 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_WardrobeInRoom()
     {
-        Debug.Log("打開衣櫃");
+        GameObject wardrobe = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Wardrobe");
+        Animator wardrobeAnim = wardrobe.GetComponent<Animator>();
+        wardrobeAnim.SetTrigger("Open");
+
+        Debug.Log("<缺> 木頭櫃打開的聲音");
+
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_5Clothes);
+    }
+
+    void Lv1_Event_5ClothesOnGraffiti()
+    {
+        GameObject clothes = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_5Clothes");
+        Animator clothesAnim = clothes.GetComponent<Animator>();
+        clothesAnim.SetTrigger("Move");
+
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
     }
 
     void Lv1_Event_Graffiti()
     {
-        Debug.Log("琳琳的蠟筆塗鴉畫");
+        //GameObject crayon = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_5Clothes");
+        //Animator crayonAnim = crayon.GetComponent<Animator>();
+        //crayonAnim.SetTrigger("Move");
+
+        Debug.Log("<缺> 拿紙的聲音");
+
+        //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
     }
 
     void Lv1_Event_RoomDoorAfterGraffiti()
     {
-        Debug.Log("還沒 E 過塗鴉畫 > 琳琳：再試著找一下吧。");
-        Debug.Log("E 過塗鴉畫 > 琳琳：怎麼都找不到");
+        Debug.Log("事件 : 對門互動");
+        Debug.Log("情形一 : 還沒 E 過塗鴉畫");
+        Debug.Log("01 : 琳琳：再試著找一下吧。");
+
+        Debug.Log("情形二 : E 過塗鴉畫");
+        Debug.Log("01 : 琳琳：怎麼都找不到");
     }
     #endregion
 }

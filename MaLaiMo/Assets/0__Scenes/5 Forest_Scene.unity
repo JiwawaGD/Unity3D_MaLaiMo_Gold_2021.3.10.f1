@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 0.08888118, g: 0.08764244, b: 0.097408354, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6174,7 +6174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &308749478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21585,17 +21585,17 @@ MonoBehaviour:
   DialogueText: {fileID: 0}
   ActionEvent:
   - "\u7433\u7433\uFF1A\u5ABD\u5ABD\u70BA\u4EC0\u9EBC\u5E36\u6211\u4F86\u9019\u88E1\uFF1F"
-  - //{//%wait:3
+  - '{%wait:3'
   - ' '
-  - //{//%wait:0.5
+  - '{%wait:0.5'
   - "\u7433\u7433\uFF1A\u9019\u88E1\u597D\u9ED1\u597D\u53EF\u6015\u22EF\u22EF\u5ABD\u5ABD\u5728\u54EA\u22EF\u22EF"
-  - //{//%wait:3
+  - '{%wait:3'
   - 
-  - //{%//wait:0.5
+  - '{%wait:0.5'
   - "\u7433\u7433\uFF1A\u5C0D\u4E86\uFF0C\u6709\u624B\u96FB\u7B52\uFF01"
-  - '{//%wait:3'
+  - '{%wait:3'
   - 
-  - '{//%wait:0.5'
+  - '{%wait:0.5'
   - '{%function:0'
   HandleObject: []
   Voices: []
@@ -29475,7 +29475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1467260510
 Transform:
   m_ObjectHideFlags: 0

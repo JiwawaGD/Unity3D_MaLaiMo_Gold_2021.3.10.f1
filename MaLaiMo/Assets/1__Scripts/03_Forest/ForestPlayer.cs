@@ -87,7 +87,6 @@ public class ForestPlayer : PlayerController
         {
             //播放屍體掉下動畫
             alreadyTriggerDeadBody = true;
-            
         }
     }
 
@@ -103,11 +102,11 @@ public class ForestPlayer : PlayerController
 
         if (alreadyTriggerDeadBody == true)
         {
+            print(DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime);
             if (DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 DeadBodyAni.gameObject.SetActive(false);
                 DeadBodyRig.gameObject.SetActive(true);
-                //DeadBodyRig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             }
         }
     }

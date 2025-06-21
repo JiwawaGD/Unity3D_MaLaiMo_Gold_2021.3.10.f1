@@ -57,12 +57,14 @@ public class ForestPlayer : PlayerController
             Ani.enabled = true;
             canMove = false;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.63f);
+
             if (NowDirection == "向右") gameManager.GoStraight();
             else
             {
                 NowDirection = "向右";
                 gameManager.GoBack();
             }
+
             tfTransform.DOMove(new Vector3(50.468f, 5.799085f, 108.118f), 0.5f).OnComplete(() =>
             {
                 tfTransform.DORotate(new Vector3(0, -116.6f, 0), 1f);
@@ -115,20 +117,25 @@ public class ForestPlayer : PlayerController
     {
         yield return new WaitForSeconds(0.1f);
         Ani.PlayQueued(direction);
-        yield return new WaitForSeconds(6.2f);
+        //yield return new WaitForSeconds(6.2f);
+        yield return new WaitForSeconds(8.2f);
         Ani.enabled = false;
         canMove = true;
         if (direction == "Player_Forest_left")
         {
             tfTransform.rotation = Quaternion.Euler(0, 36.8f, 0);
             tfPlayerCamera.localRotation = Quaternion.Euler(8.3f, 0, 0);
+            tfTransform.DOMove(new Vector3(58.641f, 5.799085f, 13.391f), 2f).OnComplete(() =>
+            { 
+                this._bCanControl = true;
+            });
         } 
         else
         {
-            tfTransform.rotation = Quaternion.Euler(0, -220.95f, 0);
-            tfPlayerCamera.localRotation = Quaternion.Euler(7.5f, 0, 0);
+            //tfPlayerCamera.localRotation = Quaternion.Euler(7.5f, 0, 0);
+            gameObject.transform.position = new Vector3(58.641f, gameObject.transform.position.y, 13.391f);
+            tfTransform.eulerAngles = new Vector3(0, tfTransform.eulerAngles.y + 180f, 0);
+            this._bCanControl = true;
         }
-
-        this._bCanControl = true;
     }
 }

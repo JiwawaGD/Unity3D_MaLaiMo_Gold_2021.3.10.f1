@@ -118,17 +118,18 @@ public class ForestPlayer : PlayerController
         yield return new WaitForSeconds(0.1f);
         Ani.PlayQueued(direction);
         //yield return new WaitForSeconds(6.2f);
-        yield return new WaitForSeconds(8.2f);
+        yield return new WaitForSeconds(13.2f);
         Ani.enabled = false;
         canMove = true;
+        this._bCanControl = true;
         if (direction == "Player_Forest_left")
         {
-            tfTransform.rotation = Quaternion.Euler(0, 36.8f, 0);
-            tfPlayerCamera.localRotation = Quaternion.Euler(8.3f, 0, 0);
-            tfTransform.DOMove(new Vector3(58.641f, 5.799085f, 13.391f), 2f).OnComplete(() =>
-            { 
-                this._bCanControl = true;
-            });
+            //tfTransform.rotation = Quaternion.Euler(0, 36.8f, 0);
+            //tfPlayerCamera.localRotation = Quaternion.Euler(8.3f, 0, 0);
+            //tfTransform.DOMove(new Vector3(58.641f, 5.799085f, 13.391f), 2f).OnComplete(() =>
+            //{ 
+            //    this._bCanControl = true;
+            //});
         } 
         else
         {

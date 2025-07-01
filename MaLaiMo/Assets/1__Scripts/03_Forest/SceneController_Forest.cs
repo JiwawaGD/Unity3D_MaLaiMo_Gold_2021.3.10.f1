@@ -171,16 +171,16 @@ public class SceneController_Forest : SceneController
 
         CurrentScene_2 = NextSceneType;
         CurrentSceneOnject.SetActive(false);
-        if(CurrentScene_2 == SceneType.E_Wrong && ForestPlayer.NowDirection == "向右")
-        {
-            E_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
-            print("對面");
-        }
-        else if(CurrentScene_2 == SceneType.H_Wrong && ForestPlayer.NowDirection == "向右")
-        {
-            H_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
-            print("對面");
-        }
+        //if(CurrentScene_2 == SceneType.E_Wrong && ForestPlayer.NowDirection == "向右")
+        //{
+        //    E_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
+        //    print("對面");
+        //}
+        //else if(CurrentScene_2 == SceneType.H_Wrong && ForestPlayer.NowDirection == "向右")
+        //{
+        //    H_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
+        //    print("對面");
+        //}
         CurrentSceneOnject = SceneOnjects[(int)CurrentScene_2];
         CurrentSceneOnject.SetActive(true);
         //txt_Title.text = "目前關卡 : " + CurrentScene.ToString();

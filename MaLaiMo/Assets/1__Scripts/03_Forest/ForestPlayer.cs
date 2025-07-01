@@ -130,12 +130,34 @@ public class ForestPlayer : PlayerController
             //{ 
             //    this._bCanControl = true;
             //});
+            FlashLight.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
         } 
         else
         {
             //tfPlayerCamera.localRotation = Quaternion.Euler(7.5f, 0, 0);
+            FlashLight.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = false;
             gameObject.transform.position = new Vector3(58.641f, gameObject.transform.position.y, 13.391f);
             tfTransform.eulerAngles = new Vector3(0, tfTransform.eulerAngles.y + 180f, 0);
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            FlashLight.enabled = true;
             this._bCanControl = true;
         }
     }

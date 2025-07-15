@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2376184441917697324}
   - component: {fileID: 1102766671}
+  - component: {fileID: 4702558715505588209}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -65,6 +66,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _itemCanvasHandler: {fileID: 0}
   _itemCanvasGroup: {fileID: 0}
   SettingPanel: {fileID: 0}
@@ -87,7 +96,20 @@ MonoBehaviour:
   _lotusGameManager: {fileID: 0}
   _tvObject: {fileID: 0}
   _tvNoiseMaterial: {fileID: 2100000, guid: 73d334872b1a68543a4a49e88eca71fa, type: 2}
+  FilialPietyCurtain_Ani: {fileID: 0}
   LotusPaper: {fileID: 0}
+--- !u!114 &4702558715505588209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738495879680828170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec512e0ced25c54a9ad69f010fd30eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

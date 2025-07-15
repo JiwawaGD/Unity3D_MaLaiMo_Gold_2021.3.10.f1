@@ -7,6 +7,7 @@ public class SceneController_Room : SceneController
     #region < Property >
     [Space(10)]
     [Header("============ By Scene 各場景使用欄位 ============")]
+    [Header("物件池")] public ObjectController_Room _objectCtrlr;
 
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
     [Header("蓮花遊戲控制器")] public LotusGameManager _lotusGameManager;
@@ -459,6 +460,9 @@ public class SceneController_Room : SceneController
                 Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
                 Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
                 AniRoomDoor.PlayQueued("Door_Open");
+
+                WallClock wallClock =  this._objectCtrlr._wallClock.GetComponent<WallClock>();
+                wallClock.UpdateClock(23,44);
             }
         }
         else

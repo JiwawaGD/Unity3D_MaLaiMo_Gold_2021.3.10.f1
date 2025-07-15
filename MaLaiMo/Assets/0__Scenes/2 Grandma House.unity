@@ -7351,6 +7351,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3905087784522072667, guid: de9d0d1573e621d4a8c54941cea1aec8, type: 3}
   m_PrefabInstance: {fileID: 1148902664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1154590573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4702558715505588209, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+  m_PrefabInstance: {fileID: 7058695850327545562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec512e0ced25c54a9ad69f010fd30eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1163512503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32046,9 +32057,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213fdbd9011de8948857a4a57e96e4b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clockEnabled: 0
   minuteHand: {fileID: 1051198961161467}
   hourHand: {fileID: 1757066382713257}
-  currentHour: 0
+  currentHour: 11
   currentMinutes: 0
   currentSeconds: 0
   currentTime: 
@@ -261301,9 +261313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrentLevelID: 2
   EventID: 3
-  bAlwaysActive: 0
   fHintRange: 4
   bActive: 0
+  bAlwaysActive: 0
 --- !u!65 &4757700141078064893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -348372,6 +348384,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1890006326945214457}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: _objectCtrlr
+      value: 
+      objectReference: {fileID: 1154590573}
+    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: _itemRawImage
       value: 
       objectReference: {fileID: 1659356997}
@@ -348403,14 +348419,6 @@ PrefabInstance:
       propertyPath: _outsideGoInTransitPos
       value: 
       objectReference: {fileID: 776866965}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: TakingObjects.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: DialogueObjects.Array.size
-      value: 28
-      objectReference: {fileID: 0}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: TakingObjects.Array.data[0]
       value: 
@@ -348528,37 +348536,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 734897590}
     - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: _itemObjsForRawImage.Array.data[1]
-      value: 
-      objectReference: {fileID: 4093765924912661623}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.data[2]
-      value: 
-      objectReference: {fileID: 4093765924912661623}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.data[3]
-      value: 
-      objectReference: {fileID: 4093765924912661623}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.data[4]
-      value: 
-      objectReference: {fileID: 4093765924912661623}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.data[5]
-      value: 
-      objectReference: {fileID: 4093765924912661623}
-    - target: {fileID: 1102766671, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
-      propertyPath: _itemObjsForRawImage.Array.data[6]
       value: 
       objectReference: {fileID: 4093765924912661623}
     - target: {fileID: 1775396151606266512, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: m_Name
       value: _Scene01_Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 4702558715505588209, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
+      propertyPath: _wallClock
+      value: 
+      objectReference: {fileID: 1270462279097619}
     - target: {fileID: 4772780172314446352, guid: 3c048a6f3f7596f4c823dcc86944237b, type: 3}
       propertyPath: m_RootOrder
       value: 9

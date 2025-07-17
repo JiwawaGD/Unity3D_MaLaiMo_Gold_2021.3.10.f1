@@ -92,6 +92,7 @@ MonoBehaviour:
   PlayerCtrlr: {fileID: 0}
   postProcessVolume: {fileID: 0}
   Note: {fileID: 0}
+  _objectCtrlr: {fileID: 4702558715505588209}
   _outsideGoInTransitPos: {fileID: 0}
   _lotusGameManager: {fileID: 0}
   _tvObject: {fileID: 0}
@@ -110,6 +111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec512e0ced25c54a9ad69f010fd30eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _wallClock: {fileID: 0}
+  _grandmaRoomDoor: {fileID: 0}
+  _lotusPaper: {fileID: 0}
+  _foldedLotusPaper: {fileID: 0}
+  _offeringPlace: {fileID: 0}
+  _grandmaRoomCloset: {fileID: 0}
+  _clothesInCloset: {fileID: 0}
+  _graffitiInCloset: {fileID: 0}
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

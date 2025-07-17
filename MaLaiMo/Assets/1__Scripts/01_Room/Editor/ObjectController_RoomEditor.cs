@@ -1,6 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+//請幫我把 ObjectController_Room.cs 這個檔案中所有的 ItemController 和 GameObject 欄位
+//都加到 ObjectController_RoomEditor.cs 的自訂 Inspector 介面裡
+//並且用可收合的群組方式顯示，像你之前幫我做的那樣。
+
 [CustomEditor(typeof(ObjectController_Room))]
 [CanEditMultipleObjects]
 public class ObjectController_RoomEditor : Editor

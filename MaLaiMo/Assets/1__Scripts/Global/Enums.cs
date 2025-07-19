@@ -27,6 +27,7 @@ public enum GameEventID
     Lv1_Event_Graffiti,
     Lv1_Event_RoomDoorAfterGraffiti,
     Lv1_E_FilialPietyCurtain,
+    Lv1_E_GrandmaDeadBody,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -142,7 +143,7 @@ public enum Room_Dialogue
     //LV_2
     Lv1_000_Begin,
     Lv1_001_E_FilialPietyCurtain,
-    Lv12_002_E_Seat,
+    Lv1_002_E_Seat,
     Lv1_003_E_Grandmother,
     Lv1_004_E_Drink,
     Lv1_005_BackLivingRoom,

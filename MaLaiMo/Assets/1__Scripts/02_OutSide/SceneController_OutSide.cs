@@ -13,7 +13,7 @@ public class SceneController_OutSide : SceneController
     [Header("室內傳至室外的角色座標")] public Transform _insideGoOutTransitPos;
 
     public Transform mom;
-    public Mom_Controller mom_Controller;
+    public Mom_Controller_OutSide mom_Controller;
     public RectTransform uiElement;
     public RectTransform arrowIndicator;
     public Camera PlayerCamera;

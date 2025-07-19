@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using System.Collections;
 
 public class SceneController_Room : SceneController
 {
@@ -15,6 +16,8 @@ public class SceneController_Room : SceneController
     [Header("電視")] public GameObject _tvObject;
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
     [Header("孝濂動畫")] public Animator FilialPietyCurtain_Ani;
+    [Header("媽媽控制器")] public Mom_Controler_Room Mom_Control;
+    public GrandmaRoom_Player Player;
     public GameObject LotusPaper;
     private static bool FilialPietyCurtain_IsOpen = false;
     #endregion
@@ -306,6 +309,9 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_E_FilialPietyCurtain:
                     Lv1_E_FilialPietyCurtain();
                     break;
+                case GameEventID.Lv1_E_GrandmaDeadBody:
+                    Lv1_E_GrandmaDeadBody();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -475,6 +481,19 @@ public class SceneController_Room : SceneController
     {
         FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
         PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
+    }
+
+    IEnumerator Lv1_E_Seat()
+    {
+        Player._bCanControl = false;
+        yield return new WaitForSeconds(10f);
+        PlayDialogue((int)Room_Dialogue.Lv1_002_E_Seat);
+        Mom_Control.GoOutFilialPietyCurtain();
+    }
+
+    void Lv1_E_GrandmaDeadBody()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv1_003_E_Grandmother);
     }
     #endregion
 }

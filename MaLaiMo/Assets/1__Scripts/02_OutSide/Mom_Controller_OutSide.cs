@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using DG.Tweening;
-using static UnityEngine.GraphicsBuffer;
 using System.Collections;
 
-public class Mom_Controller : MonoBehaviour
+public class Mom_Controller_OutSide : MonoBehaviour
 {
     public Transform player;
 

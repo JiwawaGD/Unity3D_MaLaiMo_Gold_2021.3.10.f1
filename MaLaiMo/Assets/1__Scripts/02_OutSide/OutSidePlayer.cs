@@ -26,7 +26,7 @@ public class OutSidePlayer : PlayerController
 
     private IEnumerator InToForest()
     {
-        StartCoroutine(Mom.GetComponent<Mom_Controller>().InToForest());
+        StartCoroutine(Mom.GetComponent<Mom_Controller_OutSide>().InToForest());
         yield return new WaitForSeconds(3f);
         InToForestBlackImg.DOFade(1f, 1)
                           .OnComplete(() => SceneManager.LoadScene("5 Forest_Scene"));

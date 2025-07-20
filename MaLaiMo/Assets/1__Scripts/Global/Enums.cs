@@ -6,6 +6,8 @@ public enum LevelTypeID
     Introduce,
     Lv1_GrandmaHouse,
     Lv2_OutSideDoor,
+    Lv4_GrandmaHouse_Memory,
+
 }
 
 public enum GameEventID
@@ -28,6 +30,7 @@ public enum GameEventID
     Lv1_Event_RoomDoorAfterGraffiti,
     Lv1_E_FilialPietyCurtain,
     Lv1_E_GrandmaDeadBody,
+    Lv1_FirstTalkToCalendar,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -38,6 +41,11 @@ public enum GameEventID
     LV2_10Dollar,
     Lv2_FlowerCircle,
     Lv2_Cuisine_Soup,
+
+    // Lv3 : Scene_3
+
+    //Lv4 : Scene_4
+    Lv4_007_TearCalendar,
 }
 
 public enum Lv1_EventCallBackID
@@ -63,6 +71,7 @@ public enum HintItemID
     Lv1_Item_Wardrobe,
     Lv1_Item_5Clothes,
     Lv1_Item_Crayon,
+    Lv1_FirstTalkToCalendar,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -73,6 +82,12 @@ public enum HintItemID
     LV2_10Dollar,
     Lv2_FlowerCircle,
     Lv2_Cuisine_Soup,
+
+
+    // Lv3 : Scene_3
+
+    // Lv4 : Scene_4
+    Lv4_001_E_Calendar,
 }
 
 public enum ObjItemID

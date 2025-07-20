@@ -140,6 +140,9 @@ public class ItemController : MonoBehaviour
                 case LevelTypeID.Lv2_OutSideDoor:
                     strSceneCtrlrName = "_Scene02_Controller/SceneController";
                     break;
+                case LevelTypeID.Lv4_GrandmaHouse_Memory:
+                    strSceneCtrlrName = "_Scene01_Controller/SceneController";
+                    break;
                 case LevelTypeID.BeginScene:
                 case LevelTypeID.Introduce:
                 default:

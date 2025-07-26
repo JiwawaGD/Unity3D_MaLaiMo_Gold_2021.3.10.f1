@@ -31,7 +31,7 @@ public enum GameEventID
     Lv1_E_FilialPietyCurtain,
     Lv1_E_GrandmaDeadBody,
     Lv1_FirstTalkToCalendar,
-
+    Lv1_E_SeatMom,
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_GoInside,
@@ -72,6 +72,8 @@ public enum HintItemID
     Lv1_Item_5Clothes,
     Lv1_Item_Crayon,
     Lv1_FirstTalkToCalendar,
+    Lv1_TalkToSeatMom,
+    Lv1_Grandma_Dead_Body,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -139,6 +141,7 @@ public enum Room_Dialogue
     Lv1_000_FacePackage = 1,
     Lv1_001_HintMove,
     Lv1_002_OpenDoor,
+    Lv1_003_E_Mother,
     Lv1_004_E_Coin,
     Lv1_005_CoinPass,
     Lv1_006_CoinNotPass,
@@ -158,7 +161,7 @@ public enum Room_Dialogue
     //LV_2
     Lv1_000_Begin,
     Lv1_001_E_FilialPietyCurtain,
-    Lv1_002_E_Seat,
+    Lv1_002_E_SeatMom,
     Lv1_003_E_Grandmother,
     Lv1_004_E_Drink,
     Lv1_005_BackLivingRoom,

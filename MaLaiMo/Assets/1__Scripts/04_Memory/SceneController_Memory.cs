@@ -493,12 +493,12 @@ public class SceneController_Memory : SceneController
         PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
     }
 
-    IEnumerator Lv1_E_Seat()
+    IEnumerator Lv1_E_SeatMom()
     {
         Player._bCanControl = false;
         yield return new WaitForSeconds(10f);
-        PlayDialogue((int)Room_Dialogue.Lv1_002_E_Seat);
-        Mom_Control.GoOutFilialPietyCurtain();
+        PlayDialogue((int)Room_Dialogue.Lv1_002_E_SeatMom);
+        Mom_Control.GoOut();
     }
 
     void Lv1_E_GrandmaDeadBody()

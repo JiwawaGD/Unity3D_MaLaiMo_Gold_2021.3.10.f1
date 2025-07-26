@@ -118,7 +118,7 @@ public class ForestPlayer : PlayerController
         yield return new WaitForSeconds(0.1f);
         Ani.PlayQueued(direction);
         //yield return new WaitForSeconds(6.2f);
-        yield return new WaitForSeconds(13.2f);
+        yield return new WaitForSeconds(10f);
         Ani.enabled = false;
         canMove = true;
         this._bCanControl = true;
@@ -150,7 +150,7 @@ public class ForestPlayer : PlayerController
             FlashLight.enabled = true;
             yield return new WaitForSeconds(0.2f);
             FlashLight.enabled = false;
-            gameObject.transform.position = new Vector3(58.641f, gameObject.transform.position.y, 13.391f);
+            gameObject.transform.position = new Vector3(57.84458f, gameObject.transform.position.y, 5.146602f);
             tfTransform.eulerAngles = new Vector3(0, tfTransform.eulerAngles.y + 180f, 0);
             yield return new WaitForSeconds(0.2f);
             FlashLight.enabled = true;

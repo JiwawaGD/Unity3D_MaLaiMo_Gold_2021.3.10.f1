@@ -35,13 +35,12 @@ public class SceneController_Room : SceneController
     public override void Start()
     {
         base.Start();
-
         // 預設讓大門是可以互動狀態
         // *TODO*
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Wardrobe);
-
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_TalkToSeatMom);
         if (GlobalDeclare._checkList01_holdLotus)
         {
             TakingObjects[0].SetActive(true);
@@ -140,6 +139,9 @@ public class SceneController_Room : SceneController
                         case HintItemID.Lv1_FirstTalkToMom:
                             itemName = "_Scene01_Map/Mom";
                             break;
+                        case HintItemID.Lv1_TalkToSeatMom:
+                            itemName = "_Scene01_InteractItems/Mom";
+                            break;
                         case HintItemID.Lv1_ClipBoard:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Clipboard";
                             break;
@@ -166,6 +168,9 @@ public class SceneController_Room : SceneController
                             break;
                         case HintItemID.Lv1_Item_Crayon:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Crayon";
+                            break;
+                        case HintItemID.Lv1_Grandma_Dead_Body:
+                            itemName = "_Scene01_InteractItems/__Level_1_TODO/Lv1_Grandma_Dead_Body";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -312,6 +317,9 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_E_GrandmaDeadBody:
                     Lv1_E_GrandmaDeadBody();
                     break;
+                case GameEventID.Lv1_E_SeatMom:
+                    StartCoroutine(Lv1_E_SeatMom());
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -355,7 +363,7 @@ public class SceneController_Room : SceneController
             AniRoomDoor.PlayQueued(strPlayAniName);
         }
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_FirstTalkToMom);
+        //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_FirstTalkToMom);
     }
 
     void Lv1_FirstTalkToMom()
@@ -483,12 +491,15 @@ public class SceneController_Room : SceneController
         PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
     }
 
-    IEnumerator Lv1_E_Seat()
+    IEnumerator Lv1_E_SeatMom()
     {
         Player._bCanControl = false;
-        yield return new WaitForSeconds(10f);
-        PlayDialogue((int)Room_Dialogue.Lv1_002_E_Seat);
-        Mom_Control.GoOutFilialPietyCurtain();
+        Mom_Control.LookAtPlayer();
+        PlayDialogue((int)Room_Dialogue.Lv1_002_E_SeatMom);
+        yield return new WaitForSeconds(9f);
+        Mom_Control.GoOut();
+        yield return new WaitForSeconds(5f);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Grandma_Dead_Body);
     }
 
     void Lv1_E_GrandmaDeadBody()

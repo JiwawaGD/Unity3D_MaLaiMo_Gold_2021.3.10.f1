@@ -19,7 +19,8 @@ public class Mom_Controler_Room : MonoBehaviour
 
     public void LookAtPlayer()
     {
-        transform.DOLookAt(Player.transform.localPosition, 0.5f);
+        //transform.DOLookAt(Player.transform.position, 0.5f);
+        transform.LookAt(Player.transform);
     }
 
     public void GoOut()

@@ -138,9 +138,9 @@ public class SceneController_Room : SceneController
                         case HintItemID.Lv1_Item_TalkToSeatMom:
                             item = this._objectCtrlr._mom.GetComponent<ItemController>();
                             break;
-                        case HintItemID.Lv1_Item_GoOutSide:
-                            item = this._objectCtrlr._frontDoor.GetComponent<ItemController>();
-                            break;
+                        //case HintItemID.Lv1_Item_GoOutSide:
+                        //    item = this._objectCtrlr._frontDoor.GetComponent<ItemController>();
+                        //    break;
                         case HintItemID.Lv1_Item_LotusPaper:
                             item = this._objectCtrlr._lotusPaper.GetComponent<ItemController>();
                             break;
@@ -340,7 +340,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_GrandmaRoomDoorSwitch()
     {
-        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door").transform;
         Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
 
         if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)

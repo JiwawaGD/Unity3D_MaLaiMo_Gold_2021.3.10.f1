@@ -6,7 +6,7 @@ public enum LevelTypeID
     Introduce,
     Lv1_GrandmaHouse,
     Lv2_OutSideDoor,
-    Lv4_GrandmaHouse_Memory,
+    Lv3_GrandmaHouse_Memory,
 
 }
 
@@ -45,7 +45,8 @@ public enum GameEventID
     // Lv3 : Scene_3
 
     //Lv4 : Scene_4
-    Lv4_007_TearCalendar,
+    Lv4_007_Calendar,
+    Lv4_Calendar_paper_anim
 }
 
 public enum Lv1_EventCallBackID
@@ -87,6 +88,7 @@ public enum HintItemID
 
     // Lv4 : Scene_4
     Lv4_001_E_Calendar,
+    Lv4_Calendar_paper_anim
 }
 
 public enum ObjItemID

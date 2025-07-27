@@ -7,7 +7,13 @@ public class ObjectController_Room : MonoBehaviour
     public GameObject _player;
 
     [HideInInspector]
+    public GameObject _tv;
+
+    [HideInInspector]
     public GameObject _wallClock;
+
+    [HideInInspector]
+    public GameObject _filialPietyCurtain;
     #endregion
 
     #region ============ Item 相關 ============
@@ -31,5 +37,17 @@ public class ObjectController_Room : MonoBehaviour
 
     [HideInInspector]
     public ItemController _graffitiInCloset;
+
+    [HideInInspector]
+    public ItemController _mom;
+
+    [HideInInspector]
+    public ItemController _frontDoor;
+
+    [HideInInspector]
+    public ItemController _piano;
+
+    [HideInInspector]
+    public ItemController _grandmaDeadBody;
     #endregion
 }

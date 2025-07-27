@@ -1,10 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-//請幫我把 ObjectController_Room.cs 這個檔案中所有的 ItemController 和 GameObject 欄位
-//都加到 ObjectController_RoomEditor.cs 的自訂 Inspector 介面裡
-//並且用可收合的群組方式顯示，像你之前幫我做的那樣。
-
 [CustomEditor(typeof(ObjectController_Room))]
 [CanEditMultipleObjects]
 public class ObjectController_RoomEditor : Editor
@@ -14,7 +10,9 @@ public class ObjectController_RoomEditor : Editor
 
     // GameObject 欄位
     SerializedProperty player;
+    SerializedProperty _tv;
     SerializedProperty wallClock;
+    SerializedProperty _filialPietyCurtain;
 
     // ItemController 欄位
     SerializedProperty grandmaRoomDoor;
@@ -24,12 +22,18 @@ public class ObjectController_RoomEditor : Editor
     SerializedProperty grandmaRoomCloset;
     SerializedProperty clothesInCloset;
     SerializedProperty graffitiInCloset;
+    SerializedProperty mom;
+    SerializedProperty frontDoor;
+    SerializedProperty piano;
+    SerializedProperty grandmaDeadBody;
 
     private void OnEnable()
     {
         // GameObject 欄位
         player = serializedObject.FindProperty("_player");
         wallClock = serializedObject.FindProperty("_wallClock");
+        _tv = serializedObject.FindProperty("_tv");
+        _filialPietyCurtain = serializedObject.FindProperty("_filialPietyCurtain");
 
         // ItemController 欄位
         grandmaRoomDoor = serializedObject.FindProperty("_grandmaRoomDoor");
@@ -39,6 +43,10 @@ public class ObjectController_RoomEditor : Editor
         grandmaRoomCloset = serializedObject.FindProperty("_grandmaRoomCloset");
         clothesInCloset = serializedObject.FindProperty("_clothesInCloset");
         graffitiInCloset = serializedObject.FindProperty("_graffitiInCloset");
+        mom = serializedObject.FindProperty("_mom");
+        frontDoor = serializedObject.FindProperty("_frontDoor");
+        piano = serializedObject.FindProperty("_piano");
+        grandmaDeadBody = serializedObject.FindProperty("_grandmaDeadBody");
     }
 
     public override void OnInspectorGUI()
@@ -48,19 +56,21 @@ public class ObjectController_RoomEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("==== 場景物件分組 ====", EditorStyles.boldLabel);
 
-        showGameObjects = EditorGUILayout.Foldout(showGameObjects, "Game Object 欄位");
+        showGameObjects = EditorGUILayout.Foldout(showGameObjects, "GameObject 欄位");
         if (showGameObjects)
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.PropertyField(player, new GUIContent("玩家"));
+            EditorGUILayout.PropertyField(_tv, new GUIContent("電視"));
             EditorGUILayout.PropertyField(wallClock, new GUIContent("壁鐘"));
+            EditorGUILayout.PropertyField(_filialPietyCurtain, new GUIContent("孝濂"));
             EditorGUI.indentLevel--;
         }
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("==== 互動物件分組 ====", EditorStyles.boldLabel);
 
-        showItems = EditorGUILayout.Foldout(showItems, "Item Controller 欄位");
+        showItems = EditorGUILayout.Foldout(showItems, "ItemController 欄位");
         if (showItems)
         {
             EditorGUI.indentLevel++;
@@ -71,6 +81,10 @@ public class ObjectController_RoomEditor : Editor
             EditorGUILayout.PropertyField(grandmaRoomCloset, new GUIContent("奶奶房間衣櫃"));
             EditorGUILayout.PropertyField(clothesInCloset, new GUIContent("衣櫃裡的衣服"));
             EditorGUILayout.PropertyField(graffitiInCloset, new GUIContent("衣櫃裡的塗鴉畫"));
+            EditorGUILayout.PropertyField(mom, new GUIContent("媽媽"));
+            EditorGUILayout.PropertyField(frontDoor, new GUIContent("前門"));
+            EditorGUILayout.PropertyField(piano, new GUIContent("鋼琴"));
+            EditorGUILayout.PropertyField(grandmaDeadBody, new GUIContent("奶奶遺體"));
             EditorGUI.indentLevel--;
         }
 

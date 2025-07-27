@@ -38,7 +38,6 @@ public class ItemController : MonoBehaviour
     #endregion
 
     #region < Unity Hook >
-    [System.Obsolete]
     void Awake()
     {
         GetFields();

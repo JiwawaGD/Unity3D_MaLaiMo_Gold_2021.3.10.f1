@@ -60,20 +60,18 @@ public enum HintItemID
 
     // Lv1 : Scene_1
     Lv1_Begin = 1,
-    Lv1_OpenRoomDoor,
-    Lv1_FirstTalkToMom,
-    Lv1_ClipBoard,
+    Lv1_Item_Piano,
+    Lv1_Item_OpenRoomDoor,
     Lv1_Item_GoOutSide,
     Lv1_Item_LotusPaper,
-    Lv1_Piano,
-    Lv1_Item_FinishedLotus,
-    Lv1_Item_PlaceToPutRice,
-    Lv1_Item_Wardrobe,
-    Lv1_Item_5Clothes,
-    Lv1_Item_Crayon,
-    Lv1_FirstTalkToCalendar,
-    Lv1_TalkToSeatMom,
-    Lv1_Grandma_Dead_Body,
+    Lv1_Item_FoldedLotusPaper,
+    Lv1_Item_OfferingPlace,
+    Lv1_Item_GrandmaRoomCloset,
+    Lv1_Item_ClothesInCloset,
+    Lv1_Item_Grafitti,
+    Lv1_Item_FirstTalkToCalendar,
+    Lv1_Item_TalkToSeatMom,
+    Lv1_Item_Grandma_Dead_Body,
 
     // Lv2 : Scene_2
     Lv2_Begin = 101,
@@ -84,7 +82,6 @@ public enum HintItemID
     LV2_10Dollar,
     Lv2_FlowerCircle,
     Lv2_Cuisine_Soup,
-
 
     // Lv3 : Scene_3
 

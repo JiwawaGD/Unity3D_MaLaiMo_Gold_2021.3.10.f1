@@ -39,8 +39,8 @@ public class SceneController_Memory : SceneController
         // 預設讓大門是可以互動狀態
         // *TODO*
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Piano);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Wardrobe);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Piano);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GrandmaRoomCloset);
 
         if (GlobalDeclare._checkList01_holdLotus)
         {
@@ -48,7 +48,7 @@ public class SceneController_Memory : SceneController
         }
         else if (GlobalDeclare._checkList02_holdRice)
         {
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_PlaceToPutRice);
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OfferingPlace);
             TakingObjects[1].SetActive(true);
         }
 
@@ -137,14 +137,8 @@ public class SceneController_Memory : SceneController
                         //case HintItemID.Lv1_FirstTalkToCalendar:
                         //    itemName = "_Scene01_InteractItems/__Level_4/Lv4_Calendar/Calendar";
                         //    break;
-                        case HintItemID.Lv1_OpenRoomDoor:
+                        case HintItemID.Lv1_Item_OpenRoomDoor:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door";
-                            break;
-                        case HintItemID.Lv1_FirstTalkToMom:
-                            itemName = "_Scene01_Map/Mom";
-                            break;
-                        case HintItemID.Lv1_ClipBoard:
-                            itemName = "_Scene01_InteractItems/__Level_1/Lv1_Clipboard";
                             break;
                         case HintItemID.Lv1_Item_GoOutSide:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor";
@@ -152,25 +146,25 @@ public class SceneController_Memory : SceneController
                         case HintItemID.Lv1_Item_LotusPaper:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Handler";
                             break;
-                        case HintItemID.Lv1_Piano:
+                        case HintItemID.Lv1_Item_Piano:
                             itemName = "_Scene01_InteractItems/__Level_1_TODO/Lv1_Piano";
                             break;
-                        case HintItemID.Lv1_Item_FinishedLotus:
+                        case HintItemID.Lv1_Item_FoldedLotusPaper:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Finished_Lotus_Paper";
                             break;
-                        case HintItemID.Lv1_Item_PlaceToPutRice:
+                        case HintItemID.Lv1_Item_OfferingPlace:
                             itemName = "_Scene01_InteractItems/__Level_1/Item_PlaceToPutRice";
                             break;
-                        case HintItemID.Lv1_Item_Wardrobe:
+                        case HintItemID.Lv1_Item_GrandmaRoomCloset:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Wardrobe";
                             break;
-                        case HintItemID.Lv1_Item_5Clothes:
+                        case HintItemID.Lv1_Item_ClothesInCloset:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_5Clothes";
                             break;
-                        case HintItemID.Lv1_Item_Crayon:
+                        case HintItemID.Lv1_Item_Grafitti:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Crayon";
                             break;
-                        case HintItemID.Lv1_FirstTalkToCalendar:
+                        case HintItemID.Lv1_Item_FirstTalkToCalendar:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Calendar"; 
                             break;
 
@@ -265,7 +259,7 @@ public class SceneController_Memory : SceneController
         PlayerCtrlr._rig.useGravity = true;
         PlayerCtrlr._collider.enabled = true;
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_FinishedLotus);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_FoldedLotusPaper);
     }
     #endregion
 
@@ -281,9 +275,6 @@ public class SceneController_Memory : SceneController
                     break;
                 case GameEventID.Lv1_GrandmaRoomDoorSwitch:
                     Lv1_GrandmaRoomDoorSwitch();
-                    break;
-                case GameEventID.Lv1_FirstTalkToMom:
-                    Lv1_FirstTalkToMom();
                     break;
                 case GameEventID.Lv1_GoOutSide:
                     Lv1_GoOutSide();
@@ -347,7 +338,7 @@ public class SceneController_Memory : SceneController
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
         GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_OpenRoomDoor);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
 
         PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
     }
@@ -364,14 +355,6 @@ public class SceneController_Memory : SceneController
             AniRoomDoor[strPlayAniName].time = 0f;
             AniRoomDoor.PlayQueued(strPlayAniName);
         }
-
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_FirstTalkToMom);
-    }
-
-    void Lv1_FirstTalkToMom()
-    {
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_ClipBoard);
-        //PlayDialogue((int)Room_Dialogue.Lv1_003_E_Mother);
     }
 
     void Lv1_GoOutSide()
@@ -434,10 +417,10 @@ public class SceneController_Memory : SceneController
             SetItemAlwaysActive(itemName, true);
             ChangeItemGameEventID(itemName, GameEventID.Lv1_Event_RoomDoorAfterGraffiti);
 
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_OpenRoomDoor);
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
         }
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_5Clothes);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_ClothesInCloset);
     }
 
     void Lv1_Event_5ClothesOnGraffiti()
@@ -446,7 +429,7 @@ public class SceneController_Memory : SceneController
         Animator clothesAnim = clothes.GetComponent<Animator>();
         clothesAnim.SetTrigger("Move");
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Grafitti);
     }
 
     void Lv1_Event_Graffiti()

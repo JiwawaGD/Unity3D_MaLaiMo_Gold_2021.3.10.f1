@@ -93,12 +93,11 @@ MonoBehaviour:
   postProcessVolume: {fileID: 0}
   Note: {fileID: 0}
   _objectCtrlr: {fileID: 4702558715505588209}
-  _outsideGoInTransitPos: {fileID: 0}
+  Player: {fileID: 0}
   _lotusGameManager: {fileID: 0}
-  _tvObject: {fileID: 0}
+  Mom_Control: {fileID: 0}
+  _outsideGoInTransitPos: {fileID: 0}
   _tvNoiseMaterial: {fileID: 2100000, guid: 73d334872b1a68543a4a49e88eca71fa, type: 2}
-  FilialPietyCurtain_Ani: {fileID: 0}
-  LotusPaper: {fileID: 0}
 --- !u!114 &4702558715505588209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
+  _tv: {fileID: 0}
   _wallClock: {fileID: 0}
+  _filialPietyCurtain: {fileID: 0}
   _grandmaRoomDoor: {fileID: 0}
   _lotusPaper: {fileID: 0}
   _foldedLotusPaper: {fileID: 0}
@@ -120,6 +121,10 @@ MonoBehaviour:
   _grandmaRoomCloset: {fileID: 0}
   _clothesInCloset: {fileID: 0}
   _graffitiInCloset: {fileID: 0}
+  _mom: {fileID: 0}
+  _frontDoor: {fileID: 0}
+  _piano: {fileID: 0}
+  _grandmaDeadBody: {fileID: 0}
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

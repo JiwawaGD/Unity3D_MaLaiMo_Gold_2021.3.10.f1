@@ -8,11 +8,15 @@ public class ObjectController_RoomEditor : Editor
     private bool showGameObjects = true;
     private bool showItems = true;
 
+    // Transform 欄位
+    SerializedProperty _playerWakeUpPos;
+
     // GameObject 欄位
     SerializedProperty player;
     SerializedProperty _tv;
     SerializedProperty wallClock;
     SerializedProperty _filialPietyCurtain;
+    SerializedProperty _riceAndSoup;
 
     // ItemController 欄位
     SerializedProperty grandmaRoomDoor;
@@ -29,11 +33,15 @@ public class ObjectController_RoomEditor : Editor
 
     private void OnEnable()
     {
+        // Transform 欄位
+        _playerWakeUpPos = serializedObject.FindProperty("_playerWakeUpPos");
+
         // GameObject 欄位
         player = serializedObject.FindProperty("_player");
         wallClock = serializedObject.FindProperty("_wallClock");
         _tv = serializedObject.FindProperty("_tv");
         _filialPietyCurtain = serializedObject.FindProperty("_filialPietyCurtain");
+        _riceAndSoup = serializedObject.FindProperty("_riceAndSoup");
 
         // ItemController 欄位
         grandmaRoomDoor = serializedObject.FindProperty("_grandmaRoomDoor");
@@ -54,6 +62,16 @@ public class ObjectController_RoomEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.Space();
+        EditorGUILayout.LabelField("==== 場景座標分組 ====", EditorStyles.boldLabel);
+        showGameObjects = EditorGUILayout.Foldout(showGameObjects, "Transform 欄位");
+        if (showGameObjects)
+        {
+            EditorGUI.indentLevel++;
+            EditorGUILayout.PropertyField(_playerWakeUpPos, new GUIContent("玩家面對床起床位置"));
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.Space();
         EditorGUILayout.LabelField("==== 場景物件分組 ====", EditorStyles.boldLabel);
 
         showGameObjects = EditorGUILayout.Foldout(showGameObjects, "GameObject 欄位");
@@ -64,6 +82,7 @@ public class ObjectController_RoomEditor : Editor
             EditorGUILayout.PropertyField(_tv, new GUIContent("電視"));
             EditorGUILayout.PropertyField(wallClock, new GUIContent("壁鐘"));
             EditorGUILayout.PropertyField(_filialPietyCurtain, new GUIContent("孝濂"));
+            EditorGUILayout.PropertyField(_riceAndSoup, new GUIContent("三菜一湯"));
             EditorGUI.indentLevel--;
         }
 

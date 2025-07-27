@@ -2,6 +2,11 @@
 
 public class ObjectController_Room : MonoBehaviour
 {
+    #region ============ 座標 相關 ============
+    [HideInInspector]
+    public Transform _playerWakeUpPos;
+    #endregion
+
     #region ============ 物件 相關 ============
     [HideInInspector]
     public GameObject _player;
@@ -14,6 +19,9 @@ public class ObjectController_Room : MonoBehaviour
 
     [HideInInspector]
     public GameObject _filialPietyCurtain;
+
+    [HideInInspector]
+    public GameObject _riceAndSoup;
     #endregion
 
     #region ============ Item 相關 ============

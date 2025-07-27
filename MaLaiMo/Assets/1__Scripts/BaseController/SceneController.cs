@@ -250,17 +250,13 @@ public partial class SceneController : MonoBehaviour
 
     public virtual void MoveItem(UIItemID r_ItemID) { }
 
-    public virtual void ChangeItemGameEventID(string itemObjName, GameEventID newGameEventID)
+    public virtual void ChangeItemGameEventID(ItemController item, GameEventID newGameEventID)
     {
-        ItemController item;
-        item = GameObject.Find(itemObjName).GetComponent<ItemController>();
         item.SetNewGameEventID(newGameEventID);
     }
 
-    public virtual void SetItemAlwaysActive(string itemObjName, bool alwaysActive)
+    public virtual void SetItemAlwaysActive(ItemController item, bool alwaysActive)
     {
-        ItemController item;
-        item = GameObject.Find(itemObjName).GetComponent<ItemController>();
         item.SetAlwaysActive(alwaysActive);
     }
     #endregion

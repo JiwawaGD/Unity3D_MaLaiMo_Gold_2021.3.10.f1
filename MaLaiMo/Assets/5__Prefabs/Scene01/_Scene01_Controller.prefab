@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2376184441917697324}
   - component: {fileID: 1102766671}
+  - component: {fileID: 1541729474275010436}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: Untagged
@@ -91,12 +92,40 @@ MonoBehaviour:
   PlayerCtrlr: {fileID: 0}
   postProcessVolume: {fileID: 0}
   Note: {fileID: 0}
-  _objectCtrlr: {fileID: 0}
+  _objectCtrlr: {fileID: 1541729474275010436}
   Player: {fileID: 0}
   _lotusGameManager: {fileID: 0}
   Mom_Control: {fileID: 0}
   _outsideGoInTransitPos: {fileID: 0}
   _tvNoiseMaterial: {fileID: 2100000, guid: 73d334872b1a68543a4a49e88eca71fa, type: 2}
+--- !u!114 &1541729474275010436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738495879680828170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec512e0ced25c54a9ad69f010fd30eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerWakeUpPos: {fileID: 0}
+  _player: {fileID: 0}
+  _tv: {fileID: 0}
+  _wallClock: {fileID: 0}
+  _filialPietyCurtain: {fileID: 0}
+  _grandmaRoomDoor: {fileID: 0}
+  _lotusPaper: {fileID: 0}
+  _foldedLotusPaper: {fileID: 0}
+  _offeringPlace: {fileID: 0}
+  _grandmaRoomCloset: {fileID: 0}
+  _clothesInCloset: {fileID: 0}
+  _graffitiInCloset: {fileID: 0}
+  _mom: {fileID: 0}
+  _frontDoor: {fileID: 0}
+  _piano: {fileID: 0}
+  _grandmaDeadBody: {fileID: 0}
 --- !u!1 &1775396151606266512
 GameObject:
   m_ObjectHideFlags: 0

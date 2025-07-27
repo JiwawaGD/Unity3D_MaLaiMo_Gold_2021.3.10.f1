@@ -128,48 +128,45 @@ public class SceneController_Room : SceneController
             switch (r_SceneTypeID)
             {
                 case LevelTypeID.Lv1_GrandmaHouse:
-                    ItemController item;
-
                     switch (r_ItemID)
                     {
                         case HintItemID.Lv1_Item_OpenRoomDoor:
-                            item = this._objectCtrlr._grandmaRoomDoor.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._grandmaRoomDoor.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_TalkToSeatMom:
-                            item = this._objectCtrlr._mom.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._mom.GetComponent<ItemController>();
                             break;
-                        //case HintItemID.Lv1_Item_GoOutSide:
-                        //    item = this._objectCtrlr._frontDoor.GetComponent<ItemController>();
-                        //    break;
+                        case HintItemID.Lv1_Item_GoOutSide:
+                            itemCtrlr = this._objectCtrlr._frontDoor.GetComponent<ItemController>();
+                            break;
                         case HintItemID.Lv1_Item_LotusPaper:
-                            item = this._objectCtrlr._lotusPaper.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._lotusPaper.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_Piano:
-                            item = this._objectCtrlr._piano.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._piano.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_FoldedLotusPaper:
-                            item = this._objectCtrlr._foldedLotusPaper.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._foldedLotusPaper.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_OfferingPlace:
-                            item = this._objectCtrlr._offeringPlace.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._offeringPlace.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_GrandmaRoomCloset:
-                            item = this._objectCtrlr._grandmaRoomCloset.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._grandmaRoomCloset.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_ClothesInCloset:
-                            item = this._objectCtrlr._clothesInCloset.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._clothesInCloset.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_Grafitti:
-                            item = this._objectCtrlr._graffitiInCloset.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._graffitiInCloset.GetComponent<ItemController>();
                             break;
                         case HintItemID.Lv1_Item_Grandma_Dead_Body:
-                            item = this._objectCtrlr._grandmaDeadBody.GetComponent<ItemController>();
+                            itemCtrlr = this._objectCtrlr._grandmaDeadBody.GetComponent<ItemController>();
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
                     }
-
                     break;
                 default:
                     Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Scene ID :: {0}", r_SceneTypeID));
@@ -217,14 +214,14 @@ public class SceneController_Room : SceneController
         }
     }
 
-    public override void ChangeItemGameEventID(string itemObjName, GameEventID newGameEventID)
+    public override void ChangeItemGameEventID(ItemController item, GameEventID newGameEventID)
     {
-        base.ChangeItemGameEventID(itemObjName, newGameEventID);
+        base.ChangeItemGameEventID(item, newGameEventID);
     }
 
-    public override void SetItemAlwaysActive(string itemObjName, bool alwaysActive)
+    public override void SetItemAlwaysActive(ItemController item, bool alwaysActive)
     {
-        base.SetItemAlwaysActive(itemObjName, alwaysActive);
+        base.SetItemAlwaysActive(item, alwaysActive);
     }
     #endregion
 
@@ -324,8 +321,8 @@ public class SceneController_Room : SceneController
     #region < Game Event >
     void Lv1_TalkToPackage()
     {
-        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
-        Transform tfTalkToPackagePos = GameObject.Find("_Scene01_MoveLocation/TalkToPackagePos").transform;
+        Transform tfPlayer = this._objectCtrlr._player.transform;
+        Transform tfTalkToPackagePos = this._objectCtrlr._playerWakeUpPos.transform;
 
         tfPlayer.localPosition = tfTalkToPackagePos.localPosition;
         tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
@@ -340,7 +337,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_GrandmaRoomDoorSwitch()
     {
-        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door").transform;
+        Transform tfRoomDoor = this._objectCtrlr._grandmaRoomDoor.transform;
         Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
 
         if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
@@ -383,7 +380,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_PutRiceOnKitchenTable()
     {
-        GameObject riceAndSoup = GameObject.Find("_Scene01_Map/Kitchen/3Cuisine_1Soup");
+        GameObject riceAndSoup = this._objectCtrlr._riceAndSoup;
 
         riceAndSoup.GetComponent<MeshRenderer>().enabled = true;
 
@@ -394,24 +391,22 @@ public class SceneController_Room : SceneController
     void Lv1_Event_WardrobeInRoom()
     {
         {   // 開衣櫃
-            GameObject wardrobe = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Wardrobe");
-            Animator wardrobeAnim = wardrobe.GetComponent<Animator>();
+            Animator wardrobeAnim = this._objectCtrlr._grandmaRoomCloset.transform.GetComponent<Animator>();
             wardrobeAnim.SetTrigger("Open");
 
             Debug.Log("<缺> 木頭櫃打開的聲音");
         }
 
         {   // 關房門
-            Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-            Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+            Animation AniRoomDoor = this._objectCtrlr._grandmaRoomDoor.transform.GetComponent<Animation>();
             AniRoomDoor.PlayQueued("Door_Close");
         }
 
         {   // 切換房門的 EventID 且重新開啟 Hint
-            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
+            ItemController itemGrandmaRoomDoor =this._objectCtrlr._grandmaRoomDoor;
 
-            SetItemAlwaysActive(itemName, true);
-            ChangeItemGameEventID(itemName, GameEventID.Lv1_Event_RoomDoorAfterGraffiti);
+            SetItemAlwaysActive(itemGrandmaRoomDoor, true);
+            ChangeItemGameEventID(itemGrandmaRoomDoor, GameEventID.Lv1_Event_RoomDoorAfterGraffiti);
 
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
         }
@@ -421,8 +416,7 @@ public class SceneController_Room : SceneController
 
     void Lv1_Event_5ClothesOnGraffiti()
     {
-        GameObject clothes = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_5Clothes");
-        Animator clothesAnim = clothes.GetComponent<Animator>();
+        Animator clothesAnim = this._objectCtrlr._clothesInCloset.transform.GetComponent<Animator>();
         clothesAnim.SetTrigger("Move");
 
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Grafitti);
@@ -437,9 +431,9 @@ public class SceneController_Room : SceneController
         }
 
         {   // 將房門的 AlwaysActive 關閉
-            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
+            ItemController itemGrandmaRoomDoor = this._objectCtrlr._grandmaRoomDoor;
 
-            SetItemAlwaysActive(itemName, false);
+            SetItemAlwaysActive(itemGrandmaRoomDoor, false);
         }
 
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
@@ -452,8 +446,7 @@ public class SceneController_Room : SceneController
             Debug.Log("01 : 琳琳：怎麼都找不到");
 
             {   // 開房門
-                Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-                Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+                Animation AniRoomDoor = this._objectCtrlr._grandmaRoomDoor.transform.GetComponent<Animation>();
                 AniRoomDoor.PlayQueued("Door_Open");
 
                 WallClock wallClock =  this._objectCtrlr._wallClock.GetComponent<WallClock>();

@@ -228,14 +228,14 @@ public class SceneController_Memory : SceneController
         }
     }
 
-    public override void ChangeItemGameEventID(string itemObjName, GameEventID newGameEventID)
+    public override void ChangeItemGameEventID(ItemController item, GameEventID newGameEventID)
     {
-        base.ChangeItemGameEventID(itemObjName, newGameEventID);
+        base.ChangeItemGameEventID(item, newGameEventID);
     }
 
-    public override void SetItemAlwaysActive(string itemObjName, bool alwaysActive)
+    public override void SetItemAlwaysActive(ItemController item, bool alwaysActive)
     {
-        base.SetItemAlwaysActive(itemObjName, alwaysActive);
+        base.SetItemAlwaysActive(item, alwaysActive);
     }
     #endregion
 
@@ -441,15 +441,6 @@ public class SceneController_Memory : SceneController
             AniRoomDoor.PlayQueued("Door_Close");
         }
 
-        {   // 切換房門的 EventID 且重新開啟 Hint
-            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
-
-            SetItemAlwaysActive(itemName, true);
-            ChangeItemGameEventID(itemName, GameEventID.Lv1_Event_RoomDoorAfterGraffiti);
-
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
-        }
-
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_ClothesInCloset);
     }
 
@@ -468,12 +459,6 @@ public class SceneController_Memory : SceneController
 
         {
             this._hasTriggerGraffiti = true;
-        }
-
-        {   // 將房門的 AlwaysActive 關閉
-            string itemName = "_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door"; ;
-
-            SetItemAlwaysActive(itemName, false);
         }
 
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);

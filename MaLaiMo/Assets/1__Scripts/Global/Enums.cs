@@ -46,7 +46,9 @@ public enum GameEventID
 
     //Lv4 : Scene_4
     Lv4_007_Calendar,
-    Lv4_Calendar_paper_anim
+    Lv4_Calendar_paper_anim,
+    Lv4_FlushToilet,
+    Lv4_E_Sink
 }
 
 public enum Lv1_EventCallBackID
@@ -73,7 +75,7 @@ public enum HintItemID
     Lv1_Item_FirstTalkToCalendar,
     Lv1_Item_TalkToSeatMom,
     Lv1_Item_Grandma_Dead_Body,
-
+   
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_OutSideDoor,
@@ -88,7 +90,9 @@ public enum HintItemID
 
     // Lv4 : Scene_4
     Lv4_001_E_Calendar,
-    Lv4_Calendar_paper_anim
+    Lv4_Calendar_paper_anim,
+    Lv4_Toilet,
+    Lv4_Skin
 }
 
 public enum ObjItemID
@@ -188,7 +192,6 @@ public enum Room_Dialogue
     Lv4_018_E_CalendarPaper,
     Lv4_019_AfterAnimation,
     Lv4_020_E_Tub,
-
     //LV_5
     Lv5_000_E_CalendarBook = 1,
     Lv5_001_E_Door,

@@ -104,7 +104,6 @@ public class ForestPlayer : PlayerController
 
         if (alreadyTriggerDeadBody == true)
         {
-            print(DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime);
             if (DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 DeadBodyAni.gameObject.SetActive(false);

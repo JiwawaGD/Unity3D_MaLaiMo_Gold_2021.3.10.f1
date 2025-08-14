@@ -48,7 +48,9 @@ public enum GameEventID
     Lv4_007_Calendar,
     Lv4_Calendar_paper_anim,
     Lv4_FlushToilet,
-    Lv4_E_Sink
+    Lv4_E_Sink,
+    Lv4_E_BathRoomDoor,
+    Lv4_E_GrandMaRoomDoor
 }
 
 public enum Lv1_EventCallBackID
@@ -92,7 +94,8 @@ public enum HintItemID
     Lv4_001_E_Calendar,
     Lv4_Calendar_paper_anim,
     Lv4_Toilet,
-    Lv4_Skin
+    Lv4_Skin,
+    Lv4_BathRoomDoor,
 }
 
 public enum ObjItemID
@@ -192,6 +195,7 @@ public enum Room_Dialogue
     Lv4_018_E_CalendarPaper,
     Lv4_019_AfterAnimation,
     Lv4_020_E_Tub,
+    Lv4_E_BathroomDoor,
     //LV_5
     Lv5_000_E_CalendarBook = 1,
     Lv5_001_E_Door,

@@ -23,6 +23,7 @@ public class SceneController_Memory : SceneController
 
     public GameObject calendarObject;
     private Animation calendarAnim;
+    private int BathRoomDoorStep = 0;
     #endregion
 
     #region < ByScene Flag >
@@ -355,6 +356,12 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_E_Sink:
                     Lv4_E_Skin();
                     break;
+                case GameEventID.Lv4_E_BathRoomDoor:
+                    StartCoroutine(Lv4_E_BathRoomDoor());
+                    break;
+                case GameEventID.Lv4_E_GrandMaRoomDoor:
+                    Lv4_E_GrandMaRoomDoor();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -532,6 +539,29 @@ public class SceneController_Memory : SceneController
     void Lv4_E_Skin()
     {
 
+    }
+
+    IEnumerator Lv4_E_BathRoomDoor()
+    {
+        if(BathRoomDoorStep == 0)
+        {
+            BathRoomDoorStep = 1;
+            //窺視動畫，看見爸媽模糊的影子
+            yield return new WaitForSeconds(5f);
+            PlayDialogue((int)Room_Dialogue.Lv4_E_BathroomDoor);
+            yield return new WaitForSeconds(10f);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.Lv4_BathRoomDoor);
+        }
+        else if(BathRoomDoorStep == 1)
+        {
+            //門關上後，場景暗掉
+            //回到房間躺著的視角
+        }
+    }
+
+    void Lv4_E_GrandMaRoomDoor()
+    {
+        //客廳正中間桌子亮起
     }
     #endregion
 }

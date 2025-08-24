@@ -35,7 +35,7 @@ public enum GameEventID
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_GoInside,
-    Lv2_TalkToMom ,
+    Lv2_TalkToMom,
     Lv2_CheckPaper,
     Lv2_PutLotusPaper,
     LV2_10Dollar,
@@ -45,12 +45,15 @@ public enum GameEventID
     // Lv3 : Scene_3
 
     //Lv4 : Scene_4
+    Lv4_GrandmaRoomDoorSwitchClock,
     Lv4_007_Calendar,
     Lv4_Calendar_paper_anim,
     Lv4_FlushToilet,
     Lv4_E_Sink,
     Lv4_E_BathRoomDoor,
-    Lv4_E_GrandMaRoomDoor
+    Lv4_E_GrandMaRoomDoor,
+    Lv4_GiftBox,
+    Lv4_Dam_MomPupptery
 }
 
 public enum Lv1_EventCallBackID
@@ -77,11 +80,11 @@ public enum HintItemID
     Lv1_Item_FirstTalkToCalendar,
     Lv1_Item_TalkToSeatMom,
     Lv1_Item_Grandma_Dead_Body,
-   
+
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_OutSideDoor,
-    Lv2_Mom ,
+    Lv2_Mom,
     Lv2_Paper,
     Lv2_Table,
     LV2_10Dollar,
@@ -91,11 +94,14 @@ public enum HintItemID
     // Lv3 : Scene_3
 
     // Lv4 : Scene_4
+    Lv4_Item_RoomDoorClock,
     Lv4_001_E_Calendar,
     Lv4_Calendar_paper_anim,
     Lv4_Toilet,
     Lv4_Skin,
     Lv4_BathRoomDoor,
+    Lv4_GiftBox,
+    Lv4_Dam_MomPupptery
 }
 
 public enum ObjItemID

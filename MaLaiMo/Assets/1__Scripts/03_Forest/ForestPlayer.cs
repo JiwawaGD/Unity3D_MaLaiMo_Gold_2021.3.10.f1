@@ -89,6 +89,7 @@ public class ForestPlayer : PlayerController
         {
             //播放屍體掉下動畫
             alreadyTriggerDeadBody = true;
+            gameManager.StartCoroutine(gameManager.dropDeadBody());
         }
     }
 

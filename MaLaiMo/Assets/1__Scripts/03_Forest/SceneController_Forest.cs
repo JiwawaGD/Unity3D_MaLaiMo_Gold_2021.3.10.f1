@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class SceneController_Forest : SceneController
 {
@@ -22,6 +23,10 @@ public class SceneController_Forest : SceneController
     public ForestPlayer ForestPlayer;
     public GameObject E_WrongGhost;
     public GameObject H_WrongGhost;
+    public GameObject H_DeadBody;
+    public GameObject[] CandleObject;
+    private int CandleCount = 0;
+    private int iWrongLevelIndex;
     int m_iSuccessCount;
     int m_iPassLevelCount;
 
@@ -83,21 +88,31 @@ public class SceneController_Forest : SceneController
         {
             m_iPassLevelCount++;
             m_iSuccessCount++;
+            if(CandleCount < CandleObject.Length)
+            {
+                CandleCount++;
+                CandleObject[CandleCount].SetActive(true);
+            }
 
             bPassSuccess = true;
         }
         else if (CurrentScene_2 != SceneType.A_Right && way == GoWay.Back)
         {
             m_iPassLevelCount++;
-
+            m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
             bPassSuccess = true;
         }
         else
         {
-            m_iPassLevelCount = 0;
-            m_iSuccessCount = 0;
+            CandleObject[CandleCount].SetActive(false);
+            if (CandleCount > 1)
+            {
+                CandleCount--;
+                m_iPassLevelCount --;
+                m_iSuccessCount --;
+            } 
         }
-
+        
         RandomNextLevel(bPassSuccess);
         SetCount();
     }
@@ -107,7 +122,7 @@ public class SceneController_Forest : SceneController
         SceneType NextSceneType;
         int iNextLevelWeight = Random.Range(1, 11);
 
-        int iWrongLevelIndex = GetRandomUnRepeatLevelIndex();
+        iWrongLevelIndex = GetRandomUnRepeatLevelIndex();
         int iRightLevelWeight;
 
         if (m_iSuccessCount > 7)
@@ -166,7 +181,6 @@ public class SceneController_Forest : SceneController
         else
         {
             NextSceneType = (SceneType)iWrongLevelIndex;
-            m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
         }
 
         CurrentScene_2 = NextSceneType;
@@ -237,6 +251,13 @@ public class SceneController_Forest : SceneController
         FinsihFirstDia = true;
     }
 
+    public IEnumerator dropDeadBody()
+    {
+        yield return new WaitForSeconds(2);
+        H_WrongGhost.transform.position = H_DeadBody.transform.position;
+        H_WrongGhost.SetActive(true);
+        H_DeadBody.SetActive(false);
+    }
     void Reset()
     {
         for (int iLevelIndex = 0; iLevelIndex < m_baHasPlayLevel.Length; iLevelIndex++)

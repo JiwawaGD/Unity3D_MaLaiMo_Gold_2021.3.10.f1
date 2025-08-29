@@ -6,6 +6,7 @@ public class Ghost : MonoBehaviour
 {
     public Transform Player;
     public Animator GhostAnimator;
+    public float idleTime;
     private float maxDistance = 15f;
     private bool alreadyNoticed = false;
     private bool alreadyCallNoticedFuc = false;
@@ -22,7 +23,7 @@ public class Ghost : MonoBehaviour
     IEnumerator NoticedPlayer()
     {
         alreadyCallNoticedFuc = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(idleTime);
         GhostAnimator.SetTrigger("hunt");
         alreadyNoticed = true;
     }

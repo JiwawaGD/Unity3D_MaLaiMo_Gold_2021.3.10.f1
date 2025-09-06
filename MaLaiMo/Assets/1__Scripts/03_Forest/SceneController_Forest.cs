@@ -48,11 +48,6 @@ public class SceneController_Forest : SceneController
         Back,
     }
 
-    //public override void Awake()
-    //{
-    //    // DialogueObjects[0].CallAction(false);
-    //}
-
     public override void Start()
     {
         TransitionImg.DOFade(0f, 1)
@@ -86,6 +81,7 @@ public class SceneController_Forest : SceneController
 
         if (CurrentScene_2 == SceneType.A_Right && way == GoWay.Straight)
         {
+            print("正確走對");
             m_iPassLevelCount++;
             m_iSuccessCount++;
             if(CandleCount < CandleObject.Length)
@@ -98,12 +94,20 @@ public class SceneController_Forest : SceneController
         }
         else if (CurrentScene_2 != SceneType.A_Right && way == GoWay.Back)
         {
+            print("錯誤走對");
             m_iPassLevelCount++;
+            m_iSuccessCount++;
+            if (CandleCount < CandleObject.Length)
+            {
+                CandleCount++;
+                CandleObject[CandleCount].SetActive(true);
+            }
             m_baHasPlayLevel[iWrongLevelIndex - 1] = true;
             bPassSuccess = true;
         }
         else
         {
+            print("走錯");
             CandleObject[CandleCount].SetActive(false);
             if (CandleCount > 1)
             {
@@ -122,7 +126,6 @@ public class SceneController_Forest : SceneController
         SceneType NextSceneType;
         int iNextLevelWeight = Random.Range(1, 11);
 
-        iWrongLevelIndex = GetRandomUnRepeatLevelIndex();
         int iRightLevelWeight;
 
         if (m_iSuccessCount > 7)
@@ -180,21 +183,13 @@ public class SceneController_Forest : SceneController
         }
         else
         {
+            do iWrongLevelIndex = GetRandomUnRepeatLevelIndex();
+            while ((SceneType)iWrongLevelIndex == CurrentScene_2);
             NextSceneType = (SceneType)iWrongLevelIndex;
         }
 
         CurrentScene_2 = NextSceneType;
         CurrentSceneOnject.SetActive(false);
-        //if(CurrentScene_2 == SceneType.E_Wrong && ForestPlayer.NowDirection == "向右")
-        //{
-        //    E_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
-        //    print("對面");
-        //}
-        //else if(CurrentScene_2 == SceneType.H_Wrong && ForestPlayer.NowDirection == "向右")
-        //{
-        //    H_WrongGhost.transform.localPosition = new Vector3(-0.47f, 5.18f, -62.69f);
-        //    print("對面");
-        //}
         CurrentSceneOnject = SceneOnjects[(int)CurrentScene_2];
         CurrentSceneOnject.SetActive(true);
         //txt_Title.text = "目前關卡 : " + CurrentScene.ToString();

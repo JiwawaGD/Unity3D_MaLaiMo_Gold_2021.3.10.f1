@@ -35,12 +35,7 @@ public class ForestPlayer : PlayerController
             Ani.enabled = true;
             canMove = false;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 112.63f);
-            if (NowDirection == "向左") gameManager.GoStraight();
-            else
-            {
-                NowDirection = "向左";
-                gameManager.GoBack();
-            }
+            gameManager.GoStraight();
             tfTransform.DOMove(new Vector3(51f, 5.799085f, -9.55f), 0.5f).OnComplete(() =>
             {
                 tfTransform.DORotate(new Vector3(0, -113.2f, 0), 1f);
@@ -58,12 +53,7 @@ public class ForestPlayer : PlayerController
             canMove = false;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 112.63f);
 
-            if (NowDirection == "向右") gameManager.GoStraight();
-            else
-            {
-                NowDirection = "向右";
-                gameManager.GoBack();
-            }
+            gameManager.GoBack();
 
             tfTransform.DOMove(new Vector3(50.468f, 5.799085f, 108.118f), 0.5f).OnComplete(() =>
             {

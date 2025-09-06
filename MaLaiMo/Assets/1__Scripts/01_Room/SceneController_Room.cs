@@ -37,7 +37,7 @@ public class SceneController_Room : SceneController
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Piano);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GrandmaRoomCloset);
+        //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GrandmaRoomCloset);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_TalkToSeatMom);
 
         if (GlobalDeclare._checkList01_holdLotus)

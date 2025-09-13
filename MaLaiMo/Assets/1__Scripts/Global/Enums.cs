@@ -53,7 +53,9 @@ public enum GameEventID
     Lv4_E_BathRoomDoor,
     Lv4_E_GrandMaRoomDoor,
     Lv4_GiftBox,
-    Lv4_Dam_MomPupptery
+    Lv4_Dam_MomPupptery,
+    Lv4_E_FaucetSwitch,
+    Lv4_E_Tub
 }
 
 public enum Lv1_EventCallBackID
@@ -202,6 +204,7 @@ public enum Room_Dialogue
     Lv4_019_AfterAnimation,
     Lv4_020_E_Tub,
     Lv4_E_BathroomDoor,
+    Lv4_019_AfterTubAnimation,
     //LV_5
     Lv5_000_E_CalendarBook = 1,
     Lv5_001_E_Door,

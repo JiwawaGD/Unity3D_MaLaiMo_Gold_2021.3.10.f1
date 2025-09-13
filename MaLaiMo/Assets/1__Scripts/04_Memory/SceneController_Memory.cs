@@ -381,6 +381,12 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_Dam_MomPupptery:
                     Lv4_Room_MovePlayerToMousePosition();
                     break;
+                case GameEventID.Lv4_E_FaucetSwitch:
+                    StartCoroutine(PlayTubAnim());
+                    break;
+                case GameEventID.Lv4_E_Tub:
+                    StartCoroutine(PlayTubAnim());
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -682,5 +688,24 @@ public class SceneController_Memory : SceneController
     {
         //客廳正中間桌子亮起
     }
+
+    IEnumerator PlayTubAnim()
+    {
+        //播放浴缸動畫
+        yield return new WaitForSeconds(10f);
+        PlayDialogue((int)Room_Dialogue.Lv4_019_AfterTubAnimation);
+    }
+
+    IEnumerator Lv4_E_Tub()
+    {
+        //播放拿出護身符靠近浴缸動畫
+        yield return new WaitForSeconds(10f);
+        PlayDialogue((int)Room_Dialogue.Lv4_020_E_Tub);
+    }
+    public void PlayBabyAnim()
+    {
+
+    }
+    
     #endregion
 }

@@ -41632,11 +41632,42 @@ MonoBehaviour:
   - '{%wait:1.5'
   - 
   - '{%wait:0.5'
+  - '{%function:0'
+  - '{%wait:3'
+  - '{%wait:3'
   HandleObject:
   - {fileID: 1631569206}
   Voices:
   - {fileID: 8300000, guid: 08ba08a1299ef9046a9a7d040d431a9c, type: 3}
-  Functions: []
+  Functions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1102766671}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: TransitFadeIn
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1102766671}
+        m_TargetAssemblyTypeName: SceneController_Room, Assembly-CSharp
+        m_MethodName: EndGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1365101155
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,6 +32,9 @@ public enum GameEventID
     Lv1_E_GrandmaDeadBody,
     Lv1_FirstTalkToCalendar,
     Lv1_E_SeatMom,
+    Lv5_E_CalendarBook,
+    Lv5_E_Grandma,
+    Lv5_E_Amulet,
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_GoInside,

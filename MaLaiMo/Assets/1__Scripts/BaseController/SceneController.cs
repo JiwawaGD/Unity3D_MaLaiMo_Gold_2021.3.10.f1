@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public partial class SceneController : MonoBehaviour
 {
@@ -206,7 +207,10 @@ public partial class SceneController : MonoBehaviour
         SetPlayerControl(false);
 
         this._transitBlackImg.DOFade(1f, 1)
-                        .OnComplete(() => SceneManager.LoadScene(sceneName));
+                .OnComplete(() => 
+                {
+                    if(sceneName !="" && sceneName != null) SceneManager.LoadScene(sceneName);
+                });
     }
 
     public virtual void SetPlayerLocation(Vector3 location)

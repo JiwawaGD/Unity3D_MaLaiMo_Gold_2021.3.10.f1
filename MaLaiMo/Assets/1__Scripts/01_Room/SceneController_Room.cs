@@ -16,9 +16,12 @@ public class SceneController_Room : SceneController
     [Header("室外傳至室內的角色座標")] public Transform _outsideGoInTransitPos;
 
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
+    [Header("阿嬤")] public GameObject GrandMa;
+    [Header("護身符")] public GameObject Amulet;
     #endregion
 
     #region < ByScene Flag >
+    public static bool _hasDoorDialogue = false;
     private bool _hasTriggerGraffiti = false;
 
     private static bool FilialPietyCurtain_IsOpen = false;
@@ -305,6 +308,15 @@ public class SceneController_Room : SceneController
                 case GameEventID.Lv1_E_SeatMom:
                     StartCoroutine(Lv1_E_SeatMom());
                     break;
+                case GameEventID.Lv5_E_CalendarBook:
+                    Lv5_E_CalendarBook();
+                    break;
+                case GameEventID.Lv5_E_Grandma:
+                    Lv5_E_Grandma();
+                    break;
+                case GameEventID.Lv5_E_Amulet:
+                    Lv5_E_Amulet();
+                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -346,6 +358,11 @@ public class SceneController_Room : SceneController
 
             AniRoomDoor[strPlayAniName].time = 0f;
             AniRoomDoor.PlayQueued(strPlayAniName);
+        }
+        if (_hasDoorDialogue)
+        {
+            PlayDialogue((int)Room_Dialogue.Lv5_001_E_Door);
+            _hasDoorDialogue = false;
         }
     }
 
@@ -479,6 +496,33 @@ public class SceneController_Room : SceneController
     void Lv1_E_GrandmaDeadBody()
     {
         PlayDialogue((int)Room_Dialogue.Lv1_003_E_Grandmother);
+    }
+
+    void Lv5_E_CalendarBook()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv5_000_E_CalendarBook);
+        //顯示出頭七當天的正確日期
+        _hasDoorDialogue = true;
+    }
+    void Lv5_E_Grandma()
+    {
+        //播放擁抱動畫
+        PlayDialogue((int)Room_Dialogue.Lv5_004_E_Hug);
+    }
+    void GrandmaDissapear()
+    {
+        GrandMa.SetActive(false);
+        Amulet.SetActive(true);
+    }
+    void Lv5_E_Amulet()
+    {
+        //低頭看像護身符
+        //將護身符拿在手上(手攤開)
+        PlayDialogue((int)Room_Dialogue.Lv5_005_E_Amulet);
+    }
+    public void EndGame()
+    {
+        //播放謝幕文字
     }
     #endregion
 }

@@ -418,7 +418,7 @@ public class LotusGameManager : MonoBehaviour
 
     void PlayChairMoveAnimation()
     {
-        Animation chairAnim = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_rosewood_Chair").GetComponent<Animation>();
+        Animation chairAnim = this._sceneController._objectCtrlr._rosewoodChair.GetComponent<Animation>();
         chairAnim["chair_move"].time = 0f;
         chairAnim.PlayQueued("chair_move");
     }

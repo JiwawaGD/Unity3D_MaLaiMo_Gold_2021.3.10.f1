@@ -17,6 +17,7 @@ public class ObjectController_RoomEditor : Editor
     SerializedProperty wallClock;
     SerializedProperty _filialPietyCurtain;
     SerializedProperty _riceAndSoup;
+    SerializedProperty _rosewoodChair;
 
     // ItemController 欄位
     SerializedProperty grandmaRoomDoor;
@@ -42,6 +43,7 @@ public class ObjectController_RoomEditor : Editor
         _tv = serializedObject.FindProperty("_tv");
         _filialPietyCurtain = serializedObject.FindProperty("_filialPietyCurtain");
         _riceAndSoup = serializedObject.FindProperty("_riceAndSoup");
+        _rosewoodChair = serializedObject.FindProperty("_rosewoodChair");
 
         // ItemController 欄位
         grandmaRoomDoor = serializedObject.FindProperty("_grandmaRoomDoor");
@@ -83,6 +85,7 @@ public class ObjectController_RoomEditor : Editor
             EditorGUILayout.PropertyField(wallClock, new GUIContent("壁鐘"));
             EditorGUILayout.PropertyField(_filialPietyCurtain, new GUIContent("孝濂"));
             EditorGUILayout.PropertyField(_riceAndSoup, new GUIContent("三菜一湯"));
+            EditorGUILayout.PropertyField(_rosewoodChair, new GUIContent("玫瑰花木椅"));
             EditorGUI.indentLevel--;
         }
 

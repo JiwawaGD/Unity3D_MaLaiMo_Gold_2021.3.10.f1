@@ -22,6 +22,9 @@ public class ObjectController_Room : MonoBehaviour
 
     [HideInInspector]
     public GameObject _riceAndSoup;
+
+    [HideInInspector]
+    public GameObject _rosewoodChair;
     #endregion
 
     #region ============ Item 相關 ============

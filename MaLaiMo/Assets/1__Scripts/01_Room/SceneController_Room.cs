@@ -18,6 +18,7 @@ public class SceneController_Room : SceneController
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
     [Header("阿嬤")] public GameObject GrandMa;
     [Header("護身符")] public GameObject Amulet;
+    [Header("製作和感謝人員名單")] public GameObject tanksView;
     #endregion
 
     #region < ByScene Flag >
@@ -523,6 +524,7 @@ public class SceneController_Room : SceneController
     public void EndGame()
     {
         //播放謝幕文字
+        tanksView.active = true;
     }
     #endregion
 }

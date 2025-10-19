@@ -20,6 +20,7 @@ public class SceneController_Memory : SceneController
     [Header("孝濂動畫")] public Animator FilialPietyCurtain_Ani;
     [Header("媽媽控制器")] public Mom_Controler_Room Mom_Control;
     public GrandmaRoom_Player Player;
+    public GrandmaRoom_Player Player;
     public GameObject LotusPaper;
     private static bool FilialPietyCurtain_IsOpen = false;
 

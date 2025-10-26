@@ -26,6 +26,9 @@ public class SceneController_Memory : SceneController
     public GameObject calendarObject;
     private Animation calendarAnim;
     private int BathRoomDoorStep = 0;
+
+    public GameObject PSbloodrunning;
+    public GameObject blood_water;
     #endregion
 
     #region < ByScene Flag >
@@ -672,6 +675,47 @@ public class SceneController_Memory : SceneController
     {
         print("洗手台");
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Bathtub);
+        // 啟用粒子效果和單純物件
+        if (PSbloodrunning != null) PSbloodrunning.SetActive(true);
+        if (blood_water != null) blood_water.SetActive(true);
+        StartCoroutine(RotatePlayerToTarget("Scene02_InteractItems/Lv4_Bathtub", 1.5f));
+    }
+    IEnumerator RotatePlayerToTarget(string targetObjectName, float duration)
+    {
+        if (Player == null) yield break;
+
+        // 禁止玩家操作
+        Player._bCanControl = false;
+
+        GameObject targetObj = GameObject.Find("_" + targetObjectName);
+        if (targetObj == null)
+        {
+            Debug.LogError("找不到目標物件：" + targetObjectName);
+            Player._bCanControl = true;
+            yield break;
+        }
+
+        Vector3 targetPos = targetObj.transform.position;
+        Vector3 playerPos = Player.transform.position;
+        Vector3 direction = (targetPos - playerPos).normalized;
+
+        Quaternion startRot = Player.transform.rotation;
+        Quaternion endRot = Quaternion.LookRotation(direction, Vector3.up);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            Player.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
+            yield return null;
+        }
+
+        // 最終角度修正
+        Player.transform.rotation = endRot;
+
+        // 恢復玩家操作
+        Player._bCanControl = true;
     }
     void Lv4_Bathtub()
     {

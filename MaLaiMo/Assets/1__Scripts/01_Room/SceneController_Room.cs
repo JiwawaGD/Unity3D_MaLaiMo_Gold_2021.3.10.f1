@@ -24,7 +24,7 @@ public class SceneController_Room : SceneController
     #region < ByScene Flag >
     public static bool _hasDoorDialogue = false;
     private bool _hasTriggerGraffiti = false;
-
+    private static bool _isFinishLotusGame = false;
     private static bool FilialPietyCurtain_IsOpen = false;
     #endregion
 
@@ -48,6 +48,11 @@ public class SceneController_Room : SceneController
         {
             TakingObjects[0].SetActive(true);
         }
+        else if (GlobalDeclare._checkList01_holdLotus == false)
+        {
+            if (_isFinishLotusGame == false) ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
+            else ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_FoldedLotusPaper);
+        }
         else if (GlobalDeclare._checkList02_holdRice)
         {
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OfferingPlace);
@@ -63,7 +68,7 @@ public class SceneController_Room : SceneController
 
             // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
             GlobalDeclare._holdingRiceFuneral = true;
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
+            //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
         }
         else
         {
@@ -245,7 +250,7 @@ public class SceneController_Room : SceneController
     public void LotusGameFinish()
     {
         this._lotusGameManager.enabled = false;
-
+        _isFinishLotusGame = true;
         Vector3 playerLocation = new(-3.2f, 0.68f, -1.8f);
         Vector3 playerRotation = new(0f, 270f, 0f);
         Vector3 cameraRotation = new(-47f, 0f, 0f);

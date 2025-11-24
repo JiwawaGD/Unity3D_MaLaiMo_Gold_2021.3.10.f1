@@ -756,9 +756,9 @@ public class SceneController_Memory : SceneController
             BloodWater.transform.position = pos;
             // 使用 DOTween 讓 Y 緩慢升高到 0.855
             BloodWater.transform.DOMoveY(0.855f, .1f);
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_blood_water);
         }
         StartCoroutine(RotatePlayerToTarget("Scene02_InteractItems/Lv4_Bathtub", 1.5f));
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_blood_water);
         //// 回到玩家初始進入位置
         //Player.transform.position = new Vector3(-7.5f, 0.65f, -13.1f);
         //Player.transform.eulerAngles = new Vector3(0f, 258.332f, 0f);
@@ -768,7 +768,7 @@ public class SceneController_Memory : SceneController
     void Bathtub_blood_search()
     {
         //女鬼出現
-        
+
         if (FemaleGhost != null)
         {
             FemaleGhost.gameObject.SetActive(true);

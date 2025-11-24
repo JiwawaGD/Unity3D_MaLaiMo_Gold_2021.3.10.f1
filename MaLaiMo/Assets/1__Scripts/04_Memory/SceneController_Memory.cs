@@ -772,15 +772,20 @@ public class SceneController_Memory : SceneController
         if (FemaleGhost != null)
         {
             FemaleGhost.gameObject.SetActive(true);
-            // 設定起始 Y 位置
-            Vector3 pos = FemaleGhost.transform.position;
-            pos.y = -1.51f;
-            FemaleGhost.transform.position = pos;
-            // 使用 DOTween 讓 Y 緩慢升高到 0.855
-            FemaleGhost.transform.DOMoveY(0.393f, 2f);
+            StartCoroutine(Lv4_Delayed_Rise_Of_The_Female_Ghost());
         }
     }
+    IEnumerator Lv4_Delayed_Rise_Of_The_Female_Ghost()
+    {
+        yield return new WaitForSeconds(6f);
+        Vector3 pos = FemaleGhost.transform.position;
+        pos.y = -1.091f;
+        FemaleGhost.transform.position = pos;
+        // 使用 DOTween 讓 Y 緩慢升高到 0.866
+        FemaleGhost.transform.DOMoveY(0.866f, 1f);
+        // 設定起始 Y 位置
 
+    }
     IEnumerator Lv4_E_BathRoomDoor()
     {
         if (BathRoomDoorStep == 0)

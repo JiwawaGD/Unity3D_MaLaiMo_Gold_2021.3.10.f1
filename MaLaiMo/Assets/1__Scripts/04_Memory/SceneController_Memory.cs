@@ -158,9 +158,6 @@ public class SceneController_Memory : SceneController
                         case HintItemID.Lv1_Item_OpenRoomDoor:
                             itemName = "_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door";
                             break;
-                        //case HintItemID.Lv1_Item_GoOutSide:
-                        //    itemName = "_Scene01_InteractItems/__Level_1/Lv1_inside_BigDoor";
-                        //    break;
                         case HintItemID.Lv1_Item_LotusPaper:
                             itemName = "_Scene01_InteractItems/__Level_1/Lv1_Lotus_Handler";
                             break;
@@ -202,14 +199,17 @@ public class SceneController_Memory : SceneController
                         case HintItemID.Lv4_Toilet:
                             itemName = "_Scene02_InteractItems/Lv4_Toilet";
                             break;
-                        case HintItemID.Lv4_Skin:
-                            itemName = "_Scene02_InteractItems/Lv4_Handsink";
-                            break;
+                        //case HintItemID.Lv4_Skin:
+                        //    itemName = "_Scene02_InteractItems/Lv4_Handsink";
+                        //    break;
                         case HintItemID.Lv4_Dam_MomPupptery:
                             itemName = "_Scene02_InteractItems/Lv4_Dam_MomPupptery";
                             break;
                         case HintItemID.Lv4_Bathtub:
                             itemName = "_Scene02_InteractItems/Lv4_Bathtub";
+                            break;
+                            case HintItemID.Lv4_blood_water:
+                            itemName = "_Scene02_InteractItems/Lv4_blood_water";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -387,7 +387,8 @@ public class SceneController_Memory : SceneController
                     Lv4_FlushToilet();
                     break;
                 case GameEventID.Lv4_E_Sink:
-                    Lv4_E_Skin();
+                    //洗手台
+                    //Lv4_E_Skin();
                     break;
                 case GameEventID.Lv4_E_BathRoomDoor:
                     StartCoroutine(Lv4_E_BathRoomDoor());
@@ -410,6 +411,10 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_Bathtub:
                     Lv4_Bathtub();
                     break;
+                case GameEventID.Lv4_blood_water:
+                    Bathtub_search();
+                    break;
+
                 case GameEventID.Lv4_Item_RoomDoorOpen:
                     Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
                     Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
@@ -668,18 +673,18 @@ public class SceneController_Memory : SceneController
         //閃爍
         PlayDialogue((int)Room_Dialogue.Lv4_004_DropIntoWaterSound);
         print("馬桶沖水聲");
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Skin);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Bathtub);
     }
 
-    void Lv4_E_Skin()
-    {
-        print("洗手台");
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Bathtub);
-        // 啟用粒子效果和單純物件
-        if (PSbloodrunning != null) PSbloodrunning.SetActive(true);
-        if (blood_water != null) blood_water.SetActive(true);
-        StartCoroutine(RotatePlayerToTarget("Scene02_InteractItems/Lv4_Bathtub", 1.5f));
-    }
+    //void Lv4_E_Skin()
+    //{
+    //    print("洗手台");
+    //    ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Bathtub);
+    //    // 啟用粒子效果和單純物件
+    //    if (PSbloodrunning != null) PSbloodrunning.SetActive(true);
+    //    if (blood_water != null) blood_water.SetActive(true);
+    //    StartCoroutine(RotatePlayerToTarget("Scene02_InteractItems/Lv4_Bathtub", 1.5f));
+    //}
     IEnumerator RotatePlayerToTarget(string targetObjectName, float duration)
     {
         if (Player == null) yield break;
@@ -726,11 +731,28 @@ public class SceneController_Memory : SceneController
         Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
         AniRoomDoor.PlayQueued("Door_Close");
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Item_RoomDoorOpen);
-        // 回到玩家初始進入位置
-        Player.transform.position = new Vector3(-7.5f, 0.65f, -13.1f);
-        Player.transform.eulerAngles = new Vector3(0f, 258.332f, 0f);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_GiftBox);
-        Lv4_Restroom_MovePlayerToMousePosition();
+        // 啟用粒子效果和單純物件
+        if (PSbloodrunning != null) PSbloodrunning.SetActive(true);
+        if (blood_water != null)
+        {
+            blood_water.SetActive(true);
+            // 設定起始 Y 位置
+            Vector3 pos = blood_water.transform.position;
+            pos.y = 0.245f;
+            blood_water.transform.position = pos;
+            // 使用 DOTween 讓 Y 緩慢升高到 0.855
+            blood_water.transform.DOMoveY(0.855f, 5f);
+        }
+        StartCoroutine(RotatePlayerToTarget("Scene02_InteractItems/Lv4_Bathtub", 1.5f));
+        //// 回到玩家初始進入位置
+        //Player.transform.position = new Vector3(-7.5f, 0.65f, -13.1f);
+        //Player.transform.eulerAngles = new Vector3(0f, 258.332f, 0f);
+        //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_GiftBox);
+        //Lv4_Restroom_MovePlayerToMousePosition();
+    }
+    void Bathtub_search()
+    {
+        //關上浴室門
     }
 
     IEnumerator Lv4_E_BathRoomDoor()

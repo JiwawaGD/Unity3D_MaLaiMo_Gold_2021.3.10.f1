@@ -59,8 +59,10 @@ public enum GameEventID
     Lv4_Dam_MomPupptery,
     Lv4_E_FaucetSwitch,
     Lv4_E_Tub,
+    Lv4_Bathtub_null,
     Lv4_Bathtub,
-    Lv4_Item_RoomDoorOpen
+    Lv4_Item_RoomDoorOpen,
+    Lv4_blood_water,
 }
 
 public enum Lv1_EventCallBackID
@@ -106,11 +108,14 @@ public enum HintItemID
     Lv4_Calendar_paper_anim,
     Lv4_Toilet,
     Lv4_Bathtub,
+    Lv4_Bathtub_null,
     Lv4_Skin,
     Lv4_BathRoomDoor,
     Lv4_GiftBox,
     Lv4_Dam_MomPupptery,
-    Lv4_Item_RoomDoorOpen
+    Lv4_Item_RoomDoorOpen,
+    Lv4_blood_water
+
 }
 
 public enum ObjItemID

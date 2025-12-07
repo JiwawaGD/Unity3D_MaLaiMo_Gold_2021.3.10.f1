@@ -21,12 +21,15 @@ public class SceneController_Memory : SceneController
     [Header("孝濂動畫")] public Animator FilialPietyCurtain_Ani;
     [Header("媽媽控制器")] public Mom_Controler_Room Mom_Control;
     public GrandmaRoom_Player Player;
+    [Header("房間門")] 
+    public Transform badroomDoor;
     public GameObject LotusPaper;
     private static bool FilialPietyCurtain_IsOpen = false;
-
+    private static bool canSwitchDoor = true;
     public GameObject calendarObject;
     private Animation calendarAnim;
     private int BathRoomDoorStep = 0;
+    private static bool FirstE_Amulet = false;
 
     public GameObject FemaleGhost;
 
@@ -340,46 +343,6 @@ public class SceneController_Memory : SceneController
         {
             switch (r_EventID)
             {
-                case GameEventID.Lv1_TalkToPackage:
-                    Lv1_TalkToPackage();
-                    break;
-                case GameEventID.Lv1_GrandmaRoomDoorSwitch:
-                    Lv4_GrandmaRoomDoorSwitch_Calendar();
-                    break;
-                case GameEventID.Lv1_GoOutSide:
-                    Lv1_GoOutSide();
-                    break;
-                case GameEventID.Lv1_LotusPaper:
-                    Lv1_LotusPaperCheck();
-                    break;
-                case GameEventID.Lv1_Piano:
-                    //Lv1_LotusPaperCheck();
-                    break;
-                case GameEventID.Lv1_Event_HoldFinishLotusPaper:
-                    if (GlobalDeclare._checkList02_holdRice == false) Lv1_Event_HoldFinishLotusPaper();
-                    else PlayDialogue((byte)Room_Dialogue.Lv1_018_ShouldPutDown);
-                    break;
-                case GameEventID.Lv1_Event_PutRiceOnKitchenTable:
-                    Lv1_Event_PutRiceOnKitchenTable();
-                    break;
-                case GameEventID.Lv1_Event_WardrobeInRoom:
-                    Lv1_Event_WardrobeInRoom();
-                    break;
-                case GameEventID.Lv1_Event_Graffiti:
-                    Lv1_Event_Graffiti();
-                    break;
-                case GameEventID.Lv1_Event_RoomDoorAfterGraffiti:
-                    Lv1_Event_RoomDoorAfterGraffiti();
-                    break;
-                case GameEventID.Lv1_Event_5ClothesOnGraffiti:
-                    Lv1_Event_5ClothesOnGraffiti();
-                    break;
-                case GameEventID.Lv1_E_FilialPietyCurtain:
-                    Lv1_E_FilialPietyCurtain();
-                    break;
-                case GameEventID.Lv1_E_GrandmaDeadBody:
-                    Lv1_E_GrandmaDeadBody();
-                    break;
                 case GameEventID.Lv4_GrandmaRoomDoorSwitchClock:
                     Lv4_GrandmaRoomDoorSwitch_Calendar();
                     break;
@@ -423,11 +386,31 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_blood_water:
                     Bathtub_blood_search();
                     break;
-
                 case GameEventID.Lv4_Item_RoomDoorOpen:
                     Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
                     Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
                     AniRoomDoor.PlayQueued("Door_Open");
+                    break;
+                case GameEventID.LV4_E_Telephone:
+                    Lv4_E_Telephone();
+                    break;
+                case GameEventID.LV4_E_Piano:
+                    Lv4_E_Piano();
+                    break;
+                case GameEventID.LV4_E_Flower:
+                    Lv4_E_Piano();
+                    break;
+                case GameEventID.Lv4_E_Amulet:
+                    Lv4_E_Amulet();
+                    break;
+                case GameEventID.Lv4_E_Bed:
+                    Lv4_E_Bed();
+                    break;
+                case GameEventID.Lv4_E_CalendarPaper:
+                    Lv4_E_CalendarPaper();
+                    break;
+                case GameEventID.Lv4_E_GrandmaDoor:
+                    Lv4_E_GrandmaDoor();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
@@ -443,30 +426,16 @@ public class SceneController_Memory : SceneController
     #endregion
 
     #region < Game Event >
-    void Lv1_TalkToPackage()
-    {
-        Transform tfPlayer = GameObject.Find("_Common_Player/LingLing").transform;
-        Transform tfTalkToPackagePos = GameObject.Find("_Scene01_MoveLocation/TalkToPackagePos").transform;
-
-        tfPlayer.localPosition = tfTalkToPackagePos.localPosition;
-        tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
-
-        ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
-        GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
-
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
-
-        PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
-    }
 
     void Lv4_GrandmaRoomDoorSwitch()
     {
+        if(canSwitchDoor == false) return;
         Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-        Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+        Animation AniRoomDoor = badroomDoor.GetComponent<Animation>();
 
-        if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
+        if (badroomDoor.localRotation.z > 0.49 || badroomDoor.localRotation.z == 0)
         {
-            string strPlayAniName = tfRoomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
+            string strPlayAniName = badroomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
 
             AniRoomDoor[strPlayAniName].time = 0f;
             AniRoomDoor.PlayQueued(strPlayAniName);
@@ -478,63 +447,6 @@ public class SceneController_Memory : SceneController
 
         Lv4_Event_SetCalender();
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Calendar_paper_anim);
-    }
-
-    void Lv1_GoOutSide()
-    {
-        this._transitBlackImg.DOFade(1f, 1)
-                             .OnComplete(() => SceneManager.LoadScene(GlobalDeclare.Lv2_Grandma_OutSide));
-    }
-
-    void Lv1_LotusPaperCheck()
-    {
-        Vector3 v3TargetPos = new(-3.3f, 0.35f, -1.9f);
-        Vector3 v3PlayerEndRotation = new(0f, 0f, 0f);
-        Vector3 v3PlayerCamEndRotation = new(25f, 275f, 0f);
-
-        PlayerCtrlr.MoveToTargetPosition(v3TargetPos, v3PlayerEndRotation, v3PlayerCamEndRotation, 2f, () =>
-        {
-            GlobalDeclare._waitingPlayLotusPaper = true;
-            UIState((int)UIItemID.Lv1_UI_LotusPaper, true, true);
-            this._lotusGameManager.enabled = true;
-            this._lotusGameManager.SetPaperLocation();
-        });
-    }
-
-    void Lv1_Event_HoldFinishLotusPaper()
-    {
-        GlobalDeclare._checkList01_holdLotus = true;
-        TakingObjects[0].SetActive(true);
-        LotusPaper.SetActive(false);
-    }
-
-    void Lv1_Event_PutRiceOnKitchenTable()
-    {
-        GameObject riceAndSoup = GameObject.Find("_Scene01_Map/Kitchen/3Cuisine_1Soup");
-
-        riceAndSoup.GetComponent<MeshRenderer>().enabled = true;
-
-        SceneController_OutSide.paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] = true;
-        GlobalDeclare._checkList02_holdRice = false;
-    }
-
-    void Lv1_Event_WardrobeInRoom()
-    {
-        {   // 開衣櫃
-            GameObject wardrobe = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Wardrobe");
-            Animator wardrobeAnim = wardrobe.GetComponent<Animator>();
-            wardrobeAnim.SetTrigger("Open");
-
-            Debug.Log("<缺> 木頭櫃打開的聲音");
-        }
-
-        {   // 關房門
-            Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-            Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
-            AniRoomDoor.PlayQueued("Door_Close");
-        }
-
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_ClothesInCloset);
     }
 
     void Lv4_Restroom_MovePlayerToMousePosition()
@@ -549,65 +461,6 @@ public class SceneController_Memory : SceneController
     void Lv4_Room_MovePlayerToMousePosition()
     {
         StartCoroutine(MovePlayerAfterDelayToRoom());
-    }
-    void Lv1_Event_5ClothesOnGraffiti()
-    {
-        GameObject clothes = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_5Clothes");
-        Animator clothesAnim = clothes.GetComponent<Animator>();
-        clothesAnim.SetTrigger("Move");
-
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Grafitti);
-    }
-
-    void Lv1_Event_Graffiti()
-    {
-        Debug.Log("<缺> 拿紙的聲音");
-
-        {
-            this._hasTriggerGraffiti = true;
-        }
-
-        //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
-    }
-
-    void Lv1_Event_RoomDoorAfterGraffiti()
-    {
-        if (this._hasTriggerGraffiti)
-        {
-            Debug.Log("01 : 琳琳：怎麼都找不到");
-
-            {   // 開房門
-                Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/__Level_1/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-                Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
-                AniRoomDoor.PlayQueued("Door_Open");
-
-                WallClock wallClock = this._objectCtrlr._wallClock.GetComponent<WallClock>();
-                wallClock.UpdateClock(23, 44);
-            }
-        }
-        else
-        {
-            Debug.Log("01 : 琳琳：再試著找一下吧。");
-        }
-    }
-
-    void Lv1_E_FilialPietyCurtain()
-    {
-        FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
-        PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
-    }
-
-    IEnumerator Lv1_E_SeatMom()
-    {
-        Player._bCanControl = false;
-        yield return new WaitForSeconds(10f);
-        PlayDialogue((int)Room_Dialogue.Lv1_002_E_SeatMom);
-        Mom_Control.GoOut();
-    }
-
-    void Lv1_E_GrandmaDeadBody()
-    {
-        PlayDialogue((int)Room_Dialogue.Lv1_003_E_Grandmother);
     }
 
     void Lv4_TearCalendarDialogue()
@@ -741,8 +594,7 @@ public class SceneController_Memory : SceneController
         print("浴缸動畫");
         PlayDialogue((int)Room_Dialogue.Lv4_007_TearCalendar);
         // 關閉房門
-        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-        Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+        Animation AniRoomDoor = badroomDoor.GetComponent<Animation>();
         AniRoomDoor.PlayQueued("Door_Close");
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Item_RoomDoorOpen);
         // 啟用粒子效果和單純物件
@@ -847,5 +699,53 @@ public class SceneController_Memory : SceneController
 
     }
 
+    void Lv4_E_Telephone()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv4_010_E_Telephone);
+        //接電話動畫
+    }
+
+    void Lv4_E_Piano()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv4_010_E_Telephone);
+        //接電話動畫
+    }
+
+    IEnumerator Lv4_E_Flower()
+    {
+        //捧起花，靠近嗅了一下動畫
+        yield return new WaitForSeconds(10f);
+        //回到房間躺著得視角
+    }
+    void Lv4_E_Amulet()
+    {
+        if (FirstE_Amulet == false) {
+            PlayDialogue((int)Room_Dialogue.Lv4_015_E_Amulet);
+            FirstE_Amulet = true;
+        }else{
+            //日曆紙掉下了一張，日期圈起來並在旁邊畫著嬰兒出生的圖案
+            PlayDialogue((int)Room_Dialogue.Lv4_017_E_Amulet);
+        }
+
+    }
+    IEnumerator Lv4_E_Bed()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv4_016_E_Bed);
+        //躺到床上，眨了幾下眼睛後閉上眼動畫
+        yield return new WaitForSeconds(10f);
+        //黑幕動畫
+        yield return new WaitForSeconds(2f);
+        //睜開眼睛，看到黑影坐在床角並看著門口
+    }
+    void Lv4_E_CalendarPaper()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv4_018_E_CalendarPaper);
+    }
+    void Lv4_E_GrandmaDoor()
+    {
+        Lv4_GrandmaRoomDoorSwitch();
+        badroomDoor.GetComponent<ItemController>().bAlwaysActive = false;
+        badroomDoor.GetComponent<ItemController>().ItemDisable();
+    }
     #endregion
 }

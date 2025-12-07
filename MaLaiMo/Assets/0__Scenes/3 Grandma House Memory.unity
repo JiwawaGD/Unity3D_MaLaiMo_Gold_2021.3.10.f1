@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
+  m_IndirectSpecularColor: {r: 0.6717807, g: 0.5618909, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16111,7 +16111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6754955306293179202, guid: 300095dd07daf074098d45b183dba791, type: 3}
       propertyPath: m_Intensity
-      value: 3183.0989
+      value: 50929.582
       objectReference: {fileID: 0}
     - target: {fileID: 6754955306293179202, guid: 300095dd07daf074098d45b183dba791, type: 3}
       propertyPath: m_BoundingSphereOverride.w
@@ -16119,7 +16119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6754955306293179202, guid: 300095dd07daf074098d45b183dba791, type: 3}
       propertyPath: m_UseBoundingSphereOverride
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6765498409480784676, guid: 300095dd07daf074098d45b183dba791, type: 3}
       propertyPath: m_Name
@@ -20793,6 +20793,7 @@ MonoBehaviour:
   FilialPietyCurtain_Ani: {fileID: 0}
   Mom_Control: {fileID: 0}
   Player: {fileID: 1016240226}
+  badroomDoor: {fileID: 2359819685104782776}
   LotusPaper: {fileID: 675778453}
   calendarObject: {fileID: 722568573}
   FemaleGhost: {fileID: 1040358351}
@@ -71458,6 +71459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+--- !u!4 &2359819685104782776 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2802074738880063836, guid: e1bcad15a75d3694fb70e2b6c9ea239f, type: 3}
+  m_PrefabInstance: {fileID: 2359819685104782775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &2360445838382869587
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -52,40 +52,11 @@ public class SceneController_Memory : SceneController
         base.Start();
         calendarAnim = calendarObject.GetComponent<Animation>();
 
-        if (GlobalDeclare._checkList01_holdLotus)
-        {
-            TakingObjects[0].SetActive(true);
-        }
-        else if (GlobalDeclare._checkList02_holdRice)
-        {
-            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OfferingPlace);
-            TakingObjects[1].SetActive(true);
-        }
+        // 設定玩家傳送座標
+        SetPlayerLocation(this._outsideGoInTransitPos.localPosition);
 
-        if (!GlobalDeclare._firstStartGameLevel_1)
-        {
-            GlobalDeclare._firstStartGameLevel_1 = true;
-
-            // 室內場景的第一個可互動物件
-            GameEvent(LevelTypeID.Lv1_GrandmaHouse, GameEventID.Lv1_TalkToPackage);
-
-            // *TODO* 以下為暫時設定的程式 > 待實際遊歷流程串接
-            GlobalDeclare._holdingRiceFuneral = true;
-            //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
-        }
-        else
-        {
-            // 設定玩家傳送座標
-            SetPlayerLocation(this._outsideGoInTransitPos.localPosition);
-
-            // 非第一次進場場景 > 轉場圖片 Fade Out
-            TransitFadeOut();
-        }
-
-        if (FilialPietyCurtain_IsOpen)
-        {
-            FilialPietyCurtain_Ani.SetTrigger("Filial_piety_curtain Open");
-        }
+        // 非第一次進場場景 > 轉場圖片 Fade Out
+        TransitFadeOut();
     }
 
     public override void Update()

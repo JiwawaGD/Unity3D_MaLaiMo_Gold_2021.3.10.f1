@@ -40,6 +40,8 @@ public class SceneController_Memory : SceneController
 
     public GameObject PSbloodrunning;
     public GameObject BloodWater;
+
+    private bool test4_3 = false;
     #endregion
 
     #region < ByScene Flag >
@@ -56,9 +58,13 @@ public class SceneController_Memory : SceneController
     {
         base.Start();
         calendarAnim = calendarObject.GetComponent<Animation>();
-        // 設定玩家傳送座標
-        SetPlayerLocation(new Vector3(-8.894f, 1.607f, -14.418f));
-        Lv4_StartPlayingGetAmulet();
+        if(test4_3)
+        {
+            // 設定玩家傳送座標
+            SetPlayerLocation(new Vector3(-8.894f, 1.607f, -14.418f));
+            Lv4_StartPlayingGetAmulet();
+        }
+        else Player._bCanControl = true;
         // 非第一次進場場景 > 轉場圖片 Fade Out
         //TransitFadeOut();
     }

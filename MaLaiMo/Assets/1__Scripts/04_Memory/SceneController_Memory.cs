@@ -28,7 +28,8 @@ public class SceneController_Memory : SceneController
     [Header("任務是否進行中")] private bool isTaskActive = false;
     [Header("房間門")]
     public Transform badroomDoor;
-    public GrandmaRoom_Player Player;
+    [Header("拿護身符遊戲的鬼控制器")] public GetAmuletGhost GetAmuletGhost_Control;
+    public GrandmaRoom_Memory_Player Player;
     public GameObject LotusPaper;
     private static bool FilialPietyCurtain_IsOpen = false;
     private static bool FirstE_Amulet = false;
@@ -41,7 +42,7 @@ public class SceneController_Memory : SceneController
     public GameObject PSbloodrunning;
     public GameObject BloodWater;
 
-    private bool test4_3 = false;
+    private bool test4_3 = true;
     #endregion
 
     #region < ByScene Flag >
@@ -851,6 +852,7 @@ public class SceneController_Memory : SceneController
         Player.eyeStates = "open";
         Player.tfPlayerCamera.localPosition = new Vector3(0, -0.225f, 0);
         Player.tfPlayerCamera.eulerAngles = new Vector3(0, 90, 0);
+        StartCoroutine(GetAmuletGhost_Control.setRandomGhostSeePlayer());
     }
     #endregion
 }

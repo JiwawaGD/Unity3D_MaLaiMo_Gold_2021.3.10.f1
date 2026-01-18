@@ -18,13 +18,13 @@ public class GetAmuletGhost : MonoBehaviour
         var random = Random.Range(3.0f, 7.0f);
         yield return new WaitForSeconds(random);
         rasingHead = true;
-        var rasingHeadTime = Random.Range(3.0f, 10.0f);
         //©Ô¿Y∞ µe
         if (Player.eyeStates == "open")
         {
-            PlayerDead();
+            //PlayerDead();
             yield return null;
         }
+        var rasingHeadTime = Random.Range(3.0f, 10.0f);
         yield return new WaitForSeconds(rasingHeadTime);
         rasingHead = false;
         halfOpenTimer = 0;

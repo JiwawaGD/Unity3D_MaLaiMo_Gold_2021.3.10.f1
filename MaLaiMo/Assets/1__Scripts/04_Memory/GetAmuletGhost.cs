@@ -35,7 +35,7 @@ public class GetAmuletGhost : MonoBehaviour
         rasingHead = false;
         halfOpenTimer = 0;
 
-        neck.DORotate(new Vector3(orgNeckRotationX, 0, 0), 1)
+        neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1)
             .OnComplete(() => {
                 if (Player.dead == false && Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
             });

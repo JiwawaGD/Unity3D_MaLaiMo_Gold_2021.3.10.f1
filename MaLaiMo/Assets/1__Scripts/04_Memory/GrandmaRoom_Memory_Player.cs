@@ -8,7 +8,12 @@ public class GrandmaRoom_Memory_Player : PlayerController
     public bool dead = false;
     public string eyeStates = "";
     public Transform[] Eyes;
+    public static bool _getAmulet = false;
 
+    public bool getAmulet()
+    {
+        return _getAmulet;
+    }
     public override void Update()
     {
         base.Update();

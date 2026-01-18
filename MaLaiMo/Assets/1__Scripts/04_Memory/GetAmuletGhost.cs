@@ -20,7 +20,7 @@ public class GetAmuletGhost : MonoBehaviour
         var random = Random.Range(3.0f, 7.0f);
         yield return new WaitForSeconds(random);
 
-        neck.DORotate(new Vector3(-50, 0, 0), 1)
+        neck.DOLocalRotate(new Vector3(-58f, -36, 34), 1)
             .OnComplete(() => {
                 rasingHead = true;
                 StartCoroutine(setRandomGhostHeadDown());

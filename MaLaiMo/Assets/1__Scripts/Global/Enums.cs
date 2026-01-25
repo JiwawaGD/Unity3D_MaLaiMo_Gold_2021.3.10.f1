@@ -121,8 +121,8 @@ public enum HintItemID
     Lv4_GiftBox,
     Lv4_Dam_MomPupptery,
     Lv4_Item_RoomDoorOpen,
-    Lv4_blood_water
-
+    Lv4_blood_water,
+    LV4_Amulet
 }
 
 public enum ObjItemID

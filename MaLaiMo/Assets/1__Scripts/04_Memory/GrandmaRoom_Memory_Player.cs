@@ -9,7 +9,7 @@ public class GrandmaRoom_Memory_Player : PlayerController
     public string eyeStates = "";
     public Transform[] Eyes;
     public static bool _getAmulet = false;
-
+    public GameObject AmuletHint;
     public bool getAmulet()
     {
         return _getAmulet;
@@ -24,7 +24,13 @@ public class GrandmaRoom_Memory_Player : PlayerController
             else if (Input.GetKeyDown(KeyCode.Alpha2)) helfOpenEyes();
             else if (Input.GetKeyDown(KeyCode.Alpha3)) closeEyes();
         }
-        if(eyeStates == "open") tfPlayerCamera.position += Vector3.right * 0.05f * Time.deltaTime;
+        if(eyeStates == "open" && tfPlayerCamera.localPosition.x <= 1f) tfPlayerCamera.position += Vector3.right * 0.05f * Time.deltaTime;
+        else if (tfPlayerCamera.localPosition.x > 0.9) AmuletHint.SetActive(true); 
+        if(_getAmulet == false && tfPlayerCamera.localPosition.x > 1 && Input.GetKeyDown(KeyCode.E))
+        {
+            _getAmulet = true;
+            AmuletHint.transform.parent.parent.gameObject.SetActive(false);
+        }
     }
 
     public void openEyes()

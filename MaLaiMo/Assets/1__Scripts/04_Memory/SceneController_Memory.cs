@@ -130,6 +130,7 @@ public class SceneController_Memory : SceneController
             switch (r_SceneTypeID)
             {
                 case LevelTypeID.Lv1_GrandmaHouse:
+                case LevelTypeID.Lv3_GrandmaHouse_Memory:
                     string itemName = "";
 
                     switch (r_ItemID)
@@ -201,6 +202,9 @@ public class SceneController_Memory : SceneController
                             break;
                         case HintItemID.Lv4_blood_water:
                             itemName = "_Scene02_InteractItems/Lv4_blood_water";
+                            break;
+                        case HintItemID.LV4_Amulet:
+                            itemName = "_Scene02_InteractItems/LV4_Amulet";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -849,8 +853,9 @@ public class SceneController_Memory : SceneController
     void Lv4_StartPlayingGetAmulet()
     {
         Player._bCanControl = false;
+        ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Amulet);
         Player.eyeStates = "open";
-        Player.tfPlayerCamera.localPosition = new Vector3(0, -0.225f, 0);
+        Player.tfPlayerCamera.localPosition = new Vector3(0, -0.3f, 0);
         Player.tfPlayerCamera.eulerAngles = new Vector3(0, 90, 0);
         StartCoroutine(GetAmuletGhost_Control.setRandomGhostSeePlayer());
     }

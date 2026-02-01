@@ -6,6 +6,7 @@ using UnityEngine;
 public class GetAmuletGhost : MonoBehaviour
 {
     public GrandmaRoom_Memory_Player Player;
+    public CanvasGroup playerBlood;
     public float halfOpenTimer;
     public bool rasingHead;
     public Transform neck;
@@ -34,7 +35,7 @@ public class GetAmuletGhost : MonoBehaviour
         yield return new WaitForSeconds(rasingHeadTime);
         rasingHead = false;
         halfOpenTimer = 0;
-
+        playerBlood.DOFade(0f, 1f);
         neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1)
             .OnComplete(() => {
                 if (Player.dead == false && Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
@@ -44,11 +45,12 @@ public class GetAmuletGhost : MonoBehaviour
 
     public void Update()
     {
-        if (rasingHead == false) return;
+        if (rasingHead == false || Player.dead == true) return;
         if (Player.eyeStates == "open") PlayerDead();
         else if (Player.eyeStates == "helfOpen")
         {
             halfOpenTimer += Time.deltaTime;
+            playerBlood.alpha = Mathf.Clamp01(halfOpenTimer / 3);
             if (halfOpenTimer >= 3) PlayerDead();
         }
     }

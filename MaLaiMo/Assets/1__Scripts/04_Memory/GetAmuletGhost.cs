@@ -18,15 +18,29 @@ public class GetAmuletGhost : MonoBehaviour
 
     public IEnumerator setRandomGhostSeePlayer()
     {
-        var random = Random.Range(3.0f, 7.0f);
+        var random = Random.Range(1.0f, 7.0f);
         yield return new WaitForSeconds(random);
-
-        neck.DOLocalRotate(new Vector3(-58f, -36, 34), 1)
-            .OnComplete(() => {
-                rasingHead = true;
+        var setIsRasingHead = Random.Range(1.0f, 10.0f);
+        if (setIsRasingHead > 4)
+        {
+            neck.DOLocalRotate(new Vector3(-58f, -36, 34), 1)
+                .OnComplete(() =>
+                {
+                    rasingHead = true;
+                    StartCoroutine(setRandomGhostHeadDown());
+                });
+        }
+        else
+        {
+            Vector3 orgRotate = transform.eulerAngles;
+            Sequence seq = DOTween.Sequence();
+            seq.Append(neck.DOLocalRotate(new Vector3(-5f, 0, 0), 1f));
+            seq.Append(neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1f));
+            seq.OnComplete(() =>
+            {
                 StartCoroutine(setRandomGhostHeadDown());
             });
-
+        }
     }
 
     public IEnumerator setRandomGhostHeadDown()

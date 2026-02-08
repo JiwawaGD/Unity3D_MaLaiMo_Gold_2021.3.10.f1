@@ -21,7 +21,7 @@ public class GetAmuletGhost : MonoBehaviour
         var random = Random.Range(1.0f, 7.0f);
         yield return new WaitForSeconds(random);
         var setIsRasingHead = Random.Range(1.0f, 10.0f);
-        if (setIsRasingHead > 4)
+        if (setIsRasingHead > 3)
         {
             neck.DOLocalRotate(new Vector3(-58f, -36, 34), 1)
                 .OnComplete(() =>
@@ -38,7 +38,7 @@ public class GetAmuletGhost : MonoBehaviour
             seq.Append(neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1f));
             seq.OnComplete(() =>
             {
-                StartCoroutine(setRandomGhostHeadDown());
+                if (Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
             });
         }
     }

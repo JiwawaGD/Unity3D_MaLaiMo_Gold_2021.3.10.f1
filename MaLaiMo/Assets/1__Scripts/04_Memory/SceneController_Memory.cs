@@ -42,7 +42,7 @@ public class SceneController_Memory : SceneController
     public GameObject PSbloodrunning;
     public GameObject BloodWater;
 
-    private bool test4_3 = true;
+    private bool test4_3 = false;
     #endregion
 
     #region < ByScene Flag >
@@ -65,7 +65,14 @@ public class SceneController_Memory : SceneController
             SetPlayerLocation(new Vector3(-8.894f, 1.607f, -14.418f));
             Lv4_StartPlayingGetAmulet();
         }
-        else Player._bCanControl = true;
+        else 
+        {
+            // 設定玩家到紅框起始位置 (參考你提供的圖片座標)
+            SetPlayerLocation(new Vector3(-23.8f, 1.4f, 46.19f));
+            Player._bCanControl = true;
+
+            // 如果有需要，可以在這裡直接開啟追逐偵測或是等待觸發器
+        }
         // 非第一次進場場景 > 轉場圖片 Fade Out
         //TransitFadeOut();
     }

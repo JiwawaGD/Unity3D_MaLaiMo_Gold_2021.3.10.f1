@@ -36,19 +36,20 @@ public class GrandmaRoom_Memory_Player : PlayerController
     public void openEyes()
     {
         eyeStates = "open";
-        Eyes[0].DOLocalMoveY(1050f, 0.5f);
-        Eyes[1].DOLocalMoveY(-1050f, 0.5f);
+        Eyes[0].DOLocalMoveY(1050f, 0.2f);
+        Eyes[1].DOLocalMoveY(-1050f, 0.2f);
     }
     private void helfOpenEyes()
     {
         eyeStates = "helfOpen";
-        Eyes[0].DOLocalMoveY(650f, 0.5f);
-        Eyes[1].DOLocalMoveY(-650f, 0.5f);
+        Eyes[0].DOLocalMoveY(650f, 0.2f);
+        Eyes[1].DOLocalMoveY(-650f, 0.2f);
     }
-    private void closeEyes()
+    public void closeEyes()
     {
         eyeStates = "close";
-        Eyes[0].DOLocalMoveY(250f, 0.5f);
-        Eyes[1].DOLocalMoveY(-250f, 0.5f);
+        Eyes[0].DOLocalMoveY(250f, 0.2f);
+        Eyes[1].DOLocalMoveY(-250f, 0.2f);
     }
+
 }

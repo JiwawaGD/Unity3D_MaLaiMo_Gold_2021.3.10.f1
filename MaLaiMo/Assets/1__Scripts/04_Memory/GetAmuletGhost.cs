@@ -11,6 +11,7 @@ public class GetAmuletGhost : MonoBehaviour
     public bool rasingHead;
     public Transform neck;
     private float orgNeckRotationX;
+    public Animator Animator;
     private void Start()
     {
         orgNeckRotationX = neck.eulerAngles.x;
@@ -26,8 +27,11 @@ public class GetAmuletGhost : MonoBehaviour
             neck.DOLocalRotate(new Vector3(-58f, -36, 34), 1)
                 .OnComplete(() =>
                 {
-                    rasingHead = true;
-                    StartCoroutine(setRandomGhostHeadDown());
+                    if (Player.dead == false && Player.getAmulet() == false)
+                    {
+                        rasingHead = true;
+                        StartCoroutine(setRandomGhostHeadDown());
+                    }
                 });
         }
         else
@@ -38,7 +42,7 @@ public class GetAmuletGhost : MonoBehaviour
             seq.Append(neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1f));
             seq.OnComplete(() =>
             {
-                if (Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
+                if (Player.dead == false && Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
             });
         }
     }
@@ -47,33 +51,48 @@ public class GetAmuletGhost : MonoBehaviour
     {
         var rasingHeadTime = Random.Range(6.0f, 15.0f);
         yield return new WaitForSeconds(rasingHeadTime);
-        rasingHead = false;
-        halfOpenTimer = 0;
-        playerBlood.DOFade(0f, 1f);
-        neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1)
-            .OnComplete(() => {
-                if (Player.dead == false && Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
-            });
-
+        if (Player.dead == false && Player.getAmulet() == false)
+        {
+            rasingHead = false;
+            halfOpenTimer = 0;
+            playerBlood.DOFade(0f, 1f);
+            neck.DOLocalRotate(new Vector3(orgNeckRotationX, 0, 0), 1)
+                .OnComplete(() => {
+                    if (Player.dead == false && Player.getAmulet() == false) StartCoroutine(setRandomGhostSeePlayer());
+                });
+        }
     }
 
     public void Update()
     {
         if (rasingHead == false || Player.dead == true) return;
-        if (Player.eyeStates == "open") PlayerDead();
+        if (Player.eyeStates == "open") StartCoroutine(PlayerDead());
         else if (Player.eyeStates == "helfOpen")
         {
             halfOpenTimer += Time.deltaTime;
             playerBlood.alpha = Mathf.Clamp01(halfOpenTimer / 3);
-            if (halfOpenTimer >= 3) PlayerDead();
+            if (halfOpenTimer >= 3) StartCoroutine(PlayerDead());
         }
     }
 
-    public void PlayerDead()
+    public IEnumerator PlayerDead()
     {
         Player.dead = true;
+        Player.closeEyes();
+        yield return new WaitForSeconds(0.25f);
+        Animator.enabled = true;
+        neck.eulerAngles = new Vector3(orgNeckRotationX, 0, 0);
+        Animator.SetBool("PlayerDead", true);
+        gameObject.transform.localPosition = new Vector3(-63.30074f, 0.578f, -17.84401f);
+        yield return new WaitForSeconds(0.5f);
+        Player.tfPlayerCamera.eulerAngles = new Vector3(-40.35f, 90, 0);
+        Player.tfPlayerCamera.localPosition = Vector3.zero;
         Player.openEyes();
-        print("死了");
+        yield return new WaitForSeconds(0.7f);
+        playerBlood.DOFade(1, 5)
+            .OnComplete(() => {
+                print("死了");
+            });
         //抓玩家動畫
     }
 }

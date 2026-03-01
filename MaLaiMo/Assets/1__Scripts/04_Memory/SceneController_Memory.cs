@@ -42,7 +42,7 @@ public class SceneController_Memory : SceneController
     public GameObject PSbloodrunning;
     public GameObject BloodWater;
 
-    private bool test4_3 = false;
+    private bool test4_3 = true;
     #endregion
 
     #region < ByScene Flag >

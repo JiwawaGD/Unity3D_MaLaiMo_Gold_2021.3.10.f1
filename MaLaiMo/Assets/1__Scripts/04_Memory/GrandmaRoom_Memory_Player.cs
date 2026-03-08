@@ -10,6 +10,7 @@ public class GrandmaRoom_Memory_Player : PlayerController
     public Transform[] Eyes;
     public static bool _getAmulet = false;
     public GameObject AmuletHint;
+    public bool startStruggle = false;
     public bool getAmulet()
     {
         return _getAmulet;
@@ -52,4 +53,12 @@ public class GrandmaRoom_Memory_Player : PlayerController
         Eyes[1].DOLocalMoveY(-250f, 0.2f);
     }
 
+    public IEnumerator struggle()
+    {
+        startStruggle = true;
+        yield return new WaitForSeconds(0.5f);
+        tfPlayerCamera.DOLocalMove(new Vector3(0.17f, 0.22f, 0f), 0.2f);
+        yield return new WaitForSeconds(5f);
+        tfPlayerCamera.DOLocalMove(Vector3.zero, 1f);
+    }
 }

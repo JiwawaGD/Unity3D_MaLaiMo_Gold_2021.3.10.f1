@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GetAmuletGhost : MonoBehaviour
 {
@@ -89,8 +90,10 @@ public class GetAmuletGhost : MonoBehaviour
         Player.tfPlayerCamera.localPosition = Vector3.zero;
         Player.openEyes();
         yield return new WaitForSeconds(0.7f);
+        StartCoroutine(Player.struggle());
         playerBlood.DOFade(1, 5)
             .OnComplete(() => {
+                Player.startStruggle = false;
                 print("死了");
             });
         //抓玩家動畫

@@ -22,8 +22,8 @@ public class SceneController_Memory : SceneController
     [Header("媽媽控制器")] public Mom_Controler_Room Mom_Control;
     [Header("女鬼頭部目標")] public Transform ghostHeadTarget;
     [Header("限時任務設定")]
-    [Header("玩家要跑向的目標點")]public Transform escapeTarget;
-    [Header("限制時間")]public float taskTimeLimit = 20f;
+    [Header("玩家要跑向的目標點")] public Transform escapeTarget;
+    [Header("限制時間")] public float taskTimeLimit = 20f;
     [Header("判斷到達的距離")] public float arrivalDistance = 1.5f;
     [Header("任務是否進行中")] private bool isTaskActive = false;
     [Header("房間門")]
@@ -42,7 +42,9 @@ public class SceneController_Memory : SceneController
     public GameObject PSbloodrunning;
     public GameObject BloodWater;
 
-    private bool test4_3 = true;
+    [Space(5)]
+    [Header(" 測試用進度點 ")]
+    [SerializeField] private bool test4_3 = false;
     #endregion
 
     #region < ByScene Flag >
@@ -59,13 +61,13 @@ public class SceneController_Memory : SceneController
     {
         base.Start();
         calendarAnim = calendarObject.GetComponent<Animation>();
-        if(test4_3)
+        if (test4_3)
         {
             // 設定玩家傳送座標
             SetPlayerLocation(new Vector3(-8.894f, 1.607f, -14.418f));
             Lv4_StartPlayingGetAmulet();
         }
-        else 
+        else
         {
             // 設定玩家到紅框起始位置 (參考你提供的圖片座標)
             SetPlayerLocation(new Vector3(-23.8f, 1.4f, 46.19f));

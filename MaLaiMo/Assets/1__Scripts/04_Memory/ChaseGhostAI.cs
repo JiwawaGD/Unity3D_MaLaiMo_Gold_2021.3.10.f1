@@ -1,127 +1,111 @@
 ﻿using UnityEngine;
+using UnityEngine.AI; // 必須引用導航系統
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class ChaseGhostAI : MonoBehaviour
 {
     [Header("=== 基本目標設定 ===")]
-    public Transform playerTransform;
-    public Transform startTriggerPoint;
-    public Transform endTriggerPoint;
+    public Transform playerTransform;   // 拖入玩家
+    public Transform startTriggerPoint; // 拖入紅框物件
+    public Transform endTriggerPoint;   // 拖入藍框物件
 
-    [Header("=== 智慧轉向路點 ===")]
-    [Tooltip("將走廊所有轉角的點都丟進來，鬼會根據障礙物自動選擇最適合的路點繞路")]
-    public Transform[] hallwayWaypoints;
+    [Header("=== 氛圍速度控制 ===")]
+    public float maxSpeed = 3.5f;       // 正常追逐速度
+    public float minSpeed = 2.4f;       // 靠近玩家時降速
+    public float proximityRange = 4.0f; // 多近開始降速
+    public float catchDistance = 1.1f;  // 抓到距離
 
-    [Header("=== 氛圍與速度控制 ===")]
-    public float maxSpeed = 3.0f;
-    public float minSpeed = 2.2f;
-    public float proximityRange = 3.5f;
-    public float catchDistance = 1.1f;
-
-    [Header("=== 狀態顯示 ===")]
-    public bool isChasing = false;
+    private NavMeshAgent agent;
+    private bool isChasing = false;
     private bool hasFinished = false;
-    private Transform currentTarget;
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        // 初始務必關閉 Agent，防止在尚未觸發前因為沒踩在網格上而報錯
+        agent.enabled = false;
+        Debug.Log("<color=cyan>【追逐系統】NavMesh 已就緒，等待紅框觸發...</color>");
+    }
 
     void Update()
     {
         if (hasFinished || playerTransform == null) return;
 
-        // 1. 啟動偵測
+        // 1. 紅框啟動偵測
         if (!isChasing && startTriggerPoint != null)
         {
             if (Vector3.Distance(playerTransform.position, startTriggerPoint.position) < 2.5f)
             {
-                isChasing = true;
-                Debug.Log("<color=red>【Console】鬼魂現身！開始針對性追逐...</color>");
+                StartChase();
             }
         }
 
-        if (isChasing)
+        // 2. 追逐邏輯 (增加安全性檢查：確保 Agent 已啟動且在網格上)
+        if (isChasing && agent.enabled && agent.isOnNavMesh)
         {
-            DetermineTarget();
-            HandleMovement();
-            CheckGameStatus();
+            HandleChaseMovement();
         }
     }
 
-    private void DetermineTarget()
+    private void StartChase()
     {
-        // 使用射線檢查是否看得到玩家
-        Vector3 directionToPlayer = (playerTransform.position + Vector3.up) - (transform.position + Vector3.up);
-        bool canSeePlayer = !Physics.Raycast(transform.position + Vector3.up, directionToPlayer, directionToPlayer.magnitude);
-
-        if (canSeePlayer)
+        // 尋找最近的導航點，確保啟動時不會報錯
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 3.0f, NavMesh.AllAreas))
         {
-            // 如果看得到，玩家就是目標
-            currentTarget = playerTransform;
+            // 先定位 Transform
+            transform.position = hit.position;
+            // 再啟動 Agent
+            agent.enabled = true;
+            isChasing = true;
+            Debug.Log("<color=red>【Console】鬼魂已啟動並開始追逐！</color>");
         }
         else
         {
-            // 如果被牆擋住，找出距離玩家最近的路點（轉角），先繞過去
-            currentTarget = GetBestWaypoint();
+            Debug.LogWarning("【追逐系統】鬼魂離藍色區域太遠，請手動將鬼魂移近地板！");
         }
     }
 
-    private Transform GetBestWaypoint()
+    private void HandleChaseMovement()
     {
-        Transform bestWP = null;
-        float minDistance = float.MaxValue;
-
-        foreach (Transform wp in hallwayWaypoints)
-        {
-            // 找出離玩家最近的路點，作為「繞路」的目標
-            float dist = Vector3.Distance(wp.position, playerTransform.position);
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                bestWP = wp;
-            }
-        }
-        return bestWP != null ? bestWP : playerTransform;
-    }
-
-    private void HandleMovement()
-    {
-        if (currentTarget == null) return;
-
-        Vector3 targetPos = currentTarget.position;
         float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-        // 動態降速邏輯
+        // --- 動態氛圍降速 (當鬼魂靠近玩家時會稍微放慢) ---
         float currentSpeed = maxSpeed;
         if (distToPlayer < proximityRange)
         {
             float speedPercent = Mathf.Clamp01((distToPlayer - catchDistance) / (proximityRange - catchDistance));
             currentSpeed = Mathf.Lerp(minSpeed, maxSpeed, speedPercent);
         }
+        agent.speed = currentSpeed;
 
-        // 移動
-        Vector3 moveDest = new Vector3(targetPos.x, transform.position.y, targetPos.z);
-        transform.position = Vector3.MoveTowards(transform.position, moveDest, currentSpeed * Time.deltaTime);
+        // --- 設定目標 ---
+        agent.SetDestination(playerTransform.position);
 
-        // 轉向 (始終面向移動方向)
-        Vector3 lookDir = moveDest - transform.position;
-        if (lookDir != Vector3.zero)
+        // --- 判定邏輯 ---
+        // A. 抓到玩家
+        if (distToPlayer <= catchDistance)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * 5f);
+            EndChase("<color=black>【Console】死了（被抓住了）</color>");
+        }
+
+        // B. 逃脫成功
+        if (endTriggerPoint != null && Vector3.Distance(playerTransform.position, endTriggerPoint.position) < 2.5f)
+        {
+            EndChase("<color=blue>【Console】逃脫成功！抵達藍色區域。</color>");
         }
     }
 
-    private void CheckGameStatus()
+    private void EndChase(string message)
     {
-        float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if (distToPlayer <= catchDistance)
+        isChasing = false;
+        hasFinished = true;
+        if (agent.isActiveAndEnabled)
         {
-            isChasing = false;
-            hasFinished = true;
-            Debug.Log("<color=black>【Console】死了（玩家被鬼魂截擊）</color>");
+            agent.isStopped = true;
+            agent.enabled = false;
         }
-
-        if (endTriggerPoint != null && Vector3.Distance(playerTransform.position, endTriggerPoint.position) < 2.0f)
-        {
-            isChasing = false;
-            hasFinished = true;
-            Debug.Log("<color=blue>【Console】逃脫成功！</color>");
-        }
+        Debug.Log(message);
     }
 }

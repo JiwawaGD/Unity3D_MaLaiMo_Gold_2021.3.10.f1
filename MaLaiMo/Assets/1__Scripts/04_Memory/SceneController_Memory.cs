@@ -44,7 +44,7 @@ public class SceneController_Memory : SceneController
 
     [Space(5)]
     [Header(" 測試用進度點 ")]
-    [SerializeField] private bool test4_3 = false;
+    [SerializeField] private bool test4_3 = true;
     #endregion
 
     #region < ByScene Flag >

@@ -90,7 +90,8 @@ public class GetAmuletGhost : MonoBehaviour
         Player.tfPlayerCamera.localPosition = Vector3.zero;
         Player.openEyes();
         yield return new WaitForSeconds(0.7f);
-        StartCoroutine(Player.struggle());
+        //StartCoroutine(Player.struggle());
+        Player.gameObject.GetComponent<Animation>().Play("HeadShake");
         playerBlood.DOFade(1, 5)
             .OnComplete(() => {
                 Player.startStruggle = false;

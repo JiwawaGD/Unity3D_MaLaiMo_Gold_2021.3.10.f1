@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21389,6 +21389,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8c50102eaa15544ea27dc990a46ea6f, type: 3}
+--- !u!1 &156103482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d8c50102eaa15544ea27dc990a46ea6f, type: 3}
+  m_PrefabInstance: {fileID: 156103481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &156103483
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156103482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1be7736d9a3a96a41999fcf2eee1b013, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &159819179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39458,7 +39483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3467328166444235591, guid: 827697365c01a4445821525fb089f737, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.66
+      value: 33.03
       objectReference: {fileID: 0}
     - target: {fileID: 3467328166444235591, guid: 827697365c01a4445821525fb089f737, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42496,6 +42521,14 @@ PrefabInstance:
     - target: {fileID: 6536810737483865196, guid: 520b20aa981b0fa47a54c6c280d7f375, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846686203502679089, guid: 520b20aa981b0fa47a54c6c280d7f375, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.109
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846686203502679089, guid: 520b20aa981b0fa47a54c6c280d7f375, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.351
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 520b20aa981b0fa47a54c6c280d7f375, type: 3}
@@ -50859,7 +50892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861464, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 41.02
+      value: -17.35
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861464, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50891,7 +50924,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: maxSpeed
-      value: 1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
+      propertyPath: ghostAnimator
+      value: 
+      objectReference: {fileID: 156103483}
+    - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
+      propertyPath: predictiveLead
+      value: 0.797
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: endTriggerPoint
@@ -50935,7 +50976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861470, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
@@ -97458,7 +97499,7 @@ MonoBehaviour:
   FilialPietyCurtain_Ani: {fileID: 0}
   Mom_Control: {fileID: 0}
   ghostHeadTarget: {fileID: 1133899707}
-  escapeTarget: {fileID: 0}
+  escapeTarget: {fileID: 1897540133}
   taskTimeLimit: 20
   arrivalDistance: 1.5
   badroomDoor: {fileID: 0}

@@ -8,6 +8,7 @@ public class GetAmuletGhost : MonoBehaviour
 {
     public GrandmaRoom_Memory_Player Player;
     public CanvasGroup playerBlood;
+    public CanvasGroup playerBlack;
     public float halfOpenTimer;
     public bool rasingHead;
     public Transform neck;
@@ -91,11 +92,10 @@ public class GetAmuletGhost : MonoBehaviour
         Player.openEyes();
         yield return new WaitForSeconds(0.7f);
         //StartCoroutine(Player.struggle());
-        Player.gameObject.GetComponent<Animation>().Play("HeadShake");
+        Player.gameObject.GetComponent<Animation>().Play("HeadShake"); 
         playerBlood.DOFade(1, 5)
             .OnComplete(() => {
-                Player.startStruggle = false;
-                print("死了");
+                playerBlack.DOFade(1, 5);
             });
         //抓玩家動畫
     }

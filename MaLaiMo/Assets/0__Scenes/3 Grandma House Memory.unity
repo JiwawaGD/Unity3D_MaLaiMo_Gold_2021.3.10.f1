@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.67178106, g: 0.56189084, b: 0.65947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21387,6 +21387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghostmo_anim_crawl
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: d8c50102eaa15544ea27dc990a46ea6f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d8abd33ba3a119044ad1b5a1fcae7327, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8c50102eaa15544ea27dc990a46ea6f, type: 3}
 --- !u!1 &156103482 stripped
@@ -50924,7 +50928,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: maxSpeed
-      value: 5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
+      propertyPath: minSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2685313141188861465, guid: dfff60f84a567374c96ccc30761e6638, type: 3}
       propertyPath: ghostAnimator

@@ -69,7 +69,8 @@ public enum GameEventID
     Lv4_E_Amulet,
     Lv4_E_Bed,
     Lv4_E_CalendarPaper,
-    Lv4_E_GrandmaDoor
+    Lv4_E_GrandmaDoor,
+    Lv4_E_ToiletDoor,
 }
 
 public enum Lv1_EventCallBackID
@@ -122,7 +123,8 @@ public enum HintItemID
     Lv4_Dam_MomPupptery,
     Lv4_Item_RoomDoorOpen,
     Lv4_blood_water,
-    LV4_Amulet
+    LV4_Amulet,
+    LV4_ToiletDoor
 }
 
 public enum ObjItemID

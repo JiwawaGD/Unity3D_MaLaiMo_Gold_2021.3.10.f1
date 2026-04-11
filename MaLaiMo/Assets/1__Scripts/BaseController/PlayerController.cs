@@ -236,11 +236,9 @@ public class PlayerController : MonoBehaviour
                                        out hit,                     // RaycastHit
                                        m_fRayLength,                // RayLength
                                        ItemLayer);                  // ItemLayer);
-
         if (_bRayOnItem)
         {
             current_Item = hit.transform.gameObject.GetComponent<ItemController>();
-
             if (current_Item.bActive)
             {
                 current_Item.SetItemInteractive(true);

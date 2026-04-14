@@ -54,7 +54,7 @@ public enum GameEventID
     Lv4_FlushToilet,
     Lv4_E_Sink,
     Lv4_E_BathRoomDoor,
-    Lv4_E_GrandMaRoomDoor,
+    Lv4_E_Door,
     Lv4_GiftBox,
     Lv4_Dam_MomPupptery,
     Lv4_E_FaucetSwitch,
@@ -124,7 +124,9 @@ public enum HintItemID
     Lv4_Item_RoomDoorOpen,
     Lv4_blood_water,
     LV4_Amulet,
-    LV4_ToiletDoor
+    LV4_ToiletDoor,
+    LV4_Dirtydoor3,
+    LV4_Dirtydoor4,
 }
 
 public enum ObjItemID

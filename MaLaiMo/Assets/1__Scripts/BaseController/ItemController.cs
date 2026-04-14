@@ -21,7 +21,7 @@ public class ItemController : MonoBehaviour
 
     [Header("是否可以無限觸發(裝飾物件)")]
     public bool bAlwaysActive;
-
+    public bool isOpen = false;
     #region UI
     GameObject HintObj;     // 眼睛 UI
     Transform tfHint;

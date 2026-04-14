@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     public Light FlashLight;
     RaycastHit hit;
 
-    ItemController current_Item;
+    public ItemController current_Item;
     ItemController last_Item;
     #endregion
 

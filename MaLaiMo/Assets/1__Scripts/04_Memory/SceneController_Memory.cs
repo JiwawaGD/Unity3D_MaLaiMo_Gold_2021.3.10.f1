@@ -71,6 +71,8 @@ public class SceneController_Memory : SceneController
         }
         else
         {
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor3);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor4);
             ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_ToiletDoor);
             // 設定玩家到紅框起始位置 (參考你提供的圖片座標)
             SetPlayerLocation(new Vector3(-23.8f, 1.4f, 46.19f));
@@ -221,6 +223,12 @@ public class SceneController_Memory : SceneController
                         case HintItemID.LV4_ToiletDoor:
                             itemName = "_Scene02_InteractItems/LV4_ToiletDoor/door";
                             break;
+                        case HintItemID.LV4_Dirtydoor3:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (3)/door";
+                            break;
+                        case HintItemID.LV4_Dirtydoor4:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (4)/door";
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -363,8 +371,8 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_E_BathRoomDoor:
                     StartCoroutine(Lv4_E_BathRoomDoor());
                     break;
-                case GameEventID.Lv4_E_GrandMaRoomDoor:
-                    Lv4_E_GrandMaRoomDoor();
+                case GameEventID.Lv4_E_Door:
+                    Lv4_E_Door();
                     break;
                 case GameEventID.Lv4_GiftBox:
                     Lv4_PlayGiftBoxAnimation();
@@ -410,12 +418,6 @@ public class SceneController_Memory : SceneController
                 case GameEventID.Lv4_E_CalendarPaper:
                     Lv4_E_CalendarPaper();
                     break;
-                case GameEventID.Lv4_E_GrandmaDoor:
-                    Lv4_E_GrandmaDoor();
-                    break;
-                case GameEventID.Lv4_E_ToiletDoor:
-                    Lv4_E_ToiletDoor();
-                    break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
@@ -430,25 +432,21 @@ public class SceneController_Memory : SceneController
     #endregion
 
     #region < Game Event >
-    void Lv4_GrandmaRoomDoorSwitch()
+    void DoorSwitch()
     {
-        Transform tfRoomDoor = GameObject.Find("_Scene01_InteractItems/Lv1_Door/Lv1_Grandma_Room_Door").transform;
-        Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
+        Animation AniDoor = PlayerCtrlr.current_Item.transform.GetComponent<Animation>();
 
-        if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
+        if (PlayerCtrlr.current_Item.isOpen)
         {
-            string strPlayAniName = tfRoomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
-
-            AniRoomDoor[strPlayAniName].time = 0f;
-            AniRoomDoor.PlayQueued(strPlayAniName);
+            PlayerCtrlr.current_Item.isOpen = false; 
+            AniDoor["Door_Close"].time = 0f;
+            AniDoor.PlayQueued("Door_Close");
             //Lv4_Event_SetCalender();
+        } else {
+            PlayerCtrlr.current_Item.isOpen = true;
+            AniDoor["Door_Open"].time = 0f;
+            AniDoor.PlayQueued("Door_Open");
         }
-    }
-    void Lv4_ToiletDoorSwitch()
-    {
-        Transform tfRoomDoor = GameObject.Find("_Scene02_InteractItems/LV4_ToiletDoor/door").transform;
-        Animation AniRoomDoor = tfRoomDoor.GetComponent<Animation>();
-        AniRoomDoor.PlayQueued("Open_toiletDoor");
     }
 
     void Lv4_GrandmaRoomDoorSwitch_Calendar()
@@ -501,7 +499,7 @@ public class SceneController_Memory : SceneController
     }
     IEnumerator MovePlayerAfterDelay()
     {
-        Lv4_GrandmaRoomDoorSwitch();
+        DoorSwitch();
         // 先延遲2秒
         yield return new WaitForSeconds(2f);
         // 黑幕淡入（1秒）
@@ -531,7 +529,7 @@ public class SceneController_Memory : SceneController
     }
     IEnumerator MovePlayerAfterDelayToRoom()
     {
-        Lv4_GrandmaRoomDoorSwitch();
+        DoorSwitch();
         // 先延遲2秒
         yield return new WaitForSeconds(2f);
         // 黑幕淡入（1秒）
@@ -801,11 +799,6 @@ public class SceneController_Memory : SceneController
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv4_Dam_MomPupptery);
     }
 
-    void Lv4_E_GrandMaRoomDoor()
-    {
-        //客廳正中間桌子亮起
-    }
-
     IEnumerator PlayTubAnim()
     {
         //播放浴缸動畫
@@ -869,18 +862,13 @@ public class SceneController_Memory : SceneController
     {
         PlayDialogue((int)Room_Dialogue.Lv4_018_E_CalendarPaper);
     }
-    void Lv4_E_GrandmaDoor()
+    void Lv4_E_Door()
     {
-        Lv4_GrandmaRoomDoorSwitch();
-        badroomDoor.GetComponent<ItemController>().bAlwaysActive = false;
-        badroomDoor.GetComponent<ItemController>().ItemDisable();
+        DoorSwitch();
+        //PlayerCtrlr.current_Item.bAlwaysActive = false;
+        //PlayerCtrlr.current_Item.ItemDisable();
     }
-    void Lv4_E_ToiletDoor()
-    {
-        Lv4_ToiletDoorSwitch();
-        toiletDoor.GetComponent<ItemController>().bAlwaysActive = false;
-        toiletDoor.GetComponent<ItemController>().ItemDisable();
-    }
+
     void Lv4_StartPlayingGetAmulet()
     {
         Player._bCanControl = false;

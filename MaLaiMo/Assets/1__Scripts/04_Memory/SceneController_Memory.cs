@@ -71,8 +71,13 @@ public class SceneController_Memory : SceneController
         }
         else
         {
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor1);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor2);
             ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor3);
             ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor4);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor5);
+            ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_Dirtydoor6);
             ShowHint(LevelTypeID.Lv3_GrandmaHouse_Memory, HintItemID.LV4_ToiletDoor);
             // 設定玩家到紅框起始位置 (參考你提供的圖片座標)
             SetPlayerLocation(new Vector3(-23.8f, 1.4f, 46.19f));
@@ -223,11 +228,26 @@ public class SceneController_Memory : SceneController
                         case HintItemID.LV4_ToiletDoor:
                             itemName = "_Scene02_InteractItems/LV4_ToiletDoor/door";
                             break;
+                        case HintItemID.LV4_Dirtydoor:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor/door";
+                            break;
+                        case HintItemID.LV4_Dirtydoor1:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (1)/door";
+                            break;
+                        case HintItemID.LV4_Dirtydoor2:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (2)/door";
+                            break;
                         case HintItemID.LV4_Dirtydoor3:
                             itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (3)/door";
                             break;
                         case HintItemID.LV4_Dirtydoor4:
                             itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (4)/door";
+                            break;
+                        case HintItemID.LV4_Dirtydoor5:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (5)/door";
+                            break;
+                        case HintItemID.LV4_Dirtydoor6:
+                            itemName = "Scene_04/DirtyCorridor/inside_dirtydoor (6)/door";
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));

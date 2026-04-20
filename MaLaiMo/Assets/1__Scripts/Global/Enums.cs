@@ -125,8 +125,13 @@ public enum HintItemID
     Lv4_blood_water,
     LV4_Amulet,
     LV4_ToiletDoor,
+    LV4_Dirtydoor,
+    LV4_Dirtydoor1,
+    LV4_Dirtydoor2,
     LV4_Dirtydoor3,
     LV4_Dirtydoor4,
+    LV4_Dirtydoor5,
+    LV4_Dirtydoor6,
 }
 
 public enum ObjItemID

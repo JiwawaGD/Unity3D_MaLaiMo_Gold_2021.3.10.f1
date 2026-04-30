@@ -55,6 +55,20 @@ public class ItemController : MonoBehaviour
             tfHint.LookAt(tfPlayerCamera);
 
             fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);
+            //float heightOffset = 1f; // 自己調
+            float offset = 0.2f; // 可以調整距離
+
+            Vector3 dir = (tfPlayerCamera.position - transform.position).normalized;
+
+            Vector3 targetPos = transform.position + dir * offset;
+            //targetPos.y += heightOffset;
+            if (transform.eulerAngles.y != 0)
+            {
+                tfInteract.parent.position = new Vector3(targetPos.x, tfInteract.parent.position.y, tfInteract.parent.position.z);
+            } else
+            {
+                tfInteract.parent.position = new Vector3(tfInteract.parent.position.x, tfInteract.parent.position.y, targetPos.z);
+            }
 
             if (fDistanceWithPlayer <= fHintRange)
                 HintObj.SetActive(true);
@@ -70,7 +84,9 @@ public class ItemController : MonoBehaviour
         InteractObj.SetActive(r_bShow);
 
         if (r_bShow)
+        {
             tfInteract.LookAt(tfPlayerCamera);
+        }
     }
 
     public void SetHintable(bool r_bShow)

@@ -35,6 +35,7 @@ public class ItemController : MonoBehaviour
     Vector3 v3This;
     bool bShowHint;
     float fDistanceWithPlayer;
+    Vector3 initialInteractLocalPos;
     #endregion
 
     #region < Unity Hook >
@@ -55,20 +56,8 @@ public class ItemController : MonoBehaviour
             tfHint.LookAt(tfPlayerCamera);
 
             fDistanceWithPlayer = Vector3.Distance(v3This, tfPlayerCamera.position);
-            //float heightOffset = 1f; // 自己調
-            float offset = 0.2f; // 可以調整距離
 
-            Vector3 dir = (tfPlayerCamera.position - transform.position).normalized;
-
-            Vector3 targetPos = transform.position + dir * offset;
-            //targetPos.y += heightOffset;
-            if (transform.eulerAngles.y != 0)
-            {
-                tfInteract.parent.position = new Vector3(targetPos.x, tfInteract.parent.position.y, tfInteract.parent.position.z);
-            } else
-            {
-                tfInteract.parent.position = new Vector3(tfInteract.parent.position.x, tfInteract.parent.position.y, targetPos.z);
-            }
+            UpdateInteractPosition();
 
             if (fDistanceWithPlayer <= fHintRange)
                 HintObj.SetActive(true);
@@ -85,6 +74,7 @@ public class ItemController : MonoBehaviour
 
         if (r_bShow)
         {
+            UpdateInteractPosition();
             tfInteract.LookAt(tfPlayerCamera);
         }
     }
@@ -126,6 +116,19 @@ public class ItemController : MonoBehaviour
     #endregion
 
     #region < Internal Method >
+    void UpdateInteractPosition()
+    {
+        // 判斷玩家在門的哪一側（用門的 forward 方向做內積）
+        Vector3 toPlayer = tfPlayerCamera.position - transform.position;
+        float side = Vector3.Dot(toPlayer, transform.forward);
+
+        // 保留 editor 設定的 X、Y 偏移，只根據玩家方向翻轉深度（本地 Z）
+        Vector3 localPos = initialInteractLocalPos;
+        float depthAbs = Mathf.Abs(localPos.z) > 0.01f ? Mathf.Abs(localPos.z) : 0.2f;
+        localPos.z = side >= 0f ? depthAbs : -depthAbs;
+        tfInteract.parent.localPosition = localPos;
+    }
+
     /// <summary>
     /// Find & Set Field Data
     /// </summary>
@@ -178,6 +181,7 @@ public class ItemController : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("InteractiveItem");
         v3This = transform.position;
+        initialInteractLocalPos = tfInteract.parent.localPosition;
 
         this.HintObj.SetActive(false);
         this.InteractObj.SetActive(false);

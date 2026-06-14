@@ -6900,7 +6900,7 @@ GameObject:
   - component: {fileID: 149399523}
   - component: {fileID: 149399524}
   m_Layer: 0
-  m_Name: Lv1_000_FacePackage
+  m_Name: 000_FacePackagekage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6937,16 +6937,17 @@ MonoBehaviour:
   ActionEvent:
   - '{%function:0'
   - "(\u6536\u62FE\u8863\u7269\u8072)"
-  - '{%wait:1'
+  - '{%wait:2'
   - 
   - "\u7433\u7433\uFF1A\u9019\u6A23\u5C31\u6574\u7406\u5F97\u5DEE\u4E0D\u591A\u4E86\u3002"
-  - '{%wait:1'
+  - '{%wait:2'
   - 
   - '{%object:0;true;1'
   - '{%wait:1'
   - '{%function:1'
   - '{%wait:2'
   - '{%object:0;true;0'
+  - '{%function:2'
   HandleObject:
   - {fileID: 652393210568725803}
   Voices: []
@@ -6978,6 +6979,20 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1102766671}
+        m_TargetAssemblyTypeName: SceneController_Room, Assembly-CSharp
+        m_MethodName: Lv1_PlayHintMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &152381609
 GameObject:
@@ -7712,6 +7727,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 1
+  isOpen: 0
 --- !u!65 &185725518
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9218,9 +9234,24 @@ MonoBehaviour:
   - "\u5ABD\u5ABD\uFF1A\u7433\u7433\uFF0C\u597D\u4E86\u5C31\u8D95\u5FEB\u51FA\u4F86\u5E6B\u5FD9\uFF01"
   - '{%wait:2'
   - ' '
+  - '{%function:0'
   HandleObject: []
   Voices: []
-  Functions: []
+  Functions:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1102766671}
+        m_TargetAssemblyTypeName: SceneController_Room, Assembly-CSharp
+        m_MethodName: Lv1_ShowDoorHint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &268649072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26146,6 +26177,7 @@ MonoBehaviour:
   fHintRange: 12
   bActive: 0
   bAlwaysActive: 1
+  isOpen: 0
 --- !u!95 &977356089
 Animator:
   serializedVersion: 4
@@ -26537,6 +26569,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &989251351
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35448,6 +35481,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &1246649111
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40993,6 +41027,7 @@ MonoBehaviour:
   fHintRange: 4
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!95 &1319099512
 Animator:
   serializedVersion: 4
@@ -42576,6 +42611,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &1414445096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -53308,6 +53344,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &1741217133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61356,6 +61393,7 @@ MonoBehaviour:
   fHintRange: 5
   bActive: 0
   bAlwaysActive: 1
+  isOpen: 0
 --- !u!65 &1871428879
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63947,6 +63985,7 @@ MonoBehaviour:
   fHintRange: 3
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &2028958746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318713,6 +318752,7 @@ MonoBehaviour:
   fHintRange: 4
   bActive: 0
   bAlwaysActive: 0
+  isOpen: 0
 --- !u!65 &4757700141078064893
 BoxCollider:
   m_ObjectHideFlags: 0

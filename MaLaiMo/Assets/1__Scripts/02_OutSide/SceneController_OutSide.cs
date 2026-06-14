@@ -53,6 +53,7 @@ public class SceneController_OutSide : SceneController
         // 大門 Hint 保持開著
         ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_OutSideDoor);
         StartCoroutine(StartOutSideAction());
+        print(nowMission);
     }
 
     IEnumerator StartOutSideAction()

@@ -53,7 +53,7 @@ public class SceneController_Room : SceneController
             if (_isFinishLotusGame == false) ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_LotusPaper);
             else ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_FoldedLotusPaper);
         }
-        else if (GlobalDeclare._checkList02_holdRice)
+        if (GlobalDeclare._checkList02_holdRice)
         {
             ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OfferingPlace);
             TakingObjects[1].SetActive(true);
@@ -346,11 +346,20 @@ public class SceneController_Room : SceneController
         tfPlayer.localEulerAngles = new Vector3(0f, 275f, 0f);
 
         ProcessPlayerAnimator(PlayerAnimateType.FacePackageStandUp.ToString());
-        GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
+        //GlobalDeclare.SetDialogueEvent((byte)Room_Dialogue.Lv1_001_HintMove);
 
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
 
         PlayDialogue((int)Room_Dialogue.Lv1_000_FacePackage);
+    }
+
+    public void Lv1_PlayHintMove()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv1_001_HintMove);
+    }
+
+    public void Lv1_ShowDoorHint()
+    {
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_OpenRoomDoor);
     }
 
     void Lv1_GrandmaRoomDoorSwitch()
@@ -408,6 +417,7 @@ public class SceneController_Room : SceneController
         riceAndSoup.GetComponent<MeshRenderer>().enabled = true;
 
         SceneController_OutSide.paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] = true;
+        TakingObjects[1].SetActive(false);
         GlobalDeclare._checkList02_holdRice = false;
     }
 

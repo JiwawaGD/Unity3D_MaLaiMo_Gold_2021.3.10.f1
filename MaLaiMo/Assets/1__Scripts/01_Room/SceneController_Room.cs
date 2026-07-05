@@ -18,6 +18,7 @@ public class SceneController_Room : SceneController
     [Header("電視雜訊的材質球")] public Material _tvNoiseMaterial;
     [Header("阿嬤")] public GameObject GrandMa;
     [Header("護身符")] public GameObject Amulet;
+    [Header("觸發天黑對話物件")] public GameObject triggerNightObject;
     [Header("製作和感謝人員名單")] public GameObject _thanksView;
     #endregion
 
@@ -26,6 +27,8 @@ public class SceneController_Room : SceneController
     private bool _hasTriggerGraffiti = false;
     private static bool _isFinishLotusGame = false;
     private static bool FilialPietyCurtain_IsOpen = false;
+    public static bool grandmaRoom_DoorOpen = false;
+    public static bool grandmaRoom_ClosetOpen = false;
     #endregion
 
     #region < Unity Hook >
@@ -42,7 +45,6 @@ public class SceneController_Room : SceneController
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Piano);
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GrandmaRoomCloset);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_TalkToSeatMom);
 
         if (GlobalDeclare._checkList01_holdLotus)
         {
@@ -82,6 +84,18 @@ public class SceneController_Room : SceneController
         if (FilialPietyCurtain_IsOpen)
         {
             this._objectCtrlr._filialPietyCurtain.GetComponent<Animator>().SetTrigger("Filial_piety_curtain Open");
+        }
+
+        if (grandmaRoom_DoorOpen) {
+            _objectCtrlr._grandmaRoomDoor.transform.eulerAngles = new Vector3(-90, 90 ,0);
+        }
+
+        if (SceneController_OutSide.paperMissionFinsih[(int)PaperMission.PutLotusOnTable] &&
+            SceneController_OutSide.paperMissionFinsih[(int)PaperMission.TalkRiceToKitchen] &&
+            SceneController_OutSide.paperMissionFinsih[(int)PaperMission.LayOutSideCircle] &&
+            grandmaRoom_ClosetOpen == false) 
+        {
+            ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GrandmaRoomCloset);
         }
     }
 
@@ -171,6 +185,9 @@ public class SceneController_Room : SceneController
                             break;
                         case HintItemID.Lv1_Item_Grandma_Dead_Body:
                             itemCtrlr = this._objectCtrlr._grandmaDeadBody.GetComponent<ItemController>();
+                            break;
+                        case HintItemID.Lv1_FilialPietyCurtain:
+                            itemCtrlr = GameObject.Find("===== MAP/Scene01_InteractObject/Lv1_Filial_Piety_Curtain").GetComponent<ItemController>();
                             break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
@@ -370,7 +387,7 @@ public class SceneController_Room : SceneController
         if (tfRoomDoor.localRotation.z > 0.49 || tfRoomDoor.localRotation.z == 0)
         {
             string strPlayAniName = tfRoomDoor.localRotation.z == 0 ? "Door_Open" : "Door_Close";
-
+            if (strPlayAniName == "Door_Open") grandmaRoom_DoorOpen = true;
             AniRoomDoor[strPlayAniName].time = 0f;
             AniRoomDoor.PlayQueued(strPlayAniName);
         }
@@ -426,7 +443,7 @@ public class SceneController_Room : SceneController
         {   // 開衣櫃
             Animator wardrobeAnim = this._objectCtrlr._grandmaRoomCloset.transform.GetComponent<Animator>();
             wardrobeAnim.SetTrigger("Open");
-
+            grandmaRoom_ClosetOpen = true;
             Debug.Log("<缺> 木頭櫃打開的聲音");
         }
 
@@ -459,15 +476,7 @@ public class SceneController_Room : SceneController
     {
         Debug.Log("<缺> 拿紙的聲音");
 
-        {
-            this._hasTriggerGraffiti = true;
-        }
-
-        {   // 將房門的 AlwaysActive 關閉
-            ItemController itemGrandmaRoomDoor = this._objectCtrlr._grandmaRoomDoor;
-
-            SetItemAlwaysActive(itemGrandmaRoomDoor, false);
-        }
+        triggerNightObject.SetActive(true);
 
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
     }
@@ -496,13 +505,14 @@ public class SceneController_Room : SceneController
     {
         this._objectCtrlr._filialPietyCurtain.GetComponent<Animator>().SetTrigger("Filial_piety_curtain Open");
         PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_TalkToSeatMom);
     }
 
     IEnumerator Lv1_E_SeatMom()
     {
         Player._bCanControl = false;
         Mom_Control.LookAtPlayer();
-        PlayDialogue((int)Room_Dialogue.Lv1_002_E_SeatMom);
+        PlayDialogue((int)Room_Dialogue.Lv1_002_E_Mom);
         yield return new WaitForSeconds(9f);
         Mom_Control.GoOut();
         yield return new WaitForSeconds(5f);

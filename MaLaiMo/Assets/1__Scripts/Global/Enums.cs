@@ -97,7 +97,7 @@ public enum HintItemID
     Lv1_Item_FirstTalkToCalendar,
     Lv1_Item_TalkToSeatMom,
     Lv1_Item_Grandma_Dead_Body,
-
+    Lv1_FilialPietyCurtain,
     // Lv2 : Scene_2
     Lv2_Begin = 101,
     Lv2_OutSideDoor,
@@ -201,9 +201,9 @@ public enum Room_Dialogue
     Lv1_018_ShouldPutDown,
 
     //LV_2
-    Lv1_000_Begin,
+    Lv2_000_Begin,
     Lv1_001_E_FilialPietyCurtain,
-    Lv1_002_E_SeatMom,
+    Lv1_002_E_Mom,
     Lv1_003_E_Grandmother,
     Lv1_004_E_Drink,
     Lv1_005_BackLivingRoom,

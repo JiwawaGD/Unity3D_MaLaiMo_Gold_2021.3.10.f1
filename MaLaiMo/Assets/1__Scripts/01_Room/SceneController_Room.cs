@@ -19,7 +19,9 @@ public class SceneController_Room : SceneController
     [Header("阿嬤")] public GameObject GrandMa;
     [Header("護身符")] public GameObject Amulet;
     [Header("觸發天黑對話物件")] public GameObject triggerNightObject;
+    [Header("觸發回客廳對話物件")] public GameObject triggerBackLivingRoomObject;
     [Header("製作和感謝人員名單")] public GameObject _thanksView;
+    [Header("手電筒")] public GameObject flashLight;
     #endregion
 
     #region < ByScene Flag >
@@ -504,7 +506,7 @@ public class SceneController_Room : SceneController
     void Lv1_E_FilialPietyCurtain()
     {
         this._objectCtrlr._filialPietyCurtain.GetComponent<Animator>().SetTrigger("Filial_piety_curtain Open");
-        PlayDialogue((int)Room_Dialogue.Lv1_001_E_FilialPietyCurtain);
+        PlayDialogue((int)Room_Dialogue.Lv2_001_E_FilialPietyCurtain);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_TalkToSeatMom);
     }
 
@@ -512,7 +514,7 @@ public class SceneController_Room : SceneController
     {
         Player._bCanControl = false;
         Mom_Control.LookAtPlayer();
-        PlayDialogue((int)Room_Dialogue.Lv1_002_E_Mom);
+        PlayDialogue((int)Room_Dialogue.Lv2_002_E_Mom);
         yield return new WaitForSeconds(9f);
         Mom_Control.GoOut();
         yield return new WaitForSeconds(5f);
@@ -521,7 +523,18 @@ public class SceneController_Room : SceneController
 
     void Lv1_E_GrandmaDeadBody()
     {
-        PlayDialogue((int)Room_Dialogue.Lv1_003_E_Grandmother);
+        PlayDialogue((int)Room_Dialogue.Lv2_003_E_Grandmother);
+    }
+
+    void Lv2_E_Drink()
+    {
+        PlayDialogue((int)Room_Dialogue.Lv2_004_E_Drink);
+        triggerBackLivingRoomObject.SetActive(true);
+    }
+
+    void Lv2_E_FlashLight()
+    {
+        flashLight.SetActive(false);
     }
 
     void Lv5_E_CalendarBook()

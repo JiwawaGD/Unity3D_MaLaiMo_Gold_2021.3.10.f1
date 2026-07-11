@@ -16,5 +16,10 @@ public class GrandmaRoom_Player : PlayerController
             Instance.ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_FilialPietyCurtain);
             Debug.Log("已成功關閉 setNightDiaObject 物件！");
         }
+        else if (other.name == "setBackLivingRoomObject") {
+            other.gameObject.SetActive(false);
+            Instance.PlayDialogue((byte)Room_Dialogue.Lv2_005_BackLivingRoom);
+            Instance.ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv2_FlashLight);
+        }
     }
 }

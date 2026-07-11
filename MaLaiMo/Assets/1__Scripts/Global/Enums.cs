@@ -107,7 +107,8 @@ public enum HintItemID
     LV2_10Dollar,
     Lv2_FlowerCircle,
     Lv2_Cuisine_Soup,
-
+    Lv2_Drink,
+    Lv2_FlashLight,
     // Lv3 : Scene_3
 
     // Lv4 : Scene_4
@@ -202,12 +203,12 @@ public enum Room_Dialogue
 
     //LV_2
     Lv2_000_Begin,
-    Lv1_001_E_FilialPietyCurtain,
-    Lv1_002_E_Mom,
-    Lv1_003_E_Grandmother,
-    Lv1_004_E_Drink,
-    Lv1_005_BackLivingRoom,
-    Lv1_006_E_Flashlight,
+    Lv2_001_E_FilialPietyCurtain,
+    Lv2_002_E_Mom,
+    Lv2_003_E_Grandmother,
+    Lv2_004_E_Drink,
+    Lv2_005_BackLivingRoom,
+    Lv2_006_E_Flashlight,
 
     //LV_4
     Lv4_000_Begin = 0,

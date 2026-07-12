@@ -191,6 +191,12 @@ public class SceneController_Room : SceneController
                         case HintItemID.Lv1_FilialPietyCurtain:
                             itemCtrlr = GameObject.Find("===== MAP/Scene01_InteractObject/Lv1_Filial_Piety_Curtain").GetComponent<ItemController>();
                             break;
+                        case HintItemID.Lv2_Drink:
+                            itemCtrlr = GameObject.Find("===== MAP/Scene01_InteractObject/Lv2_Drink").GetComponent<ItemController>();
+                            break;
+                        case HintItemID.Lv2_FlashLight:
+                            itemCtrlr = GameObject.Find("===== MAP/Scene01_InteractObject/Lv2_flashlight").GetComponent<ItemController>();
+                            break;
                         default:
                             Debug.LogError(string.Format("[ERROR] [ShowHint] [Lv1_GrandmaHouse] Error Item ID :: {0}", r_ItemID));
                             break;
@@ -341,6 +347,12 @@ public class SceneController_Room : SceneController
                     break;
                 case GameEventID.Lv5_E_Amulet:
                     Lv5_E_Amulet();
+                    break;
+                case GameEventID.Lv2_E_Drink:
+                    Lv2_E_Drink();
+                    break;
+                case GameEventID.Lv2_E_FlashLight:
+                    Lv2_E_FlashLight();
                     break;
                 default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
@@ -526,6 +538,9 @@ public class SceneController_Room : SceneController
         PlayDialogue((int)Room_Dialogue.Lv2_003_E_Grandmother);
     }
 
+    public void showDrinkHint() {
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv2_Drink);
+    }
     void Lv2_E_Drink()
     {
         PlayDialogue((int)Room_Dialogue.Lv2_004_E_Drink);

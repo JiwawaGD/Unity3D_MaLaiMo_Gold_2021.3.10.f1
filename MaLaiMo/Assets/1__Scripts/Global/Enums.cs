@@ -44,7 +44,8 @@ public enum GameEventID
     LV2_10Dollar,
     Lv2_FlowerCircle,
     Lv2_Cuisine_Soup,
-
+    Lv2_E_Drink,
+    Lv2_E_FlashLight,
     // Lv3 : Scene_3
 
     //Lv4 : Scene_4

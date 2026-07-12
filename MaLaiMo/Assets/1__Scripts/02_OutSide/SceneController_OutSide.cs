@@ -380,7 +380,7 @@ public class SceneController_OutSide : SceneController
                     if(GlobalDeclare._checkList01_holdLotus == false) Lv2_Cuisine_Soup();
                     else PlayDialogue((byte)OutSide_Dialogue.Lv2_009_ShouldPutDown);
                     break;
-                default:
+            default:
                     Debug.LogError(string.Format("<color=red><b>[Error]</b></color> [Lv1_Event] Error Event ID :: {0}", r_EventID));
                     break;
             }

@@ -491,7 +491,7 @@ public class SceneController_Room : SceneController
         Debug.Log("<缺> 拿紙的聲音");
 
         triggerNightObject.SetActive(true);
-
+        setNight();
         //ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Crayon);
     }
 

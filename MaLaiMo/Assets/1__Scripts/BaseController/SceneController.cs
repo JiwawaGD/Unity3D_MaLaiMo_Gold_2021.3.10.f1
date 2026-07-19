@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Rendering.HighDefinition;
 using DG.Tweening;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -78,6 +78,16 @@ public partial class SceneController : MonoBehaviour
     [HideInInspector] public PlayerController PlayerCtrlr;
 
     [HideInInspector] protected AUDManager AudManager;
+    #endregion
+
+    #region < ============ 場景燈光 ============= >
+    [Space(10)]
+    [Header("============ 場景燈光 ============")]
+    [Header("太陽光")] public HDAdditionalLightData hdrpLightData;
+    [Header("阿嬤房間燈")] public Volume grandmaRoomVolume;
+    private Exposure grandmaRoomExposure;
+    [Header("廚房燈")] public Volume kitchenVolume;
+    private Exposure kitchenExposure;
     #endregion
 
     [Space(10)]
@@ -307,6 +317,17 @@ public partial class SceneController : MonoBehaviour
     public void PlayDialogue(int index)
     {
         StartCoroutine(DialogueObjects[index].StartAction());
+    }
+
+    public void setNight() {
+        hdrpLightData.intensity = 0.8f;
+
+        //grandmaRoomVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
+        //grandmaRoomExposure.limitMin.overrideState = true;
+        //grandmaRoomExposure.limitMin.value = -4;
+        //kitchenVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
+        //kitchenExposure.limitMin.overrideState = true;
+        //kitchenExposure.limitMin.value = -1;
     }
     #endregion
 

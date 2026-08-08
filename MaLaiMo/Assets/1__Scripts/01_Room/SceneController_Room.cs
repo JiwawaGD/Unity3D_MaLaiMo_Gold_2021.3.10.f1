@@ -531,11 +531,13 @@ public class SceneController_Room : SceneController
 
     void Lv1_E_GrandmaDeadBody()
     {
+        Player._bCanControl = false;
         PlayDialogue((int)Room_Dialogue.Lv2_003_E_Grandmother);
     }
 
     public void showDrinkHint() {
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv2_Drink);
+        Player._bCanControl = true;
     }
     void Lv2_E_Drink()
     {

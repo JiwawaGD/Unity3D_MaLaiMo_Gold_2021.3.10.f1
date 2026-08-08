@@ -66,6 +66,11 @@ public class SceneController_OutSide : SceneController
             if (GlobalDeclare._checkList01_holdLotus == true) TakingObjects[0].SetActive(true);
             else if (GlobalDeclare._checkList02_holdRice == true) TakingObjects[1].SetActive(true);
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
+            if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
+            {
+                FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
+                FlowerCircle.transform.position = new Vector3(FlowerCircle.transform.position.x, FlowerCircle.transform.position.y, 477.286f);
+            }
             //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
             if (MomFirstTalk == true)
             {
@@ -77,8 +82,8 @@ public class SceneController_OutSide : SceneController
                     if (paperMissionFinsih[i] == true) continue;
                     ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
                 }
+                CheckParperMission();
             }
-            CheckParperMission();
         }
         // 若目前任務為森林事件，就執行媽媽引導玩家
         else if (nowMission == "跟著媽媽去森林")
@@ -104,8 +109,6 @@ public class SceneController_OutSide : SceneController
     {
         if (paperMissionFinsih[(int)PaperMission.LayOutSideCircle] == false)
         {
-            FlowerCircle.transform.rotation = Quaternion.Euler(-11.03f, -10f, 0f);
-            FlowerCircle.transform.position = new Vector3(FlowerCircle.transform.position.x, FlowerCircle.transform.position.y, 477.286f);
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_FlowerCircle);
         }
 

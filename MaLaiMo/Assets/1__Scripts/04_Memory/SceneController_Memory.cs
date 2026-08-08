@@ -138,7 +138,7 @@ public class SceneController_Memory : SceneController
         }
     }
 
-    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
+    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID, bool active = true)
     {
         base.ShowHint(r_SceneTypeID, r_ItemID);
 

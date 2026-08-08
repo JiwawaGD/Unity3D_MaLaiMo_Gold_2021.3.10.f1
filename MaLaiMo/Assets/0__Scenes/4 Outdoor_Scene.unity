@@ -20784,6 +20784,9 @@ MonoBehaviour:
   - {fileID: 1226349113}
   - {fileID: 1768331558}
   PlayerCtrlr: {fileID: 0}
+  hdrpLightData: {fileID: 0}
+  grandmaRoomVolume: {fileID: 0}
+  kitchenVolume: {fileID: 0}
   postProcessVolume: {fileID: 0}
   Note: {fileID: 0}
   _temp: {fileID: 0}
@@ -20811,6 +20814,7 @@ MonoBehaviour:
   Rice_Funeral: {fileID: 379898633}
   LotusPaper: {fileID: 1014851236}
   MomHead: {fileID: 2065424476222431895}
+  Monk: {fileID: 8299590036899015331}
   interactionController: {fileID: 1029059991}
 --- !u!114 &1029059991
 MonoBehaviour:
@@ -52639,6 +52643,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 113d33d417dbb8e4ea55a733b0a26f70, type: 3}
+--- !u!1 &8299590036899015331 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9218719984304267480, guid: 113d33d417dbb8e4ea55a733b0a26f70, type: 3}
+  m_PrefabInstance: {fileID: 8299590036899015330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &8329709923978655497
 MeshFilter:
   m_ObjectHideFlags: 0

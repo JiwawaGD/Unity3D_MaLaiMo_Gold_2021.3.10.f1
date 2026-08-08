@@ -22,6 +22,9 @@ public class SceneController_Room : SceneController
     [Header("觸發回客廳對話物件")] public GameObject triggerBackLivingRoomObject;
     [Header("製作和感謝人員名單")] public GameObject _thanksView;
     [Header("手電筒")] public GameObject flashLight;
+    [Header("媽媽")] public GameObject mom;
+    [Header("媽媽移動版")] public GameObject mom_move;
+    [Header("飲料")] public GameObject drink;
     #endregion
 
     #region < ByScene Flag >
@@ -142,7 +145,7 @@ public class SceneController_Room : SceneController
         }
     }
 
-    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
+    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID, bool active = true)
     {
         base.ShowHint(r_SceneTypeID, r_ItemID);
 
@@ -337,7 +340,7 @@ public class SceneController_Room : SceneController
                     Lv1_E_GrandmaDeadBody();
                     break;
                 case GameEventID.Lv1_E_SeatMom:
-                    StartCoroutine(Lv1_E_SeatMom());
+                    Lv1_E_SeatMom();
                     break;
                 case GameEventID.Lv5_E_CalendarBook:
                     Lv5_E_CalendarBook();
@@ -461,11 +464,6 @@ public class SceneController_Room : SceneController
             Debug.Log("<缺> 木頭櫃打開的聲音");
         }
 
-        {   // 關房門
-            Animation AniRoomDoor = this._objectCtrlr._grandmaRoomDoor.transform.GetComponent<Animation>();
-            AniRoomDoor.PlayQueued("Door_Close");
-        }
-
         {   // 切換房門的 EventID 且重新開啟 Hint
             ItemController itemGrandmaRoomDoor =this._objectCtrlr._grandmaRoomDoor;
 
@@ -522,15 +520,13 @@ public class SceneController_Room : SceneController
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_TalkToSeatMom);
     }
 
-    IEnumerator Lv1_E_SeatMom()
+     void Lv1_E_SeatMom()
     {
+        mom.SetActive(false);
+        mom_move.SetActive(true);
         Player._bCanControl = false;
         Mom_Control.LookAtPlayer();
         PlayDialogue((int)Room_Dialogue.Lv2_002_E_Mom);
-        yield return new WaitForSeconds(9f);
-        Mom_Control.GoOut();
-        yield return new WaitForSeconds(5f);
-        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Grandma_Dead_Body);
     }
 
     void Lv1_E_GrandmaDeadBody()
@@ -543,13 +539,24 @@ public class SceneController_Room : SceneController
     }
     void Lv2_E_Drink()
     {
+        drink.SetActive(false);
         PlayDialogue((int)Room_Dialogue.Lv2_004_E_Drink);
         triggerBackLivingRoomObject.SetActive(true);
     }
 
+    public void Lv2_flashing() {
+        
+    }
+
+    public void ShowFlashLightHint() {
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv2_FlashLight);
+    }
+
     void Lv2_E_FlashLight()
     {
+        nowMission = "跟著媽媽去森林";
         flashLight.SetActive(false);
+        ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
     }
 
     void Lv5_E_CalendarBook()

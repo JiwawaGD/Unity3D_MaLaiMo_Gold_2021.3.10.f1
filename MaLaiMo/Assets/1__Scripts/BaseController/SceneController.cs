@@ -70,6 +70,7 @@ public partial class SceneController : MonoBehaviour
     [Header("============ 跨場景使用 ============")]
     [Header("傳送後須拿著的物件")]
     public GameObject[] TakingObjects;
+    public static string nowMission = "完成紙上任務";
     #endregion
 
     #region < ============ 控制器 ============= >
@@ -192,7 +193,7 @@ public partial class SceneController : MonoBehaviour
         }
     }
 
-    public virtual void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
+    public virtual void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID, bool active = true)
     {
         Debug.Log(string.Format("[SHOW HINT] <color=lime><b>{0}</b></color>  Item Active in Scene : {1}", r_ItemID, r_SceneTypeID));
     }

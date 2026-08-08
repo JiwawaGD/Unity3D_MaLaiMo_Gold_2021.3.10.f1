@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Mom_Controler_Room : MonoBehaviour
 {
     public GrandmaRoom_Player Player;
+    public SceneController_Room SceneController;
     public Animator Mom_Ani;
     public Transform Gate;
     private NavMeshAgent agent;
@@ -27,6 +28,7 @@ public class Mom_Controler_Room : MonoBehaviour
     {
         Mom_Ani.SetBool("isWalking", true);
         startWalking = true;
+        SceneController.ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Grandma_Dead_Body);
     }
 
     void OnTriggerEnter(Collider other)

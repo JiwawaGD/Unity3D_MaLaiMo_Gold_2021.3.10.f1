@@ -19,7 +19,6 @@ public class SceneController_OutSide : SceneController
     public Camera PlayerCamera;
     public Transform Player;
     public GameObject ForestTP;
-    public static string nowMission = "完成紙上任務";
     [Header("代辦事項刪除線")] public GameObject[] paperFinish;
     public GameObject[] interactiopaperFinish;
     public GameObject FlowerCircle;
@@ -30,10 +29,11 @@ public class SceneController_OutSide : SceneController
     public GameObject Rice_Funeral;
     public GameObject LotusPaper;
     public GameObject MomHead;
+    public GameObject Monk;
     public static bool FinishDollar = false;
     public static bool MomFirstTalk = false;
     public static bool readPaper = false;
-    public static bool[] paperMissionFinsih = new bool[] { true, true, true };
+    public static bool[] paperMissionFinsih = new bool[] { false, false, false };
     private bool isHandlingCoinEvent = false;
     private bool MomTalking = false;
     private Quaternion MomHeadOrgRo;
@@ -61,27 +61,29 @@ public class SceneController_OutSide : SceneController
         yield return new WaitForSeconds(2f);
         if (nowMission == "完成紙上任務")
         {
+            Monk.SetActive(false);
             MomAnimator.gameObject.SetActive(true);
             if (GlobalDeclare._checkList01_holdLotus == true) TakingObjects[0].SetActive(true);
             else if (GlobalDeclare._checkList02_holdRice == true) TakingObjects[1].SetActive(true);
             ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Mom);
             //初次和媽媽說話並且看過代辦事項才可以觸發代辦事件
-            if (MomFirstTalk == true && readPaper == true)
+            if (MomFirstTalk == true)
             {
                 //判斷代辦事項刪除線是否開啟
                 for (int i = 0; i < paperMissionFinsih.Length; i++)
                 {
                     paperFinish[i].SetActive(paperMissionFinsih[i]);
                     interactiopaperFinish[i].SetActive(paperMissionFinsih[i]);
-                    if (paperMissionFinsih[i] == true) break;
+                    if (paperMissionFinsih[i] == true) continue;
                     ShowHint(LevelTypeID.Lv2_OutSideDoor, HintItemID.Lv2_Paper);
                 }
-                CheckParperMission();
             }
+            CheckParperMission();
         }
         // 若目前任務為森林事件，就執行媽媽引導玩家
         else if (nowMission == "跟著媽媽去森林")
         {
+            Monk.SetActive(false);
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
             PlayerCtrlr.tfTransform.LookAt(mom);
@@ -236,9 +238,9 @@ public class SceneController_OutSide : SceneController
         interactionController.StartThrowingSequence();
     }
 
-    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID)
+    public override void ShowHint(LevelTypeID r_SceneTypeID, HintItemID r_ItemID, bool active = true)
     {
-        base.ShowHint(r_SceneTypeID, r_ItemID);
+        base.ShowHint(r_SceneTypeID, r_ItemID, active);
 
         try
         {
@@ -284,8 +286,8 @@ public class SceneController_OutSide : SceneController
                     break;
             }
 
-            NextItem.bActive = true;
-            NextItem.SetHintable(true);
+            NextItem.bActive = active;
+            NextItem.SetHintable(active);
         }
         catch (System.Exception exception)
         {
@@ -447,8 +449,6 @@ public class SceneController_OutSide : SceneController
         LotusPaper.SetActive(true);
         GlobalDeclare._checkList01_holdLotus = false;
         paperMissionFinsih[(int)PaperMission.PutLotusOnTable] = true;
-        paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
-        interactiopaperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
         paperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
         interactiopaperFinish[(int)PaperMission.PutLotusOnTable].SetActive(true);
     }

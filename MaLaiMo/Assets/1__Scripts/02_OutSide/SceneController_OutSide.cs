@@ -1,9 +1,11 @@
 ﻿using DG.Tweening;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
-using static UnityEngine.GraphicsBuffer;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class SceneController_OutSide : SceneController
 {
@@ -37,6 +39,10 @@ public class SceneController_OutSide : SceneController
     private bool isHandlingCoinEvent = false;
     private bool MomTalking = false;
     private Quaternion MomHeadOrgRo;
+    public Volume targetVolume;
+    [Header("夜晚天空貼圖 (kloppenheim_02_4k)")] public Cubemap nightHdriSky;
+
+    private HDRISky hdriSky;
     /// <summary>
     /// 角色控制器
     /// </summary>
@@ -88,6 +94,7 @@ public class SceneController_OutSide : SceneController
         // 若目前任務為森林事件，就執行媽媽引導玩家
         else if (nowMission == "跟著媽媽去森林")
         {
+            setNight();
             Monk.SetActive(false);
             ForestTP.SetActive(true);
             mom.gameObject.SetActive(true);
@@ -99,6 +106,7 @@ public class SceneController_OutSide : SceneController
         // 若目前任務為頭七事件，就執行玩家拜拜動畫
         else if (nowMission == "頭七")
         {
+            setNight();
             Player.LookAt(FlowerCircle.transform.position);
             Player_Ani.enabled = true;
             StartCoroutine(FirstSevenDay());
@@ -504,6 +512,39 @@ public class SceneController_OutSide : SceneController
         Player_Ani.enabled = false;
         nowMission = "";
         PlayerCtrlr._bCanControl = true;
+    }
+
+    public void setNight()
+    {
+        // Light -> Emission -> Intensity
+        hdrpLightData.intensity = 0f;
+
+        // Volume -> HDRI Sky
+        if (targetVolume == null)
+        {
+            Debug.LogError("[SceneCtrlr - OutSide] setNight : targetVolume 未指定");
+            return;
+        }
+
+        if (targetVolume.profile.TryGet<HDRISky>(out hdriSky) == false)
+        {
+            Debug.LogError("[SceneCtrlr - OutSide] setNight : Volume Profile 中找不到 HDRI Sky");
+            return;
+        }
+
+        // Intensity Mode -> Exposure Compensation : -4
+        hdriSky.skyIntensityMode.overrideState = true;
+        hdriSky.skyIntensityMode.value = SkyIntensityMode.Exposure;
+        hdriSky.exposure.overrideState = true;
+        hdriSky.exposure.value = -4f;
+
+        // Hdri Sky : kloppenheim_02_4k
+        if (nightHdriSky != null)
+        {
+            hdriSky.hdriSky.overrideState = true;
+            hdriSky.hdriSky.value = nightHdriSky;
+        }
+        else Debug.LogError("[SceneCtrlr - OutSide] setNight : nightHdriSky 未指定");
     }
 
     public void OnCoinThrowingFinished()

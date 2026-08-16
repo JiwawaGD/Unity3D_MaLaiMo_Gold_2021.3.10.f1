@@ -320,16 +320,7 @@ public partial class SceneController : MonoBehaviour
         StartCoroutine(DialogueObjects[index].StartAction());
     }
 
-    public void setNight() {
-        hdrpLightData.intensity = 0.8f;
 
-        //grandmaRoomVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
-        //grandmaRoomExposure.limitMin.overrideState = true;
-        //grandmaRoomExposure.limitMin.value = -4;
-        //kitchenVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
-        //kitchenExposure.limitMin.overrideState = true;
-        //kitchenExposure.limitMin.value = -1;
-    }
     #endregion
 
     #region < 還不確定要不要保留的程式 >

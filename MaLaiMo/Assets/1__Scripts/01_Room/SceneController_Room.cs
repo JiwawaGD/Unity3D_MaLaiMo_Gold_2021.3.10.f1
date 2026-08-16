@@ -45,7 +45,6 @@ public class SceneController_Room : SceneController
     public override void Start()
     {
         base.Start();
-
         // 預設讓大門是可以互動狀態
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_Piano);
@@ -587,6 +586,18 @@ public class SceneController_Room : SceneController
     {
         //播放謝幕文字
         _thanksView.active = true;
+    }
+
+    public void setNight()
+    {
+        hdrpLightData.intensity = 0.8f;
+
+        //grandmaRoomVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
+        //grandmaRoomExposure.limitMin.overrideState = true;
+        //grandmaRoomExposure.limitMin.value = -4;
+        //kitchenVolume.profile.TryGet<Exposure>(out grandmaRoomExposure);
+        //kitchenExposure.limitMin.overrideState = true;
+        //kitchenExposure.limitMin.value = -1;
     }
     #endregion
 }

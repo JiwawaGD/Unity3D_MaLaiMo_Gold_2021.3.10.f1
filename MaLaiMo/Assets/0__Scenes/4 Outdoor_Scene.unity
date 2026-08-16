@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 42.993988, g: 35.961014, b: 42.20608, a: 1}
+  m_IndirectSpecularColor: {r: 42.993965, g: 35.961018, b: 42.20608, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20853,7 +20853,7 @@ MonoBehaviour:
   - {fileID: 1226349113}
   - {fileID: 1768331558}
   PlayerCtrlr: {fileID: 0}
-  hdrpLightData: {fileID: 0}
+  hdrpLightData: {fileID: 1244793906}
   grandmaRoomVolume: {fileID: 0}
   kitchenVolume: {fileID: 0}
   postProcessVolume: {fileID: 0}
@@ -20884,6 +20884,8 @@ MonoBehaviour:
   LotusPaper: {fileID: 1014851236}
   MomHead: {fileID: 2065424476222431895}
   Monk: {fileID: 8299590036899015331}
+  targetVolume: {fileID: 341000744}
+  nightHdriSky: {fileID: 8900000, guid: a1dcf1fba01faec42a9740a11c2c85f3, type: 3}
   interactionController: {fileID: 1029059991}
 --- !u!114 &1029059991
 MonoBehaviour:

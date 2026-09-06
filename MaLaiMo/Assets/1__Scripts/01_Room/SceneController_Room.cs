@@ -558,6 +558,7 @@ public class SceneController_Room : SceneController
         nowMission = "跟著媽媽去森林";
         flashLight.SetActive(false);
         ShowHint(LevelTypeID.Lv1_GrandmaHouse, HintItemID.Lv1_Item_GoOutSide);
+        PlayerController.getFlashLight = true;
     }
 
     void Lv5_E_CalendarBook()

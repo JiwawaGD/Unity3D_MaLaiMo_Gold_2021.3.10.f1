@@ -1,7 +1,5 @@
-using System;
-
 using DG.Tweening;
-
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -57,6 +55,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody _rig;
     public CapsuleCollider _collider;
     public Light FlashLight;
+    public static bool getFlashLight = false;
+    public static bool flashLightOpen = false;
     RaycastHit hit;
 
     public ItemController current_Item;
@@ -80,6 +80,9 @@ public class PlayerController : MonoBehaviour
         originalCameraPosition = tfPlayerCamera.localPosition;
         InitValue();
         DefaultCursorState();
+        if (flashLightOpen == true) {
+            FlashLight.enabled = true;
+        }
     }
 
     public virtual void Update()
@@ -91,6 +94,19 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F6))
                 SetCursor();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && getFlashLight)
+        {
+            if (FlashLight.enabled == true)
+            {
+                flashLightOpen = false;
+                FlashLight.enabled = false;
+            }
+            else {
+                flashLightOpen = true;
+                FlashLight.enabled = true;
+            }
         }
     }
 

@@ -87,12 +87,6 @@ public class ForestPlayer : PlayerController
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.F) && gameManager.FinsihFirstDia == true)
-        {
-            if (FlashLight.enabled == true) FlashLight.enabled = false;
-            else FlashLight.enabled = true;
-        }
-
         if (alreadyTriggerDeadBody == true)
         {
             if (DeadBodyAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
